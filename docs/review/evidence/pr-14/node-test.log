@@ -1,0 +1,19 @@
+(node:13) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ no transport never acknowledges samples or overflow; restart retains both and sequence (6.101916ms)
+✔ send rejection and incomplete acknowledgments preserve pending data and overflow (2.000281ms)
+✔ only the acknowledged snapshot is removed while ticks arrive during a single flight (4.463684ms)
+✔ overflow generated during a failed flight is merged and retried (0.515761ms)
+✔ file checkpoint and lost acknowledgment replay the same IDs after restart (20.17538ms)
+✔ checkpoint failures prevent send and do not erase the sample (0.393626ms)
+✔ samples arriving while the pre-send checkpoint is pending are not sent in that snapshot (0.724308ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 214.087866
+
+EXIT_CODE=0

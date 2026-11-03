@@ -31,3 +31,12 @@
 提交准确 head SHA、changed paths、实际命令/环境/输出/退出码、执行/跳过/失败数、未解决项。代码补丁和必要证据须落本 PR，文字建议不算代码修复。没有 GitHub 写工具时返回完整可应用 patch/逐文件内容，由总控在同一 PR 发布，不让 Owner 搬运，不用新 Work 任务替代。
 
 仅在本 PR 验收边界关闭后停止；未知业务例外、真实旧库/现场/独立 R6 仍留待相应证据。E01 是审查可见性差距，本地主控已有原件；E04 不能由内部模型补造。
+
+
+## 本次代码候选交付
+
+- 作者与咨询身份：`same_family_external_advisory`；产品基线与初始 head 不变。
+- 候选为完整 unified patch；GitHub 写入返回 403，状态 `BLOCKED_DELIVERY_PUBLICATION`，无新远端 SHA。
+- 实现与真实执行边界见 `../evidence/pr-14/verification.md`，最终本地门禁 7 通过／0 失败／0 跳过。
+- 旧包测试 `packages/edge/test/edge-gateway.spec.ts` 的无通道清空断言与 I17 冲突，属于未授权路径；
+  需要最小一文件测试同步扩展。该缺口和未运行的完整构建／真实 API／PG／设备验收均保留，未标 ACCEPT。
