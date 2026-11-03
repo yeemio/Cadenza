@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr01-20261103
+
+ ✓ tests/integration/command-idempotency.spec.ts (2 tests) 1422ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  20:30:25
+   Duration  2.55s (transform 713ms, setup 0ms, collect 1.03s, tests 1.42s, environment 0ms, prepare 23ms)
+

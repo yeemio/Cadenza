@@ -1,0 +1,8 @@
+$ node docs/review/evidence/pr-01/check-r1-syntax.mjs
+Node v24.22.1; R1 syntax transformation ONLY
+PARSED tests/integration/rework-flow.spec.ts
+PARSED tests/integration/shipping-flow.spec.ts
+parsed=2; failed=0; business_tests_executed=0
+(node:6) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+EXIT_CODE=0
