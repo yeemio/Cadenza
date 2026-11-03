@@ -1,0 +1,35 @@
+{
+  "node": "v24.22.1",
+  "platform": "linux",
+  "arch": "x64",
+  "dependencies": {
+    "typescript": {
+      "available": false
+    },
+    "vitest": {
+      "available": false
+    },
+    "pg": {
+      "available": false
+    },
+    "@nestjs/common": {
+      "available": false
+    }
+  },
+  "binaries": {
+    "psql": {
+      "available": false
+    },
+    "postgres": {
+      "available": false
+    },
+    "initdb": {
+      "available": false
+    },
+    "docker": {
+      "available": false
+    }
+  },
+  "postgres_connected": false,
+  "github_write_attempted_this_round": false
+}
