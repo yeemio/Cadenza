@@ -68,6 +68,13 @@ import type {
 
 type Payload = Record<string, unknown>
 
+/** Diagnostic exception: replay only this Inbox fact after business rollback. */
+class QuarantinedPurchaseInbound extends PurchaseRuleViolation {
+  constructor(message: string, readonly persistRejectionDiagnostics: () => Promise<void>) {
+    super('IF-00.8', message)
+  }
+}
+
 function purchaseViolationOutcome(error: PurchaseRuleViolation): HandlerOutcome {
   // 采购域组织隔离二道防线（OA-24/26 口径随行）→ FORBIDDEN_SCOPE（HTTP 403）
   const errorCode = error.rule === 'A-S1' ? ERROR_CODES.FORBIDDEN_SCOPE : ERROR_CODES.BUSINESS_RULE
@@ -79,6 +86,13 @@ async function run(body: () => Promise<Record<string, unknown>>): Promise<Handle
     const data = await body()
     return { status: 'COMMITTED', data }
   } catch (error) {
+    if (error instanceof QuarantinedPurchaseInbound) {
+      // Object.assign is compatible with the original HandlerOutcome type. The
+      // new bus consumes this internal callback; the old bus keeps its old behavior.
+      return Object.assign(purchaseViolationOutcome(error), {
+        persistRejectionDiagnostics: error.persistRejectionDiagnostics,
+      })
+    }
     if (error instanceof PurchaseRuleViolation) return purchaseViolationOutcome(error)
     if (error instanceof InventoryRuleViolation) return violationOutcome(error)
     throw error
@@ -238,17 +252,20 @@ async function orderSync(pc: PostingContext, p: Payload): Promise<Record<string,
 
   // IF-00.8：缺组织映射（模拟适配器未解析出 plantId）→ 隔离队列，非普通失败重试
   if (plantId === undefined) {
-    await tools.pur.mappings.insertQuarantinedInbox({
-      sourceSystem,
-      organizationCode: orgCode,
-      externalKey: orderNo,
-      entityType: 'purchase_order',
-      quarantineReason: '缺组织映射（route_key=purchase_order）：订单行入隔离队列待人工补绑',
-      payload: p,
-    })
-    throw new PurchaseRuleViolation(
-      'IF-00.8',
+    const persistQuarantine = async (): Promise<void> => {
+      await tools.pur.mappings.insertQuarantinedInbox({
+        sourceSystem,
+        organizationCode: orgCode,
+        externalKey: orderNo,
+        entityType: 'purchase_order',
+        quarantineReason: '缺组织映射（route_key=purchase_order）：订单行入隔离队列待人工补绑',
+        payload: p,
+      })
+    }
+    await persistQuarantine()
+    throw new QuarantinedPurchaseInbound(
       `订单 ${orderNo} 缺组织映射（plantId），已写入隔离队列（QUARANTINED），不重复应用`,
+      persistQuarantine,
     )
   }
   await assertPlantScope(tools, plantId)
