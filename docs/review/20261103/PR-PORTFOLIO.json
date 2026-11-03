@@ -1,0 +1,670 @@
+{
+  "repo": "yeemio/Cadenza",
+  "baseline": "cb25076d99cda0ac359151ff9eea65507de8cc4d",
+  "localMain": "86fe9fe9408f1d93e2fe3f562f51cd691efbc16d",
+  "chat": "6ae983a9-f128-83e8-a5b4-d5539c933fee",
+  "selection": "ordinary Chat, Pro5/5 observed; do not create Work",
+  "counts": {
+    "remediationItems": 25,
+    "Critical": 6,
+    "Important": 17,
+    "Minor": 2,
+    "evidenceGaps": 4,
+    "PRs": 15
+  },
+  "issues": [
+    {
+      "id": "C1",
+      "title": "业务拒绝仍提交此前写入",
+      "severity": "Critical",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "C2",
+      "title": "对象真实企业/工厂授权不一致",
+      "severity": "Critical",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "C3",
+      "title": "检验投影覆盖活动质量隔离",
+      "severity": "Critical",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "C7",
+      "title": "预留绕过质量限制",
+      "severity": "Critical",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "C4",
+      "title": "发运实物/商业行对应缺失",
+      "severity": "Critical",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "C5",
+      "title": "AI requestId 所有权与缓存串用",
+      "severity": "Critical",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I01",
+      "title": "采购批次并发退货累计量重复扣减",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I02",
+      "title": "PDA未知结果重试换业务键",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I03",
+      "title": "PDA/Web演示归属进入真实业务",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I04",
+      "title": "reverse跨厂接收保留源厂归属",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I05",
+      "title": "半数调拨接收可提前整单完成",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I06",
+      "title": "worker异厂认领使任务停止重试",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I07",
+      "title": "CN/KR业务日口径分叉",
+      "severity": "Important",
+      "kind": "implementation_and_site_config",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I08",
+      "title": "转换UNKNOWN或缺省结果记成功",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I09",
+      "title": "AI可用量未扣业务留置",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I10",
+      "title": "集团齐套固定empty",
+      "severity": "Important",
+      "kind": "capability_or_integration_gap",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I11",
+      "title": "维护/校准与排程事实未贯通",
+      "severity": "Important",
+      "kind": "capability_or_integration_gap",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I12",
+      "title": "单设备OEE取全厂量及跨窗停机错误",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I13",
+      "title": "备份恢复实例定位错配（旧C6）",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I14",
+      "title": "升级预检默认产生迁移副作用",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I15",
+      "title": "备份脱敏遗漏TOKEN",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I16",
+      "title": "AI/IM不在完整冷构建图",
+      "severity": "Important",
+      "kind": "capability_or_integration_gap",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "I17",
+      "title": "模拟网关未送达仍清积压",
+      "severity": "Important",
+      "kind": "source_defect",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "M01",
+      "title": "Web/PDA首屏包体告警",
+      "severity": "Minor",
+      "kind": "build_warning",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "M02",
+      "title": "规划/发行元数据落后",
+      "severity": "Minor",
+      "kind": "metadata_drift",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "E01",
+      "title": "最新完整SIM证据在审查侧不可见（本地主控已保存原件）",
+      "severity": "Important",
+      "kind": "evidence_gap",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "E02",
+      "title": "旧库/旧hash/0031升级缺实际样本证据",
+      "severity": "Important",
+      "kind": "evidence_gap",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "E03",
+      "title": "测试可移植性和必跑门禁不足",
+      "severity": "Important",
+      "kind": "evidence_gap",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    },
+    {
+      "id": "E04",
+      "title": "原R6独立审查全文与接收身份未取得",
+      "severity": "Important",
+      "kind": "evidence_gap",
+      "validation": "controller source readback for named paths; no fresh full-PG reproduction claimed"
+    }
+  ],
+  "groups": [
+    {
+      "id": "01",
+      "slug": "atomic-command-rejection",
+      "title": "业务拒绝原子性与幂等回执",
+      "ids": [
+        "C1"
+      ],
+      "deps": [],
+      "paths": [
+        "packages/persistence/src/pg-command-bus.ts",
+        "packages/application/src/command-bus.ts",
+        "packages/application/src/shipping-handlers.ts",
+        "packages/application/src/rework-handlers.ts",
+        "apps/api/src/shipping/shipping.composition.ts",
+        "apps/api/src/rework/rework.composition.ts",
+        "tests/integration/command-idempotency.spec.ts",
+        "tests/integration/shipping-flow.spec.ts",
+        "tests/integration/rework-flow.spec.ts",
+        "tests/api/shipping-api.spec.ts",
+        "tests/pr01/**"
+      ],
+      "accept": [
+        "真实PG：第一轴合法、第二轴业务留置/活动预留时拒绝，全部业务写集不变而拒绝回执可重放",
+        "倒轴冲销子轴扣回后源轴留存检查拒绝：无部分业务写入",
+        "成功多轴发运、同键并发/不同载荷、提交前异常/提交后丢响应、现有质量异常回滚均正确",
+        "合法采购缺组织映射QUARANTINED Inbox、草稿/逐行合同保留，不一刀切删除合法诊断事实；如需扩写purchase-handler先给最小原因",
+        "审计/outbox异步写必须归事务完成，不能void吞错；不靠仅将校验前移代替共同事务保证"
+      ],
+      "branch": "codex/fix-01-atomic-command-rejection",
+      "path": "docs/review/fixes/01-atomic-command-rejection.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "02",
+      "slug": "object-write-scope",
+      "title": "实际业务对象的企业与工厂授权",
+      "ids": [
+        "C2"
+      ],
+      "deps": [
+        "01"
+      ],
+      "paths": [
+        "packages/application/src/quality-handlers.ts",
+        "packages/application/src/purchase-handlers.ts",
+        "packages/application/src/inventory-posting.ts",
+        "packages/application/src/*-repositories.ts",
+        "packages/persistence/src/quality-repositories.ts",
+        "packages/persistence/src/purchase-repositories.ts",
+        "apps/api/src/quality/**",
+        "apps/api/src/purchase/**",
+        "apps/api/src/inventory/**",
+        "tests/pr02/**"
+      ],
+      "accept": [
+        "同企业跨厂、跨企业、集团只读与本厂正常四类上下文",
+        "按UUID与自然键均从数据库真实对象核实范围；伪填/遗漏plantId不能跨范围写",
+        "拒绝后所有业务表零变化，未扩大管理员或集团写权限"
+      ],
+      "branch": "codex/fix-02-object-write-scope",
+      "path": "docs/review/fixes/02-object-write-scope.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "03",
+      "slug": "quality-availability",
+      "title": "质量隔离、预留与可用量一致性",
+      "ids": [
+        "C3",
+        "C7",
+        "I09"
+      ],
+      "deps": [
+        "01",
+        "02"
+      ],
+      "paths": [
+        "packages/application/src/quality-handlers.ts",
+        "packages/application/src/inventory-posting.ts",
+        "packages/application/src/inventory-queries.ts",
+        "packages/application/src/aiquery-service.ts",
+        "packages/application/src/shipping-handlers.ts",
+        "packages/application/src/*-repositories.ts",
+        "packages/persistence/src/quality-repositories.ts",
+        "packages/persistence/src/aiquery-repositories.ts",
+        "packages/domain/src/inventory/availability.ts",
+        "tests/pr03/**"
+      ],
+      "accept": [
+        "活动quality_hold不被合格投影、让步或旧previousQualityStatus旁路",
+        "预留后质量恶化、他人/过期预留、无预留都不能越质量闸门；合法自有预留仍正确消费",
+        "业务留置与质量隔离独立，库存/AI同单元可用量及原因一致",
+        "本包不新建独立业务留置自动解除或现场审批合同"
+      ],
+      "branch": "codex/fix-03-quality-availability",
+      "path": "docs/review/fixes/03-quality-availability.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "04",
+      "slug": "shipping-fulfilment",
+      "title": "发运实物与商业行匹配",
+      "ids": [
+        "C4"
+      ],
+      "deps": [
+        "01",
+        "02",
+        "03"
+      ],
+      "paths": [
+        "packages/application/src/shipping-handlers.ts",
+        "packages/application/src/shipping-repositories.ts",
+        "packages/persistence/src/shipping-repositories.ts",
+        "packages/domain/src/shipping/**",
+        "apps/api/src/shipping/**",
+        "tests/pr04/**"
+      ],
+      "accept": [
+        "补码作业可登记，但未解析库存身份不得以postedUnits=0完成出库",
+        "显式lineId与自动匹配同样校验料品、销售归属、段长与数量",
+        "合法轴/单品发运保持，未知历史特殊映射另记Owner待裁而不伪造库存"
+      ],
+      "branch": "codex/fix-04-shipping-fulfilment",
+      "path": "docs/review/fixes/04-shipping-fulfilment.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "05",
+      "slug": "ai-turn-ownership",
+      "title": "AI轮次身份、缓存与结果隔离",
+      "ids": [
+        "C5"
+      ],
+      "deps": [],
+      "paths": [
+        "apps/api/src/aiquery/aiquery.turn-context.ts",
+        "apps/api/src/aiquery/aiquery.turns.controller.ts",
+        "packages/application/src/aiquery-service.ts",
+        "packages/persistence/src/aiquery-repositories.ts",
+        "apps/ai/src/orchestrator.ts",
+        "tests/pr05/**"
+      ],
+      "accept": [
+        "两用户/两企业/同用户两会话复用同requestId，禁止覆盖owner及读取/澄清/取消他人轮次",
+        "零工具answer/refuse不回退他人旧信封；撤权后拒绝过期结果",
+        "合法同轮澄清/取消/审计重放可用；需要已知ID和进程缓存的风险前提如实保留"
+      ],
+      "branch": "codex/fix-05-ai-turn-ownership",
+      "path": "docs/review/fixes/05-ai-turn-ownership.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "06",
+      "slug": "reverse-stock-lifecycle",
+      "title": "采购退货与逆向调拨一致性",
+      "ids": [
+        "I01",
+        "I04",
+        "I05"
+      ],
+      "deps": [
+        "01",
+        "02"
+      ],
+      "paths": [
+        "packages/application/src/purchase-handlers.ts",
+        "packages/application/src/purchase-repositories.ts",
+        "packages/persistence/src/purchase-repositories.ts",
+        "packages/application/src/reverse-handlers.ts",
+        "packages/application/src/reverse-repositories.ts",
+        "packages/persistence/src/reverse-repositories.ts",
+        "packages/domain/src/reverse/transfer-in-rules.ts",
+        "tests/pr06/**"
+      ],
+      "accept": [
+        "同订单两批次并发退同一批只生效一次，另一批实收/库存/outbox不受损",
+        "跨厂接收后unit/余额/分录真实保管厂正确，所有权按已冻结合同独立处理",
+        "两轴只扫一轴不得整单封闭；全收、多料品与重复扫码保持"
+      ],
+      "branch": "codex/fix-06-reverse-stock-lifecycle",
+      "path": "docs/review/fixes/06-reverse-stock-lifecycle.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "07",
+      "slug": "outbox-confirmation",
+      "title": "任务工厂范围与外部UNKNOWN",
+      "ids": [
+        "I06",
+        "I08"
+      ],
+      "deps": [
+        "01",
+        "02"
+      ],
+      "paths": [
+        "apps/worker/src/**",
+        "packages/application/src/conversion-handlers.ts",
+        "packages/application/src/conversion-repositories.ts",
+        "packages/persistence/src/conversion-repositories.ts",
+        "tests/pr07/**"
+      ],
+      "accept": [
+        "工厂范围进入claim，异厂任务不锁/不增attempt/不移出重试",
+        "两worker反序/并发及一厂离线，合法任务可被正确厂认领",
+        "conversion unknown/遗漏/非法outcome不变成功；不重复本地转换；noop DISPATCHED不冒充真实外部回执"
+      ],
+      "branch": "codex/fix-07-outbox-confirmation",
+      "path": "docs/review/fixes/07-outbox-confirmation.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "08",
+      "slug": "operator-intent-calendar",
+      "title": "PDA/Web作业意图、归属与工厂业务日",
+      "ids": [
+        "I02",
+        "I03",
+        "I07"
+      ],
+      "deps": [
+        "01",
+        "02",
+        "03"
+      ],
+      "paths": [
+        "apps/pda/src/pages/FeedScanPage.tsx",
+        "apps/pda/src/pages/PutawayScanPage.tsx",
+        "apps/web/src/pages/FeedingPage.tsx",
+        "packages/ui/src/api/client.ts",
+        "packages/ui/src/i18n/time.tsx",
+        "packages/application/src/execution-handlers.ts",
+        "packages/application/src/inventory-posting.ts",
+        "packages/domain/src/inventory/time.ts",
+        "tests/pr08/**"
+      ],
+      "accept": [
+        "服务端提交后丢响应，以原operationId/载荷查询或重试，只有明确新意图才换键",
+        "两个非演示订单/第二工序/两个工厂的归属均由受信任务解析并后端复核",
+        "CN/KR跨午夜的UI/记账/报表用同一服务端日历；真实班表未提供不宣称现场接受"
+      ],
+      "branch": "codex/fix-08-operator-intent-calendar",
+      "path": "docs/review/fixes/08-operator-intent-calendar.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "09",
+      "slug": "group-kitting",
+      "title": "集团齐套实际计算",
+      "ids": [
+        "I10"
+      ],
+      "deps": [
+        "02",
+        "03"
+      ],
+      "paths": [
+        "packages/application/src/group-handlers.ts",
+        "packages/application/src/group-repositories.ts",
+        "packages/persistence/src/group-repositories.ts",
+        "apps/api/src/group/**",
+        "tests/pr09/**"
+      ],
+      "accept": [
+        "从受权订单版本/BOM/真实库存和计量计算",
+        "短缺/齐套/订单不存在/缺资料/不可换算分别返回；禁止empty当已计算零短缺",
+        "按工厂隔离，业务留置单元不可计作可用"
+      ],
+      "branch": "codex/fix-09-group-kitting",
+      "path": "docs/review/fixes/09-group-kitting.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "10",
+      "slug": "maintenance-scheduling",
+      "title": "维护校准事实进入排程",
+      "ids": [
+        "I11"
+      ],
+      "deps": [
+        "02"
+      ],
+      "paths": [
+        "packages/application/src/csw-handlers.ts",
+        "packages/application/src/csw-repositories.ts",
+        "packages/persistence/src/csw-repositories.ts",
+        "packages/application/src/maintenance-repositories.ts",
+        "packages/application/src/spc-repositories.ts",
+        "tests/pr10/**"
+      ],
+      "accept": [
+        "只经维护/校准业务入口改变事实，排程看到停机区间、资格到期及恢复提示",
+        "直接共享事实或正式可重放投影，禁止手填影子表制造通过",
+        "保持已有设备维修和资格正/负门禁"
+      ],
+      "branch": "codex/fix-10-maintenance-scheduling",
+      "path": "docs/review/fixes/10-maintenance-scheduling.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "11",
+      "slug": "equipment-oee",
+      "title": "单设备OEE与时间窗事实",
+      "ids": [
+        "I12"
+      ],
+      "deps": [
+        "02"
+      ],
+      "paths": [
+        "packages/application/src/cost-queries.ts",
+        "packages/application/src/cost-repositories.ts",
+        "packages/persistence/src/cost-repositories.ts",
+        "packages/domain/src/cost/**",
+        "tests/pr11/**"
+      ],
+      "accept": [
+        "设备B生产不改变设备A的OEE",
+        "同设备/单位/窗口取产出；停机按区间交集裁剪",
+        "缺归属或分母时明示缺项而不生成假百分比"
+      ],
+      "branch": "codex/fix-11-equipment-oee",
+      "path": "docs/review/fixes/11-equipment-oee.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "12",
+      "slug": "backup-upgrade-safety",
+      "title": "备份恢复实例绑定、脱敏与只读升级预检",
+      "ids": [
+        "I13",
+        "I14",
+        "I15",
+        "E02"
+      ],
+      "deps": [],
+      "paths": [
+        "deploy/backup/**",
+        "deploy/upgrade/**",
+        "scripts/delivery/backup/**",
+        "scripts/delivery/lib/db.mjs",
+        "scripts/delivery/upgrade-compat-check.mjs",
+        "tests/pr12/**"
+      ],
+      "accept": [
+        "双实例同名库不同哨兵，错配在dump/重建前拒绝；保留cadenza_dops白名单",
+        "预检默认只读，降级/未知迁移/旧库检查前后schema和数据摘要不变",
+        "备份合成TOKEN/PASSWORD/SECRET/KEY哨兵均不残留",
+        "旧hash/0031升级只在获准隔离样本验证；原生产/旧库未授权不接触；无旧库证据保留E02"
+      ],
+      "branch": "codex/fix-12-backup-upgrade-safety",
+      "path": "docs/review/fixes/12-backup-upgrade-safety.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "13",
+      "slug": "reproducible-delivery",
+      "title": "完整冷构建、测试门禁与候选元数据",
+      "ids": [
+        "I16",
+        "M02",
+        "E01",
+        "E03"
+      ],
+      "deps": [],
+      "paths": [
+        "package.json",
+        "pnpm-workspace.yaml",
+        "pnpm-lock.yaml",
+        "apps/ai/package.json",
+        "apps/ai/build.sh",
+        "apps/ai/tsconfig.build.json",
+        "packages/integrations/im/package.json",
+        "packages/integrations/im/tsconfig.build.json",
+        "apps/api/src/aiquery/im/im.composition.ts",
+        "tests/sol-sap-engine/**",
+        "tests/sol-sap-recon/**",
+        "tests/integration/command-idempotency.spec.ts",
+        "scripts/sol-sap-recon/**",
+        "architecture/ROADMAP.md",
+        "deploy/release/RELEASE-ANCHOR.json",
+        "docs/review/**"
+      ],
+      "accept": [
+        "无旧dist干净检出从锁文件构建API/worker/AI/Web/PDA/IM并验证产物入口",
+        "夹具从仓库或显式路径取得；正式必跑PG缺失要失败，执行/跳过/失败数分明",
+        "候选T/A实施/接受矩阵和发行锚绑定实际证据，保留历史规划，不整表改完成",
+        "E01是审查侧可见性缺口，本地主控有原件；只补必要索引/安全原文差集，不重跑旧65或上传全部本地日志"
+      ],
+      "branch": "codex/fix-13-reproducible-delivery",
+      "path": "docs/review/fixes/13-reproducible-delivery.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "14",
+      "slug": "edge-delivery-ack",
+      "title": "模拟网关确认后清积压",
+      "ids": [
+        "I17"
+      ],
+      "deps": [],
+      "paths": [
+        "packages/edge/src/gateway.ts",
+        "packages/edge/src/buffer.ts",
+        "tests/pr14/**"
+      ],
+      "accept": [
+        "无transport/发送失败保留样本与overflow统计",
+        "发送中新样本不被确认旧批次时一并drain",
+        "按已确认事件ID移除；重启与重复送达不丢数；不外推真实设备接受"
+      ],
+      "branch": "codex/fix-14-edge-delivery-ack",
+      "path": "docs/review/fixes/14-edge-delivery-ack.md",
+      "state": "scope_prepared_not_implemented"
+    },
+    {
+      "id": "15",
+      "slug": "frontend-loading",
+      "title": "Web/PDA首屏加载优化",
+      "ids": [
+        "M01"
+      ],
+      "deps": [
+        "13"
+      ],
+      "paths": [
+        "apps/web/src/App.tsx",
+        "apps/pda/src/App.tsx",
+        "apps/web/src/**/mount.tsx",
+        "apps/pda/src/**/mount.tsx",
+        "apps/web/vite.config.ts",
+        "apps/pda/vite.config.ts",
+        "tests/ui/**"
+      ],
+      "accept": [
+        "先绑定当前构建大小及可复现本地测量，再按路由拆包",
+        "直接URL/登录/权限路由/扫码页加载及中韩切换保持",
+        "报告构建和受测设备性能；没有真实PDA测量不宣称现场故障已修"
+      ],
+      "branch": "codex/fix-15-frontend-loading",
+      "path": "docs/review/fixes/15-frontend-loading.md",
+      "state": "scope_prepared_not_implemented"
+    }
+  ],
+  "blockedEvidence": [
+    "E04"
+  ],
+  "scope": "User explicitly authorized categorized PRs then Chat code repair/iteration. Each PR starts Draft with scope only; not fixed until code and required proof. No automatic main merge/deploy. Chat is code author; controller verifies/applies same-PR fallback patch if writer tools unavailable. Single Chat works one PR at a time."
+}
