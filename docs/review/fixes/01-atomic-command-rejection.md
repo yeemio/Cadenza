@@ -41,3 +41,13 @@
 提交准确 head SHA、changed paths、实际命令/环境/输出/退出码、执行/跳过/失败数、未解决项。代码补丁和必要证据须落本 PR，文字建议不算代码修复。没有 GitHub 写工具时返回完整可应用 patch/逐文件内容，由总控在同一 PR 发布，不让 Owner 搬运，不用新 Work 任务替代。
 
 仅在本 PR 验收边界关闭后停止；未知业务例外、真实旧库/现场/独立 R6 仍留待相应证据。E01 是审查可见性差距，本地主控已有原件；E04 不能由内部模型补造。
+
+## 作者代码候选 R0（PR14 ACCEPT 后续）
+
+候选绑定本 PR 初始/本轮读回 head `2446347cbc83343ae0a40017552f22df2dbe7ec7`，产品前像仍为 `cb25076d99cda0ac359151ff9eea65507de8cc4d`。身份 `same_family_external_advisory`。状态：`CODE_CANDIDATE / PG_NOT_RUN / PUBLICATION_PENDING_CONTROLLER`，不是 ACCEPT。
+
+必要兼容前置：缺组织映射的采购 QUARANTINED Inbox 是合法诊断事实；共同事务改为拒绝回滚后，原采购处理器须显式标识该诊断的重建。该一文件最小差异单独归 PR #2 允许路径 `packages/application/src/purchase-handlers.ts`，在原 PR #2 发布兼容提交后，仅将该提交带入本 PR。它兼容旧总线，不提前宣称 C2 完成；PR #2 的对象授权主体仍依赖本 PR。无需将 PR14 带入本链。
+
+新增内部 `persistRejectionDiagnostics` 回调不进入 API/回执 JSON；仅在整体 BUSINESS_REJECTION 的业务写集回滚后执行。COMMITTED、DRAFT_SAVED 与整体成功的逐行登记保留；VERSION_CONFLICT 回滚且持久化冲突回执。成功时显式等待 shipping/rework Outbox 队列，事务绑定 SQL 观察器保留已被调用方 catch 的 SQL 错误，并拒绝已完成事务的后续查询。
+
+新增 22 个待执行行为场景：真实 PG 总线夹具 13、真实采购/PL/DC 诊断及附件逐行登记 4、真实发运两轴 4、真实倒轴晚拒绝 1。另复用现有三个 integration 文件及 shipping API 全文件回归。当前只完成源码语法/补丁完整性检查，未执行这些 PG 场景；完整环境、命令、范围和停止条件见 [verification.md](../evidence/pr-01/verification.md)。

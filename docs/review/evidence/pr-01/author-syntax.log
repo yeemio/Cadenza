@@ -1,0 +1,18 @@
+$ node docs/review/evidence/pr-01/check-syntax.mjs
+Node v24.22.1; TypeScript syntax transformation ONLY
+PARSED apps/api/src/rework/rework.composition.ts
+PARSED apps/api/src/shipping/shipping.composition.ts
+PARSED packages/application/src/command-bus.ts
+PARSED packages/application/src/purchase-handlers.ts
+PARSED packages/application/src/shipping-handlers.ts
+PARSED packages/persistence/src/pg-command-bus.ts
+PARSED tests/api/shipping-api.spec.ts
+PARSED tests/integration/command-idempotency.spec.ts
+PARSED tests/integration/rework-flow.spec.ts
+PARSED tests/integration/shipping-flow.spec.ts
+PARSED tests/pr01/diagnostics.pg.spec.ts
+PARSED tests/pr01/transaction.pg.spec.ts
+parsed=12; failed=0; business_tests_executed=0
+(node:6) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+EXIT_CODE=0

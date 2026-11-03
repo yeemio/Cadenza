@@ -37,7 +37,8 @@ const OWNER_NAME = '华东电缆集团（自有）'
 beforeAll(async () => {
   try {
     pool = await prepareShpTestDatabase()
-  } catch {
+  } catch (error) {
+    if (process.env['CADENZA_REQUIRE_PG'] === '1') throw error
     dbAvailable = false
     console.warn(`SKIP shipping-flow: 数据库不可达。请先 docker compose up -d 再重跑（独立库 ${SHP_TEST_DB_NAME}）。`)
     return
@@ -658,5 +659,76 @@ describe('⑦ 同 operationId 重放（原结果回放，不重复入账）', ()
       `SELECT count(*)::int AS c FROM stock_transaction WHERE ref_type = 'shipment_order' AND ref_id = $1`, [orderId],
     )
     expect(txnAfter.rows[0]!.c).toBe(txnBefore.rows[0]!.c) // 零重复记账
+  })
+})
+
+// PR01: real domain handlers + real PG. A later scanned axis rejects after an
+// earlier axis would have posted; compare the complete business write set.
+describe('PR01 发运晚拒绝原子性', () => {
+  it.each(['business_hold', 'reservation', 'quality', 'none'] as const)('%s: two-axis transaction either fully rejects or fully commits', async (mode) => {
+    if (skipIfNoDb()) throw new Error('PR01 mandatory real PG scenario cannot skip')
+    const plNo = `PL-${run}-atomic-${mode}`
+    const init = await sp(nextOp('atomic-pl'), 'shipping.pl.inbound', {
+      plantId: fx.szPlantId, plNo, salesOrderNo: `SO-${run}-atomic-${mode}`,
+      lines: [1, 2].map((lineNo) => ({ lineNo, lineKind: 'plain_item', materialCode: 'MAT-SHP-FIN', salesOrderLineNo: String(lineNo), segmentLength: '100.0000', requiredCount: 1 })),
+    })
+    expect(init.status).toBe('COMMITTED')
+    const orderId = (await pool.query('SELECT id FROM shipment_order WHERE pl_no=$1', [plNo])).rows[0]!.id as string
+    const lineIds = await orderLineIds(plNo)
+    const unitIds: string[] = []
+    for (const line of [1, 2]) {
+      const unitNo = `U-${run}-atomic-${mode}-${line}`
+      unitIds.push(await receiveUnit(unitNo, 'qualified'))
+      const scan = await sp(nextOp('atomic-scan'), 'shipping.scan.load', { plantId: fx.szPlantId, shipmentOrderId: orderId, lineId: lineIds.get(line), unitNo })
+      expect(scan.status).toBe('COMMITTED')
+    }
+    // The handler consumes scan order, so select its actual second entry.
+    const scans = await pool.query('SELECT inventory_unit_id FROM packing_scan WHERE shipment_order_id=$1 AND deleted=false ORDER BY scanned_at,id', [orderId])
+    const secondId = scans.rows[1]!.inventory_unit_id as string
+    if (mode === 'business_hold') {
+      expect((await exec(inventoryBus, nextOp('atomic-hold'), 'inventory.business-hold.establish', {
+        unitIds: [secondId], businessRef: `PR01-${plNo}`, reason: '真实隔离库晚拒绝夹具',
+      })).status).toBe('COMMITTED')
+    } else if (mode === 'reservation') {
+      expect((await exec(inventoryBus, nextOp('atomic-reservation'), 'inventory.reservation.acquire', {
+        unitId: secondId, quantity: '100.0000', holderType: 'task', holderRef: 'foreign-task', validUntil: new Date(Date.now() + 86_400_000).toISOString(),
+      })).status).toBe('COMMITTED')
+    } else if (mode === 'quality') {
+      await pool.query("UPDATE stock_balance SET quality_status='suspect' WHERE unit_id=$1 AND status='active'", [secondId])
+    }
+    const snapshot = async () => ({
+      units: (await pool.query('SELECT * FROM inventory_unit WHERE id=ANY($1::uuid[]) ORDER BY id', [unitIds])).rows,
+      balances: (await pool.query('SELECT * FROM stock_balance WHERE unit_id=ANY($1::uuid[]) ORDER BY id', [unitIds])).rows,
+      order: (await pool.query('SELECT * FROM shipment_order WHERE id=$1', [orderId])).rows,
+      lines: (await pool.query('SELECT * FROM shipment_line WHERE shipment_order_id=$1 ORDER BY id', [orderId])).rows,
+      scans: (await pool.query('SELECT * FROM packing_scan WHERE shipment_order_id=$1 ORDER BY id', [orderId])).rows,
+      counts: (await pool.query('SELECT (SELECT count(*) FROM stock_transaction)::int AS tx,(SELECT count(*) FROM stock_entry)::int AS entries,(SELECT count(*) FROM audit_entry)::int AS audit,(SELECT count(*) FROM outbox)::int AS outbox')).rows,
+    })
+    const before = await snapshot(); const op = nextOp('atomic-confirm')
+    const payload = { plantId: fx.szPlantId, shipmentOrderId: orderId }
+    if (mode === 'quality') {
+      await expect(sp(op, 'shipping.ship.confirm', payload)).rejects.toThrow()
+      expect((await pool.query('SELECT count(*)::int AS n FROM command_receipt WHERE operation_id=$1', [op])).rows[0]!.n).toBe(0)
+    } else if (mode === 'none') {
+      const committed = await sp(op, 'shipping.ship.confirm', payload)
+      expect(committed.status).toBe('COMMITTED')
+      expect(committed.data).toMatchObject({ status: 'shipped', postedUnits: 2 })
+      const after = await snapshot()
+      expect(after.units.map((u) => u.status)).toEqual(['shipped', 'shipped'])
+      expect(after.balances.every((b) => b.quantity === '0.0000' && b.status === 'closed')).toBe(true)
+      expect(after.counts[0]!.tx).toBe(before.counts[0]!.tx + 2)
+      expect(after.counts[0]!.entries).toBe(before.counts[0]!.entries + 2)
+      expect(after.counts[0]!.audit).toBe(before.counts[0]!.audit + 1)
+      expect(after.counts[0]!.outbox).toBe(before.counts[0]!.outbox + 2)
+      expect(await sp(op, 'shipping.ship.confirm', payload)).toEqual(committed)
+      expect(await snapshot()).toEqual(after)
+    } else {
+      const rejected = await sp(op, 'shipping.ship.confirm', payload)
+      expect(rejected.status).toBe('BUSINESS_REJECTION')
+      expect(rejected.errorMessage).toContain(mode === 'business_hold' ? 'IT-BUSINESS-HOLD' : '活动作业预留')
+      expect(await sp(op, 'shipping.ship.confirm', payload)).toEqual(rejected)
+      expect((await pool.query('SELECT count(*)::int AS n FROM command_receipt WHERE operation_id=$1', [op])).rows[0]!.n).toBe(1)
+    }
+    if (mode !== 'none') expect(await snapshot()).toEqual(before)
   })
 })

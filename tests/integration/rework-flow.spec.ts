@@ -42,7 +42,8 @@ const run = `rwk${Date.now().toString(36)}${Math.floor(Math.random() * 1000)}`
 beforeAll(async () => {
   try {
     pool = await prepareRwkTestDatabase()
-  } catch {
+  } catch (error) {
+    if (process.env['CADENZA_REQUIRE_PG'] === '1') throw error
     dbAvailable = false
     console.warn(`SKIP rework-flow: 数据库不可达。请先 docker compose up -d 再重跑（独立库 ${RWK_TEST_DB_NAME}）。`)
     return
@@ -857,4 +858,28 @@ describe('④ 轴码退役主链（RS-34/35/36/37 + RS-S6）', () => {
     const r = await exec(reworkBus, nextOp('ret3'), 'rework.axis-retire.execute', { unitNos: [`${run}-R2`] })
     expectRejection(r, 'RS-34')
   })
+})
+
+it('PR01 倒轴冲销：子轴已扣回后源余额不符，全部写集回滚且拒绝可重放', async () => {
+  if (skipIfNoDb()) throw new Error('PR01 mandatory real PG scenario cannot skip')
+  const sourceNo = `AE${run}-PR01SRC`; const childNo = `AE${run}-PR01CHILD`
+  const sourceId = await receiveUnit(sourceNo, fx.szLineSideLocationId, '92980101')
+  const split = await exec(reworkBus, nextOp('pr01-split'), 'rework.reel-split.execute', {
+    sourceUnitNo: sourceNo, pourLines: [{ unitNo: childNo, quantity: '500.0000' }], lossQty: '0.0000',
+  })
+  expect(split.status).toBe('COMMITTED')
+  const orderId = (split.data as { orderId: string }).orderId; const childId = (await unitRow(childNo)).id
+  // Isolated test fault fixture: keep downstream facts unchanged and force the
+  // existing late source-balance guard, after the child's reversal write.
+  await pool.query("UPDATE stock_balance SET quantity='499.0000' WHERE unit_id=$1 AND status='active'", [sourceId])
+  const snapshot = async () => ({
+    units: (await pool.query('SELECT * FROM inventory_unit WHERE id=ANY($1::uuid[]) ORDER BY id', [[sourceId, childId]])).rows,
+    balances: (await pool.query('SELECT * FROM stock_balance WHERE unit_id=ANY($1::uuid[]) ORDER BY id', [[sourceId, childId]])).rows,
+    counts: (await pool.query('SELECT (SELECT count(*) FROM stock_transaction)::int AS tx,(SELECT count(*) FROM stock_entry)::int AS entries,(SELECT count(*) FROM reel_split_reversal)::int AS reversals,(SELECT count(*) FROM audit_entry)::int AS audit,(SELECT count(*) FROM outbox)::int AS outbox')).rows,
+  })
+  const before = await snapshot(); const op = nextOp('pr01-reverse'); const payload = { sourceOrderId: orderId, reason: '晚拒绝原子性验证' }
+  const refused = await exec(reworkBus, op, 'rework.reel-split.reverse', payload)
+  expect(refused.status).toBe('BUSINESS_REJECTION'); expect(refused.errorMessage).toContain('留存')
+  expect(await exec(reworkBus, op, 'rework.reel-split.reverse', payload)).toEqual(refused)
+  expect(await snapshot()).toEqual(before)
 })
