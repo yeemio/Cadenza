@@ -1,0 +1,244 @@
+{
+  "decision": "ACCEPT",
+  "acceptanceScope": "PR01 C1 local source and real isolated PostgreSQL atomic command rejection/receipt behavior",
+  "sourceAndTestCandidate": "d6cc96aa64fec40323ea40dde917ac8a2759fd06",
+  "unchangedProductSourceCandidate": "6c611b5ea0b8bdb8016bf8064ac3555a94e1df9a",
+  "incrementParent": "39f7d1212bbbcd7d3a1f1d3ebf4781b8f636380a",
+  "authorChat": "6ae983a9-f128-83e8-a5b4-d5539c933fee",
+  "authorR1Message": "e85806ba-2863-578c-ad9e-c35f728aab02",
+  "advisoryIdentity": "same_family_external_advisory",
+  "patchSha256": "6dc8e4652dd105caf566c18307c5ac8ba736870e9e20b1a81812ed18716ccaad",
+  "zipSha256": "c0d91ebf5ab565f6d955e94ce56847a4ae8f2bfd6485cd747f375305116e0541",
+  "originalAuthorPostimagesMatched": 6,
+  "sourceAndTestFileSha256": {
+    "packages/persistence/src/pg-command-bus.ts": "1c9da1f69bf200d585520112a0c3e4b6d90c815d94c29d16eefc6a172ae727e5",
+    "packages/application/src/command-bus.ts": "1939a4fcebdbc918ab9449ea0646549f65a45db1f8d1a1760366ce4ed311cb97",
+    "packages/application/src/purchase-handlers.ts": "294b95eb6ea4e38b80d59b8a9f4bb8657ea930d4ebb93e93e5956fd0c36aed9d",
+    "packages/application/src/shipping-handlers.ts": "c14b9ce50443b8e9ba6b3f2c5b48909f1cd64e84409aedd400c7ba592287e808",
+    "apps/api/src/shipping/shipping.composition.ts": "16e08ebe293568d7faee4ce07942d78ed3a80ac4072bae79fc198fb8ba2dc2a8",
+    "apps/api/src/rework/rework.composition.ts": "a811a26cde14d50d6eec3963a1a1b537e2cc99aff8d6ea80e5d5ac768ccf3abf",
+    "tests/integration/shipping-flow.spec.ts": "409ca0ca0d2c28fa234cb9d025fe809134b32557015bb24482bddf0d56a511dc",
+    "tests/integration/rework-flow.spec.ts": "e7d389c053ee8e2427a6f2659b8cccd6d5f202253ead1ee2234ccb644ffca558"
+  },
+  "compatibility": {
+    "ownerPr": 2,
+    "originalCommit": "70fe34fa654e50ff9b8f41aacc5aef825118a9ed",
+    "carriedCommit": "6a223bec6853f8b9c94b7191287f2de8924d3555",
+    "closesC2": false
+  },
+  "freshR1": {
+    "executedSelected": 5,
+    "passed": 5,
+    "failed": 0,
+    "runtimeSkippedSelected": 0,
+    "filteredOutByName": 42,
+    "vitestReportedSkipped": 42,
+    "details": [
+      {
+        "name": "shipping",
+        "selectedPassed": 4,
+        "filteredOut": 21,
+        "exitCode": 0
+      },
+      {
+        "name": "rework",
+        "selectedPassed": 1,
+        "filteredOut": 21,
+        "exitCode": 0
+      }
+    ],
+    "commands": [
+      {
+        "name": "shipping",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "tests/integration/shipping-flow.spec.ts",
+          "-t",
+          "PR01 发运晚拒绝原子性",
+          "--reporter=verbose"
+        ],
+        "exitCode": 0,
+        "log": "/tmp/cadenza-pr01-r1-shipping.log"
+      },
+      {
+        "name": "rework",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "tests/integration/rework-flow.spec.ts",
+          "-t",
+          "PR01 倒轴冲销",
+          "--reporter=verbose"
+        ],
+        "exitCode": 0,
+        "log": "/tmp/cadenza-pr01-r1-rework.log"
+      }
+    ]
+  },
+  "reusedR0": {
+    "testCases": 66,
+    "ofOriginalPassedCases": 71,
+    "unchangedProductInputBytesVerified": true,
+    "unaffectedTestBodiesUnchangedVerified": true,
+    "r0LogsSha256UnchangedVerified": true,
+    "applicationTypecheck": "PASS_REUSED",
+    "persistenceTypecheck": "PASS_REUSED",
+    "apiBuildAfterExplicitImPrerequisite": "PASS_REUSED",
+    "coldBuild": "NOT_ACCEPTED_EXISTING_I16",
+    "initialBuildFailureRetained": true
+  },
+  "effectiveCurrentCoverage": {
+    "uniqueCasesProven": 71,
+    "freshR1": 5,
+    "validR0Reused": 66,
+    "doubleCounted": false
+  },
+  "r1GapsClosed": [
+    "PR01-R1-LEGAL-SOURCE-CONSUMPTION",
+    "PR01-R1-QUERY-EVIDENCE"
+  ],
+  "observations": [
+    {
+      "scenario": "shipping-business_hold",
+      "operationId": "shpmw0p3env965-atomic-confirm-7",
+      "beforeAfterReplaySnapshotsEqual": true,
+      "receiptRows": 1,
+      "result": "BUSINESS_REJECTION",
+      "counts": [
+        {
+          "tx": 2,
+          "entries": 2,
+          "audit": 6,
+          "outbox": 4
+        }
+      ]
+    },
+    {
+      "scenario": "shipping-reservation",
+      "operationId": "shpmw0p3env965-atomic-confirm-14",
+      "beforeAfterReplaySnapshotsEqual": true,
+      "receiptRows": 1,
+      "result": "BUSINESS_REJECTION",
+      "counts": [
+        {
+          "tx": 4,
+          "entries": 4,
+          "audit": 12,
+          "outbox": 9
+        }
+      ]
+    },
+    {
+      "scenario": "shipping-quality",
+      "operationId": "shpmw0p3env965-atomic-confirm-20",
+      "beforeAfterSameKeyRetryEqual": true,
+      "receiptRows": 0,
+      "actualExceptionRule": "A-T12-3",
+      "replayKind": "same-key-retry-without-receipt",
+      "counts": [
+        {
+          "tx": 6,
+          "entries": 6,
+          "audit": 17,
+          "outbox": 13
+        }
+      ]
+    },
+    {
+      "scenario": "shipping-none",
+      "operationId": "shpmw0p3env965-atomic-confirm-26",
+      "postedUnits": 2,
+      "countsDelta": {
+        "tx": 2,
+        "entries": 2,
+        "audit": 1,
+        "outbox": 2
+      },
+      "afterReplayEqual": true,
+      "receiptRows": 1
+    },
+    {
+      "scenario": "rework-legal-source-consumption",
+      "operationId": "rwkmw0p3h6r843-pr01-reverse-4",
+      "sourceConsumptionOperationId": "rwkmw0p3h6r843-pr01-consume-source-3",
+      "legalSourceConsumption": {
+        "before": "500.0000",
+        "delta": "-1.0000",
+        "after": "499.0000"
+      },
+      "allChildDownstreamFalse": true,
+      "insideBeforeSourceGuard": {
+        "source": [
+          {
+            "id": "270ca6dc-9c8e-4a13-8a36-025ccd6937cd",
+            "quantity": "499.0000",
+            "status": "active"
+          }
+        ],
+        "child": [
+          {
+            "id": "677dc99c-1454-41bc-a348-cba9c015fa4c",
+            "quantity": "0.0000",
+            "status": "closed"
+          }
+        ]
+      },
+      "beforeAfterReplaySnapshotsEqual": true,
+      "refusalReceiptRows": 1,
+      "counts": [
+        {
+          "tx": 4,
+          "entries": 4,
+          "reversals": 0,
+          "audit": 3,
+          "outbox": 3
+        }
+      ]
+    }
+  ],
+  "queryJsonRecords": 17,
+  "database": {
+    "container": "cadenza-pr01-pg-20261103",
+    "id": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+    "image": "postgres:16.15",
+    "endpoint": "127.0.0.1:32771",
+    "freshTaskOwnedVolume": "621cac019acd0e9bf428a9abc94443c8ee4742c9108ae35819339e49dd285efa",
+    "databasesWrittenByR1": [
+      "cadenza_shp",
+      "cadenza_rework"
+    ],
+    "oldOrOtherProjectDatabasesTouched": false
+  },
+  "evidence": [
+    {
+      "path": "docs/review/evidence/pr-01/controller-r1-shipping.log",
+      "sha256": "51caa4ce0ae7aaef5adf0c68a664fcbe3baf3501b3cca48b9e1078d428a5b80b",
+      "bytes": 64143
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r1-rework.log",
+      "sha256": "b64fd7ba00fb1ca1d6e4ea760ff21352ea67e40472a53f296e74091aacdd56f2",
+      "bytes": 25161
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r1-query-observations.jsonl",
+      "sha256": "f3c22b159f935f7d3ab014e42a34f5c5c783606f394c20d78f3b52f55cd07a85",
+      "bytes": 77205
+    }
+  ],
+  "boundaries": [
+    "No actual network response-disconnect experiment; durable same-key retrieval/replay is proven",
+    "No main merge/release/deploy",
+    "No production or old database upgrade",
+    "No real SAP/model/channel/device/site acceptance",
+    "Independent R6 original/receiver still unavailable",
+    "PR02 C2 authorization body not implemented or accepted",
+    "I16 cold build still belongs to PR13",
+    "Remaining13PRs not accepted by association"
+  ]
+}
