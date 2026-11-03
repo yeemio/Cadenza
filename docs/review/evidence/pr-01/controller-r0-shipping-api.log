@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr01-20261103
+
+ ✓ tests/api/shipping-api.spec.ts (5 tests) 2052ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  20:30:36
+   Duration  3.33s (transform 700ms, setup 0ms, collect 1.18s, tests 2.05s, environment 0ms, prepare 20ms)
+

@@ -1,0 +1,141 @@
+{
+  "decision": "REWORK",
+  "scope": "C1 PR01 atomic rejection",
+  "sourceCandidate": "6c611b5ea0b8bdb8016bf8064ac3555a94e1df9a",
+  "authorChat": "6ae983a9-f128-83e8-a5b4-d5539c933fee",
+  "authorMessage": "eeae4aec-221b-5b72-840b-20e46b0f243f",
+  "identity": "same_family_external_advisory",
+  "patchSha256": "f09b1848178e8fb87e3111e89e476af64223214c9363be0991908e34e99817d3",
+  "compatibility": {
+    "ownerPr": 2,
+    "commit": "70fe34fa654e50ff9b8f41aacc5aef825118a9ed",
+    "carriedCommit": "6a223bec6853f8b9c94b7191287f2de8924d3555",
+    "patchSha256": "7da8ad96cc5dbc9221252d7f4fd34fc317bd73b0652a4b3c52092458bc3612e4",
+    "closesC2": false
+  },
+  "originalAuthorPostimagesMatched": 17,
+  "testResults": [
+    {
+      "file": "tests/pr01/transaction.pg.spec.ts",
+      "passed": 13
+    },
+    {
+      "file": "tests/pr01/diagnostics.pg.spec.ts",
+      "passed": 4
+    },
+    {
+      "file": "tests/integration/command-idempotency.spec.ts",
+      "passed": 2
+    },
+    {
+      "file": "tests/integration/shipping-flow.spec.ts",
+      "passed": 25
+    },
+    {
+      "file": "tests/integration/rework-flow.spec.ts",
+      "passed": 22
+    },
+    {
+      "file": "tests/api/shipping-api.spec.ts",
+      "passed": 5
+    }
+  ],
+  "totals": {
+    "executed": 71,
+    "passed": 71,
+    "failed": 0,
+    "skipped": 0
+  },
+  "build": {
+    "firstTargetedCommand": "pnpm --filter @cadenza/api... build",
+    "exitCode": 2,
+    "cause": "Existing I16: IM package dist absent because it is not in workspace build graph; not modified here",
+    "manualImBuildExitCode": 0,
+    "apiAfterManualImExitCode": 0,
+    "applicationTypesExitCode": 0,
+    "persistenceTypesExitCode": 0,
+    "coldBuildAccepted": false
+  },
+  "database": {
+    "container": "cadenza-pr01-pg-20261103",
+    "id": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+    "image": "postgres:16.15",
+    "host": "127.0.0.1",
+    "port": 32771,
+    "newVolume": "621cac019acd0e9bf428a9abc94443c8ee4742c9108ae35819339e49dd285efa",
+    "whitelist": [
+      "cadenza",
+      "cadenza_shp",
+      "cadenza_rework",
+      "cadenza_pr01_tx_r0",
+      "cadenza_pr01_diag_r0"
+    ],
+    "otherProjectOrOldDatabaseTouched": false
+  },
+  "rework": [
+    {
+      "id": "PR01-R1-LEGAL-SOURCE-CONSUMPTION",
+      "file": "tests/integration/rework-flow.spec.ts",
+      "line": 874,
+      "finding": "The new source retained-balance test directly UPDATEs stock_balance to 499.0000 with no corresponding business transaction. It proves a corruption/fault fixture, not the required legally consumed source-retention scenario. Use a real legitimate business command, retain child with no downstream business, assert the late source-retained guard and no reversal side effects."
+    },
+    {
+      "id": "PR01-R1-QUERY-EVIDENCE",
+      "finding": "Existing tests assert before/after equality but do not retain raw snapshots demanded by the acceptance report. Emit sanitized before/after observations for the four shipping modes and the legal rework refusal, and bind original operationId/replay to rows. Controller reruns only affected named cases; do not weaken assertions or rerun old SIM."
+    }
+  ],
+  "evidenceLogs": [
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-build.log",
+      "sha256": "254a076ba66500041c6385f4bb2bd33be0ecb14a5b129962f445013150c5efe7"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-transaction.log",
+      "sha256": "d60f9deb1baab4d1849092671bec9a16eae7b176cb16b9d54bff6ec7e08c7ee1"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-diagnostics.log",
+      "sha256": "6bb6e4e73b6e36ab706d20b4117c5e8fb2273064848af4f29bae8c5f275211de"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-command-idempotency.log",
+      "sha256": "f1289441fe9ea56814a2d15f1f1e44377dbc5451a3efd45e197c4b9f80b9c16d"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-shipping-flow.log",
+      "sha256": "615ff7b52f4567ec4331590f6d42d61b30206c28753e8b26ce2cdc5acfc8a351"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-rework-flow.log",
+      "sha256": "3fe41ec9a6c457aae348dace33678af4bf2e36ee62705b958ca5a6dbb7f886f1"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-shipping-api.log",
+      "sha256": "50513705ac1c93ba82e22221361954c2a80190fef0881288f809a743d615f993"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-im-prerequisite.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-api-after-im.log",
+      "sha256": "24c42b76aecef2c39c8a5639a3536efb936b03bdac9a8f8be50c0e71ffbc7af8"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-application-types.log",
+      "sha256": "38ac890c60e7f38d59ddfb410325cdfb5fca83c9411765c5481754e01c021630"
+    },
+    {
+      "path": "docs/review/evidence/pr-01/controller-r0-persistence-types.log",
+      "sha256": "38ac890c60e7f38d59ddfb410325cdfb5fca83c9411765c5481754e01c021630"
+    }
+  ],
+  "boundaries": [
+    "No main merge/release/deploy",
+    "No real SAP/model/channel/device/site",
+    "No old DB upgrade",
+    "Independent R6 still unavailable",
+    "PR02 compatibility prerequisite is not C2 acceptance",
+    "PR14 unchanged; accepted PR count remains 1/15"
+  ]
+}
