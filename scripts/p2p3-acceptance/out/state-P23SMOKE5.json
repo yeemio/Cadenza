@@ -1,0 +1,69 @@
+{
+  "run": "P23SMOKE5",
+  "nodes": {
+    "DEPT-SZ-WL": "a20e8ebb-c644-46a9-bbd8-0535cb44e845",
+    "ENT-HD": "92257302-83f7-473a-8cb8-a7ecccdae147",
+    "PLNT-SZ": "b9ed45ef-b5a8-4f46-8c7a-70f3bf593117",
+    "DEPT-SZ-JZ": "2ad1ddb5-d2b3-4053-bea7-2b5128a986c6"
+  },
+  "entId": "92257302-83f7-473a-8cb8-a7ecccdae147",
+  "szPlantId": "b9ed45ef-b5a8-4f46-8c7a-70f3bf593117",
+  "wh": {
+    "whMain": "4e10163d-7a74-46f3-aeee-983d62f82f1d",
+    "whLine": "47db3136-bd8a-48bf-a524-dc5934cd8073"
+  },
+  "loc": {
+    "whMain": "b71c9150-8c80-4a65-b892-162705681890",
+    "whLine": "6c06c350-687d-437d-bfb5-f7210bfe378f",
+    "whMainCode": "85000101",
+    "whLineCode": "40050101"
+  },
+  "wcId": "45a30e57-effb-4cc6-a055-cd79853d1cd3",
+  "equipment": {
+    "EQ-P23SMOKE5-01": {
+      "id": "d67e8f85-26b5-488e-864b-76dd72d4a48a"
+    },
+    "EQ-P23SMOKE5-10": {
+      "id": "b3fc925b-b0a0-420c-9ce4-28c30edaf4cd"
+    }
+  },
+  "eqExecCode": "EQ-P23SMOKE5-01",
+  "eqMtCode": "EQ-P23SMOKE5-10",
+  "opDefId": null,
+  "mat": {
+    "MAT-P23-FIN": "a14c674c-13c6-458a-8a10-3c36bd52a729",
+    "MAT-P23-RAW": "d05ed099-b47e-4aeb-a27a-e0f52c653512",
+    "MAT-P23-SPARE": "78f41066-01d0-4cef-9e5b-26c288d130f4"
+  },
+  "orderSrc": {
+    "orderId": null,
+    "orderNo": "MO-P23SMOKE5-SRC",
+    "op1Id": null
+  },
+  "orderTgt": {
+    "orderId": null,
+    "orderNo": "MO-P23SMOKE5-TGT",
+    "op1Id": null
+  },
+  "orderFeed": {
+    "orderId": null,
+    "orderNo": "MO-P23SMOKE5-FEED",
+    "op1Id": null
+  },
+  "orderCost": {
+    "orderId": null,
+    "orderNo": "MO-P23SMOKE5-COST",
+    "op1Id": null
+  },
+  "costReportId": null,
+  "laborRecordId": null,
+  "costSession": {},
+  "uCvA": "1E23SMOKE5001",
+  "uCvAId": "40a0271a-e277-4c4f-8770-df3a56ad6ba3",
+  "uCvB1": "2F23SMOKE4001",
+  "uCvB2": "2F23SMOKE4002",
+  "uCvB1Id": "32a6d1fd-4800-48dc-84fd-81d5f80ffb0d",
+  "uCvB2Id": "e762d0fe-7474-47a8-823e-671d6ccd3b59",
+  "uSpare": "SP23SMOKE4001",
+  "uSpareId": "031c56b8-0796-4070-b6fa-f070b3b25806"
+}

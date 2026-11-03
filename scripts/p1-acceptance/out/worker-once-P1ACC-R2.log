@@ -1,0 +1,4 @@
+[worker] 启动：interval=1000ms batch=500 channel=noop(SITE_PENDING) scopePlants=1 retry=30000ms..3600000ms db=postgres://postgres:***@127.0.0.1:55433/cadenza
+[worker] 本批 4 条：{"DISPATCHED":3,"SCOPE_SKIPPED":1}
+
+.env not found. Continuing without it.

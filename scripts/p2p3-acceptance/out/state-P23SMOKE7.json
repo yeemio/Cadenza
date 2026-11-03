@@ -1,0 +1,97 @@
+{
+  "run": "P23SMOKE7",
+  "nodes": {
+    "DEPT-SZ-WL": "a20e8ebb-c644-46a9-bbd8-0535cb44e845",
+    "ENT-HD": "92257302-83f7-473a-8cb8-a7ecccdae147",
+    "PLNT-SZ": "b9ed45ef-b5a8-4f46-8c7a-70f3bf593117",
+    "DEPT-SZ-JZ": "2ad1ddb5-d2b3-4053-bea7-2b5128a986c6"
+  },
+  "entId": "92257302-83f7-473a-8cb8-a7ecccdae147",
+  "szPlantId": "b9ed45ef-b5a8-4f46-8c7a-70f3bf593117",
+  "wh": {
+    "whMain": "91085046-ddbb-4dfe-a79b-59986d8c32a8",
+    "whLine": "ebf06605-57c0-4218-9351-5051cbf9b8a5"
+  },
+  "loc": {
+    "whMain": "0595e10e-4d90-44b0-8d1c-3c5f0d1aac65",
+    "whLine": "2d03ddd1-905e-4efd-af8c-6a1ac187c403",
+    "whMainCode": "85020101",
+    "whLineCode": "40070101"
+  },
+  "wcId": "d13cefca-59a3-45b1-9e90-003b1ca42aa3",
+  "equipment": {
+    "EQ-P23SMOKE7-01": {
+      "id": "2577ea30-31fe-4a57-a719-587ce1ac0789"
+    },
+    "EQ-P23SMOKE7-10": {
+      "id": "3eb91590-d6e2-4972-8c60-ca7c83ac0cdf"
+    }
+  },
+  "eqExecCode": "EQ-P23SMOKE7-01",
+  "eqMtCode": "EQ-P23SMOKE7-10",
+  "opDefId": "f00b8c83-7f78-4299-8e53-88c7b762ff83",
+  "mat": {
+    "MAT-P23-FIN": "a14c674c-13c6-458a-8a10-3c36bd52a729",
+    "MAT-P23-RAW": "d05ed099-b47e-4aeb-a27a-e0f52c653512",
+    "MAT-P23-SPARE": "78f41066-01d0-4cef-9e5b-26c288d130f4"
+  },
+  "orderSrc": {
+    "orderId": "489144ff-3f82-48ec-ae14-2c0dac56d58f",
+    "orderNo": "MO-P23SMOKE7-SRC",
+    "op1Id": "44ab6444-9dea-4cdd-a170-25c27fcb8977"
+  },
+  "orderTgt": {
+    "orderId": "b26f01f3-428a-4a16-97c6-9792f3eba417",
+    "orderNo": "MO-P23SMOKE7-TGT",
+    "op1Id": "ece36fe7-a4c1-471d-90e8-03263e262c1e"
+  },
+  "orderFeed": {
+    "orderId": "8badf1dc-6da3-4d70-83ae-78cd8c44df5a",
+    "orderNo": "MO-P23SMOKE7-FEED",
+    "op1Id": "b370090b-e24b-421b-8620-e509a5d24de2"
+  },
+  "orderCost": {
+    "orderId": "c2c1d4ef-ec7a-492f-b4d9-931834b13825",
+    "orderNo": "MO-P23SMOKE7-COST",
+    "op1Id": "87c39336-276f-48ab-9ebf-6aa4c267ae10"
+  },
+  "costReportId": "f9b0b54f-3578-46b6-b700-27ddcee8cb71",
+  "laborRecordId": "0414055d-9584-4d54-bf49-329374317003",
+  "costSession": {
+    "equipmentCode": "EQ-P23SMOKE7-01",
+    "status": "submitted",
+    "from": "2026-10-28 15:32:28.047+00",
+    "to": "2026-10-28 15:42:28.051307+00"
+  },
+  "uCvA": "1E23SMOKE7001",
+  "uCvAId": "6a5a7683-dd3e-4a3d-9d97-5a54d7caa6c6",
+  "uCvB1": "2F23SMOKE7001",
+  "uCvB2": "2F23SMOKE7002",
+  "uCvB1Id": "5866422e-b6a6-47b3-b091-df21dc1d4ff5",
+  "uCvB2Id": "5080481c-0321-4fe0-bbd7-d3b76cf72ba6",
+  "uSpare": "SP23SMOKE7001",
+  "uSpareId": "50e65e8b-1b36-4531-81fd-c05200309285",
+  "a05": {
+    "order1": "9e021e8f-cd74-4fa6-91e1-2fae689d5008",
+    "correctionId": null
+  },
+  "a09": {
+    "cvId": "52d564fc-010b-4950-9d42-a0e3989ee406",
+    "cvB1": "488e63d5-7e0e-4aac-8afb-ae9b2e13e9af"
+  },
+  "a10": {
+    "orderId": "34c9335a-a0c6-4d8f-999f-6e6a49001ff7"
+  },
+  "spc": {
+    "itemId": "2fa4ed96-f363-4224-a12c-eb9e991060f7"
+  },
+  "cost": {
+    "run1Id": "0128badf-3460-4b21-bef0-59cb086a495b",
+    "shiftDate": "2026-10-28",
+    "allocV1": "c5494e2d-0279-4d4c-b789-4511a52f2c19",
+    "allocV2": "69912d12-381e-4d16-b315-5641be07a98e",
+    "priceV1": "02788cd3-dbb6-46e1-b335-8cf7d590ae2a",
+    "cutoff": "2026-10-28T15:42:31.337Z",
+    "checkId": "2ddac829-7030-4b19-9dfb-f48bc2a90e4f"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "cadenza",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza cable industry MOM workspace",
+  "packageManager": "pnpm@11.28.5",
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=11"
+  },
+  "scripts": {
+    "runkit": "owlrunkit",
+    "check": "node architecture/control/startup-binding-20261027/verify-binding.mjs",
+    "dev:api": "pnpm --filter @cadenza/api... build && node --env-file-if-exists=.env apps/api/dist/main.js",
+    "dev:worker": "pnpm --filter @cadenza/worker... build && node --env-file-if-exists=.env apps/worker/dist/main.js",
+    "dev:web": "pnpm --filter @cadenza/web dev",
+    "dev:pda": "pnpm --filter @cadenza/pda dev",
+    "build": "pnpm -r --if-present build",
+    "test": "vitest run",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "eslint .",
+    "db:migrate:up": "pnpm --filter @cadenza/persistence build && node --env-file-if-exists=.env packages/persistence/dist/cli.js up",
+    "db:migrate:down": "pnpm --filter @cadenza/persistence build && node --env-file-if-exists=.env packages/persistence/dist/cli.js down",
+    "db:seed": "pnpm --filter @cadenza/persistence build && node --env-file-if-exists=.env packages/persistence/dist/cli.js seed",
+    "db:migrate:seed": "echo 'db:migrate:seed 占位：P1-S1 不实现种子数据（未冻结业务规则，不预造）'",
+    "typecheck:tests": "tsc -p scripts/tests.tsconfig.json",
+    "test:ui": "vitest run --config tests/ui/vitest.config.ts",
+    "typecheck:ui": "tsc -p tests/ui/tsconfig.json --noEmit",
+    "ui:live-check": "node scripts/ui-live-check.mjs"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/node": "^24.0.0",
+    "eslint": "^9.30.0",
+    "jsdom": "^30.1.3",
+    "owlrunkit": "0.23.0",
+    "prettier": "^3.6.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.35.0",
+    "vitest": "^3.2.4"
+  }
+}

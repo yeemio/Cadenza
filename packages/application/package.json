@@ -1,0 +1,16 @@
+{
+  "name": "@cadenza/application",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza 应用层端口骨架：CommandBus、UnitOfWork。只依赖 contracts/domain。",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@cadenza/contracts": "workspace:*",
+    "@cadenza/domain": "workspace:*"
+  }
+}

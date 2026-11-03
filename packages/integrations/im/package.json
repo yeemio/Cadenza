@@ -1,0 +1,12 @@
+{
+  "name": "@cadenza/im",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza IM 渠道边缘包（P4-C）：企微/飞书协议适配（真实验签解密=SITE_PENDING 桩）、mock 双向通道、身份绑定端口、发送端口、渠道事件处理记录（首版包内存储）。零依赖。注意：本目录当前不是 pnpm workspace 成员（pnpm-workspace.yaml 只匹配 packages/* 一级目录），pnpm -r 不会执行本包脚本；L0 整合步升格（见 delivery/P4/im/DELIVERY.md §L0）。",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}

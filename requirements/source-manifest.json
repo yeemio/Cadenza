@@ -1,0 +1,284 @@
+{
+  "archive": "PRD文档.zip",
+  "archive_sha256": "7200b8f636b32ca0e6037f47adef9cf09ca2366667cbd8a60e0a90b4287a6d21",
+  "file_count": 46,
+  "business_prd_count": 45,
+  "files": [
+    {
+      "path": "requirements/source/PRD文档/仓储管理/成品入库/成品入库.md",
+      "bytes": 11507,
+      "sha256": "116ed8acc03741e64d1ca31d0e2c540c808479aa50682940f481a47591404050",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/仓库管理/仓库管理.md",
+      "bytes": 6962,
+      "sha256": "28e5de0fc09af764ba8bb8db0fd1d0f592b114c9081938928211e456eaaf6815",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/仓库管理/货架管理.md",
+      "bytes": 7475,
+      "sha256": "1db0e465adacaae9bc643d2b01391a20d2555246c7d207c25529abce991edc85",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/分托管理/分托管理.md",
+      "bytes": 30287,
+      "sha256": "45f2e03f8c7175e14f6fd15d0e6406cf72c41a76d24994c2765c7395e9eb2844",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/工厂建模/工作中心.md",
+      "bytes": 2497,
+      "sha256": "2be23efe20377395918b29ef32b001c824ede387b267f64339ef07f1d0f9903a",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/工厂建模/工作中心对照表.md",
+      "bytes": 3357,
+      "sha256": "77bd2fd51bc314515b951485566ed9c32a3dcfa276b9e3cc133d4709ec6a91a7",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/工厂建模/打印管理.md",
+      "bytes": 4770,
+      "sha256": "3267fb02845de82bfc8974656cd88a92f22a20223afdca22d9e50328ede5ec04",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/工厂建模/机构管理.md",
+      "bytes": 3510,
+      "sha256": "cd43d9a22a2dc584538fafc97182d00f76c83384202771e75e6c5028e269141c",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/工厂建模/设备管理.md",
+      "bytes": 7694,
+      "sha256": "0d817048180aa54230f0840bf4ba692432116db954e63751b41265f89efd348e",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/工序管理/工序模板.md",
+      "bytes": 3161,
+      "sha256": "8bbb720064bff449e4cb8979e59dcf5cee2541e4b5577f4901e0559ceb824c84",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/工序管理/工序管理.md",
+      "bytes": 3754,
+      "sha256": "9bb6ae64812885e1221228da4d5fbfd7b02c78b8b9130e2d8114704a549083aa",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/库存统计/入库管理.md",
+      "bytes": 12896,
+      "sha256": "82babae1bcc273c3010fcb81d883491fe13ba3e3b3a514ce814f3ee247327895",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/库存统计/库存统计.md",
+      "bytes": 5078,
+      "sha256": "1fbe67c79c89828439212d7a8ca361b13d201b368e55947c1618e31518405e62",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/异常上报/异常上报.md",
+      "bytes": 3414,
+      "sha256": "2a9a5dc37133a8e23f27cf7464a743a8bff8cb10dc96ba0e6ffad532f76658ce",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/形态转换/01-订单形态转换.md",
+      "bytes": 11375,
+      "sha256": "0eb173dfe138ebc4c3083794a11a8e1ae0996b766b5a6ad9d743ab628dacaf57",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/形态转换/02-库存形态转换.md",
+      "bytes": 9396,
+      "sha256": "5950a65f385548dbfe3f3f215f97203cda94f823146e8922548d556effafdf03",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/成品出库/成品出库.md",
+      "bytes": 31497,
+      "sha256": "ad2d23590dc2359386cb5e977f6d5764f6019a3bc8105d9e3406725c1caf7d0a",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/成品异常/成品异常.md",
+      "bytes": 10191,
+      "sha256": "8f47fff6f0ee32fddfaf04c5cc5970f6c009cedfb58c948ba3c57d74f94dad54",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/排产计划/排产计划.md",
+      "bytes": 5223,
+      "sha256": "82d405802c3101c62946696bb40fb99ef5937ce711a0f7221054251665d5f42e",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/模板样式说明/PRD需求文档模板.md",
+      "bytes": 21153,
+      "sha256": "96aed78286f63beecdadcb55276af4b89be181e382947badff8507951313e298",
+      "kind": "template"
+    },
+    {
+      "path": "requirements/source/PRD文档/物料管理/料品管理.md",
+      "bytes": 4680,
+      "sha256": "083e119192f677a95ce5a8515944606b70602385172086f84ec7100caa84b784",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/生产管理/倒轴记录.md",
+      "bytes": 7605,
+      "sha256": "811fc0d5a39752a61c7add4325a9f444b5e25704b5e02771b127364690a103eb",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/生产管理/排产附件.md",
+      "bytes": 5170,
+      "sha256": "0b209bd2d25a8438be39fe043e0176e2fd7dd50a0e86b79a33f2c08f91e8b531",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/生产管理/生产订单.md",
+      "bytes": 12010,
+      "sha256": "3caa5b05a1f97ddcaef072e60ad64dddc15e2b9da2dd07c5f17cfae0f4a6f071",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/生产管理/订单排程.md",
+      "bytes": 9174,
+      "sha256": "7f918c1ca6572a232bc6ccc7bea339a899a827b006eaf6e4c3a2961a7f250f49",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/生产管理/设备排程.md",
+      "bytes": 8131,
+      "sha256": "c8890638b1c5037e441125efebcced56b4a023c37587c19568bfa1ed6116a399",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/生产管理/轴查询.md",
+      "bytes": 4400,
+      "sha256": "226321dea164fc6ae9c55aca5fc1903c71e508a36cb864f44df9432ad2d431e7",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/生产管理/轴码清空.md",
+      "bytes": 5030,
+      "sha256": "8a39777930ec9bacb161b92aa5f9fca744303bb640c8805691f3755a50b5ed6a",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/码包管理/二维码管理.md",
+      "bytes": 4070,
+      "sha256": "ddb908da514563a31e3b92957ce65b0bed333f8d7f4c61bbb81fb9ff716ba277",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/移库管理/移库管理.md",
+      "bytes": 12221,
+      "sha256": "3c6963047618974a76b3dc1488d5d1fa3e56cfc1e2b1232d1c295e2d886187aa",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/组织权限/用户管理.md",
+      "bytes": 7881,
+      "sha256": "409d564b57b9d689026f359404c7f3aaa2fba536ce06149cdeca5ba1c2a957b7",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/组织权限/角色管理.md",
+      "bytes": 4002,
+      "sha256": "8deb77dc16b89bac77b0581da91203ed637fdb5652285e28fae13fac9af65cce",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/订单报工/01-实绩录入.md",
+      "bytes": 54093,
+      "sha256": "74a95592ba2458f5411e0a4bc71bc8a7b8792c74e158eaa432fffdc811bc9e4e",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/订单报工/02-工作台报工.md",
+      "bytes": 36373,
+      "sha256": "3e2403ddb90d2339d9884cb356a035e52737cc0ffe5a8e539fa2be44d88352aa",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/订单报工/03-扫码报工.md",
+      "bytes": 25232,
+      "sha256": "b54321d7877acd4324bad00e63c5c5229cceb757ff4e1b007f9d99e7906b38a4",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/订单报工/04-报工记录.md",
+      "bytes": 23816,
+      "sha256": "a4817e7f03947a6574750e0be5847dc5155dc317b49e69e7e9b9e8cfece22d41",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/订单报工/05-单独投料.md",
+      "bytes": 13472,
+      "sha256": "1902136029db8ee5fc9ad55fd33ab6bcf136f206434b445b86dec026f73e3e50",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/调拨入库/调拨入库.md",
+      "bytes": 16865,
+      "sha256": "941a333995e301e1aabf7c75adafda11e462fa561c29abfc83a0eee4622d8b8d",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/调拨出库/调拨出库.md",
+      "bytes": 29483,
+      "sha256": "f17f6845555d494d28e6d1e4f21e257f4c61aab517d7e3d1f05cc2c142ea318a",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/质量存疑/质量存疑.md",
+      "bytes": 5791,
+      "sha256": "e92d671a1e9a8ff252bc831eaf84ca4f4993e975bf3c205599199cd82baefbae",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/轴号修正/轴号修正.md",
+      "bytes": 12126,
+      "sha256": "d03205af624db2fceb95cdcb9710dbf3732477a38ce728d78bc861c113596b38",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/采购管理/采购复核.md",
+      "bytes": 4797,
+      "sha256": "b417f7893173ec029c237a8048172015df7c1c2a9144728a8ea5bf1d30dcbe0b",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/采购管理/采购批次.md",
+      "bytes": 25047,
+      "sha256": "37a7598c2050862faa522d5484af1b9e0646f3e66f957b9acabb8c90899854d4",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/采购管理/采购明细.md",
+      "bytes": 4426,
+      "sha256": "47934fb52339e93efff467d41feb0886b5b6639cc81807ca013aafd41637709b",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/采购管理/采购订单.md",
+      "bytes": 6868,
+      "sha256": "1dbe0c7a2a9eac3203cdcc7346417e75b0c143a0c73d5d026ade18432134f232",
+      "kind": "business_prd"
+    },
+    {
+      "path": "requirements/source/PRD文档/采购管理/采购质检.md",
+      "bytes": 16589,
+      "sha256": "db3da09dbc70da8df85c7920a4372d3e95df9feddad5ddb469abbaeaecc32ce3",
+      "kind": "business_prd"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+
+# npm 同构布局：恢复 PM 以 npm 安装的 node_modules 形态（真实目录），
+# 满足 architecture/control 的 startup-binding 校验（.bin/owlrunkit realpath 必须落在
+# node_modules/owlrunkit 内），owlrunkit@0.23.0 CLI 继续可用。
+nodeLinker: hoisted
+
+# 依赖构建脚本白名单（pnpm 10+ 默认阻止未批准的 postinstall）
+allowBuilds:
+  esbuild: true

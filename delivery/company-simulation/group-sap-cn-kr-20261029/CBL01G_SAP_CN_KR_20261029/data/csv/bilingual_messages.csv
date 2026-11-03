@@ -1,0 +1,21 @@
+﻿id,sim,world_id,simulation_version,text_zh,text_ko,classification,native_reviewed,qualified_key
+CBL01G-M01,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,请先核对公司、工厂、订单行和版本。,회사·공장·오더 행·버전을 먼저 확인하십시오.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M01
+CBL01G-M02,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,报工来源不能为空,실적 등록 경로는 필수입니다.,PRD34_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M02
+CBL01G-M03,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,二维码未审批或未质检完成,QR코드의 승인 또는 품질검사가 완료되지 않았습니다.,PRD36_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M03
+CBL01G-M04,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,二维码必须存在于线边库,QR코드는 라인 측 창고에 있어야 합니다.,PRD36_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M04
+CBL01G-M05,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,原料不可消耗,이 화면에서는 원자재를 투입할 수 없습니다.,PRD36_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M05
+CBL01G-M06,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,当前扫码物料存在非本订单的半成品，确定要继续投料吗？,스캔한 자재에 다른 오더의 반제품이 있습니다. 계속 투입하시겠습니까?,PRD36_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M06
+CBL01G-M07,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,当前设备状态不允许开工,현재 설비 상태에서는 가동할 수 없습니다.,PRD09_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M07
+CBL01G-M08,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,请选择货架层数,랙 단수를 선택하십시오.,PRD01/12/37_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M08
+CBL01G-M09,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,该码需要扫描关联托码,이 코드는 연결된 팔레트 코드를 스캔해야 합니다.,PRD37_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M09
+CBL01G-M10,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,SAP结果未知。请按原事件键查询，勿重复过账。,SAP 처리 결과를 알 수 없습니다. 원래 이벤트 키로 조회하고 중복 전기하지 마십시오.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M10
+CBL01G-M11,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,本地执行已完成，SAP尚未确认。,로컬 실행은 완료됐지만 SAP 확인은 아직 없습니다.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M11
+CBL01G-M12,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,SAP已成功，原回执已恢复；本次不新增数量。,SAP 처리가 성공했고 원래 결과를 복구했습니다. 이번에는 수량을 추가하지 않습니다.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M12
+CBL01G-M13,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,已收到版本3，等待父版本2。,버전 3을 받았습니다. 상위 버전 2를 기다립니다.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M13
+CBL01G-M14,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,已生产数量不能通过取消指令删除。,이미 생산된 수량은 취소 지시로 삭제할 수 없습니다.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M14
+CBL01G-M15,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,集团隔离未解除，禁止发运。,그룹 격리가 해제되지 않았습니다. 출고할 수 없습니다.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M15
+CBL01G-M16,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,客户召回确认未收到，不得生成返库。,고객의 리콜 확인을 받지 못했습니다. 반품 입고를 생성하지 마십시오.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M16
+CBL01G-M17,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,离线授权已到期，停止新增执行。,오프라인 허가가 만료됐습니다. 신규 실행을 중단하십시오.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M17
+CBL01G-M18,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,本机保存尚未提交，Web无正式单据。,로컬 저장 자료는 아직 제출되지 않았으며 웹에 공식 문서가 없습니다.,PRD01/42_PROPOSED_KO,False,CBL01G|bilingual_messages|CBL01G-M18
+CBL01G-M19,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,币种或数量基准不同，请分组显示。,통화 또는 수량 기준이 다릅니다. 구분하여 표시하십시오.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M19
+CBL01G-M20,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,计量有效性不足，能耗显示未知。,계측 유효성이 부족하여 에너지 사용량을 알 수 없음으로 표시합니다.,GROUP_SIM,False,CBL01G|bilingual_messages|CBL01G-M20

@@ -1,0 +1,507 @@
+{
+  "version": "CBL01G-SIM-v2.0",
+  "record_reference_rule": "表内id为主键；跨表须用table+id或qualified_key；SAP业务对象用system+company+plant+kind+number+line；事件幂等键独立",
+  "decimal_rule": "JSON/CSV小数4位字符串；无值null非0；6位kg/m为SIM工程参数",
+  "time_rule": "每事件保留带时区原时间与UTC；班次开始当地日为business_date",
+  "quantity_rule": "m仍需basis区分core_m/cable_m；kg与m按明确BOM质量假设核对，不能直接相加；币种分组",
+  "primary_keys": {
+    "group": "id",
+    "entities": "id",
+    "plants": "id",
+    "systems": "id",
+    "people": "id",
+    "qualifications": "id",
+    "organizations": "id",
+    "warehouses": "id",
+    "locations": "id",
+    "racks": "id",
+    "workcenters": "id",
+    "organization_mappings": "id",
+    "equipment": "id",
+    "calendars": "id",
+    "partners": "id",
+    "materials": "id",
+    "material_mappings": "id",
+    "pack_units": "id",
+    "bom_routes": "id",
+    "processes": "id",
+    "templates": "id",
+    "sales_orders": "id",
+    "orders": "id",
+    "order_versions": "id",
+    "order_processes": "id",
+    "segments": "id",
+    "allocations": "id",
+    "raw_inputs": "id",
+    "ai_drafts": "id",
+    "decisions": "id",
+    "purchase_orders": "id",
+    "stock_objects": "id",
+    "carriers": "id",
+    "documents": "id",
+    "purchase_batches": "id",
+    "inventory_events": "id",
+    "inspections": "id",
+    "price_reviews": "id",
+    "internal_demands": "id",
+    "schedules": "id",
+    "raw_issues": "id",
+    "reports": "id",
+    "report_axes": "id",
+    "lineage": "id",
+    "manufacturing_runs": "id",
+    "energy_facts": "id",
+    "auxiliary_jobs": "id",
+    "feeds": "id",
+    "transfers": "id",
+    "transfer_lines": "id",
+    "segment_allocations": "id",
+    "pallets": "id",
+    "pallet_events": "id",
+    "inbound_tasks": "id",
+    "local_transfers": "id",
+    "shipments": "id",
+    "print_jobs": "id",
+    "equipment_events": "id",
+    "metrology": "id",
+    "quality_cases": "id",
+    "recall_cases": "id",
+    "network_windows": "id",
+    "offline_permits": "id",
+    "messages": "id",
+    "message_attempts": "id",
+    "integration_batches": "id",
+    "fx_inputs": "id",
+    "intercompany_commercial": "id",
+    "commercial_differences": "id",
+    "object_ownership": "id",
+    "variants": "id",
+    "sources": "id",
+    "bilingual_cards": "id",
+    "coverage": "id",
+    "prd_differences": "id",
+    "group_differences": "id",
+    "assumptions": "id",
+    "bilingual_messages": "id",
+    "handoffs": "id",
+    "todos": "id",
+    "inventory_balances": "id",
+    "sap_reconciliation": "id",
+    "kpis": "id",
+    "financial_quantity_summary": "id",
+    "negative_cases": "id",
+    "order_start_records": "id",
+    "device_start_records": "id",
+    "report_state_history": "id",
+    "upstream_purchase_lines": "id",
+    "upstream_sales_lines": "id",
+    "contracts": "id",
+    "message_line_receipts": "id",
+    "order_cost_quantity_facts": "id",
+    "plant_metrics": "id",
+    "packing_lists": "id",
+    "branch_fixtures": "id",
+    "timeline": "id"
+  },
+  "foreign_keys": {
+    "plants": {
+      "entity_id": "entities"
+    },
+    "people": {
+      "entity_id": "entities",
+      "plant_id": "plants",
+      "upstream_person_id": "people",
+      "downstream_person_id": "people"
+    },
+    "equipment": {
+      "plant_id": "plants",
+      "workcenter_id": "workcenters"
+    },
+    "warehouses": {
+      "plant_id": "plants",
+      "organization_id": "organizations",
+      "manager_id": "people"
+    },
+    "locations": {
+      "plant_id": "plants",
+      "warehouse_id": "warehouses",
+      "rack_id": "racks"
+    },
+    "orders": {
+      "plant_id": "plants",
+      "entity_id": "entities",
+      "sales_order_id": "sales_orders",
+      "material_id": "materials",
+      "bom_route_id": "bom_routes"
+    },
+    "order_versions": {
+      "order_id": "orders",
+      "author_id": "people"
+    },
+    "order_processes": {
+      "order_id": "orders",
+      "process_id": "processes"
+    },
+    "sales_orders": {
+      "entity_id": "entities",
+      "customer_id": "partners",
+      "material_id": "materials",
+      "promise_owner_id": "people"
+    },
+    "purchase_orders": {
+      "plant_id": "plants",
+      "entity_id": "entities",
+      "vendor_id": "partners",
+      "material_id": "materials"
+    },
+    "purchase_batches": {
+      "purchase_order_id": "purchase_orders",
+      "object_id": "stock_objects",
+      "receipt_document_id": "documents"
+    },
+    "raw_issues": {
+      "run_id": "manufacturing_runs",
+      "document_id": "documents",
+      "order_id": "orders",
+      "object_id": "stock_objects",
+      "material_id": "materials",
+      "actor_id": "people"
+    },
+    "reports": {
+      "run_id": "manufacturing_runs",
+      "order_id": "orders",
+      "plant_id": "plants",
+      "process_id": "processes",
+      "equipment_id": "equipment",
+      "reporter_id": "people",
+      "reviewer_id": "people"
+    },
+    "report_axes": {
+      "report_id": "reports",
+      "object_id": "stock_objects"
+    },
+    "feeds": {
+      "run_id": "manufacturing_runs",
+      "document_id": "documents",
+      "order_id": "orders",
+      "source_order_id": "orders",
+      "source_object_id": "stock_objects",
+      "material_id": "materials",
+      "actor_id": "people"
+    },
+    "lineage": {
+      "parent_object_id": "stock_objects",
+      "child_object_id": "stock_objects",
+      "run_id": "manufacturing_runs"
+    },
+    "stock_objects": {
+      "material_id": "materials",
+      "issuer_plant_id": "plants",
+      "original_order_id": "orders",
+      "carrier_id": "carriers"
+    },
+    "inventory_events": {
+      "object_id": "stock_objects",
+      "actor_id": "people",
+      "plant_context_id": "plants",
+      "document_id": "documents"
+    },
+    "inventory_balances": {
+      "object_id": "stock_objects",
+      "material_id": "materials",
+      "current_plant_id": "plants",
+      "warehouse_id": "warehouses",
+      "location_id": "locations",
+      "pallet_id": "pallets",
+      "order_id": "orders"
+    },
+    "transfers": {
+      "origin_plant_id": "plants",
+      "destination_plant_id": "plants",
+      "source_entity_id": "entities",
+      "destination_entity_id": "entities",
+      "out_document_id": "documents",
+      "in_document_id": "documents"
+    },
+    "transfer_lines": {
+      "transfer_id": "transfers",
+      "object_id": "stock_objects"
+    },
+    "messages": {
+      "plant_id": "plants",
+      "source_system_id": "systems",
+      "target_system_id": "systems"
+    },
+    "message_attempts": {
+      "message_id": "messages"
+    },
+    "sap_reconciliation": {
+      "object_id": "stock_objects",
+      "material_id": "materials",
+      "current_plant_id": "plants",
+      "sap_input_id": "raw_inputs",
+      "decision_owner_id": "people"
+    },
+    "handoffs": {
+      "from_person_id": "people",
+      "to_person_id": "people"
+    },
+    "todos": {
+      "owner_person_id": "people"
+    },
+    "bilingual_cards": {
+      "source_id": "sources",
+      "actor_id": "people",
+      "handoff_person_id": "people"
+    },
+    "coverage": {
+      "source_id": "sources",
+      "scenario_id": "bilingual_cards",
+      "actor_id": "people"
+    },
+    "systems": {
+      "owner_person_id": "people"
+    },
+    "qualifications": {
+      "person_id": "people",
+      "plant_id": "plants"
+    },
+    "organizations": {
+      "plant_id": "plants",
+      "entity_id": "entities"
+    },
+    "racks": {
+      "plant_id": "plants",
+      "warehouse_id": "warehouses"
+    },
+    "workcenters": {
+      "plant_id": "plants",
+      "organization_id": "organizations"
+    },
+    "organization_mappings": {
+      "source_system_id": "systems",
+      "mom_workcenter_id": "workcenters"
+    },
+    "calendars": {
+      "plant_id": "plants"
+    },
+    "material_mappings": {
+      "plant_id": "plants",
+      "material_id": "materials"
+    },
+    "pack_units": {
+      "material_id": "materials"
+    },
+    "bom_routes": {
+      "material_id": "materials"
+    },
+    "processes": {
+      "plant_id": "plants",
+      "workcenter_id": "workcenters"
+    },
+    "templates": {
+      "plant_id": "plants"
+    },
+    "segments": {
+      "order_id": "orders",
+      "sales_order_id": "sales_orders"
+    },
+    "allocations": {
+      "sales_order_id": "sales_orders",
+      "order_id": "orders",
+      "plant_id": "plants",
+      "decision_id": "decisions"
+    },
+    "raw_inputs": {
+      "plant_id": "plants",
+      "actor_id": "people"
+    },
+    "decisions": {
+      "actor_id": "people"
+    },
+    "documents": {
+      "plant_id": "plants",
+      "actor_id": "people",
+      "receiver_id": "people",
+      "decision_id": "decisions"
+    },
+    "inspections": {
+      "object_id": "stock_objects",
+      "purchase_batch_id": "purchase_batches",
+      "inspector_id": "people"
+    },
+    "price_reviews": {
+      "batch_id": "purchase_batches"
+    },
+    "internal_demands": {
+      "order_id": "orders",
+      "plant_id": "plants"
+    },
+    "schedules": {
+      "plant_id": "plants",
+      "order_id": "orders",
+      "equipment_id": "equipment",
+      "process_id": "processes",
+      "operator_id": "people",
+      "offline_permit_id": "offline_permits"
+    },
+    "manufacturing_runs": {
+      "plant_id": "plants",
+      "order_id": "orders",
+      "document_id": "documents"
+    },
+    "energy_facts": {
+      "plant_id": "plants",
+      "run_id": "manufacturing_runs",
+      "equipment_id": "equipment"
+    },
+    "auxiliary_jobs": {
+      "equipment_id": "equipment",
+      "operator_id": "people"
+    },
+    "segment_allocations": {
+      "sales_order_id": "sales_orders",
+      "plant_id": "plants",
+      "order_id": "orders"
+    },
+    "pallets": {
+      "issuer_plant_id": "plants"
+    },
+    "pallet_events": {
+      "object_id": "stock_objects",
+      "target_pallet_id": "pallets",
+      "actor_id": "people"
+    },
+    "inbound_tasks": {
+      "plant_id": "plants",
+      "receipt_document_id": "documents"
+    },
+    "local_transfers": {
+      "plant_id": "plants",
+      "out_doc_id": "documents",
+      "in_doc_id": "documents"
+    },
+    "shipments": {
+      "plant_id": "plants",
+      "sales_order_id": "sales_orders",
+      "customer_id": "partners",
+      "pl_document_id": "documents"
+    },
+    "print_jobs": {
+      "plant_id": "plants",
+      "pallet_id": "pallets"
+    },
+    "equipment_events": {
+      "equipment_id": "equipment",
+      "actor_id": "people",
+      "approval_id": "decisions"
+    },
+    "metrology": {
+      "equipment_id": "equipment"
+    },
+    "quality_cases": {
+      "object_id": "stock_objects",
+      "plant_id": "plants",
+      "owner_person_id": "people",
+      "local_person_id": "people"
+    },
+    "recall_cases": {
+      "object_id": "stock_objects",
+      "customer_id": "partners",
+      "notice_document_id": "documents",
+      "owner_person_id": "people"
+    },
+    "network_windows": {
+      "plant_id": "plants"
+    },
+    "offline_permits": {
+      "plant_id": "plants",
+      "order_id": "orders",
+      "author_id": "people",
+      "approver_id": "people",
+      "decision_id": "decisions"
+    },
+    "fx_inputs": {
+      "source_system_id": "systems",
+      "owner_person_id": "people"
+    },
+    "intercompany_commercial": {
+      "transfer_id": "transfers",
+      "seller_entity_id": "entities",
+      "buyer_entity_id": "entities",
+      "fx_input_id": "fx_inputs",
+      "decision_owner_id": "people"
+    },
+    "commercial_differences": {
+      "commercial_id": "intercompany_commercial"
+    },
+    "variants": {
+      "plant_id": "plants",
+      "object_id": "stock_objects"
+    },
+    "financial_quantity_summary": {
+      "owner_person_id": "people"
+    },
+    "timeline": {
+      "plant_id": "plants",
+      "document_id": "documents",
+      "actor_id": "people",
+      "receiver_id": "people"
+    },
+    "order_start_records": {
+      "order_id": "orders",
+      "plant_id": "plants",
+      "actor_id": "people"
+    },
+    "device_start_records": {
+      "equipment_id": "equipment",
+      "plant_id": "plants",
+      "actor_id": "people",
+      "previous_start_record_id": "device_start_records"
+    },
+    "report_state_history": {
+      "report_id": "reports",
+      "actor_id": "people"
+    },
+    "upstream_purchase_lines": {
+      "purchase_order_id": "purchase_orders",
+      "created_by_id": "people",
+      "owner_system_id": "systems",
+      "contract_id": "contracts"
+    },
+    "upstream_sales_lines": {
+      "sales_order_id": "sales_orders",
+      "created_by_id": "people",
+      "owner_system_id": "systems",
+      "customer_id": "partners",
+      "contract_id": "contracts"
+    },
+    "contracts": {
+      "partner_id": "partners"
+    },
+    "message_line_receipts": {
+      "message_id": "messages",
+      "object_id": "stock_objects"
+    },
+    "order_cost_quantity_facts": {
+      "order_id": "orders",
+      "plant_id": "plants",
+      "family_id": "bom_routes"
+    },
+    "plant_metrics": {
+      "plant_id": "plants"
+    },
+    "packing_lists": {
+      "shipment_id": "shipments",
+      "pl_document_id": "documents",
+      "packing_document_id": "documents",
+      "pallet_id": "pallets"
+    },
+    "branch_fixtures": {
+      "variant_id": "variants",
+      "actor_id": "people",
+      "source_object_id": "stock_objects"
+    }
+  },
+  "all_actual_product_runs": 0
+}

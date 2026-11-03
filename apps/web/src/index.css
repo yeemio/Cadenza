@@ -1,0 +1,10 @@
+/**
+ * web 工作台样式入口（Tailwind 4）：
+ * - 先引 tailwindcss 引擎，再以相对路径引 @cadenza/ui 的主题（令牌 + 兼容类 + @source；
+ *   裸包名引入会与 vite alias 双重重写冲突，故走相对路径直指源文件，目标与
+ *   vite alias 的 @cadenza/ui 主题映射一致）；
+ * - 显式声明应用源码扫描（不依赖自动探测的根目录判定）。
+ */
+@import "tailwindcss";
+@import "../../../packages/ui/src/theme.css";
+@source "./**/*.{ts,tsx}";

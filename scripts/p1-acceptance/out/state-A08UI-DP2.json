@@ -1,0 +1,148 @@
+{
+  "run": "A08UI-DP2",
+  "nodes": {
+    "DEPT-SZ-WL": "d0a63cf0-cb47-4bff-bd65-28ae185c77f6",
+    "PLNT-HF": "c09fbaf7-ad85-487d-8495-b8a35100f2f0",
+    "ENT-HD": "d8bfa983-53b4-405c-9c3f-746bc9b87731",
+    "PLNT-SZ": "bd31c1a9-1eba-44a0-aa00-9667a52ec488",
+    "DEPT-SZ-JZ": "9e9df1ed-cce9-422c-8da3-739cf4793c7f",
+    "DEPT-HF-JZ": "9c88257e-05cd-4dd3-8a15-c0611037a204"
+  },
+  "entId": "d8bfa983-53b4-405c-9c3f-746bc9b87731",
+  "szPlantId": "bd31c1a9-1eba-44a0-aa00-9667a52ec488",
+  "hfPlantId": "c09fbaf7-ad85-487d-8495-b8a35100f2f0",
+  "hfUserId": "bc54feae-58e2-4659-9967-8840833f5887",
+  "wcId": "73b595f6-6cd9-4b87-973f-b14187ee982b",
+  "equipment": {
+    "EQ-P1-01": {
+      "id": "ef730354-d882-47b3-b9a4-0cf1ac229ee3",
+      "qrCode": "EQU-EQ-P1-01"
+    },
+    "EQ-P1-02": {
+      "id": "9f1de919-ce1f-449c-b10a-81c20d8e5660",
+      "qrCode": "EQU-EQ-P1-02"
+    }
+  },
+  "wh": {
+    "sz9101": "cbefb46f-88e5-4f96-b91b-508895349b93",
+    "sz9102": "a165acb9-663e-4530-ad3a-9ef7a6e2622e",
+    "sz9103": "922ec005-2cf5-4ea3-872d-997bf4100490",
+    "sz9190": "ef4efc1c-6ea3-4f6b-a920-0d80a5a23dcd",
+    "hf9102": "00b2cb1d-07c2-4c6b-9ee1-f2426cc6fb3e"
+  },
+  "loc": {
+    "sz9101": {
+      "91010101": "cf3320b9-e38b-4712-aa01-b7bfde6aa17f"
+    },
+    "sz9102": {
+      "91020101": "69235130-b441-46c5-b13e-976b4107640f"
+    },
+    "sz9103": {
+      "91030101": "59c02c10-1d69-4ca2-b368-c7b4611d0a66"
+    },
+    "sz9190": {
+      "91900101": "80ff7548-aef0-4843-a3e8-d001d8755a53"
+    },
+    "hf9102": {
+      "91020101": "ea572736-9a29-4d20-9c23-c397581d32d6"
+    },
+    "010101": "8d1cbbb5-b16e-46d9-b306-145ea787f15c",
+    "010102": "1f29f33f-b897-437b-b042-aeb63529924b",
+    "010201": "ef2f4075-ad7c-4e6f-9206-cf368ba8655d",
+    "010202": "80bfe622-5f96-4cf3-8a65-304f5238a6eb"
+  },
+  "mat": {
+    "MAT-P1-RAW": "a65ff65b-d6c5-476a-9e01-0e5c34b59770",
+    "MAT-P1-EXP": "63874e62-e2a2-413c-b472-e5424040b0ae",
+    "MAT-P1-FIN": "7aeec528-2b28-4ad6-a9f3-db9ba286cbff"
+  },
+  "ops": {
+    "org.grant.grant": "A08UI-DP2-a01-grant",
+    "purchase.order-sync": "A08UI-DP2-a02-posync",
+    "purchase.receive-confirm#1": "A08UI-DP2-a02-rcv1",
+    "purchase.receive-confirm#2": "A08UI-DP2-a02-rcv2",
+    "process.order.receive": "A08UI-DP2-a03-order",
+    "execution.report.submit": "A08UI-DP2-a04-r-last"
+  },
+  "po": {
+    "orderNo": "PO-A08UI-DP2-001",
+    "line10Id": "f2f5c005-53bf-4203-8bbd-e97b4306f950",
+    "line20Id": "5bd6f2db-7d32-4d02-a8a9-1d3ea74ac782",
+    "barcode1": "RA08UIDP2R",
+    "batch1": {
+      "batchId": "d805e99f-74ea-4414-ac61-4bbb0db0611f",
+      "batchNo": "PRBMVS6GFXRECI",
+      "detailId": "1fd7e13e-b327-4b68-bb5a-e00b465d75d7",
+      "unitId": "f14ea10d-6fc6-4c06-ae1b-9c064e2a64c6",
+      "unitNo": "PUR-PRBMVS6GFXRECI-1"
+    },
+    "barcode2": "RA08UIDP2R",
+    "batch2": {
+      "batchId": "0c4a5bff-9fd1-487f-b8ca-6d11c73c7c86",
+      "batchNo": "PRBMVS6GFZNTVH",
+      "detailId": "fa6d74ba-d560-4609-9cda-a0ad343c2f96",
+      "unitId": "bac88a49-8430-4b1d-a7d1-aa23fc7fb795",
+      "unitNo": "PUR-PRBMVS6GFZNTVH-1"
+    },
+    "batchExp": {
+      "batchId": "8a05e903-504d-4c0a-9637-7750242b0b1f",
+      "batchNo": "PRBMVS6GG8PN25",
+      "unitId": "61c40ab9-7902-4907-9b5c-f5a1281e8f40",
+      "unitNo": "PUR-PRBMVS6GG8PN25-1"
+    }
+  },
+  "today": "2026-10-28",
+  "famId": "c65c7173-7994-43dd-bc72-667799a5d3f6",
+  "opDef": {
+    "OP-P1-01": "8cb94053-c949-42e5-867c-7b1f6be89e52",
+    "OP-P1-02": "be90d3a7-9a90-4a6b-90f8-761becdc01b1"
+  },
+  "bomRevId": "bcd930ef-cc45-4b24-8ae9-704809c22a7e",
+  "routeRevId": "96dd5693-9ba0-4aeb-a3d9-b4f3f8e0bf42",
+  "order": {
+    "orderId": "fa48cfcf-7957-4b43-9778-3134a533913b",
+    "orderNo": "MO-A08UI-DP2-MAIN",
+    "routeRevisionId": "96dd5693-9ba0-4aeb-a3d9-b4f3f8e0bf42",
+    "bomRevisionId": "bcd930ef-cc45-4b24-8ae9-704809c22a7e",
+    "op1Id": "f3bd9ea4-7da4-4e33-ab19-ab6e7ce7a501",
+    "op2Id": "0c69a05e-0290-471a-8a4d-19725d3d5314"
+  },
+  "reports": {
+    "A08UI-DP2-a04-r-order": {
+      "reportId": "38670ea0-86ec-488a-8f96-a963cc959853"
+    },
+    "A08UI-DP2-a04-r-wb": {
+      "reportId": "75ced8f8-3ed6-4b0b-ba87-ceb93cccb769"
+    },
+    "A08UI-DP2-a04-r-scan": {
+      "reportId": "ebe9f717-2138-43f8-85f9-c2d1572c418a"
+    },
+    "A08UI-DP2-a04-r-last": {
+      "reportId": "f57b4f57-f0ef-4bce-a95f-501c604a5a0d"
+    }
+  },
+  "prduUnits": [
+    {
+      "unitId": "802ff4c0-b371-4547-9029-08bd21f722dc",
+      "unitNo": "PRDU-38670ea0-1",
+      "qty": "2000.0000"
+    },
+    {
+      "unitId": "605e7052-70a0-4bc9-a502-f2d986146d4c",
+      "unitNo": "PRDU-75ced8f8-1",
+      "qty": "1500.0000"
+    },
+    {
+      "unitId": "b3503c44-72f2-438e-8421-67a1c0e7703a",
+      "unitNo": "PRDU-ebe9f717-1",
+      "qty": "1000.0000"
+    },
+    {
+      "unitId": "be9fc92a-77b6-44c8-8ad7-389bf04209d4",
+      "unitNo": "PRDU-f57b4f57-1",
+      "qty": "600.0000"
+    }
+  ],
+  "feedOrderId": "885f2aba-0415-427e-9339-e45d2b882bb8",
+  "feedOpId": "3460b4d2-73c2-4a56-aeba-12f7fa6f8b04"
+}

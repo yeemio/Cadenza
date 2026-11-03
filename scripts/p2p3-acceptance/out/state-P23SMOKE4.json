@@ -1,0 +1,69 @@
+{
+  "run": "P23SMOKE4",
+  "nodes": {
+    "DEPT-SZ-WL": "a20e8ebb-c644-46a9-bbd8-0535cb44e845",
+    "ENT-HD": "92257302-83f7-473a-8cb8-a7ecccdae147",
+    "PLNT-SZ": "b9ed45ef-b5a8-4f46-8c7a-70f3bf593117",
+    "DEPT-SZ-JZ": "2ad1ddb5-d2b3-4053-bea7-2b5128a986c6"
+  },
+  "entId": "92257302-83f7-473a-8cb8-a7ecccdae147",
+  "szPlantId": "b9ed45ef-b5a8-4f46-8c7a-70f3bf593117",
+  "wh": {
+    "whMain": "d908b988-86a4-4c42-8336-f3e6df99bf22",
+    "whLine": "70fe66d6-c31d-4641-9a78-dd22d579e1f8"
+  },
+  "loc": {
+    "whMain": "71f0cc83-6807-40ce-b34e-a1b6041d65e2",
+    "whLine": "0cc0df5d-b1b6-49b0-9c19-d9a16a522955",
+    "whMainCode": "84990101",
+    "whLineCode": "40040101"
+  },
+  "wcId": "a517b1e3-3d74-4a7c-9564-30b9bc5ce72c",
+  "equipment": {
+    "EQ-P23SMOKE4-01": {
+      "id": null
+    },
+    "EQ-P23SMOKE4-10": {
+      "id": null
+    }
+  },
+  "eqExecCode": "EQ-P23SMOKE4-01",
+  "eqMtCode": "EQ-P23SMOKE4-10",
+  "opDefId": "52c2a712-a094-463e-be98-ad06ddb69adf",
+  "mat": {
+    "MAT-P23-FIN": "a14c674c-13c6-458a-8a10-3c36bd52a729",
+    "MAT-P23-RAW": "d05ed099-b47e-4aeb-a27a-e0f52c653512",
+    "MAT-P23-SPARE": "78f41066-01d0-4cef-9e5b-26c288d130f4"
+  },
+  "orderSrc": {
+    "orderId": "dd5f1690-3e94-49c5-bf18-9d26d73fbf9f",
+    "orderNo": "MO-P23SMOKE4-SRC",
+    "op1Id": "a3fcd8a2-102f-4b4d-b7e9-65842cc9acf7"
+  },
+  "orderTgt": {
+    "orderId": "98b16894-8f54-4287-875b-40682a5f18fa",
+    "orderNo": "MO-P23SMOKE4-TGT",
+    "op1Id": "da4b7d23-d9c4-4497-a019-ebddfd5ec0f0"
+  },
+  "orderFeed": {
+    "orderId": "e05789e9-a874-4f08-b65f-b53e5939c5b9",
+    "orderNo": "MO-P23SMOKE4-FEED",
+    "op1Id": "badbb7bc-a9ae-4855-8632-1d3c89a1b184"
+  },
+  "orderCost": {
+    "orderId": "9fd35262-55c7-49c8-b518-c9cd96426eb5",
+    "orderNo": "MO-P23SMOKE4-COST",
+    "op1Id": "4320afaf-05a1-4d14-9cb3-fa5be3ef29ec"
+  },
+  "costReportId": null,
+  "laborRecordId": "dbe06dbc-9b03-4d4b-8ab4-0be10823fa1b",
+  "costSession": {},
+  "uCvA": "1E23SMOKE4001",
+  "uCvAId": "1ef12841-dcc3-4a18-9d19-7d94df8c74d1",
+  "uCvB1": "2F23SMOKE4001",
+  "uCvB2": "2F23SMOKE4002",
+  "uCvB1Id": "32a6d1fd-4800-48dc-84fd-81d5f80ffb0d",
+  "uCvB2Id": "e762d0fe-7474-47a8-823e-671d6ccd3b59",
+  "uSpare": "SP23SMOKE4001",
+  "uSpareId": "031c56b8-0796-4070-b6fa-f070b3b25806"
+}

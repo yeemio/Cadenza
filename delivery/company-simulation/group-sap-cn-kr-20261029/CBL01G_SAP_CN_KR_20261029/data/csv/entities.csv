@@ -1,0 +1,4 @@
+﻿id,sim,world_id,simulation_version,sap_company_code,name_zh,name_ko,local_currency,employee_population,owner_system,actual_registration,qualified_key
+CBL01G-H000,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,H000,澄岳集团控股（SIM）,청악그룹홀딩스(SIM),CNY,90,SAP_SIM,False,CBL01G|entities|CBL01G-H000
+CBL01G-C100,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,C100,澄岳中国制造（SIM）,청악중국제조(SIM),CNY,880,SAP_SIM,False,CBL01G|entities|CBL01G-C100
+CBL01G-K200,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,K200,청악코리아 제조(SIM),청악코리아 제조(SIM),KRW,500,SAP_SIM,False,CBL01G|entities|CBL01G-K200

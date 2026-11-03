@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "./**/*.ts",
+    "../../scripts/sol-sap-recon/**/*.ts",
+    "../../apps/api/src/sap/sap.controller.ts",
+    "../../apps/api/src/rework/rework.controller.ts",
+    "../../apps/api/src/quality/quality.controller.ts",
+    "../../apps/api/src/inventory/inventory.controller.ts"
+  ]
+}

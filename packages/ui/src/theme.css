@@ -1,0 +1,251 @@
+/**
+ * Cadenza 主题 v2 —— Tailwind 4 @theme 令牌 + shadcn 体系（UI 现代化换肤，2026-10-28）。
+ *
+ * 结构参考 Cadence（apps/web/src/index.css）：CSS 变量 + @theme inline 映射 + Radix/CVA 组件；
+ * 数值为本仓自研的"工业蓝 + 冷灰中性阶"（克制配色、高信息密度，中文工厂风保留）。
+ *
+ * 组合方式：由各应用（web 与 pda）的入口 CSS 先引 tailwindcss 引擎，再以相对
+ * 路径引本文件（本文件不含 tailwindcss 入口，避免重复；注意：勿在 CSS 注释里
+ * 书写完整的 @import 语句或"星号斜杠"字样，Vite 内联扫描不识别注释边界）。
+ *
+ * 兼容层：
+ * 1) 全量 --cz-* 旧变量别名（页面内联样式 var(--cz-color-*) 零改动生效新色板）；
+ * 2) .cz-table / .cz-pagination 等旧类名按新令牌重写（页面直用类名零改动生效新观感）；
+ * 3) .cz-message / .cz-pagination__info 保留为测试定位钩子（tests/ui 依赖）。
+ * 深色主题：预留令牌命名体系，本波仅浅色（见交付记录遗留）。
+ */
+
+/* 组件库源码内的工具类扫描（本文件位于 packages/ui/src/，编译发生在应用入口） */
+@source "./**/*.{ts,tsx}";
+
+:root {
+  /* ---- 基础几何 ---- */
+  --radius: 0.5rem;
+
+  /* ---- 中性色阶（冷灰偏蓝，hue≈257） ---- */
+  --background: oklch(0.965 0.004 257);
+  --foreground: oklch(0.262 0.024 262);
+  --card: oklch(0.995 0.002 257);
+  --card-foreground: oklch(0.262 0.024 262);
+  --popover: oklch(0.995 0.002 257);
+  --popover-foreground: oklch(0.262 0.024 262);
+  --muted: oklch(0.955 0.005 257);
+  --muted-foreground: oklch(0.512 0.022 260);
+  --accent: oklch(0.941 0.013 255);
+  --accent-foreground: oklch(0.362 0.05 258);
+  --secondary: oklch(0.952 0.007 257);
+  --secondary-foreground: oklch(0.322 0.03 260);
+  --border: oklch(0.906 0.008 257);
+  --input: oklch(0.87 0.012 257);
+  --ring: oklch(0.6 0.115 258);
+
+  /* ---- 主色：工业蓝 ---- */
+  --primary: oklch(0.52 0.155 259);
+  --primary-foreground: oklch(0.985 0.004 257);
+
+  /* ---- 语义色 ---- */
+  --destructive: oklch(0.555 0.19 27);
+  --destructive-foreground: oklch(0.985 0.008 27);
+  --success: oklch(0.57 0.125 155);
+  --success-foreground: oklch(0.985 0.01 155);
+  --warning: oklch(0.66 0.135 62);
+  --warning-foreground: oklch(0.99 0.012 85);
+  --info: oklch(0.585 0.115 250);
+  --info-foreground: oklch(0.985 0.005 250);
+
+  /* ---- 布局面 ---- */
+  --sidebar: oklch(0.988 0.003 257);
+  --sidebar-foreground: oklch(0.262 0.024 262);
+  --sidebar-primary: oklch(0.52 0.155 259);
+  --sidebar-primary-foreground: oklch(0.985 0.004 257);
+  --sidebar-accent: oklch(0.941 0.013 255);
+  --sidebar-accent-foreground: oklch(0.362 0.05 258);
+  --sidebar-border: oklch(0.906 0.008 257);
+  --sidebar-ring: oklch(0.6 0.115 258);
+  --topbar: oklch(0.29 0.045 262);
+  --topbar-foreground: oklch(0.97 0.005 257);
+
+  /* ---- 旧变量别名（v1 类名/内联样式兼容，勿删） ---- */
+  --cz-color-primary: var(--primary);
+  --cz-color-primary-hover: color-mix(in oklab, var(--primary), white 12%);
+  --cz-color-primary-active: color-mix(in oklab, var(--primary), black 14%);
+  --cz-color-danger: var(--destructive);
+  --cz-color-danger-hover: color-mix(in oklab, var(--destructive), white 10%);
+  --cz-color-success: var(--success);
+  --cz-color-warning: var(--warning);
+  --cz-color-info: var(--info);
+  --cz-color-text: var(--foreground);
+  --cz-color-text-secondary: var(--muted-foreground);
+  --cz-color-text-disabled: oklch(0.72 0.015 257);
+  --cz-color-border: var(--border);
+  --cz-color-border-strong: var(--input);
+  --cz-color-bg: var(--background);
+  --cz-color-bg-surface: var(--card);
+  --cz-color-bg-hover: var(--accent);
+  --cz-color-bg-muted: var(--muted);
+  --cz-radius: 0.5rem;
+  --cz-radius-lg: 0.625rem;
+  --cz-font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", sans-serif;
+  --cz-shadow: 0 4px 8px -2px oklch(0.262 0.024 262 / 0.1), 0 2px 4px -2px
+    oklch(0.262 0.024 262 / 0.06);
+  --cz-shadow-lg: 0 12px 24px -6px oklch(0.262 0.024 262 / 0.14), 0 4px 8px -4px
+    oklch(0.262 0.024 262 / 0.08);
+}
+
+@theme inline {
+  /* 中文界面系统字体栈（不下载 webfont） */
+  --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-topbar: var(--topbar);
+  --color-topbar-foreground: var(--topbar-foreground);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+
+  --shadow-xs: 0 1px 2px 0 oklch(0.262 0.024 262 / 0.05);
+  --shadow-sm: 0 1px 3px 0 oklch(0.262 0.024 262 / 0.08),
+    0 1px 2px -1px oklch(0.262 0.024 262 / 0.06);
+  --shadow-md: 0 4px 8px -2px oklch(0.262 0.024 262 / 0.1),
+    0 2px 4px -2px oklch(0.262 0.024 262 / 0.06);
+  --shadow-lg: 0 12px 24px -6px oklch(0.262 0.024 262 / 0.14),
+    0 4px 8px -4px oklch(0.262 0.024 262 / 0.08);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+/* ====================================================================
+ * 旧类名兼容层（页面直用的表格/分页类，按新令牌重写；纯 CSS 不依赖编译顺序）
+ * ==================================================================== */
+.cz-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+}
+.cz-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.cz-table th,
+.cz-table td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+  white-space: nowrap;
+}
+.cz-table th {
+  background: color-mix(in oklab, var(--muted) 70%, var(--card));
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.cz-table tbody tr:hover {
+  background: var(--accent);
+}
+.cz-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.cz-table__empty {
+  text-align: center;
+  color: var(--muted-foreground);
+  padding: 28px 0 !important;
+}
+.cz-pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 10px 4px 0;
+  font-size: 13.5px;
+  color: var(--muted-foreground);
+  flex-wrap: wrap;
+}
+.cz-pagination__pages {
+  display: inline-flex;
+  gap: 6px;
+}
+.cz-pagination__info b {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+/* 原生 select 的 CSS 下拉箭头（配合 appearance-none；不引入包装 DOM） */
+.cz-select-chevron {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 16px;
+}
+
+/* ====================================================================
+ * 弹窗/下拉进出场动画（Radix data-state 驱动，keyframes 供工具类 animate-[...] 引用）
+ * ==================================================================== */
+@keyframes cz-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cz-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes cz-content-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes cz-content-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(4px) scale(0.99); }
+}

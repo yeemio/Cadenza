@@ -1,0 +1,32 @@
+{
+  "name": "@cadenza/api",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza HTTP 组合根（NestJS）：/health 含 DB ping、request_id 请求日志、全局异常过滤器、优雅停机。",
+  "main": "./dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {
+    "@cadenza/application": "workspace:*",
+    "@cadenza/contracts": "workspace:*",
+    "@cadenza/domain": "workspace:*",
+    "@cadenza/persistence": "workspace:*",
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/config": "^4.0.0",
+    "@nestjs/core": "^11.1.0",
+    "@nestjs/platform-express": "^11.1.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^11.1.0",
+    "@types/express": "^5.0.1",
+    "@types/pg": "^8.15.0",
+    "@types/supertest": "^6.0.3",
+    "pg": "^8.16.0",
+    "supertest": "^7.1.0"
+  }
+}

@@ -1,0 +1,11 @@
+/** im 接入子模块注入令牌（独立文件：避免 controller ↔ module 循环引用，同 shipping.tokens 先例）。 */
+export const IM_CHANNEL_ADAPTERS = Symbol('IM_CHANNEL_ADAPTERS')
+export const IM_SEND_PORT = Symbol('IM_SEND_PORT')
+export const IM_IDENTITY_BINDING_PORT = Symbol('IM_IDENTITY_BINDING_PORT')
+export const IM_PROCESSING_RECORD_STORE = Symbol('IM_PROCESSING_RECORD_STORE')
+export const IM_CHANNEL_EVENT_COUNTERS = Symbol('IM_CHANNEL_EVENT_COUNTERS')
+export const AI_QUERY_SESSION_PORT = Symbol('AI_QUERY_SESSION_PORT')
+export const AI_QUERY_TURN_PORT = Symbol('AI_QUERY_TURN_PORT')
+export const AI_AUDIT_SEND_RESULT_PORT = Symbol('AI_AUDIT_SEND_RESULT_PORT')
+export const IM_ACCESS_RECHECK_PORT = Symbol('IM_ACCESS_RECHECK_PORT')
+export const IM_BINDING_VERIFICATION_PORT = Symbol('IM_BINDING_VERIFICATION_PORT')

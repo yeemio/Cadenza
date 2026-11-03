@@ -1,0 +1,15 @@
+{
+  "name": "@cadenza/domain",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza 纯业务规则层：按 org / masterdata / inventory / trace 分目录。只依赖 @cadenza/contracts。",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@cadenza/contracts": "workspace:*"
+  }
+}

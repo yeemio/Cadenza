@@ -1,0 +1,111 @@
+{
+  "run": "P23FULL-R2",
+  "nodes": {
+    "DEPT-SZ-WL": "4f330681-b8b7-4256-a874-61d346014b0d",
+    "ENT-HD": "748fd753-72b1-4f3d-ba3b-fee7d3f91a61",
+    "PLNT-SZ": "057d32b1-b118-4a43-8870-b6aaecffa095",
+    "DEPT-SZ-JZ": "5fdc40c1-4346-41ba-b4d7-66e3f53fc60a"
+  },
+  "entId": "748fd753-72b1-4f3d-ba3b-fee7d3f91a61",
+  "szPlantId": "057d32b1-b118-4a43-8870-b6aaecffa095",
+  "wh": {
+    "whMain": "00bc5161-e55b-4ce4-bd3a-9c23288b787a",
+    "whLine": "7b2c8008-8133-4008-88c4-217e0804760b"
+  },
+  "loc": {
+    "whMain": "1310a03c-901a-4535-8c01-f81768a6f1e9",
+    "whLine": "396862dd-74cb-4d26-a58a-aa8d7b628eb2",
+    "whMainCode": "12580101",
+    "whLineCode": "57530101"
+  },
+  "wcId": "608b8ef4-5231-438c-af70-dfca761e0052",
+  "equipment": {
+    "EQ-P23FULLR2-01": {
+      "id": "d3f15cab-26b7-4224-adc2-ad10a52e575e"
+    },
+    "EQ-P23FULLR2-10": {
+      "id": "193b9a12-af9e-4ffc-a4a6-eb94de41154d"
+    }
+  },
+  "eqExecCode": "EQ-P23FULLR2-01",
+  "eqMtCode": "EQ-P23FULLR2-10",
+  "opDefId": "4931357f-bdb0-475f-b5da-e548d1d4748f",
+  "mat": {
+    "MAT-P23-FIN": "393cb59e-b692-4ea5-b82b-14525ac4fd8d",
+    "MAT-P23-RAW": "cfd11f55-8cb2-47d9-98d3-0de782771b4d",
+    "MAT-P23-SPARE": "b2f8f060-3d4e-4090-8189-f2504933797c"
+  },
+  "orderSrc": {
+    "orderId": "8e11788f-755f-430f-83c5-e8dc034399d5",
+    "orderNo": "MO-P23FULL-R2-SRC",
+    "op1Id": "91e71f2e-62fe-4ae2-a0f7-1cb7ed39d32e"
+  },
+  "orderTgt": {
+    "orderId": "94fe00a2-7ffe-475d-a258-0e13cc8f8afe",
+    "orderNo": "MO-P23FULL-R2-TGT",
+    "op1Id": "f1176db5-4db5-4866-bd8b-45fca2e7d298"
+  },
+  "orderFeed": {
+    "orderId": "68180391-efe8-4087-82e0-11ce8e9eb828",
+    "orderNo": "MO-P23FULL-R2-FEED",
+    "op1Id": "346b2769-e215-489b-ae4f-5b7ec3476dc7"
+  },
+  "orderCost": {
+    "orderId": "e251a2d8-d447-47b5-bd7b-5b92292b7f08",
+    "orderNo": "MO-P23FULL-R2-COST",
+    "op1Id": "55df89ee-bb85-4b5e-8223-6260f1468558"
+  },
+  "utcDay": "2026-10-29",
+  "costReportId": "c17a4b9b-d19b-4440-b5fb-b0224e8cb18f",
+  "laborRecordId": "8f4d3a69-d9b1-4dd2-9e7e-7cef16f1c4d7",
+  "costSession": {
+    "equipmentCode": "EQ-P23FULLR2-01",
+    "status": "submitted",
+    "from": "2026-10-29 00:01:00+00",
+    "to": "2026-10-29 02:29:52.815039+00"
+  },
+  "uCvA": "1E23FULLR2",
+  "uCvAId": "1801a307-157d-46a6-b827-c1a7e6d2645c",
+  "uCvB1": "3F23FULLR2",
+  "uCvB2": "4F23FULLR2",
+  "uCvB1Id": "fc1b4686-04f9-4898-b4ef-bad7b0c6e705",
+  "uCvB2Id": "68a0e5ff-f801-41ca-a31c-b03f9165193f",
+  "uSpare": "SP23FULLR2001",
+  "uSpareId": "3115f367-2a70-4173-8fd1-9a720adea5b7",
+  "a05": {
+    "order1": "052287ae-edf8-4260-81ec-ceeaa11e2c0b",
+    "correctionId": "35a3672a-deac-4607-a227-63d0cfd024b6"
+  },
+  "a09": {
+    "cvId": "612145a8-471f-4339-b8c1-e1b0840c8bc8",
+    "cvB1": "6ebd6a43-9bab-4af8-b4a7-3fb3fbfebea2"
+  },
+  "a10": {
+    "orderId": "7340b657-3f19-4ac1-96bc-be32a6316fca"
+  },
+  "spc": {
+    "itemId": "185b18ae-c2b3-4f85-aaa3-e54852736985"
+  },
+  "cost": {
+    "run1Id": "43f4165d-ad45-41f4-a16b-334917a3f55b",
+    "shiftDate": "2026-10-29",
+    "allocV1": "be74ff05-8b2e-44fb-af47-e9d9ed106b4f",
+    "allocV2": "402ca6b4-bfb5-4f7f-a917-5fef3dbd9387",
+    "priceV1": "12d36619-054e-4c10-b7bd-f351541843d0",
+    "cutoff": "2026-10-29T02:29:56.651Z",
+    "checkId": "b0fcaab3-7a2b-44ee-a30c-1615368539e3"
+  },
+  "a13": {
+    "orderId": "85177501-4ebe-4562-beba-bab61e846a16",
+    "planKey": "IP-P23FULLR2"
+  },
+  "spcExt": {
+    "itemId": "c680b9f5-a3d0-4620-93c7-d0bbd792c68f",
+    "gaugeId": "71103700-8360-47f3-8613-ebce74070cee",
+    "oocTaskId": "45176262-10c0-492a-a828-e1c5e0931279"
+  },
+  "costExt": {
+    "meterId": "79069937-e907-4bda-885c-d4dd1b2202b0",
+    "runId": "cbe1a318-f149-4dcb-807a-815c9499d306"
+  }
+}

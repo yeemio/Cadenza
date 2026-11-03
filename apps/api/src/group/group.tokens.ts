@@ -1,0 +1,2 @@
+export const GROUP_COMMAND_BUS = Symbol('GROUP_COMMAND_BUS')
+export const GROUP_QUERY_SERVICE = Symbol('GROUP_QUERY_SERVICE')

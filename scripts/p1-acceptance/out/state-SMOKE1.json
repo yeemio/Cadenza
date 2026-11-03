@@ -1,0 +1,62 @@
+{
+  "run": "SMOKE1",
+  "nodes": {
+    "ENT-HD": "c2f18c10-c820-46e7-b9de-abc714c6ba55",
+    "PLNT-SZ": "0abc598c-6162-42ab-afd9-4815209bf42b",
+    "DEPT-SZ-JZ": "4cab6454-7474-4faf-a380-6eff8d8c53a6",
+    "DEPT-SZ-WL": "eeb25741-8c24-449e-b91d-bcfb8fc59b77",
+    "PLNT-HF": "36234da8-bae7-4744-ade8-076ad56dcb51",
+    "DEPT-HF-JZ": "8ddf9349-ce2c-4db4-8c77-0c8c2f0e539e"
+  },
+  "entId": "c2f18c10-c820-46e7-b9de-abc714c6ba55",
+  "szPlantId": "0abc598c-6162-42ab-afd9-4815209bf42b",
+  "hfPlantId": "36234da8-bae7-4744-ade8-076ad56dcb51",
+  "hfUserId": "e6d249aa-64de-4ca8-aef9-86ae839e7465",
+  "wcId": "8474a0ba-79ff-4aa7-8beb-a42844a11113",
+  "equipment": {
+    "EQ-P1-01": {
+      "id": "3ff8ea1c-daa2-4e3d-a75d-f030874b8398",
+      "qrCode": "EQU-EQ-P1-01"
+    },
+    "EQ-P1-02": {
+      "id": "1587ab4f-8b64-424b-a9d8-c1005bb1426b",
+      "qrCode": "EQU-EQ-P1-02"
+    }
+  },
+  "wh": {
+    "sz9101": "28347153-2055-432b-8feb-455553b679c6",
+    "sz9102": "dbd68e75-0443-476e-b507-5df9bbedc543",
+    "sz9103": "174c8b6f-0eb5-42f4-a526-66123f698472",
+    "sz9190": "497157c6-2a81-44b5-b3bd-831221f740ad",
+    "hf9102": "8bde1166-6da5-4d18-ac54-0a43765c2dbb"
+  },
+  "loc": {
+    "sz9101": {
+      "91010101": "a16128a7-b59b-4aa9-8874-6b4075bc66ed"
+    },
+    "sz9102": {
+      "91020101": "ea58bcb7-7e07-4c6f-9a7a-aaf0e0cbfe06"
+    },
+    "sz9103": {
+      "91030101": "2622672d-4dde-451c-be0f-760a431de759"
+    },
+    "sz9190": {
+      "91900101": "6f1c2e92-f6fb-4e1d-9022-6ce40c55e7dd"
+    },
+    "hf9102": {
+      "91020101": "3822bae8-054e-4c3f-aa7f-e0184818b586"
+    },
+    "010101": "ad3a4b95-3b22-4eb1-84b4-b402c3578953",
+    "010102": "7ce43eb4-1303-4a45-b540-bf8f71b997f9",
+    "010201": "bfa62978-7386-40dd-aa9d-1726047cbbb6",
+    "010202": "db72ad70-23cc-4831-8fa1-41413a07cba0"
+  },
+  "mat": {
+    "MAT-P1-RAW": "47559160-3f28-43e3-ae30-3d90c360a133",
+    "MAT-P1-EXP": "87ffef76-0b0d-4d6b-a516-2d4e986b49c7",
+    "MAT-P1-FIN": "8f6305bc-26a0-4db4-bc98-c21178051847"
+  },
+  "ops": {
+    "org.grant.grant": "SMOKE1-a01-grant"
+  }
+}

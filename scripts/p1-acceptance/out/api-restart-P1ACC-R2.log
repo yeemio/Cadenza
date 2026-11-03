@@ -1,0 +1,417 @@
+# restarted by a11-reliability 2026-10-28T09:09:45.366Z
+.env not found. Continuing without it.
+[api] DATABASE_URL 未设置，回落 dev 默认：postgres://postgres:cadenza_dev@127.0.0.1:55433/cadenza
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDemoModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDbModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mHealthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMasterDataApiModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mInventoryModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mProcessApiModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPurchaseModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mSchedulingApiModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mExecutionApiModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mQualityModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mWarehousingModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mShippingModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrgModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/logout, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/me, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/health}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/health, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mDemoController {/demo}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/demo/contracts, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrgController {/org}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/nodes, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/nodes, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/nodes/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/nodes/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/users, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/users, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/users/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/users/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/users/:id/reset-password, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/users/:id/unlock, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/roles, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/roles, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/roles/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/roles/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/grants, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/grants, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/org/grants/revoke, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mMasterDataController {/masterdata}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/materials, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/materials/:id/conversions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/conversions, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/conversions/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/conversions/:id/new-version, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/conversions/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/equipment, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/equipment/:id/status-logs, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/equipment, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/equipment/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/equipment/:id/change-status, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/equipment/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/warehouses, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/warehouses, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/warehouses/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/warehouses/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/locations, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/locations, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/locations/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/locations/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/racks, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/racks, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/racks/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/racks/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/work-centers, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/work-centers, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/work-centers/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/masterdata/work-centers/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mInventoryController {/inventory}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/balances, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/barcode/:value/resolve, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/units, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/receive, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/issue, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/return, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/move, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/transfer/out, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/transfer/in, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/split, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/reservations, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/inventory/reservations/release, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mProcessController {/process}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/families, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/families, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/families/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/families/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/boms, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/boms, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/boms/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/boms/:id/publish, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/boms/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/routes, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/routes, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/routes/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/routes/:id/publish, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/routes/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/parameters, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/parameters, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/parameters/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/parameters/:id/publish, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/parameters/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/operations, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/operations, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/operations/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/operations/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/orders/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/orders/receive, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/orders/:id/release, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/orders/:id/start, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/orders/:id/suspend, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/orders/:id/resume, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/process/orders/:id/void, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mPurchaseController {/purchase}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/order-lines, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/batches, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/batches/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/orders/sync, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/receive, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/inspections, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/inspections/revoke, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/inspections/re-inspection, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/returns, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/purchase/price-review, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mSchedulingController {/scheduling}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/order-view/:orderId, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/device-view, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/pda/plan, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/shift-date, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/slots, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/slots/batch, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/capacity, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/capacity, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/scheduling/shift, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mExecutionController {/execution}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/scan/context, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/orders/:orderId/reports, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/workbench/reports, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/scan/reports, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/reports/drafts, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/reports/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/reports/:id/submit, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/reports/:id/review, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/reports/:id/review-cancel, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/reports/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/reports/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/feeds, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/labor-records, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/orders/:id/quantities, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/execution/orders/:id/labor-records, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mQualityController {/quality}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/inspections, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/inspections/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/holds, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/inspections/generate, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/test-results, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/dispositions/release, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/dispositions/concession, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/suspects, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/quality/suspects/restore, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mWarehousingController {/warehousing}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/putaway-tasks, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/moves, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/transfers, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/transfers/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/putaway/refresh, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/putaway/confirm, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/moves, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/transfers, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/transfers/submit, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/transfers/ship, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/transfers/transit, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/warehousing/transfers/receive, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mShippingController {/shipping}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/shipment-orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/shipment-orders/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/packing-board, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/outbound-status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/dc-compositions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/dc-composition/inbound, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/pl/inbound, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/packing, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/packing/bind, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/scan/load, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/scan/delete, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/scan/supplement, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/ship/confirm, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/sync/actual-axis/retry, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/sync/status/retry, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/shipping/photos, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 49432  - [39m10/28/2026, 5:09:45 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +1ms[39m
+[api] Cadenza API 已启动：http://127.0.0.1:3001（优雅停机：SIGTERM/SIGINT）
+[api] request_id=816eb32e-6427-40f2-adc8-1950652b1c54 GET /health 200 13ms
+[api] request_id=bc28d6bc-7a43-43df-bf69-f46f17b93b01 GET /auth/me 200 14ms
+[api] request_id=102deb49-42d7-4077-ba37-79237f867bea GET /masterdata/warehouses?page=1&pageSize=10 200 5ms
+[api] request_id=623096aa-eec7-4ba1-9668-4e28319f9696 GET /health 200 3ms
+[api] request_id=b04f8988-5c7c-435f-a2e5-d696128d8a9e POST /auth/login 401 1ms
+[api] request_id=5f867331-6234-446d-aaa9-b2ad8c65bd97 POST /auth/login 200 44ms
+[api] request_id=5110e327-3bc4-4c8e-979b-905a06cd286d POST /auth/login 401 0ms
+[api] request_id=bf002135-f66d-4167-90aa-1f1ff34fa376 POST /auth/login 200 30ms
+[api] request_id=6f0ffb44-ce21-4219-adc4-a8d861b4975b GET /auth/me 200 9ms
+[api] request_id=9026a860-c528-4632-aa4f-2d7762337e0a GET /org/users?page=1&pageSize=10 200 3ms
+[api] request_id=b531eab4-904c-44d8-a5a2-e1392f696411 POST /auth/login 200 26ms
+[api] request_id=7984512f-0fdf-4f8c-92f6-842804920c27 GET /auth/me 200 3ms
+[api] request_id=6e0050ca-1fa8-4810-bc16-602aad1490cf GET /org/users?page=1&pageSize=10 401 1ms
+[api] request_id=e41b257e-d476-40da-8302-753eef868389 POST /auth/login 200 27ms
+[api] request_id=ac673992-a0ee-4c4b-921d-05d40e805681 GET /masterdata/materials?page=1&pageSize=10 200 4ms
+[api] request_id=798408f2-a9ed-4523-b96a-1ee3c30fad73 GET /masterdata/warehouses?page=1&pageSize=10 200 4ms
+[api] request_id=2b783866-efc0-4c17-a9a6-6150aee10572 GET /inventory/balances?page=1&pageSize=10 200 9ms
+[api] request_id=a890ae8b-c6d4-4162-ba28-7b5e39092144 POST /auth/login 200 27ms
+[api] request_id=7da91c01-095e-4833-bff6-d0ffbfec0ebb GET /process/orders?page=1&pageSize=1 200 4ms
+[api] request_id=20c858b5-f9f9-41e8-b5b1-54b492d639af GET /process/orders?page=1&pageSize=10 200 4ms
+[api] request_id=358938c1-4465-4628-8ead-2b05c10d2780 GET /auth/me 200 4ms
+[api] request_id=12faa1a1-15e3-41fa-9fdf-f7f2825b45c3 GET /scheduling/device-view?plantId=4bb65e01-518f-4d86-8c45-057e2c9dc784 200 11ms
+[api] request_id=5e96aebf-67a8-4344-b7f9-97295f55b2c6 GET /execution/reports/drafts?page=1&pageSize=10 200 5ms
+[api] request_id=36cfc3c6-3290-4c07-b6c9-31a7dfe5ba5f GET /quality/inspections?page=1&pageSize=10 200 4ms
+[api] request_id=9c56fb03-a2d0-4747-a520-637c8ce8952c GET /warehousing/putaway-tasks?page=1&pageSize=10 200 3ms
+[api] request_id=e598b40c-4159-4e73-a45d-f6448e7c8a13 POST /auth/login 401 0ms
+[api] request_id=4703b0c9-8e35-4487-8d22-ca10201b6008 POST /auth/login 200 39ms
+[api] request_id=04a75a23-3006-42f0-92c5-16b93a67bb38 POST /auth/login 401 1ms
+[api] request_id=62020a3d-6530-40cc-85bc-2185417afa57 POST /auth/login 200 34ms
+[api] request_id=c4334ee4-cbca-45dc-a6c4-cb2482936382 GET /auth/me 200 11ms
+[api] request_id=9ee03b76-6253-46a5-b7cc-7f9c376c60ed GET /org/users?page=1&pageSize=10 200 4ms
+[api] request_id=0a2b4f0d-90e5-4c86-a108-58a3cc662c38 POST /auth/login 200 28ms
+[api] request_id=dc836d90-eabc-4191-b3b3-c7f2e8db40aa GET /auth/me 200 3ms
+[api] request_id=7f4de156-96d0-47ce-ba7b-7312818e3305 GET /org/users?page=1&pageSize=10 401 1ms
+[api] request_id=7f95c503-d15c-4ce0-b6b2-cc07713410ad POST /auth/login 200 28ms
+[api] request_id=89467dae-6c06-425f-90b2-346f6562cd7e GET /masterdata/materials?page=1&pageSize=10 200 5ms
+[api] request_id=fb9b20d2-1868-45c0-a018-84220c9f1bd4 GET /masterdata/warehouses?page=1&pageSize=10 200 8ms
+[api] request_id=f2106c04-37ae-4905-8df9-4a8ce313d946 GET /inventory/balances?page=1&pageSize=10 200 9ms
+[api] request_id=a50bc862-46c1-448d-a232-bdd69808c190 POST /auth/login 200 30ms
+[api] request_id=05a219f4-0ffe-4f16-bdc4-888f585e3f5a GET /process/orders?page=1&pageSize=1 200 6ms
+[api] request_id=d7ca7519-e532-4866-a10b-c493adf958fe GET /process/orders?page=1&pageSize=10 200 4ms
+[api] request_id=7b61d28d-2d5b-444d-87a6-578c6708c508 GET /auth/me 200 5ms
+[api] request_id=0b2beb97-5c3b-4ca7-b9ef-f89732501173 GET /scheduling/device-view?plantId=4bb65e01-518f-4d86-8c45-057e2c9dc784 200 15ms
+[api] request_id=cd473049-1557-4e81-b42d-c6aa9205cbbd GET /execution/reports/drafts?page=1&pageSize=10 200 6ms
+[api] request_id=b88fcbd7-9b7b-418c-b262-d33cd0f67334 GET /quality/inspections?page=1&pageSize=10 200 4ms
+[api] request_id=c79f0fd7-ec00-409a-8c73-14dd86db59ed GET /warehousing/putaway-tasks?page=1&pageSize=10 200 5ms
+[api] request_id=781886d9-8cc6-4cd2-808d-dbe47a661248 POST /auth/login 401 0ms
+[api] request_id=60075675-f3e7-430e-8333-7ef875b7c531 POST /auth/login 200 33ms
+[api] request_id=a83c6ce9-fd99-402b-882a-595d3a992d3d POST /auth/login 401 0ms
+[api] request_id=2638c745-0070-499d-96ad-b7114759f21b POST /auth/login 200 31ms
+[api] request_id=1bd1f8d5-65ed-4b51-b9c0-63b741faaeca GET /auth/me 200 4ms
+[api] request_id=5f173c06-0d50-48a8-a121-8a7b9a6e1d3c GET /org/users?page=1&pageSize=10 200 4ms
+[api] request_id=9e931be7-de42-49b6-87d4-6979a1c35b59 POST /auth/login 200 34ms
+[api] request_id=976ae5fa-08fa-43cb-ba0e-bf30c287a1a9 GET /auth/me 200 4ms
+[api] request_id=0cd3a9e8-0e4f-4567-8aad-cdde04a7440f GET /org/users?page=1&pageSize=10 401 1ms
+[api] request_id=5ca75bf2-147d-45c1-85ae-1da3317e1d1a POST /auth/login 200 34ms
+[api] request_id=7e997480-90e0-42e4-b988-87685eeb3260 GET /masterdata/materials?page=1&pageSize=10 200 4ms
+[api] request_id=b6ab03ea-faef-49b4-9efe-513239a7ec0d GET /masterdata/warehouses?page=1&pageSize=10 200 4ms
+[api] request_id=af676096-a782-4643-ab98-a2a7ad1e4bd9 GET /inventory/balances?page=1&pageSize=10 200 10ms
+[api] request_id=d43558fd-0577-4b06-bd6e-c9f4d37c7848 POST /auth/login 200 32ms
+[api] request_id=38e6f0ed-91a3-415a-bbbf-f8b6c68b4788 GET /process/orders?page=1&pageSize=1 200 7ms
+[api] request_id=e5236032-1f56-4e3e-a548-bd27639df426 GET /process/orders?page=1&pageSize=10 200 5ms
+[api] request_id=f4e7fff7-a537-4233-b5e2-8cd27234f49b GET /auth/me 200 4ms
+[api] request_id=587a29d9-5f42-453a-a740-db25598e6d90 GET /scheduling/device-view?plantId=4bb65e01-518f-4d86-8c45-057e2c9dc784 200 8ms
+[api] request_id=98a19fd1-3df8-46fd-be51-2c07203bd368 GET /execution/reports/drafts?page=1&pageSize=10 200 4ms
+[api] request_id=eb57dbec-b371-4901-95ee-0646eca765d0 GET /quality/inspections?page=1&pageSize=10 200 5ms
+[api] request_id=8533c418-408c-4fad-98ac-e76db2546e02 GET /warehousing/putaway-tasks?page=1&pageSize=10 200 4ms
+[api] request_id=941237f2-616f-4ca7-a1a2-9a8066af8f91 POST /auth/login 401 0ms
+[api] request_id=d7ca6986-dd47-43f2-847f-bd0af67aff5e POST /auth/login 200 29ms
+[api] request_id=836bf392-6fef-452a-9772-7e557d21bdf2 POST /auth/login 401 1ms
+[api] request_id=36934b83-8879-400a-bd6c-50226f016614 POST /auth/login 200 29ms
+[api] request_id=63ade334-896b-47a3-bf78-c1bbfc147f9d GET /auth/me 200 3ms
+[api] request_id=4b9163f4-ce4b-49f8-b125-ac2986ff747d GET /org/users?page=1&pageSize=10 200 3ms
+[api] request_id=1f54f835-9745-4cdd-8fc5-e6a4c342f923 POST /auth/login 200 26ms
+[api] request_id=f35a92f9-cf8b-46d4-a831-1bdd9652ca37 GET /auth/me 200 4ms
+[api] request_id=46d68290-e2e1-4242-a2ef-c43fdbd6438a GET /org/users?page=1&pageSize=10 401 1ms
+[api] request_id=66dbb3be-27c1-4ef8-aa0a-ceb8d219aa18 POST /auth/login 200 30ms
+[api] request_id=a2b6b96e-77e3-400d-959b-0ae7d5664afb GET /masterdata/materials?page=1&pageSize=10 200 4ms
+[api] request_id=84025097-2c73-46fc-bfd5-38247cddcc56 GET /masterdata/warehouses?page=1&pageSize=10 200 4ms
+[api] request_id=56b4c513-c53c-40bb-a899-2bb46e83b0ff GET /inventory/balances?page=1&pageSize=10 200 7ms
+[api] request_id=5d6eaec8-36df-4b5a-a8af-8d77828cb387 POST /auth/login 200 31ms
+[api] request_id=da2a632f-a0b5-492f-aa0b-e06c0b30cbbe GET /process/orders?page=1&pageSize=1 200 3ms
+[api] request_id=a1f2c86e-a7e2-48a6-8174-4f26f20fb2f9 GET /process/orders?page=1&pageSize=10 200 3ms
+[api] request_id=fca7c3b4-1665-4ac1-a452-24a2f9cddcf6 GET /auth/me 200 3ms
+[api] request_id=a87d3431-f93c-48e1-b59e-83137f7333ae GET /scheduling/device-view?plantId=4bb65e01-518f-4d86-8c45-057e2c9dc784 200 5ms
+[api] request_id=0fce8d5f-0460-4b96-bbe9-bcb20c616546 GET /execution/reports/drafts?page=1&pageSize=10 200 4ms
+[api] request_id=849e45e5-0628-47d5-abbd-3f8bd8b09ffa GET /quality/inspections?page=1&pageSize=10 200 8ms
+[api] request_id=2a811685-2219-4c01-98b8-f95919223945 GET /warehousing/putaway-tasks?page=1&pageSize=10 200 7ms
+[api] request_id=13d8d1fc-2f8e-4ed3-8b89-6e28840f4512 POST /auth/login 401 1ms
+[api] request_id=b00d7def-ecba-42e6-a43b-c28a42ffddc9 POST /auth/login 200 29ms
+[api] request_id=0f2d29b9-5b5c-41e6-b0e8-f94e59e90f6c GET /health 200 4ms
+[api] request_id=84c02f67-9a1f-4933-8aad-795cb537ba29 POST /auth/login 401 0ms
+[api] request_id=dad3e623-61a1-4a71-90cf-11fe0da0384a POST /auth/login 200 45ms
+[api] request_id=69286635-c9a4-48cb-a03f-1b7003bd2d97 GET /auth/me 200 12ms
+[api] request_id=8a3fd8ee-1df1-465a-b628-e29d968a3f88 GET /org/users?page=1&pageSize=10 200 4ms
+[api] request_id=12d8ea97-98cf-4571-9173-b47e9a82a726 POST /auth/login 200 28ms
+[api] request_id=2bfb3859-9259-4431-86b8-a38ed9f15086 GET /auth/me 200 4ms
+[api] request_id=437a82a4-74b2-4b95-ad39-090fd3937a5a GET /org/users?page=1&pageSize=10 401 1ms
+[api] request_id=f3ad0680-d397-44be-9f04-aec6dd280070 POST /auth/login 200 31ms
+[api] request_id=455aa8f9-971d-4370-80a4-d8e2750e5173 GET /masterdata/materials?page=1&pageSize=10 403 3ms
+[api] request_id=8fc95019-0707-441f-b985-e2aa5f6d8de0 GET /masterdata/warehouses?page=1&pageSize=10 403 5ms
+[api] request_id=a31ec688-46d9-49e4-a5da-fc49afcd867d GET /inventory/balances?page=1&pageSize=10 403 3ms
+[api] request_id=00261623-13b6-4abe-8b3b-a94e9dc54c77 POST /auth/login 200 33ms
+[api] request_id=44bc478f-0784-4265-b463-09a38596d55a GET /process/orders?page=1&pageSize=1 403 7ms
+[api] request_id=0f1f40df-1b47-4882-8550-84695403dda8 POST /auth/login 401 0ms
+[api] request_id=3f166691-53c7-47d7-bf0a-1086b2428377 POST /auth/login 200 33ms
+[api] request_id=56c19701-c66b-4d9a-a419-30bf489f1e63 POST /auth/login 401 0ms
+[api] request_id=005fbc93-c488-472b-bc4a-22105a511195 POST /auth/login 200 34ms
+[api] request_id=d49c0dab-3944-473f-a896-a8d70be9a54d GET /auth/me 200 4ms
+[api] request_id=98015362-b8ea-4f6f-a574-b3a8488f8ba5 GET /org/users?page=1&pageSize=10 200 2ms
+[api] request_id=3f8da3a8-e597-4d38-b6a0-3e9fcefe287a POST /auth/login 200 25ms
+[api] request_id=417fe7ef-86d9-4a43-8307-ab4283a31a7a GET /auth/me 200 2ms
+[api] request_id=d9035f4c-3944-48b6-bf89-9277e74540c8 GET /org/users?page=1&pageSize=10 401 0ms
+[api] request_id=9890fac1-d3df-4914-9e41-9e4a6ce3e08e POST /auth/login 200 26ms
+[api] request_id=fe6d956f-3964-4c0a-80a6-172260171dc8 GET /masterdata/materials?page=1&pageSize=10 403 2ms
+[api] request_id=ce182206-1dee-4641-9bcf-471fa2e44f0d GET /masterdata/warehouses?page=1&pageSize=10 403 2ms
+[api] request_id=f83987f6-00ed-4bce-bed0-cd824b71c781 GET /inventory/balances?page=1&pageSize=10 403 2ms
+[api] request_id=0a0db454-6979-4e32-9046-a0bb42a3dea9 POST /auth/login 200 28ms
+[api] request_id=52694f5b-5a42-4809-a5cf-7fe7d5b613d7 GET /process/orders?page=1&pageSize=1 403 3ms
+[api] request_id=be6dbdb2-f0a9-42ee-820a-56f7c3bfbfa3 POST /auth/login 401 0ms
+[api] request_id=6a5d41ba-af31-4aa6-a72f-b51bebf31d78 POST /auth/login 200 34ms
+[api] request_id=cc8264c1-c994-4ec2-8af0-049fbaa9ecf2 POST /auth/login 401 0ms
+[api] request_id=959315a6-9f50-46bb-a0ca-1bc5bebc1013 POST /auth/login 200 31ms
+[api] request_id=d7d65fa5-f3d1-450a-8ae2-075881ef8a41 GET /auth/me 200 3ms
+[api] request_id=f428eff3-cc68-46ca-9699-9263115c0519 GET /org/users?page=1&pageSize=10 200 4ms
+[api] request_id=b6b9b70c-bbb4-47c0-83f9-c80a8be5a147 POST /auth/login 200 24ms
+[api] request_id=9391cb5d-6d2f-4e25-affe-7bd7a4df2640 GET /auth/me 200 3ms
+[api] request_id=0fc1ee82-f37e-4556-be86-e5ca326157bf GET /org/users?page=1&pageSize=10 401 0ms
+[api] request_id=8cdfb3e1-23e4-4a4d-9a5a-b83406332d90 POST /auth/login 200 28ms
+[api] request_id=158591ef-aa36-4d55-8da0-5434e1b83fbd GET /masterdata/materials?page=1&pageSize=10 403 3ms
+[api] request_id=fae565c4-86e9-4d9c-b39d-7658af992c6e GET /masterdata/warehouses?page=1&pageSize=10 403 2ms
+[api] request_id=0ae8cb75-d076-4da5-bdf0-cb53f8f2aa33 GET /inventory/balances?page=1&pageSize=10 403 3ms
+[api] request_id=0cc13c2c-dc79-4f21-b498-0ede25456ec5 POST /auth/login 200 28ms
+[api] request_id=8ec39b87-50b6-4151-b954-d800f505361b GET /process/orders?page=1&pageSize=1 403 2ms
+[api] request_id=a0ada01e-1e71-4673-a6ec-6571b2147935 POST /auth/login 401 0ms
+[api] request_id=6b0649c4-6938-48af-88db-e5608f2f2365 POST /auth/login 200 37ms
+[api] request_id=28524c93-1e44-416f-8c07-9a1fe7de6335 POST /auth/login 401 1ms
+[api] request_id=d7016d60-55fa-4589-851a-6fda76e8c976 POST /auth/login 200 38ms
+[api] request_id=10a28bf9-9cfc-4cc2-b52c-b83153aed2fd GET /auth/me 200 6ms
+[api] request_id=98e836b4-7ad4-4c4a-b197-cef5cf64df78 GET /org/users?page=1&pageSize=10 200 3ms
+[api] request_id=ca2b7d92-1c4e-45e0-b93c-ec12893836b5 POST /auth/login 200 23ms
+[api] request_id=d6611c22-a8e1-4e0b-bc8b-d2ded97a4269 GET /auth/me 200 2ms
+[api] request_id=f3db6ede-ffa1-4307-b7f5-8dd75164ec63 GET /org/users?page=1&pageSize=10 401 0ms
+[api] request_id=6b995a26-a331-442d-ade9-ca99651f9deb POST /auth/login 200 22ms
+[api] request_id=34f7d7d4-bb1c-44c4-9b63-b65cbbe83c2c GET /masterdata/materials?page=1&pageSize=10 403 1ms
+[api] request_id=ab6cc478-af2d-4766-858c-30c1104f96d7 GET /masterdata/warehouses?page=1&pageSize=10 403 1ms
+[api] request_id=6bf9186c-c57f-4aa0-97b7-ea208fbdb5c4 GET /inventory/balances?page=1&pageSize=10 403 1ms
+[api] request_id=336b1ca2-8ab7-4acd-8c9a-a853602b1a10 POST /auth/login 200 22ms
+[api] request_id=5cbb2606-fc7d-4556-a3c9-b037c21b064e GET /process/orders?page=1&pageSize=1 403 1ms
+[api] request_id=4777ce69-647e-4c58-bd8f-5380ea1e5548 POST /auth/login 401 0ms
+[api] request_id=392ab19a-b96d-4b92-8301-fb84b6e0b90c POST /auth/login 200 33ms
+[api] request_id=bf87db6b-72be-4356-b9ab-34d911df1cde POST /auth/login 401 1ms
+[api] request_id=83943c67-39db-4008-b22d-f5397017e0a8 POST /auth/login 200 59ms
+[api] request_id=467a5dd1-a83a-47ff-93ad-81e96f1c4f0d GET /auth/me 200 22ms
+[api] request_id=f1e7e57f-272a-4d47-83a7-46a75053a641 GET /org/users?page=1&pageSize=10 200 8ms
+[api] request_id=866c0931-74fa-4f5a-9b34-cd6acbd5bf73 POST /auth/login 200 47ms
+[api] request_id=4e3eaf9e-e7b2-4543-9514-f6a07283b6b8 GET /auth/me 200 3ms
+[api] request_id=59f16cb7-434f-4d8c-99a7-7e87ea216e6d GET /org/users?page=1&pageSize=10 401 1ms
+[api] request_id=d4a7963c-4f01-4896-b79a-9642910bd861 POST /auth/login 200 39ms
+[api] request_id=264e94d3-48f4-4c1f-becf-d883ee6e92e7 GET /masterdata/materials?page=1&pageSize=10 403 3ms
+[api] request_id=d7a61a02-b448-4397-9ff5-e57292ee4ba1 GET /masterdata/warehouses?page=1&pageSize=10 403 3ms
+[api] request_id=df3e6e22-98c7-42b1-aead-610a8d117719 GET /inventory/balances?page=1&pageSize=10 403 3ms
+[api] request_id=01444fa2-269c-4de9-884b-fe50585e95fd POST /auth/login 200 40ms
+[api] request_id=0264b141-f564-4bd2-b319-04b92fa76c67 GET /process/orders?page=1&pageSize=1 403 4ms
+[api] request_id=12b05869-83d7-409d-807c-25d8847657d7 POST /auth/login 401 1ms
+[api] request_id=a54712e7-001d-4f46-8316-1d6ccd7c093f POST /auth/login 200 85ms
+[api] request_id=e03e192a-708e-4f20-ac52-a3771b713ddd POST /auth/login 401 0ms
+[api] request_id=9f374951-600d-4270-a783-4a4ee64d93aa POST /auth/login 200 74ms
+[api] request_id=9b7a7b3d-7cec-4b72-b75b-9b49dd9434f3 GET /auth/me 200 9ms
+[api] request_id=41e6a147-0bdc-4e9e-a311-0b7371dee5b6 GET /org/users?page=1&pageSize=10 200 6ms
+[api] request_id=1df6cd80-eeff-41eb-8fab-b6a5f2cd2ec9 POST /auth/login 200 44ms
+[api] request_id=7bff2103-7319-452b-a5a6-389ec37b650c GET /auth/me 200 4ms
+[api] request_id=dff20cf1-4613-4bc6-86fa-a5d9046651e7 GET /org/users?page=1&pageSize=10 401 2ms
+[api] request_id=ea713d49-fd14-458f-aada-eec42eb802ad POST /auth/login 200 43ms
+[api] request_id=4b06e754-4cbf-4502-8ca6-b7746c90057f GET /masterdata/materials?page=1&pageSize=10 403 3ms
+[api] request_id=f86ce94c-da09-4f75-a2af-e1733572cb53 GET /masterdata/warehouses?page=1&pageSize=10 403 4ms
+[api] request_id=985cbfba-bf01-4fff-9079-9ca5ef8cb97e GET /inventory/balances?page=1&pageSize=10 403 3ms
+[api] request_id=ed3a9673-32fa-4a43-8adf-58041c02ecb3 POST /auth/login 200 47ms
+[api] request_id=46ceacb8-6b13-4305-8b53-f7aaa359b42c GET /process/orders?page=1&pageSize=1 403 4ms
+[api] request_id=1e50caa4-4876-4553-b718-9f6fb461535e POST /auth/login 401 0ms
+[api] request_id=368717a1-221b-42f1-8aac-248e84e8e844 POST /auth/login 200 67ms
+[api] request_id=5c627999-7009-473c-99ca-04c51eb82b9f POST /auth/login 401 0ms
+[api] request_id=adeaa708-dcb3-41f3-bd99-666663838fc5 POST /auth/login 200 44ms
+[api] request_id=61233379-4480-4449-be51-b95c3f3e2d30 GET /masterdata/materials?page=1&pageSize=2 401 1ms
+[api] request_id=4d11b2f1-be92-42a2-b635-016a0f52b2c9 POST /auth/login 200 34ms
+[api] request_id=0a0f5e6b-42c5-41d2-b1b9-11aca769a969 GET /masterdata/materials?page=1&pageSize=2 403 7ms
+[api] request_id=a12ef236-5cd5-40e4-8806-2b4be0aeba87 GET /inventory/balances?page=1&pageSize=2 403 3ms
+[api] request_id=41d1f367-549c-41e1-9296-73b7227cf583 POST /auth/login 200 44ms
+[api] request_id=ddb10843-91fe-4a0a-8332-5d9ab2771ae4 GET /auth/me 200 9ms
+[api] request_id=81336dab-d586-4ebd-948c-1cc8a4a1b410 POST /auth/login 401 0ms
+[api] request_id=c3fdbf5d-639f-4b02-8d75-6ed65e2fcfab POST /auth/login 200 45ms
+[api] request_id=6b77d4b5-59d9-4821-9b05-8be9eef53d64 GET /auth/me 200 8ms
+[api] request_id=e418dfb8-9496-4c3c-8701-c3d6d7f594c2 GET /org/users?page=1&pageSize=10 200 10ms
+[api] request_id=afdf1c04-c682-418a-9e80-269bc05f6e37 POST /auth/login 200 50ms
+[api] request_id=9009d5f8-ef76-4850-9629-3d4c177a600c GET /auth/me 200 5ms
+[api] request_id=2868bc04-9536-4e81-a3d9-d0cade960f7c GET /org/users?page=1&pageSize=10 401 1ms
+[api] request_id=c17e6d60-17f0-4da4-9f02-0db06d1fda51 POST /auth/login 200 45ms
+[api] request_id=a858f7e2-d8bd-4f96-8764-e679f3fb2ae7 GET /masterdata/materials?page=1&pageSize=10 200 4ms
+[api] request_id=3118db01-d559-4209-95b3-e29de6bda872 GET /masterdata/warehouses?page=1&pageSize=10 200 5ms
+[api] request_id=e16a5d36-dc4f-413d-b921-efbe1c9c9b3d GET /inventory/balances?page=1&pageSize=10 200 6ms
+[api] request_id=11b685e0-3ab4-413c-89eb-aac1817087b6 POST /auth/login 200 43ms
+[api] request_id=a8aa3ad2-c993-47bb-affa-095ef64a6268 GET /process/orders?page=1&pageSize=1 200 4ms
+[api] request_id=a03bbe12-eaaa-4c43-bee0-872e81c02a78 GET /process/orders?page=1&pageSize=10 200 6ms
+[api] request_id=b769bd78-d917-4d6d-be30-8f9f4d286223 GET /auth/me 200 5ms
+[api] request_id=fd7e1070-8ad5-468d-814f-4e2101ebcbe5 GET /scheduling/device-view?plantId=bd31c1a9-1eba-44a0-aa00-9667a52ec488 200 5ms
+[api] request_id=53329789-fa64-460a-a86f-8a4d0c515773 GET /execution/reports/drafts?page=1&pageSize=10 200 6ms
+[api] request_id=98a38e81-a9d4-4fa7-9a12-591e40b23d73 GET /quality/inspections?page=1&pageSize=10 200 8ms
+[api] request_id=6f97dbff-52e6-452d-ab63-eb57b6a63f5c GET /warehousing/putaway-tasks?page=1&pageSize=10 200 7ms
+[api] request_id=f6ec86f9-9a13-4075-b91e-d1c0afc187ec POST /auth/login 401 0ms
+[api] request_id=d859151e-9db4-440b-b491-e1ab2a8fd1f2 POST /auth/login 200 56ms
+[api] request_id=9c9622e7-0e57-49ac-9583-7b1b80dc6fbd GET /health 200 5ms
+[api] request_id=ba2fadfc-2b3c-419e-94c6-d18119f17e01 POST /auth/login 200 40ms
+[api] request_id=5f714867-951b-4e8a-90dc-10cd437a7d0a GET /shipping/shipment-orders?page=1&pageSize=3 200 12ms
+[api] request_id=677489e5-d422-4b52-985b-791664ec2801 POST /auth/login 200 49ms
+[api] request_id=a214ff4d-759a-4730-8898-8d0054ec7869 GET /auth/me 200 8ms
+[api] 收到 SIGTERM，优雅停机…
+[api] 已关闭（连接池已释放）

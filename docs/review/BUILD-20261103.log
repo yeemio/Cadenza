@@ -1,0 +1,47 @@
+Scope: 12 of 13 workspace projects
+packages/contracts build$ tsc -p tsconfig.build.json
+packages/contracts build: Done
+packages/ui build$ tsc -p tsconfig.build.json && cp src/theme.css dist/theme.css
+packages/domain build$ tsc -p tsconfig.build.json
+packages/domain build: Done
+packages/edge build$ tsc -p tsconfig.build.json
+packages/application build$ tsc -p tsconfig.build.json
+packages/edge build: Done
+packages/ui build: Done
+apps/web build$ vite build
+apps/pda build$ vite build
+apps/pda build: vite v7.3.7 building client environment for production...
+apps/web build: vite v7.3.7 building client environment for production...
+apps/web build: transforming...
+apps/pda build: transforming...
+packages/application build: Done
+packages/persistence build$ tsc -p tsconfig.build.json
+apps/pda build: ✓ 2227 modules transformed.
+apps/web build: ✓ 2271 modules transformed.
+apps/pda build: rendering chunks...
+apps/pda build: computing gzip size...
+apps/pda build: dist/index.html                     0.60 kB │ gzip:   0.40 kB
+apps/pda build: dist/assets/index-DlFslHkG.css     31.33 kB │ gzip:   6.77 kB
+apps/pda build: dist/assets/index-Bz7cPuN3.js   1,059.41 kB │ gzip: 319.36 kB
+apps/pda build: ✓ built in 1.92s
+apps/pda build: (!) Some chunks are larger than 500 kB after minification. Consider:
+apps/pda build: - Using dynamic import() to code-split the application
+apps/pda build: - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+apps/pda build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+apps/pda build: Done
+apps/web build: rendering chunks...
+apps/web build: computing gzip size...
+apps/web build: dist/index.html                     0.60 kB │ gzip:   0.41 kB
+apps/web build: dist/assets/index-DCyVykWg.css     33.03 kB │ gzip:   6.90 kB
+apps/web build: dist/assets/index-C81l2fPB.js   1,473.61 kB │ gzip: 425.42 kB
+apps/web build: (!) Some chunks are larger than 500 kB after minification. Consider:
+apps/web build: - Using dynamic import() to code-split the application
+apps/web build: - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+apps/web build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+apps/web build: ✓ built in 2.11s
+apps/web build: Done
+packages/persistence build: Done
+apps/api build$ tsc -p tsconfig.build.json
+apps/worker build$ tsc -p tsconfig.build.json
+apps/worker build: Done
+apps/api build: Done

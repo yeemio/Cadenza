@@ -1,0 +1,486 @@
+/**
+ * 受控问数（AI 问数·DSH 路数）公开合同（P4-A 受控问数查询层）。
+ *
+ * 规则来源：architecture/contracts/frozen/p4/capability-contract.md
+ * （AQ-REG-01～10 / AQ-AMB-01～04 / AQ-AUTH-01～05 / AQ-C1～C3 字段级映射）
+ * 与 frozen/p4/dsh-edge.md §4（DS-18/DS-19 内部接口形状）。
+ *
+ * 本文件承载六段结果信封（AQ-REG-07：status/data/completeness/freshness/contextEcho/auditRef）
+ * 与首版三能力结果 DTO、内部端点请求/响应 DTO。
+ * 注意：本文件在 L0 整合步加入 packages/contracts/src/index.ts 导出前，
+ * 由 tests/** 以相对路径直接引用做 wire 形状冻结断言（process/shipping 先例）；
+ * B 线（apps/ai）与 A 线双方 supertest 断言同一信封样例（DS-21）。
+ * 数量字段一律 DecimalString（decimal.ts 约定，AQ-REG-09）；分页复用 PageRequest。
+ */
+
+import type { DecimalString } from './decimal'
+import type { PageRequest } from './pagination'
+
+// ---------------------------------------------------------------------------
+// 结果状态（AQ-REG-07：七值机器态；对应方案 §5「超时／失败」拆为两态）
+// ---------------------------------------------------------------------------
+
+/** 受控查询结果状态七值。 */
+export type AiQueryResultStatusDtoValue =
+  | 'ok_with_data'
+  | 'ok_no_records'
+  | 'no_permission'
+  | 'not_supported'
+  | 'source_not_ready'
+  | 'timeout'
+  | 'failed'
+
+export const AI_QUERY_RESULT_STATUS_VALUES: readonly AiQueryResultStatusDtoValue[] = [
+  'ok_with_data',
+  'ok_no_records',
+  'no_permission',
+  'not_supported',
+  'source_not_ready',
+  'timeout',
+  'failed',
+]
+
+/** 状态中文标签（可理解文案承载位之一；两态/not_supported 等都必须以可理解文案回用户，AQ-REG-01）。 */
+export const AI_QUERY_RESULT_STATUS_LABELS: Readonly<Record<AiQueryResultStatusDtoValue, string>> = {
+  ok_with_data: '查询成功（有数据）',
+  ok_no_records: '查询成功（无匹配记录）',
+  no_permission: '无权限执行该问数',
+  not_supported: '该问数能力未注册或已停用',
+  source_not_ready: '数据源未就绪',
+  timeout: '查询超时',
+  failed: '查询失败',
+}
+
+/** 失败/超时阶段标识（AQ-REG-10：携带阶段码 query/model/orchestration；A 线仅产生 query）。 */
+export type AiQueryStageDtoValue = 'query' | 'model' | 'orchestration'
+
+// ---------------------------------------------------------------------------
+// 信封段④ 完整性与时效（AQ-REG-07；未取全不得总结为完整总量）
+// ---------------------------------------------------------------------------
+
+/** 完整性段：截断/已取行数/总量可知性/总量/分页。 */
+export interface AiQueryCompletenessDto {
+  /** 结果是否被最大查询范围截断 */
+  truncated: boolean
+  /** 本次实际取回的行数 */
+  fetchedRows: number
+  /** 总量是否可知（true=total 为精确计数；false=未取全，不得总结为完整总量） */
+  totalKnown: boolean
+  /** 满足条件的总行数（totalKnown=false 时为 null） */
+  total: number | null
+  /** 生效分页（无分页语义的能力为 null） */
+  page: PageRequest | null
+}
+
+/** 单数据源时效（各源行 updated_at 或 'unknown'）。 */
+export interface AiQueryFreshnessSourceDto {
+  /** 来源表名（来源记录引用=真实表名，六段合同③） */
+  source: string
+  /** 该数据源本次查询涉及行的最新 updated_at（ISO-8601）或 'unknown' */
+  updatedAt: string
+}
+
+/** 时效段：查询时刻 + 各数据源更新时间。 */
+export interface AiQueryFreshnessDto {
+  /** 服务端执行时刻（ISO-8601 UTC） */
+  queriedAt: string
+  sources: AiQueryFreshnessSourceDto[]
+}
+
+// ---------------------------------------------------------------------------
+// 信封段② 执行上下文回显（AQ-REG-06/AQ-AUTH-03/AQ-AMB-02）
+// ---------------------------------------------------------------------------
+
+/** 服务端实际生效的执行上下文与有效过滤条件（不可由模型替换的绑定 + AI 只能缩小的交集结果）。 */
+export interface AiQueryContextEchoDto {
+  requestId: string
+  toolCallSeq: number
+  sessionId: string
+  /** 会话绑定的用户/企业（由会话绑定派生，AQ-AUTH-04） */
+  userId: string
+  enterpriseId: string
+  channel: string
+  /** 服务端实时重算的数据范围（AQ-AUTH-01/03） */
+  dataScope: { enterpriseWide: boolean; plantIds: string[] }
+  capabilityId: string
+  capabilityVersion: number
+  /** 实际生效的过滤条件（含时间范围实际起止回显，AQ-AMB-02） */
+  effectiveFilters: Record<string, unknown>
+  /** 请求体携带的执行上下文同名字段（被忽略并记审计，AQ-REG-06） */
+  ignoredRequestFields: string[]
+  /** 事实列提示（AQ-C3：哪些列是判定事实，解释性文字由 AI 生成并标注为推测） */
+  factColumns: string[]
+  /** 附注（时间默认回显提示、范围截回标注、口径未定等） */
+  notes: string[]
+}
+
+/** 审计关联段：requestId + toolCallSeq（AQ-S2 唯一键）。 */
+export interface AiQueryAuditRefDto {
+  requestId: string
+  toolCallSeq: number
+}
+
+// ---------------------------------------------------------------------------
+// 信封段③ 数据结果：三能力结果 DTO + 歧义候选
+// ---------------------------------------------------------------------------
+
+/** 生产订单候选（AQ-AMB-01：模糊/销售单号命中多订单时的澄清选项；不自行择一作答）。 */
+export interface AiOrderCandidateDto {
+  orderId: string
+  orderNo: string
+  plantId: string
+  orderStatus: string
+  /** 料品描述（订单 material_snapshot 的 名称/规格/颜色 拼接口径） */
+  materialDesc: string
+  /** 候选「最近者」锚：production_order 无 business_time 列，以 created_at（ISO-8601）承载 */
+  createdAt: string
+}
+
+/** 五量（S02/A5-3：分立展示，禁混口径）。 */
+export interface AiFiveQuantitiesDto {
+  draftQty: DecimalString
+  submittedQty: DecimalString
+  approvedQty: DecimalString
+  qualifiedQty: DecimalString
+  stockedQty: DecimalString
+}
+
+/** AQ-C1 结果 DTO（能力：aq.order-progress）。 */
+export interface AiOrderProgressResultDto {
+  capabilityId: 'aq.order-progress'
+  /** 唯一命中时的单订单视图；多候选/无命中为 null */
+  order: {
+    orderId: string
+    plantId: string
+    orderNo: string
+    orderType: string | null
+    salesContractNo: string | null
+    salesOrderNo: string | null
+    lineNo: string | null
+    materialDesc: string
+    productionQty: DecimalString
+    uom: string
+    orderStatus: string
+    suspended: boolean
+    suspendedReason: string | null
+    processConfigStatus: string
+    bomRevisionId: string | null
+    routeRevisionId: string | null
+    actualStartAt: string | null
+    plannedStartAt: string | null
+    plannedFinishAt: string | null
+    businessClosedAt: string | null
+    erpClosedAt: string | null
+    /** 订单级五量合计 */
+    totalQuantities: AiFiveQuantitiesDto
+    /** 排程完成度（unplanned/partially_scheduled/fully_scheduled，A3-4 投影） */
+    schedulingStatus: 'unplanned' | 'partially_scheduled' | 'fully_scheduled'
+    /** 当前设置版本工序行（未完成判定=五量与排程事实，不依赖 execution_status，GAP-P9） */
+    operations: Array<{
+      orderOperationId: string
+      seq: number
+      operationName: string
+      offlineQty: DecimalString
+      uom: string
+      quantities: AiFiveQuantitiesDto
+      scheduledQty: DecimalString
+      fullyScheduled: boolean
+      ready: boolean
+      readyReason: string
+      /** 未完成任务=排程未排完 或 审核通过量为零 的当前版本工序行 */
+      incomplete: boolean
+    }>
+  } | null
+  /** 多候选澄清清单（AQ-AMB-01；唯一命中/无命中为空数组） */
+  candidates: AiOrderCandidateDto[]
+}
+
+/** AQ-C2 采购在途行（价格类字段物理排除在白名单外，GAP-P5）。 */
+export interface AiPurchaseInTransitLineDto {
+  lineId: string
+  orderNo: string
+  lineNo: number
+  status: number
+  statusLabel: string
+  plannedQty: DecimalString
+  receivedQty: DecimalString
+  /** 在途量 = planned_qty − received_qty（仅 status ∈ {0,1,2} 且 erp_closed=false） */
+  inTransitQty: DecimalString
+  erpClosed: boolean
+  plannedReceiptDate: string | null
+  firstArrivalDate: string | null
+  lastArrivalDate: string | null
+  uomCode: string
+  /** 该行最近收货批次的质检状态（六值；关联展示） */
+  latestBatchInspectionStatus: string | null
+  latestBatchInspectionStatusLabel: string | null
+}
+
+/** AQ-C2 单料品并排行（BOM 需求 vs 可用量 vs 采购在途）。 */
+export interface AiMaterialShortageLineDto {
+  materialId: string
+  materialCode: string
+  /** 料品名称/规格/型号/颜色（purchase_order_line 快照列；无采购行时为 null） */
+  materialName: string | null
+  spec: string | null
+  model: string | null
+  color: string | null
+  /** BOM 行数量原文（基数语义未冻结，GAP-P4） */
+  bomQuantity: DecimalString
+  uom: string
+  /** 口径参数 requirementBase：'per_unit'（×production_qty）/'total'/null（未配置=口径未定） */
+  requirementBase: 'per_unit' | 'total' | null
+  /** 折算后需求量（requirementBase 已配置且单位一致时给出；否则 null） */
+  requiredQty: DecimalString | null
+  /** 可用量三段（IT-14：合格 ∧ 减有效预留；同料品跨余额行汇总） */
+  availability: { grossQty: DecimalString; reservedQty: DecimalString; availableQty: DecimalString }
+  /** 采购在途合计（匹配键=plant 内 material_code） */
+  inTransitQty: DecimalString
+  /** 缺口数值（requirementBase 已配置且单位一致时给出；否则 null——首版固定「口径未定」） */
+  shortageQty: DecimalString | null
+  /** 缺口列标注：口径未定（GAP-P4）/ 单位不一致未折算 / null（已给出数值） */
+  shortageNote: string | null
+  /** 三源 uom 不一致（BOM/库存/采购）时不折算、不汇总结论，逐行标注 */
+  uomMismatch: boolean
+  uomSources: { bom: string; stock: string | null; purchase: string | null }
+  purchaseLines: AiPurchaseInTransitLineDto[]
+}
+
+/** AQ-C2 结果 DTO（能力：aq.material-shortage）。 */
+export interface AiMaterialShortageResultDto {
+  capabilityId: 'aq.material-shortage'
+  orderId: string | null
+  orderNo: string | null
+  /** 订单未冻结 BOM（bom_revision_id 为 null）时为 null（ok_no_records + 附注，不视为缺料为零） */
+  bomRevisionId: string | null
+  bomRevisionVersion: number | null
+  /** 口径参数回显（requirementBase 未配置=口径未定，AQ-AMB-03） */
+  requirementBase: 'per_unit' | 'total' | null
+  lines: AiMaterialShortageLineDto[]
+  /** 多候选澄清清单（AQ-AMB-01；唯一命中/无命中为空数组） */
+  candidates: AiOrderCandidateDto[]
+}
+
+/** AQ-C3 检验单族行（过程/成品检验单：判定/状态/处置事实，无原因推测列）。 */
+export interface AiQualityInspectionRowDto {
+  family: 'inspection_order'
+  id: string
+  orderNo: string
+  sourceType: 'work_report' | 'putaway_receipt'
+  inspectionStage: 'process' | 'finished'
+  specCode: string
+  specVersion: number
+  unitNo: string | null
+  materialCode: string
+  quantity: DecimalString
+  uomCode: string
+  productionOrderNo: string | null
+  productionDeptName: string | null
+  plantId: string
+  status: 'pending' | 'in_progress' | 'concluded' | 'cancelled'
+  statusLabel: string
+  /** 业务时间（IT-37 业务侧；时间过滤列） */
+  businessTime: string
+  /** 生效结论（当前 is_effective 行；历史版本行不混作当前判定，S14） */
+  effectiveConclusion: {
+    version: number
+    conclusion: 'pending' | 'qualified' | 'unqualified'
+    resultKind: 'initial' | 'test' | 're_inspection'
+    inspector: string | null
+    inspectedAt: string | null
+  } | null
+  /** 最新处置记录（放行/让步；让步保留原不合格事实） */
+  latestDisposition: {
+    dispositionKind: 'release' | 'concession'
+    basedOnVersion: number
+    releasedBy: string
+    releasedAt: string
+    reason: string | null
+  } | null
+  /** 活动隔离（同码至多一条；处置/判定/隔离三者并排不互相覆盖） */
+  activeHold: { holdKind: string; holdKindLabel: string; raisedAt: string } | null
+}
+
+/** AQ-C3 来料批次族行（价格复核列与外发同步状态列不入结果，GAP-P5）。 */
+export interface AiQualityBatchRowDto {
+  family: 'purchase_batch'
+  id: string
+  batchNo: string
+  orderNo: string
+  lineNo: number
+  materialCode: string
+  materialName: string | null
+  receivedQty: DecimalString
+  uomCode: string
+  inspectionStatus: string
+  inspectionStatusLabel: string
+  storageStatus: 'stored' | 'returned'
+  plantId: string
+  arrivalTime: string
+  /** 收货确认业务时间（时间过滤列） */
+  confirmTime: string
+  /** 收货明细质量状态汇总（receipt_detail.quality_status 五值计数） */
+  detailQualitySummary: Array<{ qualityStatus: string; qualityStatusLabel: string; count: number }>
+}
+
+/** AQ-C3 结果 DTO（能力：aq.quality）。 */
+export interface AiQualityResultDto {
+  capabilityId: 'aq.quality'
+  /** 实际生效时间范围与过滤列（AQ-AMB-02 默认最近 7 个自然日 Asia/Shanghai 时回显） */
+  timeRange: { from: string; to: string; defaultApplied: boolean }
+  objectScope: 'inspection_order' | 'purchase_batch' | 'all'
+  inspectionOrders: AiQualityInspectionRowDto[]
+  purchaseBatches: AiQualityBatchRowDto[]
+}
+
+/** 三能力结果 DTO 联合（信封 data 承载位）。 */
+export type AiQueryCapabilityResultDto =
+  | AiOrderProgressResultDto
+  | AiMaterialShortageResultDto
+  | AiQualityResultDto
+
+// ---------------------------------------------------------------------------
+// 六段结果信封（AQ-REG-07）
+// ---------------------------------------------------------------------------
+
+/** 受控查询结果信封（wire 固定六段 + 可理解文案）。 */
+export interface AiQueryEnvelopeDto {
+  status: AiQueryResultStatusDtoValue
+  /** 状态中文标签 */
+  statusLabel: string
+  /** 可理解文案（规则码 [AQ-xx-x] 承载位；不得以空数据冒充两态，AQ-REG-01） */
+  message: string
+  /** 能力结果 DTO（非数据态为 null） */
+  data: AiQueryCapabilityResultDto | null
+  completeness: AiQueryCompletenessDto
+  freshness: AiQueryFreshnessDto
+  contextEcho: AiQueryContextEchoDto
+  auditRef: AiQueryAuditRefDto
+}
+
+// ---------------------------------------------------------------------------
+// 内部端点形状（dsh-edge.md §4：DS-18 capabilities / DS-19 execute；B↔A 共同冻结面）
+// ---------------------------------------------------------------------------
+
+/** 能力枚举项（AQ-REG-05：仅当前用户通过许可预检的 enabled 能力对模型可见）。 */
+export interface AiQueryCapabilityDto {
+  capabilityId: string
+  version: number
+  displayName: string
+  description: string
+  inputSchema: Record<string, unknown>
+}
+
+/** 未就绪问法族项（§8 固定清单；source_not_ready，不得把空集合算成零值经营事实）。 */
+export interface AiQueryUnreadyTopicDto {
+  /** 未就绪问法族固定标识（execute 收到同值 capabilityId → source_not_ready） */
+  capabilityId: string
+  topic: string
+  message: string
+}
+
+/** POST /internal/aiquery/capabilities 响应（DS-18）。 */
+export interface AiQueryCapabilitiesResponseDto {
+  capabilities: AiQueryCapabilityDto[]
+  unreadyTopics: AiQueryUnreadyTopicDto[]
+}
+
+/** POST /internal/aiquery/execute 请求体（DS-19）。 */
+export interface AiQueryExecuteRequestDto {
+  requestId: string
+  toolCallSeq: number
+  sessionId: string
+  capabilityId: string
+  capabilityVersion: number
+  params: Record<string, unknown>
+}
+
+/** 会话登记请求（接入层会话归属，AR-01/AQ-S3；渠道值域同 AQ-S2 channel CHECK）。 */
+export interface AiSessionOpenRequestDto {
+  channel: 'web' | 'pda' | 'wecom' | 'feishu' | 'mock'
+  /** IM 会话目标标识或 web 会话标识（可空） */
+  conversationRef?: string | null
+}
+
+/** 会话登记响应。 */
+export interface AiSessionOpenResponseDto {
+  sessionId: string
+  enterpriseId: string
+  userId: string
+  channel: string
+  status: string
+}
+
+// ---------------------------------------------------------------------------
+// 用户面问数轮（dsh-edge.md §5 DS-23/DS-24 经接入层透传；形状与 P4-UI 线
+// packages/ui/src/api/p4/types.ts 冻结面逐字段一致——L0 接线对齐点，DS-21 同则）
+// ---------------------------------------------------------------------------
+
+/** 问数轮请求（UI → 接入层；requestId 由 UI 预生成仅为在途取消关联，服务端回执为准，AQ-REG-06）。 */
+export interface AiAskTurnRequestDto {
+  /** 接入层生成的全局唯一轮次标识（AR-15 requestId 审计链锚点；澄清轮延续同一值，AQ-AMB-04） */
+  requestId: string
+  sessionId: string
+  /** 用户提问文本（澄清答复轮可为空——由 clarifyOptionId 承载选择） */
+  userMessage: string
+  /** 澄清选项答复（AQ-AMB-01：用户选择后带精确参数重发；只传选项 id，参数由服务端绑定） */
+  clarifyOptionId?: string | null
+}
+
+/** 澄清选项（DS-08：选项来自能力结果结构化 options[]，不由模型/前端编造）。 */
+export interface AiClarifyOptionDto {
+  id: string
+  /** 呈现分类（UI 增补：重名订单候选 / 时间范围确认 / 口径选择） */
+  kind?: 'order_candidate' | 'time_range' | 'caliber' | string
+  label: string
+  /** 结构化补充信息（订单号/工厂/状态/料品/时间起止等） */
+  detail?: Record<string, string> | null
+  /** 选择后的精确重发参数（服务端绑定承载；UI 不改写） */
+  confirm?: { capabilityId: string; params: Record<string, unknown> } | null
+}
+
+/** 问数轮 outcome 四态（DS-23）。 */
+export type AiAskTurnOutcomeDtoValue = 'answer' | 'clarify' | 'unavailable' | 'cancelled'
+
+export const AI_ASK_TURN_OUTCOME_LABELS: Readonly<Record<AiAskTurnOutcomeDtoValue, string>> = {
+  answer: '已回答',
+  clarify: '需要澄清',
+  unavailable: '暂不可用',
+  cancelled: '已取消',
+}
+
+/** AI 服务不可用原因类别（AR-11/DS-24：unreachable/over_limit/starting 三类透传）。 */
+export type AiUnavailableReasonDtoValue = 'unreachable' | 'over_limit' | 'starting'
+
+export const AI_UNAVAILABLE_REASON_LABELS: Readonly<Record<AiUnavailableReasonDtoValue, string>> = {
+  unreachable: 'AI 服务不可达',
+  over_limit: '已超出 AI 问数使用限额',
+  starting: 'AI 服务正在启动，请稍候',
+}
+
+/** 问数轮响应（接入层 → UI；DS-23 形状 + 信封/选项/不可用原因承载）。 */
+export interface AiAskTurnResponseDto {
+  requestId: string
+  outcome: AiAskTurnOutcomeDtoValue
+  /** 可理解文案（answer=AI 解释文字〔标注「解释非事实」由 UI 呈现层区分〕；cancelled=阶段摘要） */
+  message: string
+  /** outcome=answer / unavailable(部分数据) 时携带六段信封；clarify/cancelled 为 null */
+  envelope: AiQueryEnvelopeDto | null
+  /** outcome=clarify 时的结构化选项（AQ-AMB-01/02/03） */
+  options: AiClarifyOptionDto[] | null
+  /** outcome=unavailable 时的原因类别（AR-11）；无类别为 null（如接入层自身故障 AR-14） */
+  unavailableReason: AiUnavailableReasonDtoValue | null
+  /** 阶段细节（超时 scope/已用工具次数等；呈现为附注，不作主文案） */
+  statusDetail: Record<string, unknown> | null
+}
+
+/** 取消轮次响应（DS-11：终态 cancelled）。 */
+export interface AiAskCancelResponseDto {
+  status: 'cancelled'
+  decision?: 'cancelled_in_flight' | 'already_finished' | 'unknown_request' | string
+}
+
+/** 健康探测响应（AR-03 经接入层代理面；AR-11 降级判定源；不可达=明确 unavailable 形状非 5xx 裸抛）。 */
+export type AiQueryHealthResponseDto =
+  | { status: 'ok'; runtime?: Record<string, unknown> | null }
+  | { status: 'unavailable'; reason: AiUnavailableReasonDtoValue; message: string }

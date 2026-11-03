@@ -1,0 +1,17 @@
+﻿id,sim,world_id,simulation_version,sap_material,mom_material_code,name_zh,name_ko,type,unit,quantity_basis,color,kg_per_m,version,master_owner,specification,voltage,certification,qualified_key
+CBL01G-CU15,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CU15,CU15,1.5平方导体,1.5㎟ 도체,raw,kg,kg,,,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-CU15
+CBL01G-PVC15,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,PVC15,PVC15,芯线绝缘料,심선 절연재,raw,kg,kg,,,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-PVC15
+CBL01G-CU40,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CU40,CU40,4平方导体,4㎟ 도체,raw,kg,kg,,,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-CU40
+CBL01G-XLPE40,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,XLPE40,XLPE40,4平方芯线绝缘料,4㎟ 심선 절연재,raw,kg,kg,,,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-XLPE40
+CBL01G-JACKET,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,JACKET,JACKET,护套料,시스 재료,raw,kg,kg,,,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-JACKET
+CBL01G-SF-N1,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,SF-N1,SF-N1,单芯蓝色线坯,청색 단심 반제품,semi,m,core_m,BL,0.021,1,SAP_SIM,1x1.5,,,CBL01G|materials|CBL01G-SF-N1
+CBL01G-F1,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,F1,F1,设备用单芯绝缘线,설비용 단심 절연전선,finished,m,cable_m,BL,0.021,1,SAP_SIM,1x1.5,SIM 300/500V,,CBL01G|materials|CBL01G-F1
+CBL01G-F2,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,F2,F2,3芯工业控制线缆,3심 산업 제어케이블,finished,m,cable_m,BK,0.09426,1,SAP_SIM,3x1.5,SIM 300/500V,,CBL01G|materials|CBL01G-F2
+CBL01G-F3,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,F3,F3,4芯低压动力线缆,4심 저압 전력케이블,finished,m,cable_m,BK,0.23584,1,SAP_SIM,4x4.0,SIM 0.6/1kV,,CBL01G|materials|CBL01G-F3
+CBL01G-C15-BL,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,C15-BL,C15-BL,1.5平方绝缘芯线-BL,1.5㎟ 절연심선-BL,semi,m,core_m,BL,0.021,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-C15-BL
+CBL01G-C15-BN,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,C15-BN,C15-BN,1.5平方绝缘芯线-BN,1.5㎟ 절연심선-BN,semi,m,core_m,BN,0.021,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-C15-BN
+CBL01G-C15-BK,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,C15-BK,C15-BK,1.5平方绝缘芯线-BK,1.5㎟ 절연심선-BK,semi,m,core_m,BK,0.021,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-C15-BK
+CBL01G-C40-BL,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,C40-BL,C40-BL,4平方绝缘芯线-BL,4㎟ 절연심선-BL,semi,m,core_m,BL,0.046,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-C40-BL
+CBL01G-C40-BN,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,C40-BN,C40-BN,4平方绝缘芯线-BN,4㎟ 절연심선-BN,semi,m,core_m,BN,0.046,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-C40-BN
+CBL01G-C40-BK,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,C40-BK,C40-BK,4平方绝缘芯线-BK,4㎟ 절연심선-BK,semi,m,core_m,BK,0.046,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-C40-BK
+CBL01G-C40-GY,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,C40-GY,C40-GY,4平方绝缘芯线-GY,4㎟ 절연심선-GY,semi,m,core_m,GY,0.046,1,SAP_SIM,SIM规格,,,CBL01G|materials|CBL01G-C40-GY

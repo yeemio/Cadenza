@@ -1,0 +1,40 @@
+{
+  "format": 1,
+  "updated": "2026-10-28",
+  "note": "升级兼容矩阵（DO-20）：起点版本集合→终点版本、逐跳数据后果、不可跳转路径。随发行版本更新。",
+  "current_registry_top": "0010",
+  "known_upgrade_paths": [
+    {
+      "from_prefix": "0001–0009",
+      "to": "0010",
+      "status": "SHIPPED",
+      "data_consequences": "纯新增（装箱发运六表+守卫）；既有业务数据无回写"
+    },
+    {
+      "from_prefix": "0001–0010",
+      "to": "0011+（P2/P3 各线迁移，L0 整合后随发行）",
+      "status": "PLANNED",
+      "data_consequences": "逐线登记：见各线交付记录；原则=可兼容的扩展/迁移/收缩，业务数据上可重入"
+    }
+  ],
+  "hop_notes": {
+    "0002": "组织权限表新增，无数据回写",
+    "0003": "主数据表新增；被引用退役由命令层校验（MD-37）",
+    "0004": "库存六层身份+append-only 流水与触发器；升级纯新增，降级禁止（事实完整性）",
+    "0010": "发运六表+库级守卫；出库回传双状态列为新增列"
+  },
+  "forbidden_paths": [
+    {
+      "type": "downgrade",
+      "rule": "已应用 0004 及以上的库禁止回退到 0003 及以下",
+      "reason": "库存流水/分录 append-only 触发器与余额结构将失去事实完整性（IT-S6）",
+      "data_consequence": "降级即丢弃 0004 起的全部库存事实表——须整库恢复到旧备份而非原地降级"
+    },
+    {
+      "type": "restore_old_backup_onto_newer_release",
+      "rule": "旧备份不得直接恢复到更高发行版本的应用上冒充升级",
+      "reason": "restore.sh 迁移一致性检查（§3.1 第 4 步）拒绝版本不一致；必须恢复到备份版本后再按 DO-20 升级路径执行",
+      "data_consequence": "跳步将造成迁移漂移（drift），migrateDown 会显式拒绝"
+    }
+  ]
+}

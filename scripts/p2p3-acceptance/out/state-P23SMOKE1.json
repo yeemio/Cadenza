@@ -1,0 +1,68 @@
+{
+  "run": "P23SMOKE1",
+  "nodes": {
+    "DEPT-SZ-WL": "355c4d06-90a7-4c70-98ab-09c68c1cdce6",
+    "ENT-HD": "4c966d35-97a9-4d83-bb0f-19b42692d371",
+    "PLNT-SZ": "05e7b93d-0682-473c-a8f1-01f0670f8946",
+    "DEPT-SZ-JZ": "6c4f1c5d-d013-4415-b701-24d9471a0218"
+  },
+  "entId": "4c966d35-97a9-4d83-bb0f-19b42692d371",
+  "szPlantId": "05e7b93d-0682-473c-a8f1-01f0670f8946",
+  "wh": {
+    "whMain": null,
+    "whLine": "a5a4a00c-ecf8-4e16-88fd-2468e3ccb8c4"
+  },
+  "loc": {
+    "whMain": null,
+    "whLine": "3967de1e-297b-47f9-ad60-e380860e2531",
+    "whMainCode": "84960101",
+    "whLineCode": "40010101"
+  },
+  "wcId": "0c26bd64-c882-4d5d-8408-962415f2881b",
+  "equipment": {
+    "EQ-P23SMO-01": {
+      "id": "ba4ade3f-b8bb-4a09-9394-56133eadb13c"
+    },
+    "EQ-P23SMO-10": {
+      "id": "5c924a26-bbdc-4ae1-82ad-7c6200448f94"
+    }
+  },
+  "eqExecCode": "EQ-P23SMO-01",
+  "eqMtCode": "EQ-P23SMO-10",
+  "opDefId": "086638f1-2a51-4498-8ee5-cfdbe0e6f1b2",
+  "mat": {
+    "MAT-P23-FIN": "3e011932-1d6b-4b0e-8ffd-6ac45a19fc98",
+    "MAT-P23-RAW": "b3f9af93-0218-43d9-8157-4b0af71680fc",
+    "MAT-P23-SPARE": "c747b18b-d686-4f44-b6fc-a0b7f004343f"
+  },
+  "orderSrc": {
+    "orderId": "f67cf53f-463d-44d9-a20e-a581f6e65673",
+    "orderNo": "MO-P23SMOKE1-SRC",
+    "op1Id": "19f6ce66-2d93-4643-8934-655ddf929463"
+  },
+  "orderTgt": {
+    "orderId": "a46211a5-1fcd-4d23-9f34-83b362dd4e1c",
+    "orderNo": "MO-P23SMOKE1-TGT",
+    "op1Id": "1c9c77db-8259-468b-9c7d-7325705b1134"
+  },
+  "orderFeed": {
+    "orderId": "4a04b375-9d21-4ac2-85c0-79695c233360",
+    "orderNo": "MO-P23SMOKE1-FEED",
+    "op1Id": "bfd9f15f-1d7e-4626-809c-362ff55cf93d"
+  },
+  "orderCost": {
+    "orderId": "37108aa1-0210-4041-9a0c-b1f8892e96ac",
+    "orderNo": "MO-P23SMOKE1-COST",
+    "op1Id": "d8938890-9438-4b29-91fb-dff42722a925"
+  },
+  "costReportId": "4f044641-c889-461d-8554-0d428add0eb1",
+  "laborRecordId": "ec7365f5-4482-4b38-b0be-1dd95d62051e",
+  "costSession": {
+    "equipmentCode": "EQ-P23SMO-01",
+    "status": "submitted",
+    "from": "2026-10-28 15:25:56.654+00",
+    "to": "2026-10-28 15:35:56.656857+00"
+  },
+  "uCvA": "1EP23SMOK001",
+  "uCvAId": null
+}

@@ -1,0 +1,6 @@
+{
+  "name": "@cadenza/integrations",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza 外部集成适配器占位（ERP/U9/DC/SAP/扫码/打印/采集）。真实适配器被样例阻塞（PRD_ISSUES S07），P1 不实现。"
+}

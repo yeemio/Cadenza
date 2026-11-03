@@ -1,0 +1,232 @@
+{
+  "run": "P1ACCD1D2",
+  "nodes": {
+    "DEPT-SZ-JZ": "e275fe4b-7f7d-44fe-8b2b-a1073b5b1051",
+    "DEPT-SZ-WL": "8cd2c5ca-f629-4e31-af9f-da15f181feab",
+    "DEPT-HF-JZ": "5e68410e-d87c-4cda-bacb-47aa31d871e3",
+    "ENT-HD": "01f12b07-78e2-4063-81c5-22123bd20024",
+    "PLNT-SZ": "a668d256-a18c-4bfe-8c91-96d2c152f753",
+    "PLNT-HF": "93dcefa3-f118-478b-9295-85aa907f82ef"
+  },
+  "entId": "01f12b07-78e2-4063-81c5-22123bd20024",
+  "szPlantId": "a668d256-a18c-4bfe-8c91-96d2c152f753",
+  "hfPlantId": "93dcefa3-f118-478b-9295-85aa907f82ef",
+  "hfUserId": "ed46d144-a655-4444-b56d-5bd523e684df",
+  "wcId": "b1cdaca0-38a1-4de7-9424-09caada008b5",
+  "equipment": {
+    "EQ-P1-01": {
+      "id": "f56b3cc7-9a6f-4d30-b613-88e0287c5f31",
+      "qrCode": "EQU-EQ-P1-01"
+    },
+    "EQ-P1-02": {
+      "id": "39623f61-297b-4984-afee-caea1053206e",
+      "qrCode": "EQU-EQ-P1-02"
+    }
+  },
+  "wh": {
+    "sz9101": "322a2c56-a305-40cd-ba6f-05017f8f4136",
+    "sz9102": "1d73f110-ddd4-4ddb-b11b-c51b88ab4a3d",
+    "sz9103": "745a2082-15af-47ce-b140-b862c88bcf7e",
+    "sz9190": "1bbe64ed-cd7f-49d0-8b39-228267dddded",
+    "hf9102": "41d70452-0163-4b1f-a490-c3b202c32791"
+  },
+  "loc": {
+    "sz9101": {
+      "91010101": "74390401-cd74-4402-92bf-2b9f35753d94"
+    },
+    "sz9102": {
+      "91020101": "00e72817-1bc9-408d-995c-a9c7e400cf46"
+    },
+    "sz9103": {
+      "91030101": "f9898baa-c272-43cf-a362-a4d08ceabf52"
+    },
+    "sz9190": {
+      "91900101": "ea7ce901-78c2-44d6-83ef-4c8c97bfceb0"
+    },
+    "hf9102": {
+      "91020101": "dea0f8a9-0849-4927-b46b-f6d5bb057f4f"
+    },
+    "010101": "84fd6839-3d08-495c-986e-df2d0bb13289",
+    "010102": "0bc92cd2-3597-46d5-94eb-a2c2293bd2cb",
+    "010201": "d711c153-ca8c-4e0c-a75b-5e6be207ed14",
+    "010202": "9bef9c22-e81c-4f8a-99a1-50a874276b85"
+  },
+  "mat": {
+    "MAT-P1-RAW": "9b59b597-5545-470a-925e-479f592a329e",
+    "MAT-P1-EXP": "dc6224c2-85f5-46dc-b421-762410919f20",
+    "MAT-P1-FIN": "e9d0b616-b77a-4414-818b-fd758080da78"
+  },
+  "ops": {
+    "org.grant.grant": "P1ACCD1D2-a01-grant",
+    "purchase.order-sync": "P1ACCD1D2-a02-posync",
+    "purchase.receive-confirm#1": "P1ACCD1D2-a02-rcv1",
+    "purchase.receive-confirm#2": "P1ACCD1D2-a02-rcv2",
+    "process.order.receive": "P1ACCD1D2-a03-order",
+    "execution.report.submit": "P1ACCD1D2-a04-r-last",
+    "shipping.pl.inbound": "P1ACCD1D2-a08-pl1"
+  },
+  "po": {
+    "orderNo": "PO-P1ACCD1D2-001",
+    "line10Id": "26638c50-0e51-45c9-bc13-81ee462e24d0",
+    "line20Id": "615b7eea-ad8c-4482-8755-84acde2e0cd3",
+    "barcode1": "RP1ACCD1D2",
+    "batch1": {
+      "batchId": "726e68c6-2083-4a96-8e3f-3d654c0e8213",
+      "batchNo": "PRBMVRG3500W46",
+      "detailId": "42dfac20-f666-404e-8a05-534346a01b23",
+      "unitId": "841b758c-13f5-40a1-9f3a-cda5c26ccf88",
+      "unitNo": "PUR-PRBMVRG3500W46-1"
+    },
+    "barcode2": "RP1ACCD1D2",
+    "batch2": {
+      "batchId": "a367090c-5fda-4075-b857-19869cb3bd78",
+      "batchNo": "PRBMVRG3526LIP",
+      "detailId": "31213583-9fd0-43bb-8e89-1ebed26e560c",
+      "unitId": "1815a63e-3715-4e10-9839-c4f497313302",
+      "unitNo": "PUR-PRBMVRG3526LIP-1"
+    },
+    "batchExp": {
+      "batchId": "4e4a4cff-7668-4a6e-964b-f890538c2c7b",
+      "batchNo": "PRBMVRG35BYLJK",
+      "unitId": "0e3fe73d-4dc8-4bbd-aeb1-4a7a853a86ed",
+      "unitNo": "PUR-PRBMVRG35BYLJK-1"
+    }
+  },
+  "today": "2026-10-28",
+  "famId": "21c9e473-eab2-4898-9c26-b1126126d712",
+  "opDef": {
+    "OP-P1-01": "56fccede-64f0-4a23-8098-e3665d06ed35",
+    "OP-P1-02": "260b8bbc-4c40-4614-93d1-a08ef767ac43"
+  },
+  "bomRevId": "fd5d0721-6b7e-42b6-b83e-81918fbad1d3",
+  "routeRevId": "5e17304b-f7e5-427d-9feb-0b015c5e19c4",
+  "order": {
+    "orderId": "e4114248-e775-4d3d-bc49-931f05bda9a6",
+    "orderNo": "MO-P1ACCD1D2-MAIN",
+    "routeRevisionId": "5e17304b-f7e5-427d-9feb-0b015c5e19c4",
+    "bomRevisionId": "fd5d0721-6b7e-42b6-b83e-81918fbad1d3",
+    "op1Id": "fe23c3aa-8a5d-42b4-bbfd-22e83e8f4a8d",
+    "op2Id": "67c72c25-2b44-4ff4-8e1c-21bdb98c694d"
+  },
+  "reports": {
+    "P1ACCD1D2-a04-r-order": {
+      "reportId": "5b14f358-0b6b-44bd-9fff-2bdc18761691"
+    },
+    "P1ACCD1D2-a04-r-wb": {
+      "reportId": "70569f71-1e39-4936-a368-1c1e50422cd9"
+    },
+    "P1ACCD1D2-a04-r-scan": {
+      "reportId": "265e9263-a45c-418f-89a3-17204d31f1ee"
+    },
+    "P1ACCD1D2-a04-r-last": {
+      "reportId": "08975a02-3c6d-42a3-b155-50f64c21fb8f"
+    }
+  },
+  "prduUnits": [
+    {
+      "unitId": "a2fd3022-34f8-4100-a16d-ad02bca0d3e5",
+      "unitNo": "PRDU-5b14f358-1",
+      "qty": "2000.0000"
+    },
+    {
+      "unitId": "f79c5a03-7d89-4992-b124-81cd7c008b8a",
+      "unitNo": "PRDU-70569f71-1",
+      "qty": "1500.0000"
+    },
+    {
+      "unitId": "523da25d-ac3a-4487-9e80-af1ea72ecbf5",
+      "unitNo": "PRDU-265e9263-1",
+      "qty": "1000.0000"
+    },
+    {
+      "unitId": "342be801-3b9b-48ac-99be-be29968635a1",
+      "unitNo": "PRDU-08975a02-1",
+      "qty": "600.0000"
+    }
+  ],
+  "feedOrderId": "4bf4dcb5-7528-4eff-9659-31e21e4961b4",
+  "feedOpId": "b07e4390-d75c-4c7b-9802-39eef6ee657c",
+  "inspection": {
+    "created": [
+      {
+        "orderId": "f9b6bdf4-a571-4b8f-90ff-bd4b33216979",
+        "orderNo": "QIO-MVRG36EP-1HDG",
+        "stage": "process",
+        "sourceRef": "13522df6-480e-4c9a-985b-5fde14b556ea",
+        "specCode": "SPEC-P1-FIN",
+        "specVersion": 1
+      },
+      {
+        "orderId": "399c798a-363e-4eb8-aebc-ec0d8be131ef",
+        "orderNo": "QIO-MVRG36EQ-2X5D",
+        "stage": "process",
+        "sourceRef": "bbf0715e-24f7-43f9-a2e6-a24d1e27f0d7",
+        "specCode": "SPEC-P1-FIN",
+        "specVersion": 1
+      },
+      {
+        "orderId": "6ea63fcb-4ca2-4fe9-9487-e764ccc3ebbb",
+        "orderNo": "QIO-MVRG36ER-3GVN",
+        "stage": "process",
+        "sourceRef": "723ed56a-90f2-48bb-9ce8-91961afb8c8b",
+        "specCode": "SPEC-P1-FIN",
+        "specVersion": 1
+      },
+      {
+        "orderId": "609cb25c-3275-4d91-9fe2-ad6304d3a9ee",
+        "orderNo": "QIO-MVRG36ES-45P4",
+        "stage": "finished",
+        "sourceRef": "e2e6047d-f198-45b9-8400-256e26f1b9c6",
+        "specCode": "SPEC-P1-FIN",
+        "specVersion": 1
+      }
+    ],
+    "finishedOrderId": "609cb25c-3275-4d91-9fe2-ad6304d3a9ee"
+  },
+  "putawayTasks": [
+    {
+      "taskId": "e90245f2-4e60-4766-9119-ec106f8d3999",
+      "sourceType": "work_report",
+      "sourceRef": "13522df6-480e-4c9a-985b-5fde14b556ea",
+      "unitNo": "PRDU-5b14f358-1",
+      "palletCode": null
+    },
+    {
+      "taskId": "e9cedf69-296c-4b26-8b37-1a28393c06dd",
+      "sourceType": "work_report",
+      "sourceRef": "bbf0715e-24f7-43f9-a2e6-a24d1e27f0d7",
+      "unitNo": "PRDU-70569f71-1",
+      "palletCode": null
+    },
+    {
+      "taskId": "cc27039e-0b34-4abd-ad45-07541ccff3a1",
+      "sourceType": "work_report",
+      "sourceRef": "723ed56a-90f2-48bb-9ce8-91961afb8c8b",
+      "unitNo": "PRDU-265e9263-1",
+      "palletCode": null
+    },
+    {
+      "taskId": "a7da24bd-ac1c-4a94-a5ad-dc589b2ea8c8",
+      "sourceType": "work_report",
+      "sourceRef": "e2e6047d-f198-45b9-8400-256e26f1b9c6",
+      "unitNo": "PRDU-08975a02-1",
+      "palletCode": null
+    }
+  ],
+  "putaway": {
+    "movedQty": {}
+  },
+  "transfer": {
+    "orderId": "b298f220-ed16-4966-9ad4-8c7e4f051ef4",
+    "orderNo": "TO-MVRG36T9MRM",
+    "line1": "df4bed69-30bd-4389-867b-d6869b9ebd1c",
+    "line2": "e9f6991a-e555-4bd6-b752-d2584f0bda0d"
+  },
+  "shipment": {
+    "orderId": "00a14bff-d895-43c7-8fb4-0aec2ed6cf9b",
+    "plNo": "PL-P1ACCD1D2-001",
+    "axisLineId": "dfe93a35-6a09-4b87-8f83-177c6bd432d1",
+    "palletLineId": "13872b5f-54e0-492b-83ed-7cb186199d98",
+    "packingId": "39a677e1-72d3-46b2-bfb8-52c043a5aa3e"
+  }
+}

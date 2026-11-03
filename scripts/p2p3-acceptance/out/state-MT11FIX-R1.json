@@ -1,0 +1,111 @@
+{
+  "run": "MT11FIX-R1",
+  "nodes": {
+    "DEPT-SZ-WL": "b3547da0-86b3-4738-ab91-884323a9ea15",
+    "ENT-HD": "c808591a-138b-4163-a3bb-65ec7bf041ce",
+    "PLNT-SZ": "094c0886-6e0c-4a74-bdbe-5d5d543922ec",
+    "DEPT-SZ-JZ": "fb3dfae0-db1a-4da7-938b-0de87ea01d41"
+  },
+  "entId": "c808591a-138b-4163-a3bb-65ec7bf041ce",
+  "szPlantId": "094c0886-6e0c-4a74-bdbe-5d5d543922ec",
+  "wh": {
+    "whMain": "4c264343-85b6-4d6a-95e0-958e7e4d0de9",
+    "whLine": "9989251c-dfe9-4107-b60d-7a32374c2f99"
+  },
+  "loc": {
+    "whMain": "7bb663e8-9077-4bfa-b593-3f4dcdc724af",
+    "whLine": "b734e398-fb98-4b15-b339-fb2328f1b388",
+    "whMainCode": "40930101",
+    "whLineCode": "85880101"
+  },
+  "wcId": "4f4264c7-9ecc-41fe-a942-5f986531e459",
+  "equipment": {
+    "EQ-MT11FIXR1-01": {
+      "id": "035905ee-1db8-46d3-b68a-8dfb48142732"
+    },
+    "EQ-MT11FIXR1-10": {
+      "id": "7e4b2eb1-cc94-4b48-8072-3050f5946fc8"
+    }
+  },
+  "eqExecCode": "EQ-MT11FIXR1-01",
+  "eqMtCode": "EQ-MT11FIXR1-10",
+  "opDefId": "ee8e1d10-a915-4129-9ca4-1d71e1284eb0",
+  "mat": {
+    "MAT-P23-FIN": "9ac5af76-2fdb-46b1-81b6-44207d7653b0",
+    "MAT-P23-RAW": "b0ba5c4b-3f2e-4cb1-b86c-9c7da3f311ab",
+    "MAT-P23-SPARE": "5cfb1979-1e63-4722-abdd-c3c717e8802f"
+  },
+  "orderSrc": {
+    "orderId": "f30d2fb8-0d46-4d96-928e-b491cca110bd",
+    "orderNo": "MO-MT11FIX-R1-SRC",
+    "op1Id": "75e981d6-7890-4e5c-95a9-f8676f69ed9a"
+  },
+  "orderTgt": {
+    "orderId": "18752dc3-2562-4fe7-a613-7353cc18df61",
+    "orderNo": "MO-MT11FIX-R1-TGT",
+    "op1Id": "864fdec6-0d2a-485f-bbce-db4418d4b31e"
+  },
+  "orderFeed": {
+    "orderId": "08388bca-a754-48f4-a11f-ce5f026cf94c",
+    "orderNo": "MO-MT11FIX-R1-FEED",
+    "op1Id": "24a8084f-ab78-434a-87b8-bb3eaf97b902"
+  },
+  "orderCost": {
+    "orderId": "9e0f04e7-ed7e-44fa-a880-3a6fd4424c4d",
+    "orderNo": "MO-MT11FIX-R1-COST",
+    "op1Id": "2324f787-2f93-4d56-b9bd-43309ed4a9e3"
+  },
+  "utcDay": "2026-10-29",
+  "costReportId": "be54ebfd-4e74-41fb-baac-8394f0998160",
+  "laborRecordId": "c11b095e-0783-4b5b-b0ef-6c974f5c361e",
+  "costSession": {
+    "equipmentCode": "EQ-MT11FIXR1-01",
+    "status": "submitted",
+    "from": "2026-10-29 00:01:00+00",
+    "to": "2026-10-29 04:07:01.71304+00"
+  },
+  "uCvA": "1ET11FIXR1",
+  "uCvAId": "fe692414-0e81-469e-9df9-ded35c38bf63",
+  "uCvB1": "3FT11FIXR1",
+  "uCvB2": "4FT11FIXR1",
+  "uCvB1Id": "9adc0798-554e-4318-bd4d-41daf05ee404",
+  "uCvB2Id": "4f2ad9a5-3587-45c8-a093-df36797c680a",
+  "uSpare": "SPT11FIXR1001",
+  "uSpareId": "55a3ecd6-96dc-419c-b399-14b09663e20d",
+  "a05": {
+    "order1": "8eae67e0-c8e4-458b-8f65-bc1a588eb77a",
+    "correctionId": "c6279843-c49e-43a0-ae87-808a7c4debf7"
+  },
+  "a09": {
+    "cvId": "1ac427d7-db52-419d-aae5-fccc2980fa4c",
+    "cvB1": "4e26cf90-716e-410c-9716-e97b4e5b0476"
+  },
+  "a10": {
+    "orderId": "e0a85b31-4c00-417a-931f-67aa0c18eba2"
+  },
+  "spc": {
+    "itemId": "dd7b026d-dcbb-436f-935a-887863be80c6"
+  },
+  "cost": {
+    "run1Id": "fde27bd2-bc79-4ee6-a097-28b246bb61ce",
+    "shiftDate": "2026-10-29",
+    "allocV1": "ec74ee62-0057-45dd-95db-ea5543c29d5e",
+    "allocV2": "5271711f-228c-48c0-8e45-61634fffaa15",
+    "priceV1": "ad079de5-b7e5-4dff-8086-e7c2f73d2244",
+    "cutoff": "2026-10-29T02:38:15.852Z",
+    "checkId": "b6f102f5-2499-4ae7-9bc1-0cf7655cb7ea"
+  },
+  "a13": {
+    "orderId": "a60810f7-f1c8-432d-b7d8-709020ade5a3",
+    "planKey": "IP-P23FULLR4"
+  },
+  "spcExt": {
+    "itemId": "062f7af4-3b88-4296-8c5c-4ee68c3ab0c5",
+    "gaugeId": "29480126-8059-4c8d-b696-b2ab28477040",
+    "oocTaskId": "bc2217f0-8b14-4760-a633-30ae7f2f135a"
+  },
+  "costExt": {
+    "meterId": "47f91d53-689f-4641-b6cf-16837d8d6639",
+    "runId": "d69766d4-cc48-42fe-938a-801b662f6105"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@cadenza/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza 公开合同：命令信封、命令结果、错误码、分页与十进制字符串约定。零运行时依赖。",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {}
+}

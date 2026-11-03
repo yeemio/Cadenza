@@ -1,0 +1,5 @@
+﻿id,sim,world_id,simulation_version,plant_id,gross_finished_m,known_energy_kwh,unmetered_runs,other_orders_denominator,full_factory_oee,as_of_utc,scope,qualified_key
+CBL01G-PM-CN11,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CBL01G-CN11,6000.0000,1770.0000,0,,,2026-10-29T09:00:00Z,本包选定订单样本，不是1470人全部业务,CBL01G|plant_metrics|CBL01G-PM-CN11
+CBL01G-PM-CN12,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CBL01G-CN12,4000.0000,380.0000,0,,,2026-10-29T09:00:00Z,本包选定订单样本，不是1470人全部业务,CBL01G|plant_metrics|CBL01G-PM-CN12
+CBL01G-PM-KR21,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CBL01G-KR21,4000.0000,780.0000,0,,,2026-10-29T09:00:00Z,本包选定订单样本，不是1470人全部业务,CBL01G|plant_metrics|CBL01G-PM-KR21
+CBL01G-PM-KR22,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CBL01G-KR22,2000.0000,0.0000,1,,,2026-10-29T09:00:00Z,本包选定订单样本，不是1470人全部业务,CBL01G|plant_metrics|CBL01G-PM-KR22

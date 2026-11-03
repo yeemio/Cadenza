@@ -1,0 +1,4 @@
+﻿id,sim,world_id,simulation_version,material_id,version,owner,core_count,lay_factor,core_m_per_cable_m,jacket_kg_per_m,engineering_validated,completion_coefficient,qualified_key
+CBL01G-BOM-F1,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CBL01G-F1,1,SAP_SIM+集团工艺签发,1,1.0000,1.0000,0.0000,False,1.0000,CBL01G|bom_routes|CBL01G-BOM-F1
+CBL01G-BOM-F2,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CBL01G-F2,1,SAP_SIM+集团工艺签发,3,1.0200,3.0600,0.0300,False,1.0000,CBL01G|bom_routes|CBL01G-BOM-F2
+CBL01G-BOM-F3,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CBL01G-F3,1,SAP_SIM+集团工艺签发,4,1.0100,4.0400,0.0500,False,1.0000,CBL01G|bom_routes|CBL01G-BOM-F3

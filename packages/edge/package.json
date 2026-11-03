@@ -1,0 +1,15 @@
+{
+  "name": "@cadenza/edge",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza 边缘采集模拟网关（T21）：可配置模拟点位发生器 + 断网本地缓冲与重放（OT-14~OT-19）；真实设备协议接入留现场（SITE_PENDING）。",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@cadenza/domain": "workspace:*"
+  }
+}

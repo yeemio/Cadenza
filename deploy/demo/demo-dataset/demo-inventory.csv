@@ -1,0 +1,7 @@
+料品编码,批次号,所属工厂,仓库编码,库位编码,数量,单位,质量状态,供应商批号,货主,备注
+MAT-DEMO-0001,LOT-DEMO-0001,苏州线缆厂,0101,01010001,500.0000,千克,qualified,SUP-LOT-A,,演示库存
+MAT-DEMO-0002,LOT-DEMO-0002,苏州线缆厂,0101,01010001,320.5000,千克,pending_inspection,SUP-LOT-B,,演示库存
+MAT-DEMO-0003,LOT-DEMO-0003,苏州线缆厂,0101,01010001,180.0000,千克,qualified,SUP-LOT-C,,演示库存
+MAT-DEMO-0004,LOT-DEMO-0004,苏州线缆厂,0101,01010002,90.2500,千克,qualified,,
+MAT-DEMO-0005,LOT-DEMO-0005,苏州线缆厂,0101,01010002,240.0000,千克,qualified,,
+MAT-DEMO-0006,LOT-DEMO-0006,苏州线缆厂,0101,01010002,75.7500,千克,suspect,,

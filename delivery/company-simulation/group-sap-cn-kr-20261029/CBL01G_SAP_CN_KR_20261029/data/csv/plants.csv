@@ -1,0 +1,5 @@
+﻿id,sim,world_id,simulation_version,sap_plant,entity_id,mom_factory_code,name_zh,name_ko,timezone,employee_population,manufacturing_mode,owner_system,address,qualified_key
+CBL01G-CN11,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CN11,CBL01G-C100,8811,苏州绝缘芯线厂（SIM）,쑤저우 절연심선 공장(SIM),Asia/Shanghai,520,三班连续绝缘；客户单芯线及向中韩供芯线,SAP_SIM,SIM虚构园区，非实际地址,CBL01G|plants|CBL01G-CN11
+CBL01G-CN12,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,CN12,CBL01G-C100,8812,南通低压线缆厂（SIM）,난퉁 저압케이블 공장(SIM),Asia/Shanghai,360,两班成缆护套；集团低压控制线订单,SAP_SIM,SIM虚构园区，非实际地址,CBL01G|plants|CBL01G-CN12
+CBL01G-KR21,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,KR21,CBL01G-K200,8821,천안 산업케이블 공장(SIM),천안 산업케이블 공장(SIM),Asia/Seoul,310,三班工业控制缆和4平方芯线；承接跨国转产,SAP_SIM,SIM虚构园区，非实际地址,CBL01G|plants|CBL01G-KR21
+CBL01G-KR22,SIM,CBL01G-MAIN,CBL01G-SIM-v2.0,KR22,CBL01G-K200,8822,부산 완성·물류 공장(SIM),부산 완성·물류 공장(SIM),Asia/Seoul,190,两班及获批夜班；动力缆成品、重检、出口交付,SAP_SIM,SIM虚构园区，非实际地址,CBL01G|plants|CBL01G-KR22

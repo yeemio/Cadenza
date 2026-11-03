@@ -1,0 +1,24 @@
+# Cadenza 开发数据库（P1-S1）
+# 端口说明：合同原定宿主 55432，lsof 检查发现已被其他项目容器 cadence-pg-1 占用，
+# 按边界规则改为 55433 并在 delivery/L1/stage1/DELIVERY.md 记录。
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: cadenza-dev-pg
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: cadenza_dev
+      POSTGRES_DB: cadenza
+    ports:
+      - '127.0.0.1:55433:5432'
+    volumes:
+      - cadenza_dev_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d cadenza']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  cadenza_dev_pgdata:
+    name: cadenza_dev_pgdata

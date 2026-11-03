@@ -1,0 +1,19 @@
+{
+  "name": "@cadenza/worker",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza 后台进程：outbox 认领 noop dispatcher（可配间隔、优雅退出）。",
+  "main": "./dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {
+    "@cadenza/persistence": "workspace:*",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.0"
+  }
+}
