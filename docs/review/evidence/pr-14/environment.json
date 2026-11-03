@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-03T08:58:54.589251+00:00",
+  "cwd": "/workspace/scratch/cb32975aba2e/cadenza-batch/work",
+  "node": "v24.22.1",
+  "git": "git version 2.51.1",
+  "commands_available": {
+    "psql": null,
+    "postgres": null,
+    "initdb": null,
+    "docker": null,
+    "pnpm": "/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/pnpm"
+  }
+}

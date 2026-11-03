@@ -1,8 +1,8 @@
 // [L0-整合标记] domain ot 面未并入包名入口（domain/src/index.ts 为共享文件不改动）：
 // 唯一事件 ID 构造规则（OT-15）单点定义在 domain ot，此处以 dist 相对导入消费已构建
 // 产物（package.json 声明 @cadenza/domain 依赖保证构建拓扑序）；L0 整合后改包名导入。
-import { buildEventId } from '../../domain/dist/ot/index.js'
-import { EdgeBuffer, type BufferedSample } from './buffer'
+import { buildEventId } from '../../domain/dist/ot/ingest-rules.js'
+import { EdgeBuffer, type BufferedSample, type OverflowStats } from './buffer'
 import type { EdgeCheckpoint, EdgeCheckpointStore } from './checkpoint'
 import { MemoryCheckpointStore } from './checkpoint'
 import type { SimulatedPointConfig } from './generator'
@@ -20,6 +20,8 @@ export class SimulatedGateway {
   private readonly buffer: EdgeBuffer
   private online = true
   private tickIndex = 0
+  private flushing: Promise<{ flushed: number; checkpointSeq: number }> | null = null
+  private checkpointWrites: Promise<void> = Promise.resolve()
 
   constructor(
     public readonly gatewayCode: string,
@@ -45,19 +47,22 @@ export class SimulatedGateway {
   async restoreFromCheckpoint(): Promise<boolean> {
     const cp = await this.checkpointStore.load(this.gatewayCode)
     if (cp === null) return false
-    this.seq = cp.lastSeq
-    this.buffer.restore(cp.buffered)
+    this.seq = Math.max(this.seq, cp.lastSeq)
+    this.buffer.restore(cp.buffered, (cp as EdgeCheckpoint & { overflow?: OverflowStats | null }).overflow ?? null)
     return true
   }
 
   async saveCheckpoint(savedAt: string): Promise<void> {
-    const cp: EdgeCheckpoint = {
+    const cp: EdgeCheckpoint & { overflow: OverflowStats | null } = {
       gatewayCode: this.gatewayCode,
       lastSeq: this.seq,
       buffered: this.buffer.peek(),
+      overflow: this.buffer.peekOverflowStats(),
       savedAt,
     }
-    await this.checkpointStore.save(cp)
+    const write = this.checkpointWrites.then(() => this.checkpointStore.save(cp))
+    this.checkpointWrites = write.catch(() => undefined)
+    await write
   }
 
   setOnline(online: boolean): void {
@@ -102,15 +107,16 @@ export class SimulatedGateway {
    */
   async tick(eventTime: string): Promise<BufferedSample[]> {
     const samples = this.generateTick(eventTime)
+    for (const s of samples) this.buffer.push(s)
+    // Persist IDs and samples before an attempt: a lost response is safely replayable.
+    await this.saveCheckpoint(eventTime)
     if (this.online && this.transport !== null) {
       try {
-        await this.transport.send(this.toPayload(samples))
-        return samples
+        await this.flush()
       } catch {
         // 上行失败（模拟断网中段）→ 缓冲后补传
       }
     }
-    for (const s of samples) this.buffer.push(s)
     return samples
   }
 
@@ -126,7 +132,7 @@ export class SimulatedGateway {
 
   /** 组装入池批次载荷（OT-09：样本必含字段；OT-17 溢出；OT-15 检查点）。 */
   toPayload(samples: readonly BufferedSample[], withOverflow = true): IngestBatchPayload {
-    const overflow = withOverflow ? this.buffer.takeOverflowStats() : null
+    const overflow = withOverflow ? this.buffer.peekOverflowStats() : null
     return {
       gatewayCode: this.gatewayCode,
       samples: samples.map((s) => ({
@@ -154,18 +160,46 @@ export class SimulatedGateway {
 
   /**
    * 恢复补传（OT-14/OT-18：只补数据，不生成/重放业务命令——载荷仅为样本批次）。
-   * 送达成功后清空缓冲并落检查点（OT-15：检查点随缓冲落盘）。
+   * Only acknowledged event IDs are removed; overlapping calls share one attempt.
    */
   async flush(): Promise<{ flushed: number; checkpointSeq: number }> {
-    const pending = this.buffer.peek()
-    if (pending.length > 0) {
-      if (this.transport !== null) {
-        await this.transport.send(this.toPayload(pending))
-      }
-      this.buffer.drain()
+    if (this.flushing !== null) return this.flushing
+    const attempt = this.flushBatch()
+    this.flushing = attempt
+    try {
+      return await attempt
+    } finally {
+      this.flushing = null
     }
+  }
+
+  private async flushBatch(): Promise<{ flushed: number; checkpointSeq: number }> {
+    if (!this.online || this.transport === null ||
+        (this.buffer.size === 0 && this.buffer.peekOverflowStats() === null)) {
+      await this.saveCheckpoint(new Date().toISOString())
+      return { flushed: 0, checkpointSeq: this.seq }
+    }
+    // Freeze before awaiting storage: samples arriving during that await belong to a later batch.
+    const batch = this.buffer.beginDelivery()
+    const payload = this.toPayload(batch.samples)
+    try {
+      // A checkpoint failure must prevent transmission; never claim durable delivery.
+      await this.saveCheckpoint(new Date().toISOString())
+      const response = await this.transport.send(payload)
+      const ack = response as { status?: unknown; data?: { received?: unknown }; ok?: unknown; received?: unknown } | null
+      if (ack === null || typeof ack !== 'object' ||
+          !((ack.status === 'COMMITTED' && ack.data?.received === batch.samples.length) ||
+            (ack.status === undefined && ack.ok === true && ack.received === batch.samples.length))) {
+        throw new Error('[OT-14] Ingest did not acknowledge the complete batch')
+      }
+    } catch (error) {
+      this.buffer.finishDelivery(batch, false)
+      await this.saveCheckpoint(new Date().toISOString())
+      throw error
+    }
+    this.buffer.finishDelivery(batch, true)
     await this.saveCheckpoint(new Date().toISOString())
-    return { flushed: pending.length, checkpointSeq: this.seq }
+    return { flushed: batch.samples.length, checkpointSeq: this.seq }
   }
 
   /**

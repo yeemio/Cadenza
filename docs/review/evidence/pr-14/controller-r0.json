@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "pr": 14,
+  "decision": "REWORK",
+  "parent": "7be58404771da78b41d4019e7dcff041476891e8",
+  "productBase": "cb25076d99cda0ac359151ff9eea65507de8cc4d",
+  "author": {
+    "chatId": "6ae983a9-f128-83e8-a5b4-d5539c933fee",
+    "messageId": "294be63d-f7a7-5e35-bca0-234d95b31f5c",
+    "observedSelection": "ordinary ChatGPT Chat / Pro; exact underlying model not asserted",
+    "lineage": "same_family_external_advisory"
+  },
+  "patchSha256": "981e8e9a6dc7437e96d1e78e01a24d8e2f400de2dcd3203800910750c7358425",
+  "checks": [
+    {
+      "command": "node --import ./tests/pr14/ts-source-loader.mjs --test tests/pr14/delivery.test.mjs",
+      "exitCode": 0,
+      "executed": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "pnpm --filter @cadenza/edge... build",
+      "exitCode": 0,
+      "coverage": "contracts/domain/edge targeted build"
+    },
+    {
+      "command": "pnpm --filter @cadenza/edge typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm exec vitest run packages/edge/test/edge-gateway.spec.ts",
+      "exitCode": 1,
+      "executed": 5,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0
+    }
+  ],
+  "rework": {
+    "path": "packages/edge/test/edge-gateway.spec.ts",
+    "failure": "line71 expected flushed3 but actual0; old test has no transport and remains offline",
+    "approvedMinimalScopeExtension": true,
+    "requiredBehavior": "preserve the no-transport/offline retention test, then explicitly use MemoryTransport and online state for successful delivery/restart; do not delete or skip the case",
+    "sourceEditsByController": false
+  },
+  "boundary": "No automatic merge/deploy; simulated gateway source proof only; real API/PG/device/field and independent R6 unverified",
+  "environment": {
+    "node": "v24.18.0",
+    "pnpm": "11.28.5",
+    "platform": "local macOS isolated PR worktree",
+    "workspace": "/Users/yeemio/AI/workspaces/Cadenza-pr14-20261103"
+  },
+  "sourceFiles": [
+    {
+      "path": "packages/edge/src/gateway.ts",
+      "sha256": "404447e6ac4a85599d185f46dc9ee7d582386b84078467134c8a5d73bd458b5f"
+    },
+    {
+      "path": "packages/edge/src/buffer.ts",
+      "sha256": "b2c054301f967bbb56b76150fd653077b2e9324611d1687d97dba12eff906f55"
+    },
+    {
+      "path": "tests/pr14/ts-source-loader.mjs",
+      "sha256": "2af40723fc3b51537fe8a91dcc99009e38fcd1a3df69ff99cf72a63b52a6c6f3"
+    },
+    {
+      "path": "tests/pr14/delivery.test.mjs",
+      "sha256": "d32a83aa3d65abeba2a178265f7a59ea40814c7d761241a49bb1ac34603c1d9e"
+    }
+  ]
+}

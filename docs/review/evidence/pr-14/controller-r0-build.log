@@ -1,0 +1,4 @@
+Scope: 3 of 13 workspace projects
+$ tsc -p tsconfig.build.json
+$ tsc -p tsconfig.build.json
+$ tsc -p tsconfig.build.json
