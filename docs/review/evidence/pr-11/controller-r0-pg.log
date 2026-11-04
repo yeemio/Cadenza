@@ -1,0 +1,26 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr11-20261104
+
+stdout | tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > B production does not change A numerator, denominator or OEE
+PR11_A_BEFORE_AFTER_B {"equipmentId":"7a69874d-d35d-411d-8613-a13b80fcbf87","equipmentCode":"P11-93e9542b-6e9","windowStart":"2026-01-01T08:00:00.000Z","windowEnd":"2026-01-01T16:00:00.000Z","windowSemantics":"[start,end)","plannedTimeBasis":"EXPLICIT_EQUIPMENT_PLAN_INTERSECT_QUERY_WINDOW","outputTimeBasis":"SUBMITTED_UNCANCELLED_REPORT_BUSINESS_TIME","equipmentAttributionBasis":"CONSISTENT_REPORT_SESSION_UUID","basisId":"PR11-7a69874d-d35d-411d-8613-a13b80fcbf87","outputUomId":"33333333-3333-4333-8333-3333333333c1","outputUomCode":"M","plannedMinutes":"480.0000","downtimeMinutes":"60.0000","standardSpeedPerHour":"200","stdRateText":"200","actualOutputQty":"1400.0000","qualifiedQty":"1330.0000","sourceOutputIds":["583e3d5c-54c8-4549-be3e-c291ccabdd8f"],"downtimeFactCount":1,"availability":"0.8750","performance":"1.0000","qualityRate":"0.9500","oee":"0.8313","missing":[]}
+
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > B production does not change A numerator, denominator or OEE 30ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > clips overlapping downtime {"start":-1,"end":1,"minutes":"60.0000"} 18ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > clips overlapping downtime {"start":7,"end":10,"minutes":"60.0000"} 15ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > clips overlapping downtime {"start":-1,"end":10,"minutes":"480.0000"} 15ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > clips overlapping downtime {"start":7,"end":null,"minutes":"60.0000"} 19ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > adjacent query windows do not both count a boundary report 22ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > same-device mixed units return missing, not summed quantities 22ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > code-only equipment attribution is explicitly missing 18ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > conflicting report and session UUIDs cannot assign output to A 12ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > missing planned-time/rate/unit basis does not infer a plan from the query window 12ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > no downtime observation remains missing, not silently zero 29ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > cancelled-review output is excluded 19ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > enterprise-wide scope cannot read another enterprise device 5ms
+ ✓ tests/pr11/oee.pg.spec.ts > PR11 actual PostgreSQL fact queries; isolated seeded source records, not a live operation claim > OEE queries leave all underlying reports, output and maintenance facts unchanged 21ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  11:47:55
+   Duration  5.72s (transform 1.36s, setup 0ms, collect 2.09s, tests 3.47s, environment 0ms, prepare 51ms)
+

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "tests/pr11/vitest.config.ts",
+    "tests/pr11/oee.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T03:47:54.029548+00:00",
+  "completedAt": "2026-11-04T03:48:01.568159+00:00",
+  "database": "cadenza_pr11_oee_r0_20261104",
+  "sourceCommit": "32c9de770fa4a79b7313ee4d550cccf453da0cd4",
+  "logSha256": "e50814c4b0f8276b3c00fc76a76d420f919308561b2397f2be3a52d8158b0a55"
+}
