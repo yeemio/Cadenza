@@ -28,6 +28,7 @@ export function splitTimeTracks(businessTime: string | null | undefined, systemT
 export interface ShiftCalendarConfig {
   /** 白班起点小时（0-23，默认 0） */
   dayShiftStartHour: number
+  dayShiftStartMinute?: number
   /** UTC 偏移小时（默认 +8 中国标准时间；细则 GAP-A3 待现场） */
   utcOffsetHours: number
 }
@@ -43,12 +44,10 @@ export function computeShiftDate(businessTime: string, config: ShiftCalendarConf
   if (Number.isNaN(ms)) {
     throw new InventoryRuleViolation('IT-37', `业务时间非法：${businessTime}`)
   }
-  const localMs = ms + config.utcOffsetHours * 3_600_000
-  const localDate = new Date(localMs)
-  const hours = localDate.getUTCHours()
-  let shiftMs = localMs - hours * 3_600_000 // 折到当日零点（本地）
-  if (hours < config.dayShiftStartHour) {
-    shiftMs -= 86_400_000 // 白班起点前归前一日
+  const minute = config.dayShiftStartMinute ?? 0
+  if (!Number.isInteger(config.dayShiftStartHour) || config.dayShiftStartHour < 0 || config.dayShiftStartHour > 23 ||
+      !Number.isInteger(minute) || minute < 0 || minute > 59 || !Number.isFinite(config.utcOffsetHours) || Math.abs(config.utcOffsetHours) > 14) {
+    throw new InventoryRuleViolation('IT-37', '工厂时区或白班起点配置非法')
   }
-  return new Date(shiftMs).toISOString().slice(0, 10)
+  return new Date(ms + config.utcOffsetHours * 3_600_000 - (config.dayShiftStartHour * 60 + minute) * 60_000).toISOString().slice(0, 10)
 }

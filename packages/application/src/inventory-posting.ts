@@ -54,6 +54,7 @@ export interface PostingContext {
   /** IT-37：业务时间（载荷缺省取系统时间，但分列落库） */
   businessTime: string
   shiftDate: string | null
+  calendarPlantId?: string
   /** Trusted originating command permission; never read from the payload. */
   writePermission?: string
 }
@@ -96,13 +97,49 @@ function assertPayloadSanity(p: Payload): void {
   assertNoDirectBalanceOverride(Object.keys(p))
 }
 
+/** Server-owned offset registry, keyed by actual factory UUID. Day start comes
+ * from the existing shift_parameter row; names/country labels never select it.
+ * Missing configuration preserves the historical +8/00:00 provisionally and is
+ * explicitly UNVERIFIED in the query response, never a site acceptance claim. */
+export function factoryCalendar(plantId: string, dayShiftStart: string | null) {
+  let offsets: Record<string, unknown> = {}
+  const raw = process.env['CADENZA_PLANT_UTC_OFFSETS']
+  if (raw) {
+    try {
+      const parsed: unknown = JSON.parse(raw)
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('object required')
+      offsets = parsed as Record<string, unknown>
+    } catch { throw new InventoryRuleViolation('IT-37', 'CADENZA_PLANT_UTC_OFFSETS 必须为工厂 ID 到 UTC 小时偏移的 JSON 对象') }
+  }
+  const offset = offsets[plantId]
+  if (offset !== undefined && (typeof offset !== 'number' || !Number.isFinite(offset) || Math.abs(offset) > 14)) {
+    throw new InventoryRuleViolation('IT-37', '工厂 UTC 偏移配置非法')
+  }
+  const start = dayShiftStart ?? '00:00'
+  if (!/^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(start)) throw new InventoryRuleViolation('IT-37', '持久化白班起点配置非法')
+  return { dayShiftStartHour: Number(start.slice(0,2)), dayShiftStartMinute: Number(start.slice(3,5)),
+    utcOffsetHours: typeof offset === 'number' ? offset : 8,
+    verification: offset !== undefined && dayShiftStart !== null ? 'CONFIGURED_SITE_UNVERIFIED' as const : 'UNVERIFIED_DEFAULT' as const }
+}
+
+export async function shiftDateForPlant(tools: Pick<InventoryCommandTools, 'org'>, plantId: string, businessTime: string): Promise<string> {
+  const start = await tools.org.findPlantDayShiftStart?.(plantId) ?? null
+  return computeShiftDate(businessTime, factoryCalendar(plantId, start))
+}
+
+export async function bindPostingCalendar(pc: PostingContext, plantId: string): Promise<void> {
+  pc.shiftDate = await shiftDateForPlant(pc.tools, plantId, pc.businessTime)
+  pc.calendarPlantId = plantId
+}
+
 /** IT-37：业务时间解析（缺省回落系统时间；分列落库）。 */
 export function resolveBusinessTime(tools: InventoryCommandTools, raw: string | undefined): {
   businessTime: string
   shiftDate: string
 } {
   const now = tools.now()
-  const businessTime = raw !== undefined && !Number.isNaN(Date.parse(raw)) ? raw : now.toISOString()
+  if (raw !== undefined && Number.isNaN(Date.parse(raw))) throw new InventoryRuleViolation('IT-37', '业务时间非法，不能改为当前时间')
+  const businessTime = raw ?? now.toISOString()
   return { businessTime, shiftDate: computeShiftDate(businessTime) }
 }
 
@@ -134,6 +171,7 @@ async function assertInventoryObjectScope(pc: PostingContext, target: ObjectScop
   const reject = (message: string) => new InventoryRuleViolation('IT-S1', message)
   if (pc.writePermission !== undefined) {
     await assertObjectWriteScope(pc.tools, pc.ctx, target, pc.writePermission, reject, claimedPlantId)
+    await bindPostingCalendar(pc, target.plantId)
     return
   }
   // Other domains own their originating command permission. Keep that contract,
@@ -144,6 +182,7 @@ async function assertInventoryObjectScope(pc: PostingContext, target: ObjectScop
       (claimedPlantId !== undefined && claimedPlantId !== target.plantId)) throw reject('库存对象的真实企业/工厂不一致')
   const scope = await pc.tools.actorDataScope()
   if (!scope.enterpriseWide && !scope.plantIds.includes(target.plantId)) throw reject('库存对象不在授权工厂范围内')
+  await bindPostingCalendar(pc, target.plantId)
 }
 
 async function assertPlantScope(pc: PostingContext, plantId: string): Promise<void> {
@@ -277,7 +316,7 @@ export async function writeLine(pc: PostingContext, spec: LineWrite): Promise<{ 
     refId: spec.refId ?? null,
     reason: spec.reason ?? null,
     businessTime: pc.businessTime,
-    shiftDate: pc.shiftDate,
+    shiftDate: await shiftDateForPlant(pc.tools, spec.unit.plantId, pc.businessTime),
     plantId: spec.unit.plantId,
     enterpriseId: spec.unit.enterpriseId,
     createdBy: actor,

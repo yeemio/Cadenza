@@ -1,0 +1,24 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-work
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:06:01
+   Duration  5.74s (transform 3.80s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 92ms)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr08/intent-api.pg.spec.ts [ tests/pr08/intent-api.pg.spec.ts ]
+Error: NOT_RUN: CADENZA_PR08_TEST_DB_URL must name a NEW empty cadenza_pr08_* PostgreSQL database
+ ❯ tests/pr08/intent-api.pg.spec.ts:11:86
+      9| // No fallback to DATABASE_URL, no recreation, no runtime skips. A tas…
+     10| const url = process.env['CADENZA_PR08_TEST_DB_URL']
+     11| if (!url || !/^cadenza_pr08_[a-z0-9_]+$/.test(new URL(url).pathname.sl…
+       |                                                                                      ^
+     12| const pool = createPool(url, { max: 8 })
+     13| const realFetch = globalThis.fetch
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

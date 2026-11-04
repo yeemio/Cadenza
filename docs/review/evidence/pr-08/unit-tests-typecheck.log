@@ -1,0 +1,11 @@
+packages/ui/src/api/client.ts(144,32): error TS2345: Argument of type '() => Promise<T> | Promise<Promise<T>>' is not assignable to parameter of type '(value: void) => T | PromiseLike<T>'.
+  Type 'Promise<T> | Promise<Promise<T>>' is not assignable to type 'T | PromiseLike<T>'.
+    Type 'Promise<Promise<T>>' is not assignable to type 'T | PromiseLike<T>'.
+      Type 'Promise<Promise<T>>' is not assignable to type 'PromiseLike<T>'.
+        Types of property 'then' are incompatible.
+          Type '<TResult1 = Promise<T>, TResult2 = never>(onfulfilled?: ((value: Promise<T>) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<...>) | ... 1 more ... | undefined) => Promise<...>' is not assignable to type '<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<...>) | null | undefined) => PromiseLike<...>'.
+            Types of parameters 'onfulfilled' and 'onfulfilled' are incompatible.
+              Types of parameters 'value' and 'value' are incompatible.
+                Type 'Promise<T>' is not assignable to type 'T'.
+                  'T' could be instantiated with an arbitrary type which could be unrelated to 'Promise<T>'.
+packages/ui/src/cn.ts(2,25): error TS2307: Cannot find module 'tailwind-merge' or its corresponding type declarations.

@@ -136,13 +136,37 @@ export class PgPutawayTaskRepository implements PutawayTaskRepository {
     return r.rows[0] === undefined ? null : mapTask(r.rows[0] as TaskRow)
   }
 
-  async findByIds(ids: readonly string[]): Promise<PutawayTaskRecord[]> {
+  async findByIds(ids: readonly string[], forUpdate = false): Promise<PutawayTaskRecord[]> {
     if (ids.length === 0) return []
     const r = await this.client.query(
-      `SELECT ${TASK_COLUMNS} FROM putaway_task WHERE id = ANY($1::uuid[])`,
+      `SELECT ${TASK_COLUMNS} FROM putaway_task WHERE id = ANY($1::uuid[]) ORDER BY id${forUpdate ? ' FOR UPDATE' : ''}`,
       [[...ids]],
     )
     return r.rows.map((row) => mapTask(row as TaskRow))
+  }
+
+  async resolveSourceOwner(task: PutawayTaskRecord) {
+    const params = [task.sourceRef, task.plantId, task.enterpriseId, task.materialId, task.quantity, task.uomId, task.uomCode]
+    const query = task.sourceType === 'work_report'
+      ? `SELECT ro.owner_id,ro.owner_name,ro.stock_unit_id AS unit_id
+         FROM report_output ro JOIN production_report pr ON pr.id=ro.report_id JOIN production_order po ON po.id=pr.order_id
+         WHERE ro.id::text=$1 AND pr.plant_id=$2 AND pr.enterprise_id=$3 AND po.material_id=$4
+           AND ro.quantity=$5::numeric AND ro.uom_id=$6 AND ro.uom_code=$7
+           AND ro.plant_id=pr.plant_id AND ro.enterprise_id=pr.enterprise_id
+           AND po.plant_id=pr.plant_id AND po.enterprise_id=pr.enterprise_id
+           AND pr.status='submitted' AND pr.review_status IN ('auto_approved','manual_approved')
+         FOR SHARE OF pr,po`
+      : `SELECT b.owner_id,b.owner_name,q.inventory_unit_id AS unit_id
+         FROM quality_inspection_order q JOIN inventory_unit u ON u.id=q.inventory_unit_id
+         JOIN stock_balance b ON b.unit_id=u.id AND b.status='active'
+         WHERE q.id::text=$1 AND q.plant_id=$2 AND q.enterprise_id=$3 AND q.material_id=$4
+           AND q.quantity=$5::numeric AND q.uom_id=$6 AND q.uom_code=$7
+           AND u.plant_id=q.plant_id AND u.enterprise_id=q.enterprise_id AND b.plant_id=u.plant_id AND b.enterprise_id=u.enterprise_id
+         FOR SHARE OF q`
+    const result = await this.client.query(query, params)
+    if (result.rows.length !== 1) return null
+    const row = result.rows[0] as { owner_id: string; owner_name: string; unit_id: string | null }
+    return { ownerId: row.owner_id, ownerName: row.owner_name, unitId: row.unit_id }
   }
 
   async listPendingByUnitNos(plantId: string, unitNos: readonly string[]): Promise<PutawayTaskRecord[]> {
@@ -724,13 +748,14 @@ export class PgWarehouseLookup implements WarehouseLookup {
   constructor(private readonly client: SqlClient) {}
 
   async findById(id: string) {
-    const r = await this.client.query(`SELECT id, code, warehouse_type, status, plant_id FROM warehouse WHERE id = $1`, [id])
-    const row = r.rows[0] as { id: string; code: string; warehouse_type: string; status: string; plant_id: string } | undefined
+    const r = await this.client.query(`SELECT id, code, warehouse_type, status, plant_id, enterprise_id FROM warehouse WHERE id = $1`, [id])
+    const row = r.rows[0] as { id: string; code: string; warehouse_type: string; status: string; plant_id: string; enterprise_id: string } | undefined
     if (row === undefined) return null
     return {
       id: row.id,
       code: row.code,
       warehouseType: row.warehouse_type,
+      enterpriseId: row.enterprise_id,
       status: row.status,
       plantId: row.plant_id,
     }

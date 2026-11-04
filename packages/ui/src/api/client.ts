@@ -129,6 +129,34 @@ import type {
 
 export type ApiMode = 'mock' | 'live'
 
+export type CommandIntentKind = 'feed' | 'putaway'
+export interface CommandIntent {
+  version: 1
+  operationId: string
+  kind: CommandIntentKind
+  payload: Record<string, unknown>
+  state: 'pending' | 'unknown' | 'rejected' | 'committed'
+  result?: CommandOk
+}
+const intentQueues = new Map<string, Promise<void>>()
+async function withIntentLock<T>(key: string, action: () => Promise<T>): Promise<T> {
+  const previous = intentQueues.get(key) ?? Promise.resolve()
+  const result = previous.then(async () => {
+    // Web Locks serialize cooperating tabs as well as this module's instances.
+    if (typeof navigator !== 'undefined' && navigator.locks) return await navigator.locks.request(key, action)
+    return await action()
+  })
+  const settled = result.then(() => undefined, () => undefined)
+  intentQueues.set(key, settled)
+  void settled.then(() => { if (intentQueues.get(key) === settled) intentQueues.delete(key) })
+  return result
+}
+function intentFingerprint(value: unknown): string {
+  if (Array.isArray(value)) return '[' + value.map(intentFingerprint).join(',') + ']'
+  if (value !== null && typeof value === 'object') return '{' + Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => JSON.stringify(k) + ':' + intentFingerprint(v)).join(',') + '}'
+  return JSON.stringify(value)
+}
+
 export class ApiError extends Error implements ApiErrorShape {
   readonly code: string
   readonly details?: unknown
@@ -145,6 +173,8 @@ export class ApiError extends Error implements ApiErrorShape {
 }
 
 export interface ApiClientOptions {
+  /** Durable, user-scoped command intent storage; browsers default to localStorage. */
+  intentStorage?: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>
   /** 真实模式 API 基地址（如 http://127.0.0.1:3001） */
   baseURL?: string
   mode?: ApiMode
@@ -324,6 +354,9 @@ export interface ListPurchaseOrderLinesQuery extends PageRequest {
 }
 
 export interface ApiClient {
+  readCommandIntent(slot: string): Promise<CommandIntent | null>
+  executeCommandIntent(slot: string, kind: CommandIntentKind, payload: unknown): Promise<CommandOk>
+  clearSettledCommandIntent(slot: string, operationId: string): Promise<void>
   readonly mode: ApiMode
   readonly baseURL: string
   login(request: LoginRequest): Promise<LoginResponse>
@@ -621,6 +654,81 @@ export function createApiClient(options: ApiClientOptions = {}): ApiClient {
     })
   }
 
+  const intentError = (code: string, message: string) => new ApiError({ code, message })
+  async function intentContext(slot: string) {
+    if (!/^[a-z][a-z0-9.-]{0,63}$/.test(slot)) throw intentError('ERR_INTENT_SLOT', '操作入口标识无效')
+    const token = options.getToken?.() ?? null
+    const me = await request<AuthMeResponse>('GET', '/auth/me')
+    if (token !== (options.getToken?.() ?? null) || !me.user?.userId || !me.user.enterpriseId) {
+      throw intentError('ERR_INTENT_IDENTITY', '会话身份已改变，请重新打开操作页')
+    }
+    const storage = options.intentStorage ?? globalThis.localStorage
+    if (!storage) throw intentError('ERR_INTENT_STORAGE', '不能保存操作意图，尚未发送命令')
+    const key = 'cadenza.intent.v1.' + [mode, baseURL, me.user.enterpriseId, me.user.userId, slot].map(encodeURIComponent).join('|')
+    return { storage, key, token }
+  }
+  function readIntent(storage: Pick<Storage, 'getItem'>, key: string): CommandIntent | null {
+    const raw = storage.getItem(key)
+    if (raw === null) return null
+    let value: CommandIntent
+    try { value = JSON.parse(raw) as CommandIntent } catch { throw intentError('ERR_INTENT_STORAGE', '原操作记录损坏；尚未发送新命令') }
+    if (value?.version !== 1 || !value.operationId || !['feed', 'putaway'].includes(value.kind) ||
+        !['pending', 'unknown', 'rejected', 'committed'].includes(value.state) ||
+        !value.payload || typeof value.payload !== 'object' || Array.isArray(value.payload)) {
+      throw intentError('ERR_INTENT_STORAGE', '原操作记录无效；尚未发送新命令')
+    }
+    return value
+  }
+  async function readCommandIntent(slot: string): Promise<CommandIntent | null> {
+    const { storage, key } = await intentContext(slot)
+    return readIntent(storage, key)
+  }
+  async function clearSettledCommandIntent(slot: string, operationId: string): Promise<void> {
+    const { storage, key } = await intentContext(slot)
+    await withIntentLock(key, async () => {
+      const existing = readIntent(storage, key)
+      if (existing === null) return
+      if (existing.operationId !== operationId || !['committed', 'rejected'].includes(existing.state)) {
+        throw intentError('ERR_INTENT_PENDING', '原操作结果尚未确认，不能换键或清除')
+      }
+      storage.removeItem(key)
+    })
+  }
+  async function executeCommandIntent(slot: string, kind: CommandIntentKind, body: unknown): Promise<CommandOk> {
+    // Clone before any await: later edits cannot change the transmitted intent.
+    const payload: unknown = JSON.parse(JSON.stringify(body))
+    if (payload === null || typeof payload !== 'object' || Array.isArray(payload)) throw intentError('ERR_INTENT_BODY', '命令载荷无效')
+    const { storage, key, token } = await intentContext(slot)
+    return withIntentLock(key, async () => {
+      if (token !== (options.getToken?.() ?? null)) throw intentError('ERR_INTENT_IDENTITY', '会话身份已改变')
+      const existing = readIntent(storage, key)
+      if (existing && (existing.kind !== kind || intentFingerprint(existing.payload) !== intentFingerprint(payload))) {
+        throw intentError('ERR_INTENT_PENDING', '已有原操作，请先确认其结果；不能替换载荷或操作键')
+      }
+      if (existing?.state === 'committed') {
+        if (!existing.result || existing.result.operationId !== existing.operationId) throw intentError('ERR_INTENT_STORAGE', '已完成操作回执损坏')
+        return existing.result
+      }
+      if (existing?.state === 'rejected') throw intentError('ERR_INTENT_REJECTED', '原操作已明确拒绝；请确认编辑为新操作')
+      const intent: CommandIntent = existing ?? { version: 1, operationId: newOperationId(), kind, payload: payload as Record<string, unknown>, state: 'pending' }
+      const previouslyUnknown = existing !== null // a persisted pending write may already have committed
+      storage.setItem(key, JSON.stringify(intent)) // MUST succeed before sending
+      try {
+        const result = await command<CommandOk>('POST', kind === 'feed' ? '/execution/feeds' : '/warehousing/putaway/confirm', intent.payload, { operationId: intent.operationId })
+        if (result?.operationId !== intent.operationId || !['COMMITTED', 'DRAFT_SAVED'].includes(result.status)) {
+          throw intentError('ERR_INTENT_RECEIPT', '响应未确认原操作，保留原键等待重试')
+        }
+        storage.setItem(key, JSON.stringify({ ...intent, state: 'committed', result }))
+        return result
+      } catch (error) {
+        // A later 4xx cannot disprove an earlier commit whose response was lost.
+        const definiteRejection = !previouslyUnknown && error instanceof ApiError && [400, 401, 403, 404, 409, 422].includes(error.httpStatus ?? 0)
+        storage.setItem(key, JSON.stringify({ ...intent, state: definiteRejection ? 'rejected' : 'unknown' }))
+        throw error
+      }
+    })
+  }
+
   const commandQuery = (query?: Partial<
     ListOrgNodesQuery &
       ListUsersQuery &
@@ -663,6 +771,9 @@ export function createApiClient(options: ApiClientOptions = {}): ApiClient {
   return {
     mode,
     baseURL,
+    readCommandIntent,
+    executeCommandIntent,
+    clearSettledCommandIntent,
     login(payload) {
       return request<LoginResponse>('POST', '/auth/login', { body: payload })
     },

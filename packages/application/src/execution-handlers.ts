@@ -3,7 +3,6 @@ import {
   OrgRuleViolation,
   InventoryRuleViolation,
   isPlantInScope,
-  computeShiftDate,
   buildPostingLine,
   zeroBalanceDisposition,
   assertEdgeEndpoints,
@@ -15,9 +14,10 @@ import {
   isValidQuantityString,
 } from '@cadenza/domain'
 import type { CommandHandler, CommandTools, HandlerOutcome } from './command-bus'
+import { assertObjectWriteScope } from './object-scope-repositories'
 import type { InventoryCommandTools } from './inventory-repositories'
 import type { InventoryUnitRecord, StockBalanceRecord } from './inventory-repositories'
-import { buildPostingContext, receiveGoods, issueMaterial, type PostingContext } from './inventory-posting'
+import { buildPostingContext, bindPostingCalendar, shiftDateForPlant, receiveGoods, issueMaterial, type PostingContext } from './inventory-posting'
 import type {
   ExecutionCommandTools,
   ExecutionConfig,
@@ -380,6 +380,25 @@ interface AdmittedFeedLine {
   uomCode: string
 }
 
+/** Resolve all submitted barcodes, then acquire stock locks in stable order. */
+async function lockFeedSources(tools: ExecutionCommandTools, lines: FeedLinePayload[]): Promise<FeedLinePayload[]> {
+  const resolved: FeedLinePayload[] = []
+  for (const line of lines) {
+    let unitId = line.unitId
+    if (line.barcodeValue !== undefined) {
+      const binding = await tools.inv.barcodes.findActiveBindingByValue(line.barcodeValue)
+      if (binding === null || binding.boundType !== 'inventory_unit' || (unitId !== undefined && unitId !== binding.boundId)) {
+        throw new Rejection(bad('[A7-2] 产品轴码与实际库存单元绑定不一致'))
+      }
+      unitId = binding.boundId
+    }
+    if (!unitId) throw new Rejection(bad('[A7-2] 投料行缺少实际库存单元'))
+    resolved.push({ ...line, unitId })
+  }
+  await tools.inv.units.lockForUpdate([...new Set(resolved.map(l => l.unitId!))].sort())
+  return resolved
+}
+
 /** 阶段一：逐行码准入链 + 跨订单偏离 + 销售行汇总校验（零写入；一批全过才进入扣减）。 */
 async function admitFeedLine(
   ec: FeedExecutionContext,
@@ -392,9 +411,9 @@ async function admitFeedLine(
 
   // 单元解析：unitId 直取；条码走产品轴码 + 活动绑定（一码多物显式拒绝，K07 空码先拦）
   let unitId = line.unitId ?? null
-  if (unitId === null && line.barcodeValue !== undefined) {
+  if (line.barcodeValue !== undefined) {
     const active = await inv.barcodes.findActiveBindingByValue(line.barcodeValue)
-    if (active === null || active.boundType !== 'inventory_unit') {
+    if (active === null || active.boundType !== 'inventory_unit' || (unitId !== null && unitId !== active.boundId)) {
       throw new Rejection(
         bad(`[A7-2] 码 ${line.barcodeValue} 无活动库存单元绑定（托码/未绑定码拒绝）`, ERROR_CODES.NOT_FOUND),
       )
@@ -405,8 +424,8 @@ async function admitFeedLine(
     throw new Rejection(bad('投料行缺少库存单元（unitId/barcodeValue 解析失败）'))
   }
 
-  const unit = await inv.units.findById(unitId)
-  if (unit === null || unit.plantId !== order.plantId) {
+  const unit = (await inv.units.lockForUpdate([unitId]))[0] ?? null
+  if (unit === null || unit.plantId !== order.plantId || unit.enterpriseId !== order.enterpriseId) {
     throw new Rejection(bad('投料库存单元不存在或不属于订单所在工厂', ERROR_CODES.NOT_FOUND))
   }
   const balances = (await inv.balances.listActiveByUnit(unit.id)).filter((b) => b.status === 'active')
@@ -417,10 +436,12 @@ async function admitFeedLine(
   // 产出归属事实（「非本工序产出 / 本订单前道产出」判定输入）
   const origins = await tools.execution.outputs.originReportsForUnit(unit.id)
   const classified: Array<{ sameOrder: boolean; seq: number; sameOperation: boolean }> = []
+  const salesOrigins = new Map<string, { salesOrderNo: string; salesLineNo: string }>()
+  let unknownSalesOrigin = origins.length === 0
   for (const origin of origins) {
-    if (origin.reportId === null) { classified.push({sameOrder:false,seq:0,sameOperation:false}); continue }
+    if (origin.reportId === null) { unknownSalesOrigin = true; classified.push({sameOrder:false,seq:0,sameOperation:false}); continue }
     const productionReport = await tools.execution.reports.findById(origin.reportId)
-    if (productionReport === null) { classified.push({sameOrder:false,seq:0,sameOperation:false}); continue }
+    if (productionReport === null) { unknownSalesOrigin = true; classified.push({sameOrder:false,seq:0,sameOperation:false}); continue }
     let originOrderId=productionReport.orderId, originOperationId=productionReport.orderOperationId, originSeq=productionReport.operationSeq
     const producingOrder=await tools.process.orders.findById(originOrderId)
     const stage=producingOrder?.materialSnapshot['_cadenzaStageParent']
@@ -431,9 +452,22 @@ async function admitFeedLine(
         originOrderId=String(parent['parentOrderId']); originOperationId=String(parent['parentOperationId']); originSeq=Number(parent['parentOperationSeq'])
       }
     }
+    const salesOrder = originOrderId === order.id ? order : producingOrder
+    if (!salesOrder || salesOrder.enterpriseId !== order.enterpriseId || salesOrder.plantId !== order.plantId ||
+        !salesOrder.salesOrderNo || !salesOrder.lineNo) unknownSalesOrigin = true
+    else salesOrigins.set(JSON.stringify([salesOrder.salesOrderNo, salesOrder.lineNo]), { salesOrderNo: salesOrder.salesOrderNo, salesLineNo: salesOrder.lineNo })
     const sameOrder=originOrderId===order.id && producingOrder?.enterpriseId===order.enterpriseId && producingOrder?.plantId===order.plantId
     classified.push({sameOrder,seq:originSeq,sameOperation:sameOrder && originOperationId===operation.id})
   }
+  if (unknownSalesOrigin || salesOrigins.size !== 1) {
+    throw new Rejection(bad('[A7-2] 实物销售归属 UNKNOWN/多义，不能使用客户端声明补造'))
+  }
+  const sales = [...salesOrigins.values()][0]!
+  if (line.salesOrderNo !== undefined && line.salesOrderNo !== sales.salesOrderNo ||
+      line.salesLineNo !== undefined && line.salesLineNo !== sales.salesLineNo) {
+    throw new Rejection(bad('[A7-2] 客户端销售单/行与实物已验证来源不一致'))
+  }
+  line = { ...line, ...sales }
   const producedByThisOrder=classified.length>0 && classified.every(fact=>fact.sameOrder)
   const producedByCurrentOperation=classified.some(fact=>fact.sameOperation)
   const producedByEarlierOperationOfOrder=producedByThisOrder && classified.every(fact=>fact.seq<operation.seq)
@@ -734,7 +768,7 @@ async function resolveEntry(
   const equipmentId = str(p, 'equipmentId') ?? null
   const equipmentCode = str(p, 'equipmentCode') ?? null
   const businessTime = str(p, 'businessTime') ?? tools.now().toISOString()
-  const shiftDate = computeShiftDate(businessTime)
+  const shiftDate = await shiftDateForPlant(et, order.plantId, businessTime)
   if (orderOperationId === null && source === 'scan') {
     const scheduled = await et.schedule.listScheduledOperations({
       plantId: order.plantId,
@@ -1172,13 +1206,14 @@ export function createExecutionCommandHandlers(): CommandHandler[] {
           envelope.operationId,
           p,
         )
+        await bindPostingCalendar(pc, order.plantId)
 
         // 报工投料扣减（[底稿 A7-4]：一批先全量准入，再逐行实时校验扣减，记扣前/扣后）
         const remainders = new Map<string, string>()
         const feedContext = { tools: et, ctx, pc, order, operation, reportId: report.id }
         const admittedFeeds: AdmittedFeedLine[] = []
-        for (const rawLine of session.draftFeeds) {
-          const line = parseFeedLines({ feeds: [rawLine] }, command)[0]!
+        const feedLines = await lockFeedSources(et, parseFeedLines({ feeds: session.draftFeeds }, command))
+        for (const line of feedLines) {
           admittedFeeds.push(await admitFeedLine(feedContext, line, remainders))
         }
         for (const [feedIdx, admitted] of admittedFeeds.entries()) {
@@ -1288,6 +1323,7 @@ export function createExecutionCommandHandlers(): CommandHandler[] {
           envelope.operationId,
           (envelope.payload as Payload) ?? {},
         )
+        await bindPostingCalendar(pc, order.plantId)
         const posted = await postApproval(et, ctx, pc, report, order, ops, outputs, 'manual_approved')
         await tools.audit.record({
           actor: ctx.actorLoginName,
@@ -1377,6 +1413,7 @@ export function createExecutionCommandHandlers(): CommandHandler[] {
           envelope.operationId,
           p,
         )
+        await bindPostingCalendar(pc, order.plantId)
 
         // 逆操作：撤回入库（reverse 流水行：扣前/扣后 + 余额回退 + 零余额关闭；身份与谱系保留）
         for (const target of reversalTargets) {
@@ -1587,7 +1624,7 @@ export function createExecutionCommandHandlers(): CommandHandler[] {
           {
             remark: str(p, 'remark') ?? undefined,
             businessTime: str(p, 'businessTime') ?? undefined,
-            shiftDate: str(p, 'businessTime') !== undefined ? computeShiftDate(str(p, 'businessTime')!) : undefined,
+            shiftDate: str(p, 'businessTime') !== undefined ? await shiftDateForPlant(et, report.plantId, str(p, 'businessTime')!) : undefined,
             ...operatorPatch,
           },
           ctx.actorLoginName,
@@ -1664,7 +1701,7 @@ export function createExecutionCommandHandlers(): CommandHandler[] {
         if (order === null || order.enterpriseId !== ctx.enterpriseId) {
           throw new Rejection(bad('生产订单不存在', ERROR_CODES.NOT_FOUND))
         }
-        await assertWriteScope(tools, order.plantId)
+        await assertObjectWriteScope(tools, ctx, order, EXECUTION_PERMISSIONS.feed, message => new Rejection(bad(message, ERROR_CODES.FORBIDDEN_SCOPE)))
         if (order.orderStatus !== 'in_progress' || order.suspended) {
           throw new Rejection(bad('[A7-1/K03] 投料须订单进行中且未挂起（统一归属、部门、可开工、非质检四检）'))
         }
@@ -1694,10 +1731,11 @@ export function createExecutionCommandHandlers(): CommandHandler[] {
           envelope.operationId,
           p,
         )
+        await bindPostingCalendar(pc, order.plantId)
         const remainders = new Map<string, string>()
         const feedContext = { tools: et, ctx, pc, order, operation: operation.record, reportId: null }
         const admitted: AdmittedFeedLine[] = []
-        for (const line of lines) {
+        for (const line of await lockFeedSources(et, lines)) {
           admitted.push(await admitFeedLine(feedContext, line, remainders))
         }
         const records: MaterialConsumptionRecord[] = []
@@ -1784,7 +1822,7 @@ export function createExecutionCommandHandlers(): CommandHandler[] {
           operatorLogin: operator.operatorLogin,
           hours,
           businessTime,
-          shiftDate: computeShiftDate(businessTime),
+          shiftDate: await shiftDateForPlant(et, order.plantId, businessTime),
           note: str(p, 'note') ?? null,
           createdBy: ctx.actorLoginName,
         })

@@ -1,0 +1,250 @@
+{
+  "pr": 8,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_AND_BROWSER_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-08-operator-intent-calendar",
+  "exactRecordedParentHead": "be7147b2f0d605e8a4e6da4cc48495fc2e5a63b9",
+  "prerequisites": [
+    {
+      "pr": 1,
+      "head": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "status": "ACCEPTED_PRIOR_NOT_RETESTED"
+    },
+    {
+      "pr": 2,
+      "sourceAndTestSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+      "status": "CANDIDATE_CONTROLLER_PENDING"
+    },
+    {
+      "pr": 3,
+      "sourceAndTestSha256": "5cd5ded5590fa2e08726850278dcb29b56113562a088bbd43029f48081cdaf90",
+      "fullPatchSha256": "795b9eb73a1755bbcd8e0eb865eb1987f3611ab0a0fb76702697ef49f0e32520",
+      "selectedExactPostimages": 50,
+      "status": "CANDIDATE_CONTROLLER_PENDING"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "4645904c52a59ea22b9ebf45288578bdab4f8dccaa7efc7533859fe6b17498d2",
+    "files": [
+      {
+        "path": "apps/pda/src/components/PdaLayout.tsx",
+        "sha256": "5f2c3a16772c8b5d038567ea4a4f91c56cf15a64f788049ca6e4fc0bc971adc6",
+        "parentSha256": "043b83ae0937ba769546bc8edd43c3294b8f0c8b6fdbe3745024a78d6362cad2"
+      },
+      {
+        "path": "apps/pda/src/pages/FeedScanPage.tsx",
+        "sha256": "7f86d141d3d14d6a879afda7c3de919decc6907a055e9ae8c2acde30cb04f6ad",
+        "parentSha256": "7269dcefe12572e9b5154e9245dbf879e52d7cd80138d35dcfbe4535d1609c65"
+      },
+      {
+        "path": "apps/pda/src/pages/PutawayScanPage.tsx",
+        "sha256": "3010f7ff4e645ed2c574eeb1fe2fbb69c2b43d0cc1d7460beb3aa82c5399da77",
+        "parentSha256": "0c4de3f3d942982b7352794e51cfc5b656c075078e3054a5736f7f625745be1f"
+      },
+      {
+        "path": "apps/web/src/components/AppLayout.tsx",
+        "sha256": "a91073cdda95166e7d3d060cc51f0fd6bd540b998c8c10e7a3ac0e8a26ba3206",
+        "parentSha256": "f34ef13b0cda0aeed22550a1a0965caaab52a13835d490a544b6afb379a3fedd"
+      },
+      {
+        "path": "apps/web/src/pages/FeedingPage.tsx",
+        "sha256": "e4b0e078b5fdc9dec7cf293e33d737f9c401377dd156d4c83468567485973d99",
+        "parentSha256": "c36d443ad22d270c5a5cb2271399d63c0b0a608b2707f0c745f899651337605e"
+      },
+      {
+        "path": "packages/application/src/execution-handlers.ts",
+        "sha256": "59ce589601bbe157c81dbf326e5b017043bb2308ae4e7389ebb1c19a3dbb7dd6",
+        "parentSha256": "71ec92597cfb1fd86fae6156fa0434ba00151b2d415a4f362fd3c42777b3f48d"
+      },
+      {
+        "path": "packages/application/src/inventory-posting.ts",
+        "sha256": "632f588e5978917d92d612898873d13af9ab7f6593df2b10a2e68383dc1146a8",
+        "parentSha256": "8604250f9b7a744dda451b7519032bdc7facd0b2ac26ec2df55ca9edb3df8d5f"
+      },
+      {
+        "path": "packages/application/src/repositories.ts",
+        "sha256": "df9fec84b6bf6e063231f92bb070d3b97469b1f481869404f8ed1d1e7a719526",
+        "parentSha256": "f714a6c6e433a91cf8dbd002de0912de603fd344f9ff49683041238d51b15a52"
+      },
+      {
+        "path": "packages/application/src/scheduling-queries.ts",
+        "sha256": "46f649dca789f12e62e8dcde92c53d65be9b94fd44958833b8972df6a9215097",
+        "parentSha256": "d48771344847fd6d067c5ca9c457706d02dd3176523fee350b025e95ca162647"
+      },
+      {
+        "path": "packages/application/src/warehousing-handlers.ts",
+        "sha256": "bd71bf9f157da10822fe9e20eaba0e59b3fe7d2507e0433e15adbb45353e1e80",
+        "parentSha256": "02d4c4146b2104f0490136980e84fd52aa8f6749ff77f94b2e2b9ad774712194"
+      },
+      {
+        "path": "packages/application/src/warehousing-repositories.ts",
+        "sha256": "53bb73f4b566d74a09b3c62ae9df141737a5edeb1129454b1defc2e3096669f8",
+        "parentSha256": "69ce3b5657804667c4e270a7d4ca597607e9a9912164dbb1faf7a8696cf38165"
+      },
+      {
+        "path": "packages/domain/src/inventory/time.ts",
+        "sha256": "d9257b14ac62bb9eaf7bded2a1494dfbfd62c0f1928e1883de8984f250a15828",
+        "parentSha256": "7f5b101df0604f856952da4cb31c048bdb7254c48cef682cdc2db1ca9df929d3"
+      },
+      {
+        "path": "packages/persistence/src/repositories.ts",
+        "sha256": "66465908449a4c2ea8563ec6f730751526eceab27760e81b528c7c96e4fb961b",
+        "parentSha256": "32dca5786b37b2a2d3ba86fd02ade0f777248da7e82c97c38e437d3cc5f61307"
+      },
+      {
+        "path": "packages/persistence/src/warehousing-repositories.ts",
+        "sha256": "ab129688d85b4b460157e1bc5b04e5f0cd7180c2a40697d1d74338400680a617",
+        "parentSha256": "8ad8c5a01e079d47d03068c879c5daa3f94026dfb3beef08d9827d3ef2c4ac8a"
+      },
+      {
+        "path": "packages/ui/src/api/client.ts",
+        "sha256": "74294f25a934cabcebf70e9739fc2d50c74c823619ee2e2da226f1eb375f94b6",
+        "parentSha256": "9f99ac083d9844de65ffe1599fe4f8386d9f33dc89df2ccaa2eb8829b56fc58c"
+      },
+      {
+        "path": "packages/ui/src/api/types.ts",
+        "sha256": "6b3327b3a03aac8bf620e19af4289bbc761f89ac7e9c3367618b7a46e340ae77",
+        "parentSha256": "788369d672401f0bf5699836e1210b5ed4e124fb812f06e0715c8172a668ba44"
+      },
+      {
+        "path": "packages/ui/src/i18n/time.tsx",
+        "sha256": "7c7d58d1440fa30361a575b455ef2d669549eb9b2299edb51a9b7c0219e6ff73",
+        "parentSha256": "dbe13aea467ad36de091f6c607e40181bafa616b164223471acdba0f528f6542"
+      },
+      {
+        "path": "tests/pr08/calendar.unit.spec.ts",
+        "sha256": "90815515a1a96e67b34335179c42b4dd9d08ae41f1aa1148bf7cf1aacda5ae75",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr08/intent-api.pg.spec.ts",
+        "sha256": "4695274ad7dec3b5a0de5a6e15e1ec765180c2e3894bc38f65d2d07a53ea662d",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr08/intent.unit.spec.ts",
+        "sha256": "efe7e601253ef92458a0074de194b34327846dfb8961eba41ca1544be04feffc",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr08/operator-pages.browser.spec.tsx",
+        "sha256": "23bf628f3378a74dfde9753acdfd7f28327eb6381743ef09c3d8df847781bb08",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr08/tsconfig.full.json",
+        "sha256": "7ff94aebc187d33ea1c739fd71002842c476a46d1592600848f5d14509f7656f",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr08/tsconfig.json",
+        "sha256": "2a311c5437960b011ae76e62cfeb46e672c6618c01040e140fcdda958392972b",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr08/vitest.browser.config.ts",
+        "sha256": "96c9ab83c967dd8ef7b29b6ea0ee3295782a7c8926dfb330c87ad9629045b46e",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr08/vitest.config.ts",
+        "sha256": "fc6765c441144bed4e04a98efc803a4001568b6199ad8b4344f950b131c1210c",
+        "parentSha256": null
+      }
+    ]
+  },
+  "scopeExtensions": {
+    "packages/application/src/warehousing-handlers.ts": "Actual putaway task, warehouse/location and ownership validation; pages alone cannot establish trusted ownership.",
+    "packages/application/src/repositories.ts": "Read existing plant shift_parameter through the org port used by inventory tools.",
+    "packages/persistence/src/repositories.ts": "Implement the existing persisted day-start lookup without migration changes.",
+    "packages/application/src/scheduling-queries.ts": "Return the same explicit calendar used by writes through the existing authorized shift-date endpoint.",
+    "packages/ui/src/api/types.ts": "Calendar DTO and optional putaway owner assertion; ownership derived server-side.",
+    "apps/pda/src/components/PdaLayout.tsx": "Bind BusinessClock to actual session plant ID and API calendar.",
+    "apps/web/src/components/AppLayout.tsx": "Bind BusinessClock to actual session plant ID and API calendar.",
+    "packages/application/src/warehousing-repositories.ts": "Task row-lock and trusted source-owner port; actual warehouse enterprise identity.",
+    "packages/persistence/src/warehousing-repositories.ts": "Read source report/current stock ownership and lock actual pending task rows."
+  },
+  "scopeExtensionReview": "CONTROLLER_PENDING; named before implementation; no frozen schema or contracts changed",
+  "commands": [
+    {
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr08/vitest.config.ts tests/pr08/intent.unit.spec.ts tests/pr08/calendar.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "intent-calendar-unit-final.log",
+      "status": "LOCAL_PURE_AND_TRANSPORT_DOUBLES_PASS",
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr08/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "unit-tests-typecheck-final.log",
+      "status": "PASS"
+    },
+    {
+      "name": "application-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck-final.log"
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "persistence-typecheck-final.log"
+    },
+    {
+      "name": "api-pg-not-run",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr08/vitest.config.ts tests/pr08/intent-api.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "api-pg-not-run.log"
+    },
+    {
+      "name": "browser-not-run",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr08/vitest.browser.config.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "browser-not-run.log"
+    },
+    {
+      "name": "full-ui-api-tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr08/tsconfig.full.json --noEmit",
+      "exitCode": 2,
+      "log": "full-ui-api-tests-typecheck.log"
+    }
+  ],
+  "realPG": {
+    "plannedCases": 7,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "reason": "CADENZA_PR08_TEST_DB_URL absent; no PostgreSQL runtime or project API test dependencies in this environment"
+  },
+  "browser": {
+    "plannedCases": 8,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "reason": "jsdom/testing-library and declared React19 environment unavailable"
+  },
+  "installation": {
+    "status": "NOT_RUN",
+    "runtime": "Node24.22.1; cached TypeScript5.9.3/Vitest3.2.7; React18.3.1 only used to import pure date helpers, no React19 runtime claim"
+  },
+  "limitations": [
+    "No API or PostgreSQL business PASS; full API/UI typecheck blocked by missing project dependencies, its exit2 log retained.",
+    "No physical PDA, real factory timezone/shift table, cross-browser certification or production/site acceptance.",
+    "Cross-tab serialization uses Web Locks when provided by browser. Same runtime instances serialize regardless; unsupported-browser multi-tab operation not certified.",
+    "Warehouse MD2 has no finished/logistics subtype. CADENZA_PUTAWAY_WAREHOUSE_KINDS must map actual warehouse UUID to FINISHED or LOGISTICS; missing fact yields UNKNOWN for affected putaway.",
+    "CADENZA_PLANT_UTC_OFFSETS uses actual factory UUID to finite UTC offset; day start from shift_parameter. Missing calendar is explicitly UNVERIFIED_DEFAULT (+8/00:00 provisional compatibility).",
+    "Legacy UI expectations of name-derived KR+9/demo defaults are not evidence for this changed behavior.",
+    "Controller original-PR publication/acceptance pending; no supported controller messaging surface found; no external messages sent."
+  ],
+  "initialFailuresPreserved": [
+    "persistence-typecheck-initial.log: two SqlClient query generic errors, corrected",
+    "unit-tests-typecheck.log: Web Locks promise typing and missing tailwind-merge, corrected in changed source",
+    "intent-calendar-unit.log: 15 intent cases passed; calendar collection blocked by missing cn dependency, corrected without stubbing date logic",
+    "browser-not-run.log and full-ui-api-tests-typecheck.log: dependency blockers remain"
+  ],
+  "remoteWrite": false,
+  "controllerAccepted": false
+}

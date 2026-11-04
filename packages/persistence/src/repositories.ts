@@ -221,6 +221,13 @@ const NODE_COLUMNS = `id, kind, code, name, parent_id, parent_kind, path, depth,
 export class PgOrgNodeRepository implements OrgNodeRepository {
   constructor(private readonly client: SqlClient) {}
 
+  async findPlantDayShiftStart(plantId: string): Promise<string | null> {
+    const result = await this.client.query(
+      'SELECT day_shift_start::text FROM shift_parameter WHERE plant_id=$1', [plantId])
+    return (result.rows[0] as { day_shift_start: string } | undefined)?.day_shift_start.slice(0, 5) ?? null
+  }
+
+
   async findById(id: string): Promise<OrgNodeRecord | null> {
     const r = await this.client.query(`SELECT ${NODE_COLUMNS} FROM org_node WHERE id = $1`, [id])
     return r.rows[0] ? mapNode(r.rows[0] as OrgNodeRow) : null

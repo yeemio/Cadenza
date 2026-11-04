@@ -1,0 +1,280 @@
+apps/api/src/auth/auth.guard.ts(2,27): error TS2307: Cannot find module '@nestjs/core' or its corresponding type declarations.
+apps/api/src/auth/auth.module.ts(2,27): error TS2307: Cannot find module '@nestjs/core' or its corresponding type declarations.
+apps/api/src/auth/auth.service.ts(4,31): error TS2307: Cannot find module '@nestjs/config' or its corresponding type declarations.
+apps/api/src/auth/scope.guard.ts(2,27): error TS2307: Cannot find module '@nestjs/core' or its corresponding type declarations.
+apps/api/src/auth/scope.guard.ts(38,40): error TS7006: Parameter 'permission' implicitly has an 'any' type.
+apps/api/src/db/db.module.ts(2,31): error TS2307: Cannot find module '@nestjs/config' or its corresponding type declarations.
+apps/api/src/execution/execution.controller.ts(16,30): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+apps/api/src/scheduling/scheduling.controller.ts(17,30): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+apps/api/src/warehousing/warehousing.controller.ts(14,30): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+apps/pda/src/auth.tsx(10,29): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+apps/pda/src/components/PdaLayout.tsx(13,8): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+apps/pda/src/components/PdaLayout.tsx(15,56): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+apps/pda/src/components/PdaLayout.tsx(88,27): error TS7031: Binding element 'isActive' implicitly has an 'any' type.
+apps/pda/src/components/PdaLayout.tsx(97,17): error TS7031: Binding element 'isActive' implicitly has an 'any' type.
+apps/pda/src/pages/FeedScanPage.tsx(85,17): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/pda/src/pages/FeedScanPage.tsx(91,23): error TS2322: Type '{ children: string; block: true; size: string; loading: boolean; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/pda/src/pages/PutawayScanPage.tsx(108,15): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/pda/src/pages/PutawayScanPage.tsx(114,23): error TS2322: Type '{ children: string; block: true; size: string; loading: boolean; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/auth.tsx(10,29): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+apps/web/src/components/AppLayout.tsx(48,8): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+apps/web/src/components/AppLayout.tsx(50,56): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+apps/web/src/components/AppLayout.tsx(266,33): error TS7031: Binding element 'isActive' implicitly has an 'any' type.
+apps/web/src/components/AppLayout.tsx(336,23): error TS2322: Type '{ children: (string | Element)[]; size: string; variant: string; onClick: () => undefined; title: string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/DispositionPage.tsx(43,34): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/DispositionPage.tsx(135,19): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/FinishedDefectPage.tsx(77,33): error TS2322: Type '{ children: string; key: "" | "approved" | "rejected" | "unreviewed"; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/FinishedDefectPage.tsx(130,19): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/FinishedDefectPage.tsx(157,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/IqcVersionPage.tsx(97,19): error TS2322: Type '{ children: string; size: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/IqcVersionPage.tsx(118,25): error TS2322: Type '{ children: string; size: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/IqcVersionPage.tsx(121,25): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/IqcVersionPage.tsx(124,25): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/IqcVersionPage.tsx(184,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(105,21): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(148,27): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(153,27): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(158,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(185,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(202,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(229,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(232,21): error TS2322: Type '{ children: string; variant: string; loading: boolean; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenanceOrdersPage.tsx(265,19): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/MaintenancePlansPage.tsx(107,23): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/OrderConversionPage.tsx(123,25): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/OrderConversionPage.tsx(127,27): error TS2322: Type '{ children: string; size: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/OrderConversionPage.tsx(132,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/OrderConversionPage.tsx(137,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/OrderConversionPage.tsx(204,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/OrderConversionPage.tsx(207,21): error TS2322: Type '{ children: string; variant: string; loading: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/QualitySuspectPage.tsx(46,33): error TS2322: Type '{ children: string; key: "" | "suspect" | "restored"; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReceiptCorrectionPage.tsx(120,25): error TS2322: Type '{ children: string; size: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReceiptCorrectionPage.tsx(186,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReceiptCorrectionPage.tsx(191,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReceiptCorrectionPage.tsx(212,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReceiptCorrectionPage.tsx(215,21): error TS2322: Type '{ children: string; variant: string; loading: boolean; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReportSummaryPage.tsx(72,19): error TS2322: Type '{ children: string; size: string; loading: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReportSummaryPage.tsx(111,11): error TS2322: Type '{ children: string; size: string; loading: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReverseLedgerPage.tsx(49,33): error TS2322: Type '{ children: string; key: "carrier" | "move" | "ownership"; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReverseStocktakePage.tsx(64,21): error TS2322: Type '{ children: string; size: string; loading: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReverseStocktakePage.tsx(98,25): error TS2322: Type '{ children: string; size: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReverseTransferPage.tsx(50,33): error TS2322: Type '{ children: string; key: "out" | "in"; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReverseTransferPage.tsx(122,25): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReverseTransferPage.tsx(126,27): error TS2322: Type '{ children: string; size: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReverseTransferPage.tsx(229,25): error TS2322: Type '{ children: string; size: string; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReworkLedgerPage.tsx(54,33): error TS2322: Type '{ children: string; key: "reel-split" | "pallet-task" | "axis-correction" | "axis-retire"; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReworkLedgerPage.tsx(139,25): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReworkLedgerPage.tsx(143,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReworkLedgerPage.tsx(184,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReworkLedgerPage.tsx(187,21): error TS2322: Type '{ children: string; variant: string; loading: boolean; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReworkLedgerPage.tsx(238,17): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ReworkLedgerPage.tsx(338,25): error TS2322: Type '{ children: string; size: string; variant: string; loading: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ShiftMetricsPage.tsx(51,33): error TS2322: Type '{ children: string; key: "snapshots" | "metrics" | "trace"; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ShiftMetricsPage.tsx(195,17): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ShiftMetricsPage.tsx(198,17): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/ShiftMetricsPage.tsx(201,17): error TS2322: Type '{ children: string; size: string; loading: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/StockConversionPage.tsx(75,19): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/StockConversionPage.tsx(120,25): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/StockConversionPage.tsx(124,27): error TS2322: Type '{ children: string; size: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/StockConversionPage.tsx(129,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/StockConversionPage.tsx(247,19): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/StockConversionPage.tsx(268,21): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p2/pages/StockStatisticsPage.tsx(96,19): error TS2322: Type '{ children: string; size: string; disabled: boolean; loading: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/CostReportsPage.tsx(282,21): error TS2322: Type '{ children: string; variant: string; disabled: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/CostReportsPage.tsx(328,23): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/CostReportsPage.tsx(435,25): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/CostReportsPage.tsx(471,25): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/CostReportsPage.tsx(482,19): error TS2322: Type '{ children: string[]; size: string; variant: string; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/CostReportsPage.tsx(494,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/CostReportsPage.tsx(541,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/CostReportsPage.tsx(569,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OtFactsPage.tsx(117,25): error TS2322: Type '{ children: string; size: string; onClick: () => undefined; loading: boolean; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OtFactsPage.tsx(150,25): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OtSamplesPage.tsx(168,31): error TS2322: Type '{ children: string; size: string; variant: string; style: { marginLeft: number; }; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OtSamplesPage.tsx(225,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(180,40): error TS2322: Type '{ children: string; key: string; size: string; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(187,38): error TS2322: Type '{ children: string; key: string; size: string; disabled: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(194,41): error TS2322: Type '{ children: string; key: string; size: string; disabled: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(197,40): error TS2322: Type '{ children: string; key: string; size: string; variant: string; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(204,41): error TS2322: Type '{ children: string; key: string; size: string; disabled: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(207,41): error TS2322: Type '{ children: string; key: string; size: string; variant: string; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(214,39): error TS2322: Type '{ children: string; key: string; size: string; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(218,44): error TS2322: Type '{ children: string; key: string; size: string; variant: string; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(225,38): error TS2322: Type '{ children: string; key: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(290,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(329,17): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/OutsourcingTasksPage.tsx(340,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcCalibrationPage.tsx(163,17): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcCalibrationPage.tsx(207,23): error TS2322: Type '{ children: string; variant: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcCalibrationPage.tsx(232,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcCalibrationPage.tsx(270,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcCalibrationPage.tsx(298,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcChartsPage.tsx(270,27): error TS2322: Type '{ children: string; size: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcChartsPage.tsx(272,27): error TS2322: Type '{ children: string; size: string; variant: string; disabled: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcChartsPage.tsx(288,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcChartsPage.tsx(307,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcToolsPage.tsx(139,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcToolsPage.tsx(210,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p3/pages/SpcToolsPage.tsx(226,21): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p4/binding/ImBindingCodePanel.tsx(153,17): error TS2322: Type '{ children: string; variant: string; loading: boolean; onClick: () => undefined; "data-testid": string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p4/binding/ImBindingCodePanel.tsx(156,17): error TS2322: Type '{ children: string; variant: string; loading: boolean; onClick: () => undefined; "data-testid": string; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p4/binding/ImBindingCodePanel.tsx(201,33): error TS2322: Type '{ children: string; variant: string; loading: boolean; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p4/pages/AiQueryPage.tsx(2,22): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+apps/web/src/p4/pages/AiQueryPage.tsx(234,15): error TS2322: Type '{ children: string; variant: string; loading: boolean; disabled: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/p4/pages/AiQueryPage.tsx(246,23): error TS2322: Type '{ children: string; variant: string; onClick: () => undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+apps/web/src/pages/FeedingPage.tsx(276,27): error TS2322: Type '{ children: string; size: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+packages/ui/src/Badge.tsx(2,40): error TS2307: Cannot find module 'class-variance-authority' or its corresponding type declarations.
+packages/ui/src/Button.tsx(2,40): error TS2307: Cannot find module 'class-variance-authority' or its corresponding type declarations.
+packages/ui/src/Button.tsx(3,25): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+packages/ui/src/Button.tsx(4,22): error TS2307: Cannot find module 'radix-ui' or its corresponding type declarations.
+packages/ui/src/Button.tsx(58,3): error TS2339: Property 'variant' does not exist on type 'ButtonProps'.
+packages/ui/src/Button.tsx(59,3): error TS2339: Property 'size' does not exist on type 'ButtonProps'.
+packages/ui/src/Input.tsx(1,40): error TS2307: Cannot find module 'class-variance-authority' or its corresponding type declarations.
+packages/ui/src/Message.tsx(1,21): error TS2307: Cannot find module 'class-variance-authority' or its corresponding type declarations.
+packages/ui/src/Message.tsx(2,59): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+packages/ui/src/Modal.tsx(2,19): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+packages/ui/src/Modal.tsx(3,24): error TS2307: Cannot find module 'radix-ui' or its corresponding type declarations.
+packages/ui/src/Modal.tsx(36,45): error TS7006: Parameter 'next' implicitly has an 'any' type.
+packages/ui/src/Modal.tsx(54,34): error TS7006: Parameter 'e' implicitly has an 'any' type.
+packages/ui/src/Modal.tsx(55,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+packages/ui/src/Modal.tsx(109,19): error TS2322: Type '{ children: string; variant: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+packages/ui/src/Modal.tsx(113,13): error TS2322: Type '{ children: string; variant: string; onClick: () => void; loading: boolean | undefined; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+packages/ui/src/ScanInput.tsx(2,26): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+packages/ui/src/ScanInput.tsx(134,11): error TS2322: Type '{ children: (string | Element)[]; size: string; disabled: boolean; title: string; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+packages/ui/src/Table.tsx(3,25): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+packages/ui/src/Table.tsx(137,15): error TS2322: Type '{ children: string; size: string; variant: string; disabled: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+packages/ui/src/Table.tsx(151,15): error TS2322: Type '{ children: string; size: string; variant: string; disabled: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+packages/ui/src/Tree.tsx(2,43): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
+packages/ui/src/aiquery/AiResultCard.tsx(15,22): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+packages/ui/src/aiquery/AiUnavailableNotice.tsx(45,19): error TS2322: Type '{ children: string; size: string; variant: string; loading: boolean; onClick: () => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'size' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+packages/ui/src/cn.ts(2,25): error TS2307: Cannot find module 'tailwind-merge' or its corresponding type declarations.
+tests/pr08/intent-api.pg.spec.ts(75,12): error TS2307: Cannot find module '@nestjs/testing' or its corresponding type declarations.
+tests/pr08/intent-api.pg.spec.ts(75,38): error TS2307: Cannot find module '@nestjs/config' or its corresponding type declarations.
+tests/pr08/operator-pages.browser.spec.tsx(2,61): error TS2307: Cannot find module '@testing-library/react' or its corresponding type declarations.
+tests/pr08/operator-pages.browser.spec.tsx(33,90): error TS2339: Property 'toBeInTheDocument' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(35,77): error TS2339: Property 'toBeInTheDocument' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(36,24): error TS2339: Property 'toHaveValue' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(39,42): error TS2339: Property 'toHaveValue' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(40,50): error TS2339: Property 'toBeInTheDocument' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(47,48): error TS2339: Property 'toBeDisabled' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(51,92): error TS2339: Property 'toBeDisabled' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(52,93): error TS2339: Property 'toBeInTheDocument' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(57,66): error TS2339: Property 'toBeInTheDocument' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(58,42): error TS2339: Property 'toBeDisabled' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(69,68): error TS2339: Property 'toHaveAttribute' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(70,50): error TS2339: Property 'toHaveTextContent' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(71,50): error TS2339: Property 'toHaveTextContent' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(75,68): error TS2339: Property 'toHaveTextContent' does not exist on type 'Assertion<any>'.
+tests/pr08/operator-pages.browser.spec.tsx(76,54): error TS2339: Property 'toHaveAttribute' does not exist on type 'Assertion<any>'.

@@ -1,0 +1,43 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-work
+
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > feed lost response / reload retries exact key and body 20ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > putaway lost response / reload retries exact key and body 2ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > concurrent taps share one successful POST 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > payload cannot be replaced after an unknown result 5ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > navigation cannot erase an unresolved intent 2ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > invalid remains UNKNOWN 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > 500 remains UNKNOWN 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > a later 403 does not disprove a previous possible commit 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > first explicit rejection requires an explicit new-intent acknowledgement 2ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > confirmed intent replays receipt until explicit new work 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > same user after token renewal recovers unresolved intent 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > different user and enterprise cannot inherit the previous operation 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > storage failure blocks the POST 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > corrupt prior record blocks replacement 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > clones input synchronously before authentication or transmission 0ms
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  15 passed (15)
+   Start at  00:00:26
+   Duration  2.93s (transform 1.62s, setup 0ms, collect 427ms, tests 41ms, environment 0ms, prepare 185ms)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr08/calendar.unit.spec.ts [ tests/pr08/calendar.unit.spec.ts ]
+Error: Cannot find package 'tailwind-merge' imported from '/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-work/packages/ui/src/cn.ts'
+ ❯ packages/ui/src/cn.ts:2:1
+      1| import { clsx, type ClassValue } from 'clsx'
+      2| import { twMerge } from 'tailwind-merge'
+       | ^
+      3| 
+      4| /**
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
+Caused by: Error: Failed to load url tailwind-merge (resolved id: tailwind-merge) in /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-work/packages/ui/src/cn.ts. Does the file exist?
+ ❯ loadAndTransform ../../../feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/dist/node/chunks/config.js:22907:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
