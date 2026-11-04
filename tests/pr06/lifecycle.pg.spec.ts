@@ -141,7 +141,7 @@ describe('PR06 real PostgreSQL receipt lifecycle', () => {
     if (mismatch === 'location-plant') await pool.query('UPDATE transfer_inbound_line SET location_id=$2 WHERE order_id=$1 AND inventory_unit_id=$3', [d.orderId, fx.szRackLocationId, last.unitId])
     if (mismatch === 'line-unit') await pool.query('UPDATE transfer_inbound_line SET inventory_unit_id=$2 WHERE order_id=$1 AND inventory_unit_id=$3', [d.orderId, d.stocks[0]!.unitId, last.unitId])
     if (mismatch === 'reservation-holder') await pool.query("UPDATE reservation SET holder_ref='other-order' WHERE id=(SELECT reservation_id FROM transfer_inbound_line WHERE order_id=$1 AND inventory_unit_id=$2)", [d.orderId, last.unitId])
-    if (mismatch === 'reservation-expired') await pool.query("UPDATE reservation SET valid_until=clock_timestamp()-interval '1 second' WHERE id=(SELECT reservation_id FROM transfer_inbound_line WHERE order_id=$1 AND inventory_unit_id=$2)", [d.orderId, last.unitId])
+    if (mismatch === 'reservation-expired') await pool.query("UPDATE reservation SET acquired_at=statement_timestamp()-interval '2 seconds', valid_until=statement_timestamp()-interval '1 second' WHERE id=(SELECT reservation_id FROM transfer_inbound_line WHERE order_id=$1 AND inventory_unit_id=$2)", [d.orderId, last.unitId])
     await denied(b, 'reverse.transfer-inbound.complete', { orderId: d.orderId }, 'WR-17')
   })
   it('same parent, two batches, concurrent different-key returns consume one batch once', async () => {
