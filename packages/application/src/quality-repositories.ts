@@ -138,7 +138,7 @@ export interface NewQualityHold {
 // ---------------- 仓储端口 ----------------
 
 export interface InspectionOrderRepository {
-  findById(id: string): Promise<InspectionOrderRecord | null>
+  findById(id: string, forUpdate?: boolean): Promise<InspectionOrderRecord | null>
   /** 来源幂等查重（A-T12-5：(source_type, source_ref, inspection_stage) 唯一）。 */
   findBySource(
     sourceType: InspectionOrderRecord['sourceType'],
@@ -181,7 +181,7 @@ export interface DispositionRepository {
 
 export interface QualityHoldRepository {
   insert(hold: NewQualityHold): Promise<QualityHoldRecord>
-  findById(id: string): Promise<QualityHoldRecord | null>
+  findById(id: string, forUpdate?: boolean): Promise<QualityHoldRecord | null>
   /** 活动隔离（含已过期的活动作业预留口径行——有效性由域规则判定）。 */
   findActiveByUnit(inventoryUnitId: string): Promise<QualityHoldRecord | null>
   listByUnit(inventoryUnitId: string): Promise<QualityHoldRecord[]>
