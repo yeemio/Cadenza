@@ -1,0 +1,17 @@
+{
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    "tests/pr06/vitest.config.ts",
+    "tests/pr06/lifecycle.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "database": "cadenza_pr06_lifecycle_r0_20261104",
+  "startedUtc": "2026-11-04T03:23:43.957741+00:00",
+  "finishedUtc": "2026-11-04T03:23:51.343741+00:00",
+  "exitCode": 1,
+  "logSha256": "e12ba1425fca2c124bb0afa6fed7fab972d2730cd2bc37fda5d153da2dac4f8b"
+}

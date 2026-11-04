@@ -1,0 +1,561 @@
+{
+  "delivery": "Cadenza-PR06-R1",
+  "status": "FIXTURE_SOURCE_READY_TARGET_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalPr": 6,
+  "originalBranch": "codex/fix-06-reverse-stock-lifecycle",
+  "exactParentHead": "6d16bb040599e35013abaf9eed098e20a0ff7273",
+  "originalParent": "e48b2e78f27785f49016f2c0f0e86847267e6ff5",
+  "cumulativeParent": "41311cf63cf531d44cc2fa367d3600e3c5953767",
+  "parentTestedSourceCommit": "13add18e9c73c112c5648335d80be304d97ffa5f",
+  "r0IncrementSha256": "1d72bd9490ff21841ba40bb83e81e2932dce2b6b317b8eb01f5618921951ef92",
+  "r0SourceAndTestFingerprint": "a8dce41bb20dcb880516cce6e6c275287562c8c019e17cacf39065cfc2d63c93",
+  "acceptedPr02PrerequisiteAlreadyInParent": {
+    "head": "0df991eac99a61132e50c10d8931d3532945dab2",
+    "testPath": "tests/pr02/object-write-scope.pg.spec.ts",
+    "testSha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1",
+    "unchanged": true,
+    "reapplyPrerequisite": false
+  },
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "bd4094ff51a0df984adcf0d0b2a1b938c8604ca4faf0b8a04e45f1f170922bad",
+    "sourceFiles": 4,
+    "testFiles": 4,
+    "gitCommit": "NOT_CREATED",
+    "files": [
+      {
+        "path": "packages/application/src/purchase-handlers.ts",
+        "bytes": 54935,
+        "sha256": "a9904e53017a789ed9c8dd3101db9521af9b6c5cd3eea98a5ce2bcc2527741b6",
+        "gitBlobSha": "7fba65c4b1d887e190b55c7370f455e07aed28f5",
+        "parentSha256": "a9904e53017a789ed9c8dd3101db9521af9b6c5cd3eea98a5ce2bcc2527741b6",
+        "parentGitBlobSha": "7fba65c4b1d887e190b55c7370f455e07aed28f5",
+        "unchanged": true
+      },
+      {
+        "path": "packages/application/src/reverse-handlers.ts",
+        "bytes": 128631,
+        "sha256": "645773d3404559ab6892c74e69766ca45f43854e2a555e5fcc7a476fedc9d198",
+        "gitBlobSha": "934a76135c0e2f5d016c456230cc53e57340ef2b",
+        "parentSha256": "645773d3404559ab6892c74e69766ca45f43854e2a555e5fcc7a476fedc9d198",
+        "parentGitBlobSha": "934a76135c0e2f5d016c456230cc53e57340ef2b",
+        "unchanged": true
+      },
+      {
+        "path": "packages/domain/src/reverse/transfer-in-rules.ts",
+        "bytes": 7262,
+        "sha256": "3d25c1c2723d77c2974f4d206e6df8dfee2a85704311fff1af21b33df8e44d49",
+        "gitBlobSha": "a0981f7443e6747b3a2c8f5c07d58367314af3b6",
+        "parentSha256": "3d25c1c2723d77c2974f4d206e6df8dfee2a85704311fff1af21b33df8e44d49",
+        "parentGitBlobSha": "a0981f7443e6747b3a2c8f5c07d58367314af3b6",
+        "unchanged": true
+      },
+      {
+        "path": "packages/persistence/src/purchase-repositories.ts",
+        "bytes": 39728,
+        "sha256": "796d836c4c032f8f902787b8bbe52955c741dd100dd4df5085421809b874bea1",
+        "gitBlobSha": "71deab212366dd6442f69e45906b4804e8e8c5c9",
+        "parentSha256": "796d836c4c032f8f902787b8bbe52955c741dd100dd4df5085421809b874bea1",
+        "parentGitBlobSha": "71deab212366dd6442f69e45906b4804e8e8c5c9",
+        "unchanged": true
+      },
+      {
+        "path": "tests/pr06/lifecycle.pg.spec.ts",
+        "bytes": 16463,
+        "sha256": "d8e9552020b9f946a3f31677eba2feefc32fcdd498297f0f29e1fa26b9802986",
+        "gitBlobSha": "26ed808b0e6f6dc7b9fb0c1c1130f69ee07ddcf5",
+        "parentSha256": "95a1c6d8f13795daf551190442e22a8ff00b3f3bbfa0cbcfcddb87bc7b6fe324",
+        "parentGitBlobSha": "dc9ca49b3d01ae998eb62c27254ee7eb76c16aa4",
+        "unchanged": false
+      },
+      {
+        "path": "tests/pr06/lifecycle.unit.spec.ts",
+        "bytes": 1619,
+        "sha256": "32a836b532d0c85d3df5a6b73e27f44332a6b8a5877104b25361898d04f93c96",
+        "gitBlobSha": "732e09b045f1fe8e56e904a46e380545bba289ea",
+        "parentSha256": "32a836b532d0c85d3df5a6b73e27f44332a6b8a5877104b25361898d04f93c96",
+        "parentGitBlobSha": "732e09b045f1fe8e56e904a46e380545bba289ea",
+        "unchanged": true
+      },
+      {
+        "path": "tests/pr06/tsconfig.json",
+        "bytes": 221,
+        "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "gitBlobSha": "19d84320c5cc01aa9d3b74761b50fe31ca591fc9",
+        "parentSha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "parentGitBlobSha": "19d84320c5cc01aa9d3b74761b50fe31ca591fc9",
+        "unchanged": true
+      },
+      {
+        "path": "tests/pr06/vitest.config.ts",
+        "bytes": 247,
+        "sha256": "5bdecfb80e1d7a2f771b5bf56a8f573715fdf4afc114ca8e0aa0e468ab52c119",
+        "gitBlobSha": "32792c6cfa55d4fa709f6a14e09a9f4b6abdf75d",
+        "parentSha256": "5bdecfb80e1d7a2f771b5bf56a8f573715fdf4afc114ca8e0aa0e468ab52c119",
+        "parentGitBlobSha": "32792c6cfa55d4fa709f6a14e09a9f4b6abdf75d",
+        "unchanged": true
+      }
+    ]
+  },
+  "changedPaths": [
+    "docs/review/evidence/pr-06/author-r1-tests-typecheck.log",
+    "docs/review/evidence/pr-06/author-r1.json",
+    "docs/review/evidence/pr-06/author-r1.md",
+    "tests/pr06/lifecycle.pg.spec.ts"
+  ],
+  "repair": {
+    "path": "tests/pr06/lifecycle.pg.spec.ts",
+    "site": "mismatch === 'reservation-expired' branch, original line 144",
+    "oldSql": "UPDATE reservation SET valid_until=clock_timestamp()-interval '1 second' WHERE id=(SELECT reservation_id FROM transfer_inbound_line WHERE order_id=$1 AND inventory_unit_id=$2)",
+    "newSql": "UPDATE reservation SET acquired_at=statement_timestamp()-interval '2 seconds', valid_until=statement_timestamp()-interval '1 second' WHERE id=(SELECT reservation_id FROM transfer_inbound_line WHERE order_id=$1 AND inventory_unit_id=$2)",
+    "invariant": "For one SQL-statement timestamp t: acquired_at=t-2seconds < valid_until=t-1second < t.",
+    "meaning": "Genuinely expired reservation with its canonical validity interval still legal; no sleep, schema weakening, product or permission change.",
+    "postgresqlReference": "https://www.postgresql.org/docs/16/functions-datetime.html#FUNCTIONS-DATETIME-CURRENT"
+  },
+  "preservation": {
+    "exactParentHead": "6d16bb040599e35013abaf9eed098e20a0ff7273",
+    "path": "tests/pr06/lifecycle.pg.spec.ts",
+    "preimageSha256": "95a1c6d8f13795daf551190442e22a8ff00b3f3bbfa0cbcfcddb87bc7b6fe324",
+    "postimageSha256": "d8e9552020b9f946a3f31677eba2feefc32fcdd498297f0f29e1fa26b9802986",
+    "singleSqlLiteralReplacement": true,
+    "unchangedBytesOutsideSqlLiteral": true,
+    "oldSql": "UPDATE reservation SET valid_until=clock_timestamp()-interval '1 second' WHERE id=(SELECT reservation_id FROM transfer_inbound_line WHERE order_id=$1 AND inventory_unit_id=$2)",
+    "newSql": "UPDATE reservation SET acquired_at=statement_timestamp()-interval '2 seconds', valid_until=statement_timestamp()-interval '1 second' WHERE id=(SELECT reservation_id FROM transfer_inbound_line WHERE order_id=$1 AND inventory_unit_id=$2)",
+    "registeredCasesStaticOnly": 15,
+    "registrationSites": 9,
+    "registrations": [
+      {
+        "nameExpression": "`destination-only receiver changes custody and preserves owner ${ownerId}`",
+        "cardinality": 2,
+        "parameterValues": [
+          "REV_OWNER_ID",
+          "REV_CUSTOMER_OWNER_ID"
+        ]
+      },
+      {
+        "nameExpression": "'one of two axes cannot close the order; rejection rolls back and all-received later succeeds'",
+        "cardinality": 1,
+        "parameterValues": null
+      },
+      {
+        "nameExpression": "'multiple materials must all be received'",
+        "cardinality": 1,
+        "parameterValues": null
+      },
+      {
+        "nameExpression": "'duplicate scan with a different operationId creates no extra reservation'",
+        "cardinality": 1,
+        "parameterValues": null
+      },
+      {
+        "nameExpression": "'source-only writer cannot sign for destination'",
+        "cardinality": 1,
+        "parameterValues": null
+      },
+      {
+        "nameExpression": "'completed receipt cannot be reopened by deleting its scan'",
+        "cardinality": 1,
+        "parameterValues": null
+      },
+      {
+        "nameExpression": "'pre-completion remove/rescan remains legitimate'",
+        "cardinality": 1,
+        "parameterValues": null
+      },
+      {
+        "nameExpression": "`final ${mismatch} mismatch leaves every business table unchanged`",
+        "cardinality": 6,
+        "parameterValues": [
+          "'quantity'",
+          "'dispatch-status'",
+          "'location-plant'",
+          "'line-unit'",
+          "'reservation-holder'",
+          "'reservation-expired'"
+        ]
+      },
+      {
+        "nameExpression": "'same parent, two batches, concurrent different-key returns consume one batch once'",
+        "cardinality": 1,
+        "parameterValues": null
+      }
+    ],
+    "allRegistrationExpressionsIdentical": true,
+    "allAssertionTextsIdentical": true,
+    "assertionExpressionCount": 26,
+    "assertionTextsSha256": "ed4f5910bdf05020f915bd755855ee2ed092a9c1d4f6a432baef6131a78722a3",
+    "noAddedSkipOnlyOrTodo": true,
+    "sharedCallbackBoundary": "Six mismatch cases share one callback. Only the SQL literal in the reservation-expired conditional branch changed; all sibling branches, common assertions, registrations and bytes outside that literal are identical. Do not claim the full shared callback text is unchanged.",
+    "testRunnerInvoked": false,
+    "scope": "Static preservation and TypeScript parse only; no PostgreSQL or business PASS claim"
+  },
+  "protectedFiles": [
+    {
+      "path": "docs/review/evidence/pr-06/application-typecheck-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "unchanged": true
+    },
+    {
+      "path": "docs/review/evidence/pr-06/application-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "unchanged": true
+    },
+    {
+      "path": "docs/review/evidence/pr-06/author-r0.json",
+      "sha256": "5435e452962f50ecb573dc9ea98e54291555908b8fa45ed57a167d75c42ce3ac",
+      "gitBlobSha": "96ab8b05cc13d9b213cb3941665ecefbaa82a4ea",
+      "unchanged": true
+    },
+    {
+      "path": "docs/review/evidence/pr-06/author-r0.md",
+      "sha256": "e104f2ebe35cdceb1209e3673d663b816ba4ab71661de0391a6b8320f2c8d6f5",
+      "gitBlobSha": "f8aff11e93cb8a07804f4aa9fe14562e58f6e9f4",
+      "unchanged": true
+    },
+    {
+      "path": "docs/review/evidence/pr-06/lifecycle-pg-not-run.log",
+      "sha256": "9e9af84477b94205e761bbaedc966f86db83c3b23da0f8a79e00cf39f5741823",
+      "gitBlobSha": "a0207f95eaf6f9f7430cde876363f363c79a47c1",
+      "unchanged": true
+    },
+    {
+      "path": "docs/review/evidence/pr-06/lifecycle-unit.log",
+      "sha256": "8c03d6c612998a7bc785129b47a0c77f6a4f450db392046b5d074727a1ca0d4f",
+      "gitBlobSha": "4cd73f817c228a95259de4b0124f4102016c0054",
+      "unchanged": true
+    },
+    {
+      "path": "docs/review/evidence/pr-06/persistence-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "unchanged": true
+    },
+    {
+      "path": "docs/review/evidence/pr-06/pr06-tests-typecheck-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "unchanged": true
+    },
+    {
+      "path": "docs/review/evidence/pr-06/pr06-tests-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/purchase-handlers.ts",
+      "sha256": "a9904e53017a789ed9c8dd3101db9521af9b6c5cd3eea98a5ce2bcc2527741b6",
+      "gitBlobSha": "7fba65c4b1d887e190b55c7370f455e07aed28f5",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/reverse-handlers.ts",
+      "sha256": "645773d3404559ab6892c74e69766ca45f43854e2a555e5fcc7a476fedc9d198",
+      "gitBlobSha": "934a76135c0e2f5d016c456230cc53e57340ef2b",
+      "unchanged": true
+    },
+    {
+      "path": "packages/domain/src/reverse/transfer-in-rules.ts",
+      "sha256": "3d25c1c2723d77c2974f4d206e6df8dfee2a85704311fff1af21b33df8e44d49",
+      "gitBlobSha": "a0981f7443e6747b3a2c8f5c07d58367314af3b6",
+      "unchanged": true
+    },
+    {
+      "path": "packages/persistence/src/purchase-repositories.ts",
+      "sha256": "796d836c4c032f8f902787b8bbe52955c741dd100dd4df5085421809b874bea1",
+      "gitBlobSha": "71deab212366dd6442f69e45906b4804e8e8c5c9",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr06/lifecycle.unit.spec.ts",
+      "sha256": "32a836b532d0c85d3df5a6b73e27f44332a6b8a5877104b25361898d04f93c96",
+      "gitBlobSha": "732e09b045f1fe8e56e904a46e380545bba289ea",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr06/tsconfig.json",
+      "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+      "gitBlobSha": "19d84320c5cc01aa9d3b74761b50fe31ca591fc9",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr06/vitest.config.ts",
+      "sha256": "5bdecfb80e1d7a2f771b5bf56a8f573715fdf4afc114ca8e0aa0e468ab52c119",
+      "gitBlobSha": "32792c6cfa55d4fa709f6a14e09a9f4b6abdf75d",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr02/object-write-scope.pg.spec.ts",
+      "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1",
+      "gitBlobSha": "21beee98575d82f46b91d944eefa2ebe7b3971e5",
+      "unchanged": true
+    },
+    {
+      "path": "packages/persistence/src/migrations/0004-inventory-trace.ts",
+      "sha256": "549c98341077169af3189ade1ddbc3bf395eb99178e47f51db1fdf6aa6087d9b",
+      "gitBlobSha": "dc1a7c5f2ad53d405cd98b13016f1fdf4579b748",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "sha256": "cc06ff7bfc046a283fc434a5f0bce1f7a3f64808020732dc683498f1beeb4554",
+      "gitBlobSha": "9e7847c879ccf15de894352665d86cf43814c940",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/object-scope-repositories.ts",
+      "sha256": "487e54b5be25608a6c8d8d87e0f9a949862fad08cfeaf3737014c63bf8c8f374",
+      "gitBlobSha": "35b8857d8ddbc1085b93ea5e70c1375cad646e0b",
+      "unchanged": true
+    }
+  ],
+  "r0OwnedPostimagesUnchanged": 16,
+  "protectedPriorEvidence": [
+    {
+      "path": "docs/review/evidence/pr-06/application-typecheck-final.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/review/evidence/pr-06/application-typecheck.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/review/evidence/pr-06/author-r0.json",
+      "parentGitBlobSha": "96ab8b05cc13d9b213cb3941665ecefbaa82a4ea",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "5435e452962f50ecb573dc9ea98e54291555908b8fa45ed57a167d75c42ce3ac",
+      "bytes": 6973
+    },
+    {
+      "path": "docs/review/evidence/pr-06/author-r0.md",
+      "parentGitBlobSha": "f8aff11e93cb8a07804f4aa9fe14562e58f6e9f4",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "e104f2ebe35cdceb1209e3673d663b816ba4ab71661de0391a6b8320f2c8d6f5",
+      "bytes": 3346
+    },
+    {
+      "path": "docs/review/evidence/pr-06/controller-r0-pg.log",
+      "parentGitBlobSha": "2b446baa3557073bdad6cce87ce6bee2025755a1",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "e12ba1425fca2c124bb0afa6fed7fab972d2730cd2bc37fda5d153da2dac4f8b",
+      "bytes": 474270
+    },
+    {
+      "path": "docs/review/evidence/pr-06/controller-r0-pg.process.json",
+      "parentGitBlobSha": "e1e3fbe9da29b433675a37da948908ca6120cde7",
+      "includedInR1Increment": false,
+      "materializedAndCompared": false
+    },
+    {
+      "path": "docs/review/evidence/pr-06/controller-r0-pr02-regression.log",
+      "parentGitBlobSha": "f14f41dd79d7068ea792b5a21a525ec378df6142",
+      "includedInR1Increment": false,
+      "materializedAndCompared": false
+    },
+    {
+      "path": "docs/review/evidence/pr-06/controller-r0-pr02-regression.process.json",
+      "parentGitBlobSha": "dbd236b4305aa7dba9c9ece54b6786d40fe637e8",
+      "includedInR1Increment": false,
+      "materializedAndCompared": false
+    },
+    {
+      "path": "docs/review/evidence/pr-06/controller-r0-query-summary.json",
+      "parentGitBlobSha": "1b9f8a3b8e447c25c3b63852710dc97f870dc81f",
+      "includedInR1Increment": false,
+      "materializedAndCompared": false
+    },
+    {
+      "path": "docs/review/evidence/pr-06/controller-r0.json",
+      "parentGitBlobSha": "fab57a8b9e5b3f6b315797e4f39d7697cc808040",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "e7d70883255e7104931f73421ad920e25706cadbc1f36fb833d4ab3175dd351f",
+      "bytes": 2680
+    },
+    {
+      "path": "docs/review/evidence/pr-06/controller-r0.md",
+      "parentGitBlobSha": "5593cf645b5664122dfb37e547763209a6d270f6",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "ae09735977c8c399b4b1ff07b3f09ccde0135125f442f021c81bc80474407b5c",
+      "bytes": 1264
+    },
+    {
+      "path": "docs/review/evidence/pr-06/lifecycle-pg-not-run.log",
+      "parentGitBlobSha": "a0207f95eaf6f9f7430cde876363f363c79a47c1",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "9e9af84477b94205e761bbaedc966f86db83c3b23da0f8a79e00cf39f5741823",
+      "bytes": 916
+    },
+    {
+      "path": "docs/review/evidence/pr-06/lifecycle-unit.log",
+      "parentGitBlobSha": "4cd73f817c228a95259de4b0124f4102016c0054",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "8c03d6c612998a7bc785129b47a0c77f6a4f450db392046b5d074727a1ca0d4f",
+      "bytes": 1612
+    },
+    {
+      "path": "docs/review/evidence/pr-06/persistence-typecheck.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/review/evidence/pr-06/pr06-tests-typecheck-final.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/review/evidence/pr-06/pr06-tests-typecheck.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "includedInR1Increment": false,
+      "materializedAndCompared": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "r0RealPgFailureRetained": {
+    "result": {
+      "passed": 14,
+      "failed": 1,
+      "skipped": 0,
+      "planned": 15,
+      "failedCase": "final reservation-expired mismatch leaves every business table unchanged",
+      "failureBoundary": "Fixture UPDATE at tests/pr06/lifecycle.pg.spec.ts:144 fails before expiry business assertion; other14cases including return race and custody execute/pass",
+      "sqlstate": "23514",
+      "constraint": "reservation_valid_until_ck CHECK(valid_until > acquired_at)",
+      "cause": "Fixture sets valid_until=clock_timestamp()-1second but leaves just-created acquired_at later than valid_until",
+      "database": "cadenza_pr06_lifecycle_r0_20261104"
+    },
+    "receiptUrl": "https://github.com/yeemio/Cadenza/blob/6d16bb040599e35013abaf9eed098e20a0ff7273/docs/review/evidence/pr-06/controller-r0.json",
+    "rawLog": {
+      "path": "docs/review/evidence/pr-06/controller-r0-pg.log",
+      "bytes": 474270,
+      "sha256": "e12ba1425fca2c124bb0afa6fed7fab972d2730cd2bc37fda5d153da2dac4f8b",
+      "gitBlobSha": "2b446baa3557073bdad6cce87ce6bee2025755a1",
+      "fetchedAndHashVerified": true,
+      "unchanged": true
+    },
+    "observations": {
+      "custodyRecords": 5,
+      "denialRecords": 11,
+      "concurrentReturnRecords": 1
+    },
+    "failedCaseNotCountedAsBusinessPass": true,
+    "failedDatabaseNotAccessedOrReused": "cadenza_pr06_lifecycle_r0_20261104"
+  },
+  "typecheck": {
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tests/pr06/tsconfig.json",
+      "--noEmit"
+    ],
+    "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr6-r1-work",
+    "startedUtc": "2026-11-04T03:30:04.701120+00:00",
+    "finishedUtc": "2026-11-04T03:30:09.930917+00:00",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-06/author-r1-tests-typecheck.log",
+    "logBytes": 0,
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "testedPgSourceSha256": "d8e9552020b9f946a3f31677eba2feefc32fcdd498297f0f29e1fa26b9802986"
+  },
+  "reusableEvidence": {
+    "pr06R0ValidCases": {
+      "count": 14,
+      "status": "REUSE_SUPPORTED_PENDING_CONTROLLER_BINDING",
+      "basis": "All product bytes and all test bytes outside the expiry SQL literal are unchanged; other mismatch branches and all registrations/assertions are identical.",
+      "newExecutionByAuthor": false
+    },
+    "c2Regression": {
+      "count": 129,
+      "status": "REUSE_SUPPORTED_PENDING_CONTROLLER_BINDING",
+      "reportedPassed": 129,
+      "reportedFailed": 0,
+      "reportedSkipped": 0,
+      "actualQueryRecords": 123,
+      "source": "https://github.com/yeemio/Cadenza/blob/6d16bb040599e35013abaf9eed098e20a0ff7273/docs/review/evidence/pr-06/controller-r0.json",
+      "basis": "Product code and accepted PR02 fixture unchanged; no R1 C2 runner invocation"
+    },
+    "ruleUnit": {
+      "count": 11,
+      "status": "REUSED_NOT_RERUN",
+      "source": {
+        "ruleUnitPassed": 11,
+        "applicationTypes": "PASS final",
+        "persistenceTypes": "PASS",
+        "testSourceTypes": "PASS final",
+        "rawHashesVerified": true
+      }
+    },
+    "applicationTypes": "REUSED_NOT_RERUN; no application change",
+    "persistenceTypes": "REUSED_NOT_RERUN; no persistence change",
+    "testSourceTypes": "FRESH_PASS; details and original output in typecheck"
+  },
+  "realPr06TargetedPg": {
+    "status": "NOT_RUN",
+    "runnerInvoked": false,
+    "executed": 0,
+    "actualRuntimeSkips": 0,
+    "suiteRegisteredCasesStaticOnly": 15,
+    "targetedNewExecutionPlanned": 1,
+    "targetCaseNameUnchanged": "final reservation-expired mismatch leaves every business table unchanged",
+    "controllerCommand": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr06/vitest.config.ts",
+      "tests/pr06/lifecycle.pg.spec.ts",
+      "-t",
+      "final reservation-expired mismatch leaves every business table unchanged",
+      "--reporter=verbose"
+    ],
+    "requiredDatabase": "Another NEW empty task-owned cadenza_pr06_* PostgreSQL database via CADENZA_PR06_TEST_DB_URL",
+    "reason": "No dedicated PostgreSQL URL or local postgres/psql/docker runtime; no connection guessed, old database accessed or migration invoked.",
+    "nameFilterBoundary": "When the controller executes the target, the other 14 cases are name-filter exclusions. Preserve the raw runner summary; do not call those runtime skips or new business executions."
+  },
+  "runtime": {
+    "node": "v24.22.1",
+    "typescript": "5.9.3",
+    "dependencies": "Existing cached dependencies; no install/cold-build evidence"
+  },
+  "gitCommit": "NOT_CREATED",
+  "remoteWrite": "NOT_ATTEMPTED",
+  "controllerAccepted": false,
+  "batchAcceptedCount": {
+    "accepted": 6,
+    "total": 15,
+    "prs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      14
+    ],
+    "basis": "Controller acceptance updates; PR06 not yet accepted"
+  }
+}

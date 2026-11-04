@@ -47,6 +47,7 @@ import {
   assertTransferOutWarehouseRules,
   assertVoidExecutable,
   assertWholeCodeOutbound,
+  assertReservationAcquirable,
   buildAdjustmentBalances,
   inboundStatusAfterRemoval,
   isSamePlantImmediateTransfer,
@@ -68,11 +69,14 @@ import {
 import { violationOutcome } from './inventory-handlers'
 // ABS 收编轮：订单行已收扣减＋状态重算直调 purchase 域核心（原本域等价服务 deductOrderLine 已删除）
 import { deductOrderLineReceived } from './purchase-handlers'
+import { assertObjectWriteScope } from './object-scope-repositories'
 import type {
   CarrierFacts,
   PurchaseBatchFacts,
   ReverseCommandTools,
   TransferOutboundOrderRecord,
+  TransferInboundOrderRecord,
+  TransferInboundLineRecord,
 } from './reverse-repositories'
 import type { InventoryUnitRecord, StockBalanceRecord } from './inventory-repositories'
 
@@ -434,6 +438,7 @@ async function transferInUnitLine(
     transit: StockBalanceRecord
     toLocationId: string
     toLocationCode: string
+    toPlantId: string
     quantity: string
     lineNo: number
     reason: string | null
@@ -445,15 +450,23 @@ async function transferInUnitLine(
   if (cmpQty(transitAfter, '0.0000') < 0) {
     throw new ReverseRuleViolation('WR-12', `调拨接收量超过在途余额（在途 ${spec.transit.quantity}、本次 ${spec.quantity}），拒绝`)
   }
+  if (cmpQty(transitAfter, '0.0000') !== 0) throw new ReverseRuleViolation('WR-17', '整码接收必须消尽唯一在途余额；部分接收须先分盘')
+  // Physical custody changes at independent receipt; legal ownership stays on
+  // the balance. Debit the source plant and credit the verified destination.
+  const destUnit = { ...spec.unit, plantId: spec.toPlantId }
   const dest = await lockOrInsertBalance(
     pc,
-    spec.unit,
+    destUnit,
     spec.transit,
     spec.toLocationId,
     spec.toLocationCode,
     spec.transit.ownerId,
     spec.transit.ownerName,
   )
+  if (dest.enterpriseId !== destUnit.enterpriseId || dest.plantId !== destUnit.plantId ||
+      cmpQty(dest.quantity, '0') !== 0 || dest.uomCode !== spec.transit.uomCode) {
+    throw new ReverseRuleViolation('WR-17', '目标余额的企业/工厂/数量/单位与本次接收身份不一致')
+  }
   await writeLedgerLine(pc, {
     lineNo: spec.lineNo,
     movementKind: 'transfer_in',
@@ -473,14 +486,14 @@ async function transferInUnitLine(
     balance: dest,
     beforeQty: dest.quantity,
     afterQty: addQty(dest.quantity, spec.quantity),
-    unit: spec.unit,
+    unit: destUnit,
     from: { locationId: spec.transit.locationId, locationCode: spec.transit.locationCode, ownerId: spec.transit.ownerId, ownerName: spec.transit.ownerName },
     to: { locationId: spec.toLocationId, locationCode: spec.toLocationCode, ownerId: spec.transit.ownerId, ownerName: spec.transit.ownerName },
     reason: spec.reason,
     refType: spec.refType,
     refId: spec.refId,
   })
-  await rvTools(pc).inv.units.updateStatus(spec.unit.id, { status: 'in_stock' }, pc.ctx.actorLoginName)
+  await rvTools(pc).inv.units.receiveAtPlant(spec.unit.id, spec.toPlantId, pc.ctx.actorLoginName)
   return { destBalanceId: dest.id, linesUsed: 2 }
 }
 
@@ -1474,6 +1487,89 @@ async function transferOutAutoGenerate(pc: PostingContext, p: Payload): Promise<
 
 // ---------------- 命令：调拨入库与跨厂签收（WR-14～17） ----------------
 
+/** Authorize custody receipt at the actual destination, then bind it to the
+ * completed dispatch. A receiver needs no source-factory write grant. */
+async function receiptHandoff(pc: PostingContext, order: TransferInboundOrderRecord) {
+  const tools = rvTools(pc)
+  await assertObjectWriteScope(tools, pc.ctx, order, 'reverse.post', message => new ReverseRuleViolation('A-S1', message))
+  const toWarehouse = await warehouseOpenFor(tools, order.toWarehouseId, '调拨入库', 'WR-17')
+  const fromWarehouse = await tools.rv.warehouses.findById(order.fromWarehouseId)
+  const outbound = await tools.rv.outOrders.findById(order.outboundOrderId)
+  if (order.inboundMode !== 'scan_putaway' || toWarehouse.status !== 'active' ||
+      toWarehouse.plantId !== order.plantId || toWarehouse.enterpriseId !== order.enterpriseId ||
+      fromWarehouse === null || fromWarehouse.enterpriseId !== order.enterpriseId ||
+      outbound === null || outbound.status !== 'outbounded' || outbound.enterpriseId !== order.enterpriseId ||
+      outbound.plantId !== fromWarehouse.plantId || outbound.fromWarehouseId !== order.fromWarehouseId ||
+      outbound.toWarehouseId !== order.toWarehouseId || outbound.transitLocationId === null) {
+    throw new ReverseRuleViolation('WR-17', '调入单、实际调入厂与已完成调出交接事实不一致')
+  }
+  const transitLocation = await tools.rv.locations.findById(outbound.transitLocationId)
+  if (transitLocation === null || transitLocation.plantId !== fromWarehouse.plantId) {
+    throw new ReverseRuleViolation('WR-17', '调出在途库位与源厂保管身份不一致')
+  }
+  const lines = await tools.rv.inLines.listByOrder(order.id)
+  const scans = (await tools.rv.outScans.listByOrder(outbound.id)).filter(scan => scan.status === 'loaded')
+  if (lines.length === 0 || lines.length !== scans.length ||
+      new Set(lines.map(line => line.inventoryUnitId)).size !== lines.length ||
+      new Set(scans.map(scan => scan.inventoryUnitId)).size !== scans.length ||
+      lines.some(line => line.orderId !== order.id || !isPositiveQty(line.quantity) ||
+        !scans.some(scan => scan.inventoryUnitId === line.inventoryUnitId && scan.unitNo === line.unitNo &&
+          scan.materialId === line.materialId && cmpQty(scan.outQty, line.quantity) === 0))) {
+    throw new ReverseRuleViolation('WR-17', '入库实物清单必须与调出清单逐码、逐料、全量对应，且不得重复')
+  }
+  return { toWarehouse, fromWarehouse, outbound, lines }
+}
+
+async function receiptBalance(pc: PostingContext, order: TransferInboundOrderRecord,
+  handoff: Awaited<ReturnType<typeof receiptHandoff>>, line: TransferInboundLineRecord,
+  unit: InventoryUnitRecord | undefined, forRemoval = false): Promise<StockBalanceRecord> {
+  const tools = rvTools(pc)
+  if (unit === undefined || unit.enterpriseId !== order.enterpriseId || unit.plantId !== handoff.fromWarehouse.plantId ||
+      unit.status !== 'in_transit' || unit.unitNo !== line.unitNo || unit.materialId !== line.materialId) {
+    throw new ReverseRuleViolation('WR-17', '接收单元不是本次交接的源厂在途实物')
+  }
+  const balances = await tools.inv.balances.listActiveByUnit(unit.id)
+  const balance = balances.length === 1 ? balances[0]! : null
+  if (balance === null || balance.locationId !== handoff.outbound.transitLocationId ||
+      balance.enterpriseId !== unit.enterpriseId || balance.plantId !== unit.plantId ||
+      cmpQty(balance.quantity, line.quantity) !== 0 ||
+      !await tools.inv.units.isTransferOutBalance(unit.id, balance.id, unit.plantId)) {
+    throw new ReverseRuleViolation('WR-17', '接收数量、在途余额或调出流水与实物交接不一致')
+  }
+  if (!forRemoval && (await tools.inv.units.businessHolds(unit.id)).length > 0) {
+    throw new ReverseRuleViolation('WR-17', '在途实物仍有业务锁定，不可接收')
+  }
+  if (!forRemoval) assertOutboundQualityGate({ qualityStatus: balance.qualityStatus, unitNo: unit.unitNo, action: '调拨接收' })
+  return balance
+}
+
+async function receiptLocation(pc: PostingContext, order: TransferInboundOrderRecord, locationId: string | null) {
+  const location = locationId === null ? null : await rvTools(pc).rv.locations.findById(locationId)
+  if (location === null || location.status !== 'active' || location.plantId !== order.plantId || location.warehouseId !== order.toWarehouseId) {
+    throw new ReverseRuleViolation('WR-17', '接收库位必须属于实际调入厂、调入仓库且活动')
+  }
+  return location
+}
+
+async function checkReceiptReservation(pc: PostingContext, order: TransferInboundOrderRecord,
+  line: TransferInboundLineRecord, balance: StockBalanceRecord, forRemoval = false) {
+  const inv = pc.tools.inv
+  const own = line.reservationId === null ? null : await inv.reservations.findById(line.reservationId)
+  if (own === null || own.unitId !== line.inventoryUnitId || own.locationId !== balance.locationId ||
+      own.enterpriseId !== order.enterpriseId || own.plantId !== balance.plantId || own.holderType !== 'order' ||
+      own.holderRef !== `reverse.transfer-inbound:${order.id}` || cmpQty(own.quantity, line.quantity) !== 0 ||
+      own.uomId !== balance.uomId || own.uomCode !== balance.uomCode ||
+      (own.status !== 'active' && !(forRemoval && own.status === 'expired')) ||
+      (!forRemoval && Date.parse(own.validUntil) <= pc.tools.now().getTime())) {
+    throw new ReverseRuleViolation('WR-17', '接收预留身份与本单在途实物不一致')
+  }
+  const now = pc.tools.now().getTime()
+  const other = (await inv.reservations.listActiveByUnit(line.inventoryUnitId))
+    .some(row => row.id !== own.id && row.status === 'active' && Date.parse(row.validUntil) > now)
+  if (!forRemoval && other) throw new ReverseRuleViolation('WR-17', '在途实物已有其它活动预留，不可接收')
+  return own
+}
+
 /** 扫码上架（WR-15：记仓库/货架/库位并锁定（动作=调拨入库）、单据状态变入库中——不移库存）。 */
 async function transferInScanPutaway(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = rvTools(pc)
@@ -1481,17 +1577,17 @@ async function transferInScanPutaway(pc: PostingContext, p: Payload): Promise<Re
   const orderId = requireStr(p, 'orderId', command)
   const order = await tools.rv.inOrders.lockById(orderId)
   if (order === null) throw new ReverseRuleViolation(NOT_FOUND_RULE, '调拨入库单不存在')
-  await assertPlantScope(tools, order.plantId)
   if (order.status !== 'pending_in' && order.status !== 'inbounding') {
     throw new ReverseRuleViolation('WR-15', `调拨入库单 ${order.orderNo}状态为 ${order.status}，仅 待入库/入库中 可扫码上架`)
   }
   if (order.inboundMode === 'fixed_location') {
     throw new ReverseRuleViolation('WR-15', `调拨入库单 ${order.orderNo}为固定库位完成单（厂内即时转仓）：无需扫码上架`)
   }
-  const toWarehouse = await warehouseOpenFor(tools, order.toWarehouseId, '调拨入库扫码上架', 'WR-15')
+  const handoff = await receiptHandoff(pc, order)
+  const { toWarehouse } = handoff
 
   // 目标行解析：单品码 / 托码（整托上架）
-  const lines = await tools.rv.inLines.listByOrder(orderId)
+  const lines = handoff.lines
   const unitNo = str(p, 'unitNo')
   const palletCode = str(p, 'palletCode')
   let targetLines = []
@@ -1534,11 +1630,15 @@ async function transferInScanPutaway(pc: PostingContext, p: Payload): Promise<Re
     }
   }
 
+  await receiptLocation(pc, order, location!.id)
+  const locked = await tools.inv.units.lockForUpdate(ensureStableLockOrder(targetLines.map(line => line.inventoryUnitId)))
+  const unitMap = new Map(locked.map(unit => [unit.id, unit]))
   const now = pc.tools.now().toISOString()
   const putawayLineIds: string[] = []
   for (const line of targetLines) {
-    const unit = await tools.inv.units.findById(line.inventoryUnitId)
-    if (unit === null) throw new ReverseRuleViolation(NOT_FOUND_RULE, `库存单元 ${line.unitNo} 不存在`)
+    const unit = unitMap.get(line.inventoryUnitId)
+    const currentBalance = await receiptBalance(pc, order, handoff, line, unit)
+    if (unit === undefined) throw new ReverseRuleViolation(NOT_FOUND_RULE, '接收单元不存在')
     const facts = {
       unitNo: line.unitNo,
       notInOrder: false,
@@ -1560,20 +1660,20 @@ async function transferInScanPutaway(pc: PostingContext, p: Payload): Promise<Re
     assertPutawayScanAcceptable(facts)
     // 锁定（动作=调拨入库，作业预留含有效期，IT-23）——预留挂单元当前（在途）余额：
     // 上架目标库位此刻尚无余额（WR-12 目的增在完成入库时发生），目的库位由入库行记录。
-    const currentBalances = await tools.inv.balances.listActiveByUnit(unit.id)
-    const currentBalance = currentBalances.length === 1 ? currentBalances[0]! : null
-    if (currentBalance === null) {
-      throw new ReverseRuleViolation('WR-15', `单元 ${line.unitNo} 无唯一活动余额（在途），不可扫码上架`)
-    }
     const validUntil = str(p, 'validUntil') ?? new Date(Date.parse(now) + 4 * 3600_000).toISOString()
-    const reservation = await acquireReservation(pc, {
-      unitId: unit.id,
-      quantity: line.quantity,
-      holderType: 'order',
-      holderRef: `reverse.transfer-inbound:${orderId}`,
-      validUntil,
-      locationId: currentBalance.locationId,
-      reason: `调拨入库上架锁定（单号 ${order.orderNo}）`,
+    const holderRef = `reverse.transfer-inbound:${orderId}`
+    assertReservationAcquirable({ unitId: unit.id, holderType: 'order', holderRef, quantity: line.quantity, validUntil, now })
+    if ((await tools.inv.reservations.listActiveByUnit(unit.id)).some(row => row.status === 'active' && Date.parse(row.validUntil) > Date.parse(now))) {
+      throw new ReverseRuleViolation('WR-15', '在途实物已预留，不可重复接收')
+    }
+    // Dedicated handoff reservation: authority is the verified destination
+    // order, while reservation custody remains at source until receipt commits.
+    const reservation = await tools.inv.reservations.insert({
+      unitId: unit.id, locationId: currentBalance.locationId, holderType: 'order', holderRef,
+      quantity: line.quantity, validUntil, uomId: currentBalance.uomId, uomCode: currentBalance.uomCode,
+      measurementBasis: currentBalance.measurementBasis, conversionRevisionId: currentBalance.conversionRevisionId,
+      commandReceiptId: pc.commandReceiptId, plantId: unit.plantId, enterpriseId: unit.enterpriseId,
+      createdBy: pc.ctx.actorLoginName,
     })
     const updated = await tools.rv.inLines.markPutaway(
       line.id,
@@ -1581,7 +1681,7 @@ async function transferInScanPutaway(pc: PostingContext, p: Payload): Promise<Re
         lineStatus: 'inbound',
         locationId: location!.id,
         locationCode: location!.code,
-        reservationId: String(reservation['reservationId'] ?? '') || null,
+        reservationId: reservation.id,
         inboundAt: pc.businessTime,
       },
       pc.ctx.actorLoginName,
@@ -1616,7 +1716,8 @@ async function transferInRemoveScan(pc: PostingContext, p: Payload): Promise<Rec
   const unitNo = requireStr(p, 'unitNo', command)
   const order = await tools.rv.inOrders.lockById(orderId)
   if (order === null) throw new ReverseRuleViolation(NOT_FOUND_RULE, '调拨入库单不存在')
-  await assertPlantScope(tools, order.plantId)
+  if (order.status !== 'inbounding' && order.status !== 'pending_in') throw new ReverseRuleViolation('WR-16', '已完成接收不可删码重开')
+  const handoff = await receiptHandoff(pc, order)
   const line = await tools.rv.inLines.findByUnitNo(orderId, unitNo)
   if (line === null) throw new ReverseRuleViolation(NOT_FOUND_RULE, `单元 ${unitNo} 不在本调拨入库单`)
   assertInboundScanRemovable({ unitNo, lineStatus: line.lineStatus })
@@ -1631,8 +1732,13 @@ async function transferInRemoveScan(pc: PostingContext, p: Payload): Promise<Rec
       if (tray.memberUnitIds.includes(other.inventoryUnitId)) siblingIds.push(other.id)
     }
   }
+  const releaseIds = [line.id, ...siblingIds]
+  const locked = await tools.inv.units.lockForUpdate(ensureStableLockOrder(lines.filter(item => releaseIds.includes(item.id)).map(item => item.inventoryUnitId)))
+  const unitMap = new Map(locked.map(unit => [unit.id, unit]))
   const releaseLine = async (lineId: string): Promise<void> => {
     const target = lines.find((l) => l.id === lineId)!
+    const balance = await receiptBalance(pc, order, handoff, target, unitMap.get(target.inventoryUnitId), true)
+    await checkReceiptReservation(pc, order, target, balance, true)
     if (target.reservationId !== null) {
       const reservation = await tools.inv.reservations.findById(target.reservationId)
       if (reservation !== null && reservation.status === 'active') {
@@ -1670,13 +1776,12 @@ async function transferInComplete(pc: PostingContext, p: Payload): Promise<Recor
   const orderId = requireStr(p, 'orderId', command)
   const order = await tools.rv.inOrders.lockById(orderId)
   if (order === null) throw new ReverseRuleViolation(NOT_FOUND_RULE, '调拨入库单不存在')
-  await assertPlantScope(tools, order.plantId)
   if (order.status !== 'inbounding' && order.status !== 'pending_in') {
     throw new ReverseRuleViolation('WR-17', `调拨入库单 ${order.orderNo}状态为 ${order.status}，仅 入库中 可完成入库`)
   }
-  await warehouseOpenFor(tools, order.toWarehouseId, '调拨入库完成', 'WR-17')
-  const lines = await tools.rv.inLines.listByOrder(orderId)
-  // WR-17：每料品已入库数量 ≥ 待入库数量（按料品聚合）
+  const handoff = await receiptHandoff(pc, order)
+  const lines = handoff.lines
+  // WR-17：每料品剩余未收数量必须为零（全部实物码已登记接收）。
   const byMaterial = new Map<string, { pendingQty: string; inboundQty: string }>()
   for (const line of lines) {
     const key = line.materialCode ?? line.unitNo
@@ -1691,31 +1796,23 @@ async function transferInComplete(pc: PostingContext, p: Payload): Promise<Recor
     toWarehouseLocked: false,
   })
 
-  // 在途库位（出库段事实）：出库单 transit_location
-  const outbound = await tools.rv.outOrders.findById(order.outboundOrderId)
-  if (outbound === null) throw new ReverseRuleViolation(NOT_FOUND_RULE, '关联调拨出库单不存在')
-  const transitLocationId = outbound.transitLocationId
-  if (transitLocationId === null) {
-    throw new ReverseRuleViolation('WR-17', '关联出库单未记录在途库位：无法完成入库（在途对账事实缺失）')
-  }
-
   const inboundLines = lines.filter((l) => l.lineStatus === 'inbound')
   const locked = await tools.inv.units.lockForUpdate(ensureStableLockOrder(inboundLines.map((l) => l.inventoryUnitId)))
   const unitMap = new Map(locked.map((u) => [u.id, u]))
   let lineNo = 1
   const receivedUnits: string[] = []
   for (const line of inboundLines) {
-    const unit = unitMap.get(line.inventoryUnitId)!
-    const balances = await tools.inv.balances.listActiveByUnit(unit.id)
-    const transit = balances.find((b) => b.locationId === transitLocationId) ?? null
-    if (transit === null) {
-      throw new ReverseRuleViolation(NOT_FOUND_RULE, `单元 ${line.unitNo} 无在途余额（先执行调拨出库段）`)
-    }
+    const unit = unitMap.get(line.inventoryUnitId)
+    const transit = await receiptBalance(pc, order, handoff, line, unit)
+    if (unit === undefined) throw new ReverseRuleViolation(NOT_FOUND_RULE, '接收单元不存在')
+    await checkReceiptReservation(pc, order, line, transit)
+    const location = await receiptLocation(pc, order, line.locationId)
     await transferInUnitLine(pc, {
       unit,
       transit,
-      toLocationId: line.locationId!,
-      toLocationCode: line.locationCode!,
+      toLocationId: location.id,
+      toLocationCode: location.code,
+      toPlantId: handoff.toWarehouse.plantId,
       quantity: line.quantity,
       lineNo,
       reason: `调拨入库完成（单号 ${order.orderNo}）`,

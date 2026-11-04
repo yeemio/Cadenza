@@ -1,0 +1,29 @@
+{
+  "receipts": [
+    {
+      "status": "BUSINESS_REJECTION",
+      "command_type": "reverse.transfer-inbound.complete"
+    }
+  ],
+  "allReservationCount": 4,
+  "inboundReservations": [
+    {
+      "id": "9b97a243-cd26-444d-b323-e14045dfa227",
+      "status": "active",
+      "unit_no": "P06-d8f50608-5d17-4b96-a026-b368a9bf0155",
+      "acquired_at": "2026-11-04T06:53:03.602244+00:00",
+      "valid_until": "2026-11-04T06:53:04.602244+00:00",
+      "canonical_valid": true,
+      "actually_expired": true
+    },
+    {
+      "id": "a6618859-0521-43e0-9f4e-8bda0510c005",
+      "status": "active",
+      "unit_no": "P06-70b50e0e-e682-44ea-98c9-8320b6cebf15",
+      "acquired_at": "2026-11-04T06:53:05.580105+00:00",
+      "valid_until": "2026-11-04T10:53:05.586+00:00",
+      "canonical_valid": true,
+      "actually_expired": false
+    }
+  ]
+}

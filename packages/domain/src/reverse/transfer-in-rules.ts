@@ -127,12 +127,13 @@ export function inboundStatusAfterRemoval(inboundLineCount: number): TransferInS
 /** 入库行事实（WR-17 完成条件）。 */
 export interface InboundLineFacts {
   materialCode: string
+  /** Remaining unreceived quantity, never the original required total. */
   pendingQty: string
   inboundQty: string
 }
 
 /**
- * WR-17：完成入库条件——每料品已入库数量 ≥ 待入库数量、至少一码已入库。
+ * WR-17：整单完成须每料品剩余未收数量为零、至少一码已入库。
  * （整码口径下＝全部码行 inbound；按料品聚合断言以贴合原文口径。）
  */
 export function assertInboundCompletable(input: {
@@ -151,10 +152,10 @@ export function assertInboundCompletable(input: {
     throw new ReverseRuleViolation('WR-17', `调拨入库单 ${input.orderNo}至少须一码已入库，才可完成入库`)
   }
   for (const line of input.lines) {
-    if (cmpQty(line.inboundQty, line.pendingQty) < 0) {
+    if (cmpQty(line.pendingQty, '0.0000') !== 0 || cmpQty(line.inboundQty, '0.0000') <= 0) {
       throw new ReverseRuleViolation(
         'WR-17',
-        `料品 ${line.materialCode}已入库数量（${line.inboundQty}）小于待入库数量（${line.pendingQty}），不可完成入库`,
+        `料品 ${line.materialCode}仍有待入库数量（${line.pendingQty}）或没有实收（${line.inboundQty}），不可完成整单入库`,
       )
     }
   }

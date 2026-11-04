@@ -45,9 +45,11 @@ import { violationOutcome } from './inventory-handlers'
 import { NOT_FOUND_RULE, buildPostingContext, receiveGoods, type PostingContext } from './inventory-posting'
 import type {
   PurchaseCommandTools,
+  PurchaseOrderLineRecord,
   PurchaseReceiptBatchRecord,
   ReceiptDetailRecord,
 } from './purchase-repositories'
+import { assertObjectWriteScope, type ObjectScope } from './object-scope-repositories'
 
 /**
  * purchase 域命令处理器（T08 采购主链；全部在命令总线事务内运行，命令事务即 UoW）。
@@ -68,6 +70,13 @@ import type {
 
 type Payload = Record<string, unknown>
 
+/** Diagnostic exception: replay only this Inbox fact after business rollback. */
+class QuarantinedPurchaseInbound extends PurchaseRuleViolation {
+  constructor(message: string, readonly persistRejectionDiagnostics: () => Promise<void>) {
+    super('IF-00.8', message)
+  }
+}
+
 function purchaseViolationOutcome(error: PurchaseRuleViolation): HandlerOutcome {
   // 采购域组织隔离二道防线（OA-24/26 口径随行）→ FORBIDDEN_SCOPE（HTTP 403）
   const errorCode = error.rule === 'A-S1' ? ERROR_CODES.FORBIDDEN_SCOPE : ERROR_CODES.BUSINESS_RULE
@@ -79,6 +88,13 @@ async function run(body: () => Promise<Record<string, unknown>>): Promise<Handle
     const data = await body()
     return { status: 'COMMITTED', data }
   } catch (error) {
+    if (error instanceof QuarantinedPurchaseInbound) {
+      // Object.assign is compatible with the original HandlerOutcome type. The
+      // new bus consumes this internal callback; the old bus keeps its old behavior.
+      return Object.assign(purchaseViolationOutcome(error), {
+        persistRejectionDiagnostics: error.persistRejectionDiagnostics,
+      })
+    }
     if (error instanceof PurchaseRuleViolation) return purchaseViolationOutcome(error)
     if (error instanceof InventoryRuleViolation) return violationOutcome(error)
     throw error
@@ -98,12 +114,39 @@ function requireStr(p: Payload, key: string, command: string): string {
 
 // ---------------- 通用前置 ----------------
 
-/** 组织范围二道防线（OA-24/26：目标工厂须在 actor 数据范围内）。 */
-async function assertPlantScope(tools: PurchaseCommandTools, plantId: string): Promise<void> {
-  const scope = await tools.actorDataScope()
-  if (!scope.enterpriseWide && !scope.plantIds.includes(plantId)) {
-    throw new PurchaseRuleViolation('A-S1', `目标工厂不在授权数据范围内（plant=${plantId}）`)
+async function assertPurchaseObjectScope(pc: PostingContext, target: ObjectScope, claimedPlantId?: string): Promise<void> {
+  await assertObjectWriteScope(pc.tools, pc.ctx, target, 'purchase.post',
+    (message) => new PurchaseRuleViolation('A-S1', message), claimedPlantId)
+}
+
+async function assertPlantScope(pc: PostingContext, plantId: string): Promise<void> {
+  await assertPurchaseObjectScope(pc, { enterpriseId: pc.ctx.enterpriseId, plantId })
+}
+
+/** The locked line and its persisted parent must describe the same organization. */
+async function assertPurchaseLineScope(pc: PostingContext, line: PurchaseOrderLineRecord, claimedPlantId?: string): Promise<void> {
+  await assertPurchaseObjectScope(pc, line, claimedPlantId)
+  const order = await purchaseTools(pc).pur.orders.findByKey(line.sourceSystem, line.orgCode, line.orderNo)
+  if (order === null || order.id !== line.purchaseOrderId ||
+      order.enterpriseId !== line.enterpriseId || order.plantId !== line.plantId) {
+    throw new PurchaseRuleViolation('A-S1', '采购行与订单的真实企业/工厂不一致')
   }
+  await assertPurchaseObjectScope(pc, order, line.plantId)
+}
+
+async function lockScopedBatch(pc: PostingContext, batchId: string, claimedPlantId?: string): Promise<PurchaseReceiptBatchRecord> {
+  const tools = purchaseTools(pc)
+  const batch = await tools.pur.batches.findById(batchId, true)
+  if (batch === null) throw new PurchaseRuleViolation(NOT_FOUND_RULE, '采购批次不存在')
+  await assertPurchaseObjectScope(pc, batch, claimedPlantId)
+  const line = await tools.pur.lines.findById(batch.purchaseLineId)
+  if (line === null) throw new PurchaseRuleViolation('A-S1', '采购批次的订单行不存在')
+  await assertPurchaseLineScope(pc, line, batch.plantId)
+  if (line.enterpriseId !== batch.enterpriseId || line.orderNo !== batch.orderNo ||
+      line.lineNo !== batch.lineNo || line.materialId !== batch.materialId) {
+    throw new PurchaseRuleViolation('A-S1', '采购批次与订单行的实际归属不一致')
+  }
+  return batch
 }
 
 function todayOf(iso: string): string {
@@ -171,26 +214,35 @@ export async function deductOrderLineReceived(
 // ---------------- 批次质量状态刷新（A-6 汇总 + T12 库存质量投影） ----------------
 
 /** 明细质量状态 → 库存余额质量状态同步（T12 闸门消费口径：免检/合格可用，待检/待复检不可用）。 */
-async function syncUnitQuality(tools: PurchaseCommandTools, detail: ReceiptDetailRecord): Promise<void> {
+async function syncUnitQuality(pc: PostingContext, batch: PurchaseReceiptBatchRecord, detail: ReceiptDetailRecord): Promise<void> {
+  const tools = purchaseTools(pc)
+  if (detail.batchId !== batch.id) throw new PurchaseRuleViolation('A-S1', '明细不属于实际采购批次')
   if (detail.inventoryUnitId === null) return
-  const balances = await tools.inv.balances.listActiveByUnit(detail.inventoryUnitId)
+  const unit = (await tools.inv.units.lockForUpdate([detail.inventoryUnitId]))[0]
+  if (unit === undefined) throw new PurchaseRuleViolation('A-S1', '采购明细绑定的库存单元不存在')
+  await assertPurchaseObjectScope(pc, unit, batch.plantId)
+  if (unit.materialId !== batch.materialId) throw new PurchaseRuleViolation('A-S1', '采购明细与库存料品身份不一致')
+  const balances = await tools.inv.balances.listActiveByUnit(unit.id)
   const target = mapDetailStatusToBalanceQuality(detail.qualityStatus)
   for (const b of balances) {
-    if (b.qualityStatus !== target) {
-      await tools.inv.balances.adjust(b.id, { qualityStatus: target }, null)
+    if (b.unitId !== unit.id || b.enterpriseId !== unit.enterpriseId || b.plantId !== unit.plantId) {
+      throw new PurchaseRuleViolation('A-S1', '采购明细的库存余额归属不一致')
     }
+    if (b.qualityStatus !== target) await tools.inv.balances.adjust(b.id, { qualityStatus: target }, null)
   }
 }
 
-/** 批次质检状态重汇总（A-6：各码当前生效结论汇总）+ 库存质量状态同步。 */
+/** 批次质检状态重汇总（A-6）+ 同一受权批次的库存投影。 */
 async function refreshBatchQualityState(
-  tools: PurchaseCommandTools,
+  pc: PostingContext,
   batchId: string,
 ): Promise<PurchaseReceiptBatchRecord['inspectionStatus']> {
+  const tools = purchaseTools(pc)
+  const batch = await lockScopedBatch(pc, batchId)
   const details = await tools.pur.details.listByBatch(batchId)
   const summary = summarizeBatchInspection(details.map((d) => d.qualityStatus))
-  for (const d of details) {
-    await syncUnitQuality(tools, d)
+  for (const d of [...details].sort((a, b) => (a.inventoryUnitId ?? '').localeCompare(b.inventoryUnitId ?? ''))) {
+    await syncUnitQuality(pc, batch, d)
   }
   const updated = await tools.pur.batches.updateInspectionStatus(batchId, summary, null)
   return updated?.inspectionStatus ?? summary
@@ -198,8 +250,7 @@ async function refreshBatchQualityState(
 
 /** IF-09：批次达免检/全部合格且尚无合格同步任务 → Outbox 合格收货回传（时点快照）。 */
 async function ensureQualifiedSyncTask(pc: PostingContext, batchId: string): Promise<void> {
-  const batch = await purchaseTools(pc).pur.batches.findById(batchId)
-  if (batch === null) return
+  const batch = await lockScopedBatch(pc, batchId)
   if (batch.inspectionStatus !== 'exempt' && batch.inspectionStatus !== 'all_qualified') return
   if (batch.qualifiedSyncStatus !== 'none') return
   pc.tools.outbox.collect({
@@ -238,22 +289,25 @@ async function orderSync(pc: PostingContext, p: Payload): Promise<Record<string,
 
   // IF-00.8：缺组织映射（模拟适配器未解析出 plantId）→ 隔离队列，非普通失败重试
   if (plantId === undefined) {
-    await tools.pur.mappings.insertQuarantinedInbox({
-      sourceSystem,
-      organizationCode: orgCode,
-      externalKey: orderNo,
-      entityType: 'purchase_order',
-      quarantineReason: '缺组织映射（route_key=purchase_order）：订单行入隔离队列待人工补绑',
-      payload: p,
-    })
-    throw new PurchaseRuleViolation(
-      'IF-00.8',
+    const persistQuarantine = async (): Promise<void> => {
+      await tools.pur.mappings.insertQuarantinedInbox({
+        sourceSystem,
+        organizationCode: orgCode,
+        externalKey: orderNo,
+        entityType: 'purchase_order',
+        quarantineReason: '缺组织映射（route_key=purchase_order）：订单行入隔离队列待人工补绑',
+        payload: p,
+      })
+    }
+    await persistQuarantine()
+    throw new QuarantinedPurchaseInbound(
       `订单 ${orderNo} 缺组织映射（plantId），已写入隔离队列（QUARANTINED），不重复应用`,
+      persistQuarantine,
     )
   }
-  await assertPlantScope(tools, plantId)
+  await assertPlantScope(pc, plantId)
 
-  let order = await tools.pur.orders.findByKey(sourceSystem, orgCode, orderNo)
+  let order = await tools.pur.orders.findByKey(sourceSystem, orgCode, orderNo, true)
   if (order === null) {
     order = await tools.pur.orders.insert({
       orderNo,
@@ -267,6 +321,8 @@ async function orderSync(pc: PostingContext, p: Payload): Promise<Record<string,
       createdBy: pc.ctx.actorLoginName,
     })
   }
+
+  await assertPurchaseObjectScope(pc, order, plantId)
 
   const linesPayload = p['lines']
   if (!Array.isArray(linesPayload) || linesPayload.length === 0) {
@@ -296,9 +352,13 @@ async function orderSync(pc: PostingContext, p: Payload): Promise<Record<string,
     const revision = (lp['externalRevision'] as number | undefined) ?? (p['externalRevision'] as number | undefined) ?? 1
 
     if (existing !== null) {
-      const existingLine = await tools.pur.lines.findById(existing.localObjectId)
+      const existingLine = await tools.pur.lines.lockById(existing.localObjectId)
       if (existingLine === null) {
         throw new PurchaseRuleViolation('IF-00.2', `五元组映射指向的订单行不存在（${orderNo}/${lineNo}）`)
+      }
+      await assertPurchaseLineScope(pc, existingLine, plantId)
+      if (existingLine.purchaseOrderId !== order.id || existingLine.lineNo !== lineNo) {
+        throw new PurchaseRuleViolation('A-S1', '五元组映射指向的实际订单行不一致')
       }
       // IF-00.3 外部修订号：低于当前已应用 → stale 不覆盖；等于 → 幂等重放；高于 → 应用新版
       if (revision <= (existingLine.externalRevision ?? 1)) {
@@ -336,6 +396,10 @@ async function orderSync(pc: PostingContext, p: Payload): Promise<Record<string,
         'IF-01',
         `第 ${index + 1} 行料品 ${materialCode} 不存在（同步入站不生成默认主数据）`,
       )
+    }
+    const scopedMaterial = await tools.pur.materials.findByCode(materialCode, pc.ctx.enterpriseId)
+    if (scopedMaterial === null || scopedMaterial.id !== material.id) {
+      throw new PurchaseRuleViolation('A-S1', '料品 ID/编码不属于当前企业的实际主数据')
     }
     const plannedQty = str(lp, 'plannedQty')
     if (plannedQty === undefined) {
@@ -397,14 +461,14 @@ async function orderSync(pc: PostingContext, p: Payload): Promise<Record<string,
 async function receiveConfirm(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = purchaseTools(pc)
   const plantId = requireStr(p, 'plantId', 'purchase.receive-confirm')
-  await assertPlantScope(tools, plantId)
+  await assertPlantScope(pc, plantId)
 
   // 订单行定位（orderLineId 优先，orderNo+lineNo 回退）
   const orderLineId = str(p, 'orderLineId')
   let line = orderLineId !== undefined
     ? await tools.pur.lines.lockById(orderLineId)
     : null
-  if (line === null) {
+  if (orderLineId === undefined) {
     const orderNo = str(p, 'orderNo')
     const lineNoRaw = p['lineNo']
     const lineNo = typeof lineNoRaw === 'number' && Number.isInteger(lineNoRaw) ? lineNoRaw : undefined
@@ -416,6 +480,11 @@ async function receiveConfirm(pc: PostingContext, p: Payload): Promise<Record<st
   }
   if (line === null) {
     throw new PurchaseRuleViolation(NOT_FOUND_RULE, '采购订单行不存在')
+  }
+  await assertPurchaseLineScope(pc, line, plantId)
+  if ((str(p, 'orderNo') !== undefined && str(p, 'orderNo') !== line.orderNo) ||
+      (p['lineNo'] !== undefined && p['lineNo'] !== line.lineNo)) {
+    throw new PurchaseRuleViolation('A-S1', '采购行 ID 与自然键不一致')
   }
   if (line.erpClosed) {
     throw new PurchaseRuleViolation('A-1', '订单行已被 ERP 商业关闭（erp_closed），冻结不可收货（IF-08）')
@@ -483,6 +552,10 @@ async function receiveConfirm(pc: PostingContext, p: Payload): Promise<Record<st
   if (material === null) {
     throw new PurchaseRuleViolation('IF-01', `订单行物料 ${line.materialCode} 主数据缺失`)
   }
+  const scopedMaterial = await tools.pur.materials.findByCode(line.materialCode, pc.ctx.enterpriseId)
+  if (scopedMaterial === null || scopedMaterial.id !== material.id) {
+    throw new PurchaseRuleViolation('A-S1', '采购行料品不属于当前企业的实际主数据')
+  }
   const materialType = line.materialType ?? material.materialType ?? 1
   for (const d of parsed) {
     assertBarcodeKindMatchesMaterialType({ barcodeValue: d.barcodeValue, materialType })
@@ -501,10 +574,13 @@ async function receiveConfirm(pc: PostingContext, p: Payload): Promise<Record<st
   for (const d of parsed) {
     const active = await tools.inv.barcodes.findActiveBindingByValue(d.barcodeValue)
     let boundUnitLotKind: 'purchase' | 'production' | null = null
+    if (active !== null) await assertPurchaseObjectScope(pc, active, plantId)
     if (active !== null && active.boundType === 'inventory_unit') {
       const unit = await tools.inv.units.findById(active.boundId)
       if (unit !== null) {
+        await assertPurchaseObjectScope(pc, unit, plantId)
         const lot = await tools.inv.lots.findById(unit.lotId)
+        if (lot !== null) await assertPurchaseObjectScope(pc, lot, plantId)
         boundUnitLotKind = lot?.kind ?? null
       }
     }
@@ -696,14 +772,14 @@ async function appendInspectionVersion(
 }
 
 async function locateDetail(
-  tools: PurchaseCommandTools,
+  pc: PostingContext,
   p: Payload,
 ): Promise<{ batch: PurchaseReceiptBatchRecord; detail: ReceiptDetailRecord }> {
+  const tools = purchaseTools(pc)
   const batchId = str(p, 'batchId')
   const detailId = str(p, 'detailId')
   if (batchId !== undefined) {
-    const batch = await tools.pur.batches.findById(batchId)
-    if (batch === null) throw new PurchaseRuleViolation(NOT_FOUND_RULE, '采购批次不存在')
+    const batch = await lockScopedBatch(pc, batchId, str(p, 'plantId'))
     if (detailId !== undefined) {
       const detail = await tools.pur.details.findById(detailId)
       if (detail === null || detail.batchId !== batch.id) {
@@ -722,8 +798,7 @@ async function locateDetail(
   if (detailId !== undefined) {
     const detail = await tools.pur.details.findById(detailId)
     if (detail === null) throw new PurchaseRuleViolation(NOT_FOUND_RULE, '收货明细不存在')
-    const batch = await tools.pur.batches.findById(detail.batchId)
-    if (batch === null) throw new PurchaseRuleViolation(NOT_FOUND_RULE, '采购批次不存在')
+    const batch = await lockScopedBatch(pc, detail.batchId, str(p, 'plantId'))
     return { batch, detail }
   }
   throw new PurchaseRuleViolation('A-7', '定位明细须携带 batchId 或 detailId')
@@ -741,14 +816,13 @@ async function inspectionConclude(pc: PostingContext, p: Payload): Promise<Recor
   }
 
   const batchId = requireStr(p, 'batchId', 'purchase.inspection.conclude')
-  const batch = await tools.pur.batches.findById(batchId)
-  if (batch === null) throw new PurchaseRuleViolation(NOT_FOUND_RULE, '采购批次不存在')
+  const batch = await lockScopedBatch(pc, batchId, str(p, 'plantId'))
 
   let written = 0
 
   if (mode === 'code') {
     // [A-7] PDA 单码：可反复提交（后次覆盖=追加版本行）；免检码拒、已退货拒、复检优先
-    const { detail } = await locateDetail(tools, p)
+    const { detail } = await locateDetail(pc, p)
     const hasReinspection = (await tools.pur.inspections.listByDetailAndType(detail.id, 're')).length > 0
     const chain = resolveInspectionChainForCode({
       detailStatus: detail.qualityStatus,
@@ -821,7 +895,7 @@ async function inspectionConclude(pc: PostingContext, p: Payload): Promise<Recor
   }
 
   // 批次重汇总 + 库存质量状态更新（T12 闸门）
-  const summary = await refreshBatchQualityState(tools, batch.id)
+  const summary = await refreshBatchQualityState(pc, batch.id)
   // [A-11/IF-09] 全部合格 → 合格收货回传任务（仅一次）
   if (summary === 'all_qualified') {
     await ensureQualifiedSyncTask(pc, batch.id)
@@ -842,7 +916,7 @@ async function inspectionConclude(pc: PostingContext, p: Payload): Promise<Recor
 
 async function inspectionRevoke(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = purchaseTools(pc)
-  const { batch, detail } = await locateDetail(tools, p)
+  const { batch, detail } = await locateDetail(pc, p)
   const requestedType = str(p, 'inspectionType')
   const chain: 'first' | 're' =
     requestedType === 'first' || requestedType === 're'
@@ -872,7 +946,7 @@ async function inspectionRevoke(pc: PostingContext, p: Payload): Promise<Record<
 
   const newStatus = revokedDetailStatus({ chain, initialConclusion: initialRow.conclusion })
   await tools.pur.details.updateQualityStatus(detail.id, newStatus, pc.ctx.actorLoginName)
-  const summary = await refreshBatchQualityState(tools, batch.id)
+  const summary = await refreshBatchQualityState(pc, batch.id)
 
   await pc.tools.audit.record({
     actor: pc.ctx.actorLoginName,
@@ -912,8 +986,7 @@ async function reinspectionStart(pc: PostingContext, p: Payload): Promise<Record
     if (batchId === undefined || barcodeValue === undefined) {
       throw new PurchaseRuleViolation('A-6', `第 ${index + 1} 项缺少 batchId 或 barcodeValue`)
     }
-    const batch = await tools.pur.batches.findById(batchId)
-    if (batch === null) throw new PurchaseRuleViolation(NOT_FOUND_RULE, `批次 ${batchId} 不存在`)
+    const batch = await lockScopedBatch(pc, batchId, str(item, 'plantId') ?? str(p, 'plantId'))
     const detail = await tools.pur.details.findByBarcode(batch.id, barcodeValue)
     if (detail === null) {
       throw new PurchaseRuleViolation(NOT_FOUND_RULE, `批次内未找到二维码 ${barcodeValue} 的明细`)
@@ -943,7 +1016,7 @@ async function reinspectionStart(pc: PostingContext, p: Payload): Promise<Record
   }
   const summaries: Record<string, unknown> = {}
   for (const batchId of touchedBatches) {
-    summaries[batchId] = await refreshBatchQualityState(tools, batchId)
+    summaries[batchId] = await refreshBatchQualityState(pc, batchId)
   }
   await pc.tools.audit.record({
     actor: pc.ctx.actorLoginName,
@@ -964,8 +1037,9 @@ async function returnBatch(pc: PostingContext, p: Payload): Promise<Record<strin
   const reason = str(p, 'reason')
   assertReturnReasonPresent(reason)
   const returnReason: string = reason ?? ''
-  const batch = await tools.pur.batches.findById(batchId)
-  if (batch === null) throw new PurchaseRuleViolation(NOT_FOUND_RULE, '采购批次不存在')
+  // PR02's row lock is held until the command UoW commits: waiting callers
+  // re-read the batch state before any stock reversal or parent deduction.
+  const batch = await lockScopedBatch(pc, batchId, str(p, 'plantId'))
   assertReturnExecutable({ batchInspectionStatus: batch.inspectionStatus, storageStatus: batch.storageStatus })
 
   const details = await tools.pur.details.listByBatch(batch.id)
@@ -982,7 +1056,13 @@ async function returnBatch(pc: PostingContext, p: Payload): Promise<Record<strin
     if (unit === undefined) {
       throw new PurchaseRuleViolation(NOT_FOUND_RULE, `明细 ${d.barcodeValue} 的库存单元不存在`)
     }
+    if (d.batchId !== batch.id) throw new PurchaseRuleViolation('A-S1', '退货明细不属于实际批次')
+    await assertPurchaseObjectScope(pc, unit, batch.plantId)
+    if (unit.materialId !== batch.materialId) throw new PurchaseRuleViolation('A-S1', '退货单元与采购料品不一致')
     const balances = await tools.inv.balances.listActiveByUnit(unit.id)
+    if (balances.some((b) => b.unitId !== unit.id || b.enterpriseId !== unit.enterpriseId || b.plantId !== unit.plantId)) {
+      throw new PurchaseRuleViolation('A-S1', '退货单元与实际余额归属不一致')
+    }
     if (balances.length === 0) continue // 该单元余额已关闭（历史退货/耗尽），无账可冲
     if (balances.length > 1) {
       throw new PurchaseRuleViolation('A-9', `库存单元 ${unit.unitNo} 存在多条活动余额，退货须逐键处置`)
@@ -1062,11 +1142,12 @@ async function returnBatch(pc: PostingContext, p: Payload): Promise<Record<strin
 
   // 批次：已退货 + 入库数量置 0（A-9）
   const returnedQty = batch.receivedQty
-  await tools.pur.batches.updateReturnState(
+  const transitioned = await tools.pur.batches.updateReturnState(
     batch.id,
     { storageStatus: 'returned', receivedQty: '0.0000', returnedAt: pc.businessTime, returnReason: returnReason },
     pc.ctx.actorLoginName,
   )
+  if (transitioned === null) throw new PurchaseRuleViolation('A-9', '采购批次已退货或状态已变化，禁止重复扣减累计收货量')
 
   // [A-1] 订单行：已收扣减（退货剔除）+ 状态重算（ABS 收编：直调本域 deductOrderLineReceived 核心）
   const deducted = await deductOrderLineReceived(
@@ -1128,9 +1209,8 @@ async function returnBatch(pc: PostingContext, p: Payload): Promise<Record<strin
 async function priceReviewConfirm(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = purchaseTools(pc)
   const batchId = requireStr(p, 'batchId', 'purchase.price-review.confirm')
-  const batch = await tools.pur.batches.findById(batchId)
-  if (batch === null) throw new PurchaseRuleViolation(NOT_FOUND_RULE, '采购批次不存在')
-  await assertPlantScope(tools, batch.plantId)
+  const batch = await lockScopedBatch(pc, batchId, str(p, 'plantId'))
+  await assertPlantScope(pc, batch.plantId)
   // A-10：复核仅待复核且非退货批次；只改复核状态/人/时间；已复核不可撤销；不影响质检领料投料退货
   assertPriceReviewExecutable({ reviewStatus: batch.reviewStatus, storageStatus: batch.storageStatus })
   await tools.pur.batches.updateReview(

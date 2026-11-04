@@ -1,0 +1,20 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr6-work
+
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > rejects pending=10, received=10 1ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > rejects pending=1, received=99 0ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > rejects pending=20, received=0 0ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > rejects pending=-1, received=21 0ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > rejects pending=0, received=0 0ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > rejects pending=0, received=-1 0ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > accepts all units of one material 1ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > accepts fully received multiple materials 0ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > cannot offset missing material B by excess material A 0ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > rejects empty receipts 0ms
+ ✓ tests/pr06/lifecycle.unit.spec.ts > PR06 all physical receipts are required > rejects locked warehouse even with all units received 0ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  23:23:53
+   Duration  3.33s (transform 1.81s, setup 0ms, collect 2.99s, tests 6ms, environment 0ms, prepare 112ms)
+

@@ -46,11 +46,10 @@ export function buildShippingCommandBus(pool: pg.Pool): CommandBus {
     const org = new PgOrgNodeRepository(client)
     const users = new PgUserAccountRepository(client)
     const grants = new PgScopeGrantRepository(client)
+    const pendingOutbox: Array<{ intent: OutboxIntent; status: 'PENDING' | 'NOOP_NEEDED' }> = []
     const outbox: ShippingOutboxCollector = {
       collect(intent: OutboxIntent, opts?: { status?: 'PENDING' | 'NOOP_NEEDED' }): void {
-        // 同事务写 outbox（SA §4.2 / DM §6）：本 INSERT 先于命令总线的 COMMIT 执行；
-        // 实发轴无差异时任务行直接以 NOOP_NEEDED 落库（IF-00.4：无需同步不是失败态）。
-        void insertOutbox(client, intent, opts?.status ?? 'PENDING').catch(() => undefined)
+        pendingOutbox.push({ intent: structuredClone(intent), status: opts?.status ?? 'PENDING' })
       },
     }
     const tools: ShippingCommandTools = {
@@ -61,6 +60,10 @@ export function buildShippingCommandBus(pool: pg.Pool): CommandBus {
       sessions: new PgAuthSessionRepository(client),
       audit: new PgAuditWriter(client),
       now,
+      flushEffects: async () => {
+        for (const { intent, status } of pendingOutbox) await insertOutbox(client, intent, status)
+        pendingOutbox.length = 0
+      },
       actorPermissions: async () =>
         (await computeActorAuthorization({ users, grants, org }, _context.actorUserId)).permissions,
       actorDataScope: async () =>

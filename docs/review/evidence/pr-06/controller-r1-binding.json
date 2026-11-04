@@ -1,0 +1,85 @@
+{
+  "pr": 6,
+  "revision": "R1",
+  "exactParentHead": "6d16bb040599e35013abaf9eed098e20a0ff7273",
+  "patchSha256": "e93a3c39fdf710022cc77c39c725820cad9d98ed3ce9817e414fa76450fbb802",
+  "changedPostimages": [
+    {
+      "path": "docs/review/evidence/pr-06/author-r1-tests-typecheck.log",
+      "postGitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-06/author-r1.json",
+      "postGitBlob": "a4c5e9a491aa0e93eecee96432291b8102b5faab",
+      "sha256": "027dbc6107cf5ed53cc3249d4a1210bd39b2bb01e10ed73c18e2dee27e136e95"
+    },
+    {
+      "path": "docs/review/evidence/pr-06/author-r1.md",
+      "postGitBlob": "e5249de6f5eb4d4367c910fdba84ca561b3fe874",
+      "sha256": "dd969a4d0b4e4ea4fa671e5a46e7332a4dec98f5de5ca44a89a576461c2ec01d"
+    },
+    {
+      "path": "tests/pr06/lifecycle.pg.spec.ts",
+      "postGitBlob": "26ed808b0e6f6dc7b9fb0c1c1130f69ee07ddcf5",
+      "sha256": "d8e9552020b9f946a3f31677eba2feefc32fcdd498297f0f29e1fa26b9802986"
+    }
+  ],
+  "sourceTestFingerprint": "bd4094ff51a0df984adcf0d0b2a1b938c8604ca4faf0b8a04e45f1f170922bad",
+  "sourceFiles": [
+    {
+      "path": "packages/application/src/purchase-handlers.ts",
+      "sha256": "a9904e53017a789ed9c8dd3101db9521af9b6c5cd3eea98a5ce2bcc2527741b6"
+    },
+    {
+      "path": "packages/application/src/reverse-handlers.ts",
+      "sha256": "645773d3404559ab6892c74e69766ca45f43854e2a555e5fcc7a476fedc9d198"
+    },
+    {
+      "path": "packages/domain/src/reverse/transfer-in-rules.ts",
+      "sha256": "3d25c1c2723d77c2974f4d206e6df8dfee2a85704311fff1af21b33df8e44d49"
+    },
+    {
+      "path": "packages/persistence/src/purchase-repositories.ts",
+      "sha256": "796d836c4c032f8f902787b8bbe52955c741dd100dd4df5085421809b874bea1"
+    },
+    {
+      "path": "tests/pr06/lifecycle.pg.spec.ts",
+      "sha256": "d8e9552020b9f946a3f31677eba2feefc32fcdd498297f0f29e1fa26b9802986"
+    },
+    {
+      "path": "tests/pr06/lifecycle.unit.spec.ts",
+      "sha256": "32a836b532d0c85d3df5a6b73e27f44332a6b8a5877104b25361898d04f93c96"
+    },
+    {
+      "path": "tests/pr06/tsconfig.json",
+      "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361"
+    },
+    {
+      "path": "tests/pr06/vitest.config.ts",
+      "sha256": "5bdecfb80e1d7a2f771b5bf56a8f573715fdf4afc114ca8e0aa0e468ab52c119"
+    }
+  ],
+  "onlyExpiredReservationSqlLiteralChanged": true,
+  "allOtherTestBytesUnchanged": true,
+  "newSnapshotReusesR0Products": true,
+  "authorTypeEvidence": {
+    "typecheck": {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr06/tsconfig.json",
+        "--noEmit"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr6-r1-work",
+      "startedUtc": "2026-11-04T03:30:04.701120+00:00",
+      "finishedUtc": "2026-11-04T03:30:09.930917+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-06/author-r1-tests-typecheck.log",
+      "logBytes": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "testedPgSourceSha256": "d8e9552020b9f946a3f31677eba2feefc32fcdd498297f0f29e1fa26b9802986"
+    }
+  }
+}

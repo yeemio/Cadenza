@@ -1,0 +1,250 @@
+{
+  "pr": 2,
+  "issue": "C2",
+  "state": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "branch": "codex/fix-02-object-write-scope",
+  "recordedAndVerifiedHead": "70fe34fa654e50ff9b8f41aacc5aef825118a9ed",
+  "productBaseline": "cb25076d99cda0ac359151ff9eea65507de8cc4d",
+  "requiredAcceptedPrerequisite": {
+    "pr": 1,
+    "acceptedHead": "956d9e1bd4192943e1095e03884d4c58435de710",
+    "sourceAndTestCandidate": "d6cc96aa64fec40323ea40dde917ac8a2759fd06",
+    "method": "Exact source/test postimages over recorded PR02 head; purchase QUARANTINED compatibility already present in recorded head",
+    "changedFromPr02Head": [
+      {
+        "path": "apps/api/src/rework/rework.composition.ts",
+        "gitBlobSha": "b8585b51c899f11cc7ba384780d09e850bac141e",
+        "sha256": "a811a26cde14d50d6eec3963a1a1b537e2cc99aff8d6ea80e5d5ac768ccf3abf"
+      },
+      {
+        "path": "apps/api/src/shipping/shipping.composition.ts",
+        "gitBlobSha": "84769d685be20836db456a5748105b8f7ba5c223",
+        "sha256": "16e08ebe293568d7faee4ce07942d78ed3a80ac4072bae79fc198fb8ba2dc2a8"
+      },
+      {
+        "path": "packages/application/src/command-bus.ts",
+        "gitBlobSha": "5c1ab02d1c98a0441ebf205dd511b4e4a8e34617",
+        "sha256": "1939a4fcebdbc918ab9449ea0646549f65a45db1f8d1a1760366ce4ed311cb97"
+      },
+      {
+        "path": "packages/application/src/shipping-handlers.ts",
+        "gitBlobSha": "9ef920d0816194a7f3fe6d2a9bee56d93281cbea",
+        "sha256": "c14b9ce50443b8e9ba6b3f2c5b48909f1cd64e84409aedd400c7ba592287e808"
+      },
+      {
+        "path": "packages/persistence/src/pg-command-bus.ts",
+        "gitBlobSha": "8798108fe161a633365db6225c66d99a63a310dc",
+        "sha256": "1c9da1f69bf200d585520112a0c3e4b6d90c815d94c29d16eefc6a172ae727e5"
+      },
+      {
+        "path": "tests/api/shipping-api.spec.ts",
+        "gitBlobSha": "2b15e809e3d182c9eb4c4b0410346967abdfa044",
+        "sha256": "bc754ac9f33c5536bebec456b866bbe186ceb47566d80151740443fb746b2cd1"
+      },
+      {
+        "path": "tests/integration/command-idempotency.spec.ts",
+        "gitBlobSha": "3f246929addb1df820098d2e7004dbafa52c02df",
+        "sha256": "63c9c1fcfb460c5bd8d84403a3db6426448d25e9680247d5b10c6d8eb507085c"
+      },
+      {
+        "path": "tests/integration/rework-flow.spec.ts",
+        "gitBlobSha": "57bffb0c18c4307247803504f55893be42c1cc02",
+        "sha256": "e7d389c053ee8e2427a6f2659b8cccd6d5f202253ead1ee2234ccb644ffca558"
+      },
+      {
+        "path": "tests/integration/shipping-flow.spec.ts",
+        "gitBlobSha": "8c2173a125a64d6f1780dcc9315eaf315a9ab2f7",
+        "sha256": "409ca0ca0d2c28fa234cb9d025fe809134b32557015bb24482bddf0d56a511dc"
+      },
+      {
+        "path": "tests/pr01/diagnostics.pg.spec.ts",
+        "gitBlobSha": "f00fb34f97bbd1f5db6187b02c8189c0a0a39c7f",
+        "sha256": "df3bd16cac6f3c6b5dca2e126fff0dbcdb5ec6179b9a1d3cdb60d96463af9e72"
+      },
+      {
+        "path": "tests/pr01/transaction.pg.spec.ts",
+        "gitBlobSha": "8807c9c6c9a40df2d39a0132a6b10d9fb82c98f4",
+        "sha256": "e15076a276977ffe2d166cbbd97c9272b2f6cc2450b60d7ad5c0ac10878b7690"
+      }
+    ],
+    "receiptEightSourceTestHashesMatched": true
+  },
+  "newCandidateIdentity": {
+    "kind": "sha256-of-sorted-path-tab-sha256-LF",
+    "sha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+    "gitCommit": "NOT_CREATED",
+    "files": [
+      {
+        "path": "packages/application/src/inventory-posting.ts",
+        "bytes": 59857,
+        "sha256": "cc06ff7bfc046a283fc434a5f0bce1f7a3f64808020732dc683498f1beeb4554",
+        "gitBlobSha": "9e7847c879ccf15de894352665d86cf43814c940",
+        "baseSha256": "b015b3c0f9e2b8a07943d15b3c09e30d8fc031028ae6b592f9927d52b432db88"
+      },
+      {
+        "path": "packages/application/src/object-scope-repositories.ts",
+        "bytes": 3372,
+        "sha256": "487e54b5be25608a6c8d8d87e0f9a949862fad08cfeaf3737014c63bf8c8f374",
+        "gitBlobSha": "35b8857d8ddbc1085b93ea5e70c1375cad646e0b",
+        "baseSha256": null
+      },
+      {
+        "path": "packages/application/src/purchase-handlers.ts",
+        "bytes": 54615,
+        "sha256": "fcfe7efc8a8c1dd0b866afc555ebed82383ed17558cc870151b1ece46f5ad99a",
+        "gitBlobSha": "3b3673d990f9c11e13972c15bed536b90661ad04",
+        "baseSha256": "294b95eb6ea4e38b80d59b8a9f4bb8657ea930d4ebb93e93e5956fd0c36aed9d"
+      },
+      {
+        "path": "packages/application/src/purchase-repositories.ts",
+        "bytes": 14358,
+        "sha256": "b25647f9b7e9d46d8922ffde638b8cf2f3859832c1f78ae601ec06944795da01",
+        "gitBlobSha": "f3de17a9a3b74b7212054b923c5e0688477fbf31",
+        "baseSha256": "2d5458dd0673b197a2c0ca3ee13a7bfc2ed34c62dee78455743057e3a7c5ca82"
+      },
+      {
+        "path": "packages/application/src/quality-handlers.ts",
+        "bytes": 28424,
+        "sha256": "a091059549c8a7391650f4fc106b5f4d67d3545107ea3f8d5caaad6f5e9e3b28",
+        "gitBlobSha": "af3f3c16929253af85e5a5c30691b3bbabc81bd0",
+        "baseSha256": "d63de0e87a4ec2dcfe25e51d6df0e0de9437b29bf4aa6d062d7320ff95dcb25d"
+      },
+      {
+        "path": "packages/application/src/quality-repositories.ts",
+        "bytes": 8637,
+        "sha256": "14d51b604e91a3dcc298322845ce20cbadd02015324c5985f543892c0e6f1656",
+        "gitBlobSha": "e45c81d5e652afd245614c494874b1fb23331ac6",
+        "baseSha256": "e1f8be29e1978229ef56d6338fd7cb380f9f5008a017ddefb13d94d8f3bfc437"
+      },
+      {
+        "path": "packages/persistence/src/purchase-repositories.ts",
+        "bytes": 39698,
+        "sha256": "a670d4eeea359bccaffb185e9e9be872074987bdf0e6b5b4f5ad7e34cf3ad792",
+        "gitBlobSha": "4f359151bcedd0e373a842b0d01c9f6d0e1a7e47",
+        "baseSha256": "306360fe5e72f28646fce47210cee7dc64ce08a13eb429c40158051c5a17bc1e"
+      },
+      {
+        "path": "packages/persistence/src/quality-repositories.ts",
+        "bytes": 18646,
+        "sha256": "c5d07046194a00de5777cd070aeffd91f5d90e238bf3f83b093ba6e49f00fec3",
+        "gitBlobSha": "a11aad814a179aa44bd046c88c8def2ba44562bd",
+        "baseSha256": "245eb1c47a521af12b71c16af5a6d898dd0de917f0aa3bd3dbac8bf222148199"
+      },
+      {
+        "path": "tests/pr02/object-write-scope.pg.spec.ts",
+        "bytes": 25965,
+        "sha256": "448acab0cfda3cd8b646ba20851387b7729c78c317f60ce3ab9a50c081bd8631",
+        "gitBlobSha": "528138915668ffe4639251f65f91317b052064d1",
+        "baseSha256": null
+      },
+      {
+        "path": "tests/pr02/object-write-scope.unit.spec.ts",
+        "bytes": 6218,
+        "sha256": "f49bdeee85af2d2a025077255721152f6bc62cc34bb5f26c4c663e99b5f7c074",
+        "gitBlobSha": "f8aafce0b6be5caf8c36591e2518435b38a65c72",
+        "baseSha256": null
+      },
+      {
+        "path": "tests/pr02/tsconfig.json",
+        "bytes": 221,
+        "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "gitBlobSha": "19d84320c5cc01aa9d3b74761b50fe31ca591fc9",
+        "baseSha256": null
+      },
+      {
+        "path": "tests/pr02/vitest.config.ts",
+        "bytes": 247,
+        "sha256": "458fbf30b23073f35b1f391d05b05f369c943c798cc09e7254c715d9608b065f",
+        "gitBlobSha": "4ec6b7901b25ccfe28cf4dd23011077312fd336c",
+        "baseSha256": null
+      }
+    ]
+  },
+  "scopeExpansion": [],
+  "otherIndependentPrsCarried": [],
+  "verification": [
+    {
+      "name": "application typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-02/application-typecheck.log"
+    },
+    {
+      "name": "persistence typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-02/persistence-typecheck.log"
+    },
+    {
+      "name": "PR02 test source typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr02/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-02/pr02-tests-typecheck.log",
+      "initialFailureRetained": "docs/review/evidence/pr-02/pr02-tests-typecheck-initial-failure.log"
+    },
+    {
+      "name": "scope-decision unit tests",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr02/vitest.config.ts tests/pr02/object-write-scope.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "status": "PASS_UNIT_ONLY",
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "usesRepositoryDoubles": true,
+      "businessPgPass": false,
+      "log": "docs/review/evidence/pr-02/object-write-scope-unit.log"
+    },
+    {
+      "name": "real PostgreSQL behavior matrix",
+      "command": "pnpm exec vitest run --config tests/pr02/vitest.config.ts tests/pr02/object-write-scope.pg.spec.ts --reporter=verbose",
+      "attemptedCommand": "node node_modules/vitest/vitest.mjs run --config tests/pr02/vitest.config.ts tests/pr02/object-write-scope.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "status": "NOT_RUN_MISSING_TASK_OWNED_PG",
+      "collectionFailedSuites": 1,
+      "executedBusinessTests": 0,
+      "businessPass": 0,
+      "runtimeSkipped": 0,
+      "plannedCasesStaticOnly": 129,
+      "denialMatrix": {
+        "scenarios": 4,
+        "commandsAndLocatorCases": 29
+      },
+      "additionalCases": 13,
+      "missing": "CADENZA_PR02_TEST_DB_URL naming a new empty cadenza_pr02_* database",
+      "log": "docs/review/evidence/pr-02/object-write-scope-pg-not-run.log"
+    }
+  ],
+  "environment": {
+    "node": "24.22.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "vite": "7.3.7",
+    "pg": "8.23.1",
+    "typesNode": "24.19.2",
+    "typesPg": "8.23.1",
+    "dependencySource": "Existing local package cache, symlinked only into this isolated candidate",
+    "frozenLockInstall": "NOT_RUN",
+    "coldBuild": "NOT_RUN; I16 stays with PR13",
+    "postgreSQL": "No task-owned PostgreSQL URL or runtime supplied; no database contacted"
+  },
+  "originalChatRead": {
+    "mechanism": "one Personal Context search for the exact conversation URL/ID",
+    "toolError": null,
+    "fullOriginalMessageRead": false,
+    "actualReturnedFragment": "PR02 R0：",
+    "boundary": "Search summary only; no original message id or complete candidate; no retry"
+  },
+  "remainingBoundaries": [
+    "Controller acceptance pending",
+    "No remote write, commit, push, merge, release or deployment",
+    "No old or production database",
+    "No real SAP, model, channel, device or site calls",
+    "E04 independent R6 original and receiver remain missing",
+    "No acceptance inferred for other 12 remaining PRs",
+    "PR01 and PR14 acceptance retained without re-review"
+  ]
+}

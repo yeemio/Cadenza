@@ -1,0 +1,111 @@
+{
+  "pr": 6,
+  "decision": "ACCEPT",
+  "at": "2026-11-04T06:58:10.097542+00:00",
+  "sourceAndTestCommit": "43f066f205bb8b4b02efd9f574c760084514faaa",
+  "authorRevision": "R1",
+  "parentHead": "6d16bb040599e35013abaf9eed098e20a0ff7273",
+  "authorPatchSha256": "e93a3c39fdf710022cc77c39c725820cad9d98ed3ce9817e414fa76450fbb802",
+  "sourceTestFingerprint": "bd4094ff51a0df984adcf0d0b2a1b938c8604ca4faf0b8a04e45f1f170922bad",
+  "changedPostimagesVerified": 4,
+  "productFilesChangedByR1": 0,
+  "fixtureChange": "Only expired reservation acquired_at=t-2sec, valid_until=t-1sec in one existing SQL literal; all other test bytes unchanged",
+  "validOwnCoverage": {
+    "realPg": 15,
+    "freshTargetedR1": 1,
+    "reusedR0OtherBusinessCases": 14,
+    "freshTargetPass": 1,
+    "freshTargetFail": 0,
+    "freshTargetRuntimeSkipped": 0,
+    "nameFilteredOtherCases": 14,
+    "nameFilterExclusionsAreNotRuntimeSkips": true,
+    "reusedRuleUnit": 11,
+    "ownEffectiveUnique": 26
+  },
+  "separateC2Regression": {
+    "passed": 129,
+    "failed": 0,
+    "skipped": 0,
+    "queryRecords": 123,
+    "proof": "Unchanged R0 products and exact unchanged PR2 fixture/source; original new PG regression proof reused"
+  },
+  "validTypes": {
+    "application": "R0 exact reused",
+    "persistence": "R0 exact reused",
+    "testSource": "Author R1 actual exit0, exact current source/log hash verified; not rerun"
+  },
+  "newActualTargetProof": {
+    "operationId": "bd2d201f-4e21-4d73-933b-3ca600bfbc7b",
+    "actualQueryRecords": 1,
+    "businessTablesCompared": 177,
+    "beforeEqualsAfter": true,
+    "helperActuallyReplayed": true,
+    "helperAssertedThirdSnapshotBeforeEqualsReplay": true,
+    "uniqueTerminalReceipt": [
+      {
+        "status": "BUSINESS_REJECTION",
+        "command_type": "reverse.transfer-inbound.complete"
+      }
+    ],
+    "actualReservationTimes": [
+      {
+        "id": "9b97a243-cd26-444d-b323-e14045dfa227",
+        "status": "active",
+        "unit_no": "P06-d8f50608-5d17-4b96-a026-b368a9bf0155",
+        "acquired_at": "2026-11-04T06:53:03.602244+00:00",
+        "valid_until": "2026-11-04T06:53:04.602244+00:00",
+        "canonical_valid": true,
+        "actually_expired": true
+      },
+      {
+        "id": "a6618859-0521-43e0-9f4e-8bda0510c005",
+        "status": "active",
+        "unit_no": "P06-70b50e0e-e682-44ea-98c9-8320b6cebf15",
+        "acquired_at": "2026-11-04T06:53:05.580105+00:00",
+        "valid_until": "2026-11-04T10:53:05.586+00:00",
+        "canonical_valid": true,
+        "actually_expired": false
+      }
+    ],
+    "allReservationCount": 4,
+    "diagnosticQualification": "Initial extra read-only sanity assumed the whole reservation table had only2 rows; seeded fixtures add other reservations. Final time check scopes actual PR06 inbound-line reservations by P06 unit number; no test rerun or database write.",
+    "probeMode": "BEGIN READ ONLY ... ROLLBACK",
+    "scope": "New dedicated task DB only; old nonempty databases untouched"
+  },
+  "priorR0RealFailure": "14PASS/1FAIL SQL23514 remains original; invalid expiry seed before domain assertion now repaired. All R0 logs and DB retained.",
+  "existingValidR0Observations": {
+    "custody": 5,
+    "rejectionQueries": 11,
+    "actualConcurrentReturn": 1
+  },
+  "process": {
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr06/vitest.config.ts",
+      "tests/pr06/lifecycle.pg.spec.ts",
+      "-t",
+      "final reservation-expired mismatch leaves every business table unchanged",
+      "--reporter=verbose"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-04T06:53:01.998691+00:00",
+    "completedAt": "2026-11-04T06:53:05.783304+00:00",
+    "sourceCommit": "43f066f205bb8b4b02efd9f574c760084514faaa",
+    "database": "cadenza_pr06_expiry_r1_20261104",
+    "containerId": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+    "host": "127.0.0.1",
+    "port": 32768,
+    "logSha256": "176c1430c3851827a79afafc2d21781bd10f96d369ff8e5fe8226b1a17775e0c",
+    "nameFilteredOtherRegistrations": 14,
+    "nameFilterExclusionsAreNotRuntimeSkipEvidence": true,
+    "oldNonemptyDatabasesUntouched": true
+  },
+  "databasePreserved": "cadenza_pr06_expiry_r1_20261104",
+  "controllerCodeAuthor": false,
+  "originalCodeAuthor": "ordinary Chat6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "scope": "I01/I04/I05 original PR6 engineering acceptance; synthetic dedicated PG, not external SAP/physical site/legacy data acceptance",
+  "automaticMergeReleaseDeploy": false
+}
