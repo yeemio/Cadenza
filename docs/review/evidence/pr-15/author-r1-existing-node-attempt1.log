@@ -1,0 +1,31 @@
+✔ web: every original route, alias, parameter and redirect is retained (60.189406ms)
+✔ web: initial static imports reach only LoginPage, including navigation mount dependencies (184.839994ms)
+✔ web: all named lazy import targets actually export their page (15.571427ms)
+✔ web: lazy business routes and mounted map routes stay inside RequireAuth and the existing layout (3.613221ms)
+✔ web: all changed TSX files parse without syntax diagnostics (5.294158ms)
+✔ pda: every original route, alias, parameter and redirect is retained (3.247031ms)
+✔ pda: initial static imports reach only LoginPage, including navigation mount dependencies (114.146018ms)
+✔ pda: all named lazy import targets actually export their page (3.655595ms)
+✔ pda: lazy business routes and mounted map routes stay inside RequireAuth and the existing layout (1.237751ms)
+✔ pda: all changed TSX files parse without syntax diagnostics (2.911317ms)
+✔ measurement counts static import closure once and excludes dynamic route bytes (2.779449ms)
+✔ missing imported chunks cannot produce a measurement (1.113814ms)
+✔ missing artifact files and unsafe paths cannot produce a measurement (0.976678ms)
+✔ multiple HTML entrypoints are rejected instead of selecting an arbitrary denominator (0.780033ms)
+✔ comparison reports initial savings and total-size overhead separately (0.555255ms)
+✔ comparison rejects mismatched/unverified lockSha256 (0.141172ms)
+✔ comparison rejects mismatched/unverified recipeSha256 (0.076254ms)
+✔ comparison rejects mismatched/unverified toolchain (0.098488ms)
+✔ comparison rejects mismatched/unverified mode (0.171798ms)
+✔ comparison rejects mismatched/unverified status (0.156776ms)
+✔ comparison rejects mismatched/unverified coldBuildVerified (0.087261ms)
+✔ unchanged initial bytes or eager dynamic entries cannot be reported as an improvement (0.121793ms)
+✔ a cold receipt is bound to unchanged source bytes, not only a directory and lock (0.739121ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 757.904816

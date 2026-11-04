@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, writeFileSync } from 'node:fs'
 import { gzipSync } from 'node:zlib'
 import { createRequire } from 'node:module'
 import { spawnSync } from 'node:child_process'
@@ -10,7 +10,8 @@ import { includeColdPath } from '../../scripts/delivery/build/cold-build.mjs'
 
 const sha = (value) => createHash('sha256').update(value).digest('hex')
 export function verifyColdReceipt(root, receipt, lockSha256) {
-  if (receipt.status !== 'COLD_BUILD_PASS' || path.resolve(receipt.isolatedDirectory, 'source') !== path.resolve(root) ||
+  root = realpathSync(root)
+  if (receipt.status !== 'COLD_BUILD_PASS' || realpathSync(path.resolve(receipt.isolatedDirectory, 'source')) !== root ||
       receipt.entries?.dependencyLockSha256 !== lockSha256) throw new Error('Cold-build receipt does not bind this successful built source and lock')
   const names = receipt.commands?.find((item) => item.phase === 'tracked-source-list')?.stdout
   if (typeof names !== 'string') throw new Error('Cold receipt has no exact tracked-source list')
@@ -90,32 +91,38 @@ export function compareMeasurements(baseline, candidate) {
     devicePerformance: 'NOT_MEASURED_BY_THIS_TOOL', scope: 'Comparable built asset bytes only; full app/browser/device behavior requires separate tests.' }
 }
 export function measureBuild(root, label, coldReceiptFile) {
-  const outputs = mkdtempSync(path.join(tmpdir(), 'cadenza-pr15-measure-'))
+  const outputs = realpathSync(mkdtempSync(path.join(tmpdir(), 'cadenza-pr15-measure-')))
   const report = { schemaVersion: 1, label, mode: 'production', status: 'NOT_RUN', outputs, apps: {}, commands: [],
     recipeSha256: sha(readFileSync(fileURLToPath(import.meta.url))), devicePerformance: 'NOT_RUN', coldBuildVerified: false }
   try {
+    const requestedRoot = path.resolve(root)
+    root = realpathSync(requestedRoot)
+    report.rootIdentity = { requestedRoot, physicalRoot: root }
     const files = inputFiles(root); report.sourceFiles = files; report.sourceDigest = sha(JSON.stringify(files))
     report.lockSha256 = sha(readFileSync(path.join(root, 'pnpm-lock.yaml')))
     const version = spawnSync('pnpm', ['--version'], { cwd: root, encoding: 'utf8' })
     const expected = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8')).packageManager.replace(/^pnpm@/, '')
     if (version.status !== 0 || version.stdout.trim() !== expected) throw new Error('Install and use the exact pinned pnpm before recording comparable build sizes')
     const require = createRequire(path.join(root, 'package.json'))
-    const vitePackage = require.resolve('vite/package.json'), vite = JSON.parse(readFileSync(vitePackage, 'utf8'))
+    const vitePackage = realpathSync(require.resolve('vite/package.json')), vite = JSON.parse(readFileSync(vitePackage, 'utf8'))
     report.toolchain = { node: process.versions.node, pnpm: expected, vite: vite.version }
     if (coldReceiptFile) {
-      const receipt = JSON.parse(readFileSync(coldReceiptFile, 'utf8'))
+      const receiptBytes = readFileSync(coldReceiptFile), receipt = JSON.parse(receiptBytes.toString('utf8'))
       verifyColdReceipt(root, receipt, report.lockSha256)
+      report.coldReceiptIdentity = { path: realpathSync(coldReceiptFile), sha256: sha(receiptBytes),
+        declaredSourceRoot: path.resolve(receipt.isolatedDirectory, 'source'), physicalSourceRoot: realpathSync(path.resolve(receipt.isolatedDirectory, 'source')),
+        sourceManifestSha256: receipt.sourceManifestSha256, sourceFileCount: receipt.sourceFileCount }
       report.coldBuildVerified = true; report.coldSourceCommit = receipt.sourceCommit
     }
     for (const app of ['web', 'pda']) {
       const output = path.join(outputs, app)
-      const args = [path.join(path.dirname(vitePackage), 'bin/vite.js'), 'build', path.join(root, 'apps', app), '--mode', 'production',
-        '--config', path.join(root, 'apps', app, 'vite.config.ts'), '--outDir', output, '--manifest']
+      const args = [realpathSync(path.join(path.dirname(vitePackage), 'bin/vite.js')), 'build', realpathSync(path.join(root, 'apps', app)), '--mode', 'production',
+        '--config', realpathSync(path.join(root, 'apps', app, 'vite.config.ts')), '--outDir', output, '--manifest']
       const result = spawnSync(process.execPath, args, { cwd: root, encoding: 'utf8', maxBuffer: 32 * 1024 * 1024,
         env: { ...Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith('VITE_'))),
           NODE_ENV: 'production', VITE_API_MODE: 'live', VITE_API_BASE_URL: 'http://127.0.0.1:3001' } })
       const log = path.join(outputs, app + '-build.log'); writeFileSync(log, (result.stdout ?? '') + (result.stderr ?? ''))
-      report.commands.push({ command: [process.execPath, ...args], exitCode: result.status, log })
+      report.commands.push({ command: [process.execPath, ...args], cwd: root, exitCode: result.status, log })
       if (result.status !== 0) throw new Error(app + ' build failed; output is not a measurement')
       report.apps[app] = readBuildMetrics(output)
     }
@@ -123,7 +130,7 @@ export function measureBuild(root, label, coldReceiptFile) {
   } catch (error) { report.status = 'NOT_MEASURED'; report.reason = error.message }
   return report
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+if (process.argv[1] && existsSync(process.argv[1]) && import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href) {
   const argv = process.argv.slice(2), args = {}
   for (let index = 0; index < argv.length; index += 2) {
     if (!['--root', '--label', '--out', '--cold-receipt', '--baseline', '--candidate'].includes(argv[index]) || !argv[index + 1]) throw new Error('Invalid measurement arguments')
