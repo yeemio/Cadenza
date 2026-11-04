@@ -1,0 +1,45 @@
+{
+  "2": {
+    "counts": {
+      "PR02_QUERY": 123
+    },
+    "zeroMutationQueryRecords": 123,
+    "tableCounts": [
+      177
+    ],
+    "recordKeySets": [
+      [
+        "command",
+        "operationId",
+        "actor",
+        "expectedCode",
+        "before",
+        "after",
+        "replay",
+        "receiptRows"
+      ]
+    ]
+  },
+  "3": {
+    "counts": {
+      "PR03_QUERY": 23,
+      "PR03_AVAILABILITY": 4,
+      "PR03_REFERENCE": 8
+    },
+    "zeroMutationQueryRecords": 23,
+    "tableCounts": [
+      177
+    ],
+    "recordKeySets": [
+      [
+        "command",
+        "operationId",
+        "rule",
+        "before",
+        "after",
+        "replayUnchanged",
+        "receiptRows"
+      ]
+    ]
+  }
+}

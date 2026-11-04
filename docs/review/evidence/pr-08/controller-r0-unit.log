@@ -1,0 +1,35 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr08-20261104
+
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > feed lost response / reload retries exact key and body 7ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > putaway lost response / reload retries exact key and body 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > concurrent taps share one successful POST 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > payload cannot be replaced after an unknown result 1ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > navigation cannot erase an unresolved intent 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > invalid remains UNKNOWN 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > 500 remains UNKNOWN 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > a later 403 does not disprove a previous possible commit 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > first explicit rejection requires an explicit new-intent acknowledgement 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > confirmed intent replays receipt until explicit new work 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > same user after token renewal recovers unresolved intent 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > different user and enterprise cannot inherit the previous operation 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > storage failure blocks the POST 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > corrupt prior record blocks replacement 0ms
+ ✓ tests/pr08/intent.unit.spec.ts > PR08 durable command intents (transport doubles, not database proof) > clones input synchronously before authentication or transmission 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > cn-id 8 00:00 at 2026-11-03T15:30:00Z => 2026-11-03 across UI and ledger formula 1ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > kr-id 9 00:00 at 2026-11-03T15:30:00Z => 2026-11-04 across UI and ledger formula 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > cn-id 8 07:30 at 2026-11-03T23:29:59Z => 2026-11-03 across UI and ledger formula 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > cn-id 8 07:30 at 2026-11-03T23:30:00Z => 2026-11-04 across UI and ledger formula 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > kr-id 9 07:30 at 2026-11-03T22:29:59Z => 2026-11-03 across UI and ledger formula 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > kr-id 9 07:30 at 2026-11-03T22:30:00Z => 2026-11-04 across UI and ledger formula 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > missing configuration is explicitly unverified; names never choose timezone 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > rejects invalid configuration broken 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > rejects invalid configuration [] 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > rejects invalid configuration {"x":99} 0ms
+ ✓ tests/pr08/calendar.unit.spec.ts > PR08 shared server calendar (configured fixtures; site unverified) > does not silently discard invalid persisted minute configuration 0ms
+
+ Test Files  2 passed (2)
+      Tests  26 passed (26)
+   Start at  11:38:37
+   Duration  703ms (transform 358ms, setup 0ms, collect 527ms, tests 14ms, environment 0ms, prepare 36ms)
+
