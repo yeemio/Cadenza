@@ -1,0 +1,46 @@
+{
+  "pr": 8,
+  "revision": "AUTHOR_R2_CONTROLLER_R2",
+  "decision": "ACCEPT",
+  "at": "2026-11-04T08:46:29.592961+00:00",
+  "parentHead": "d38fd52298586a3b225bc09d19a5c74ada952ffa",
+  "sourceCommit": "3f9d1f14b83ebaf668b43e2d62724defb024be1d",
+  "sourceAndTestFingerprint": "37f577673249a99a1bb262e7a8c0925b3affee6eb97846a6d54b5e182a068ffd",
+  "patchSha256": "3493c02ee42093bcbed45180b02e0d7924e5aca70c834ab8d18de6f47e33ac44",
+  "fullPostimagesMatched": 13,
+  "original7ScenarioWholeFileUnchanged": true,
+  "productReadOnlyProjectionSubstitutionProof": "All11 declared substitutions reproduce entire product byte image; all write argument/predicate semantics and timestamp helpers unchanged",
+  "freshHttpPg": {
+    "passed": 2,
+    "failed": 0,
+    "runtimeSkipped": 0,
+    "nameFilteredExclusions": 5,
+    "database": "cadenza_pr08_intent_r2_20261104"
+  },
+  "reusedR1HttpPg": 5,
+  "effectiveOwnHttpPg": 7,
+  "freshProjectVitestDateMapping": 21,
+  "dateMappingBoundary": "SQL client doubles cover22 SELECT/RETURNING paths, explicit five offset fixtures incl year/leap boundaries; not21PG or21separateTZprocesses",
+  "reusedLocal34": true,
+  "ownEffectiveUnique": 62,
+  "separateReusedCumulativePg": {
+    "pr02": 129,
+    "pr03": 40
+  },
+  "freshTypes": [
+    "persistence",
+    "full-test-source"
+  ],
+  "applicationTypes": "REUSED_UNCHANGED_INPUT",
+  "originalFailuresPreserved": [
+    "R0 static initialization NOT_RUN",
+    "earlier warehouse R1 frozen logs",
+    "AccountFixR1 actual5pass2fail with read-only date cause"
+  ],
+  "scopeLimits": [
+    "Actual local HTTP/Nest/Auth/PG and React/jsdom/API doubles; not real browser or physicalPDA",
+    "Plant calendars are configured test fixtures; no real site shift-calendar adoption or speed proof"
+  ],
+  "controllerOnlyAppliedAuthorBytes": true,
+  "automaticMergeReleaseDeploy": false
+}
