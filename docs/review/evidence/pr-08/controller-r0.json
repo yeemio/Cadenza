@@ -1,0 +1,348 @@
+{
+  "pr": 8,
+  "status": "REWORK",
+  "originalParent": "be7147b2f0d605e8a4e6da4cc48495fc2e5a63b9",
+  "acceptedPrerequisite": "2b78fc41c4bb71a1da9f4c418f52500a323684da",
+  "cumulativeParent": "bf1e000207d0b9e7fb244c4a175eff7ac851b858",
+  "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+  "incrementSha256": "fa85be5894214a94cf40bb6f53876cb90469b4b7a084730c0a53e5c9b04064c4",
+  "authorSourceTestFingerprint": "4645904c52a59ea22b9ebf45288578bdab4f8dccaa7efc7533859fe6b17498d2",
+  "cumulativeSourceTestFingerprint": "5eb3e7f69f3b0cfda8b143858af022eb0f8354774dcee93cc918fe4a4c229798",
+  "sourceFiles": [
+    {
+      "path": "apps/pda/src/components/PdaLayout.tsx",
+      "sha256": "5f2c3a16772c8b5d038567ea4a4f91c56cf15a64f788049ca6e4fc0bc971adc6"
+    },
+    {
+      "path": "apps/pda/src/pages/FeedScanPage.tsx",
+      "sha256": "7f86d141d3d14d6a879afda7c3de919decc6907a055e9ae8c2acde30cb04f6ad"
+    },
+    {
+      "path": "apps/pda/src/pages/PutawayScanPage.tsx",
+      "sha256": "3010f7ff4e645ed2c574eeb1fe2fbb69c2b43d0cc1d7460beb3aa82c5399da77"
+    },
+    {
+      "path": "apps/web/src/components/AppLayout.tsx",
+      "sha256": "a91073cdda95166e7d3d060cc51f0fd6bd540b998c8c10e7a3ac0e8a26ba3206"
+    },
+    {
+      "path": "apps/web/src/pages/FeedingPage.tsx",
+      "sha256": "e4b0e078b5fdc9dec7cf293e33d737f9c401377dd156d4c83468567485973d99"
+    },
+    {
+      "path": "packages/application/src/execution-handlers.ts",
+      "sha256": "59ce589601bbe157c81dbf326e5b017043bb2308ae4e7389ebb1c19a3dbb7dd6"
+    },
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "sha256": "4915d163bc25ca3cb9c7b14331d473c8d9f4ca072ae60c2664f61a638bf48a7b"
+    },
+    {
+      "path": "packages/application/src/repositories.ts",
+      "sha256": "df9fec84b6bf6e063231f92bb070d3b97469b1f481869404f8ed1d1e7a719526"
+    },
+    {
+      "path": "packages/application/src/scheduling-queries.ts",
+      "sha256": "46f649dca789f12e62e8dcde92c53d65be9b94fd44958833b8972df6a9215097"
+    },
+    {
+      "path": "packages/application/src/warehousing-handlers.ts",
+      "sha256": "bd71bf9f157da10822fe9e20eaba0e59b3fe7d2507e0433e15adbb45353e1e80"
+    },
+    {
+      "path": "packages/application/src/warehousing-repositories.ts",
+      "sha256": "53bb73f4b566d74a09b3c62ae9df141737a5edeb1129454b1defc2e3096669f8"
+    },
+    {
+      "path": "packages/domain/src/inventory/time.ts",
+      "sha256": "d9257b14ac62bb9eaf7bded2a1494dfbfd62c0f1928e1883de8984f250a15828"
+    },
+    {
+      "path": "packages/persistence/src/repositories.ts",
+      "sha256": "66465908449a4c2ea8563ec6f730751526eceab27760e81b528c7c96e4fb961b"
+    },
+    {
+      "path": "packages/persistence/src/warehousing-repositories.ts",
+      "sha256": "ab129688d85b4b460157e1bc5b04e5f0cd7180c2a40697d1d74338400680a617"
+    },
+    {
+      "path": "packages/ui/src/api/client.ts",
+      "sha256": "74294f25a934cabcebf70e9739fc2d50c74c823619ee2e2da226f1eb375f94b6"
+    },
+    {
+      "path": "packages/ui/src/api/types.ts",
+      "sha256": "6b3327b3a03aac8bf620e19af4289bbc761f89ac7e9c3367618b7a46e340ae77"
+    },
+    {
+      "path": "packages/ui/src/i18n/time.tsx",
+      "sha256": "7c7d58d1440fa30361a575b455ef2d669549eb9b2299edb51a9b7c0219e6ff73"
+    },
+    {
+      "path": "tests/pr08/calendar.unit.spec.ts",
+      "sha256": "90815515a1a96e67b34335179c42b4dd9d08ae41f1aa1148bf7cf1aacda5ae75"
+    },
+    {
+      "path": "tests/pr08/intent-api.pg.spec.ts",
+      "sha256": "4695274ad7dec3b5a0de5a6e15e1ec765180c2e3894bc38f65d2d07a53ea662d"
+    },
+    {
+      "path": "tests/pr08/intent.unit.spec.ts",
+      "sha256": "efe7e601253ef92458a0074de194b34327846dfb8961eba41ca1544be04feffc"
+    },
+    {
+      "path": "tests/pr08/operator-pages.browser.spec.tsx",
+      "sha256": "23bf628f3378a74dfde9753acdfd7f28327eb6381743ef09c3d8df847781bb08"
+    },
+    {
+      "path": "tests/pr08/tsconfig.full.json",
+      "sha256": "7ff94aebc187d33ea1c739fd71002842c476a46d1592600848f5d14509f7656f"
+    },
+    {
+      "path": "tests/pr08/tsconfig.json",
+      "sha256": "2a311c5437960b011ae76e62cfeb46e672c6618c01040e140fcdda958392972b"
+    },
+    {
+      "path": "tests/pr08/vitest.browser.config.ts",
+      "sha256": "96c9ab83c967dd8ef7b29b6ea0ee3295782a7c8926dfb330c87ad9629045b46e"
+    },
+    {
+      "path": "tests/pr08/vitest.config.ts",
+      "sha256": "fc6765c441144bed4e04a98efc803a4001568b6199ad8b4344f950b131c1210c"
+    }
+  ],
+  "combinedPostimagesMatched": 86,
+  "combinedCount": 89,
+  "ownPostimagesMatched": 39,
+  "ownCount": 40,
+  "expectedInheritedDifferences": [
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "authorSha256": "632f588e5978917d92d612898873d13af9ab7f6593df2b10a2e68383dc1146a8",
+      "actualSha256": "4915d163bc25ca3cb9c7b14331d473c8d9f4ca072ae60c2664f61a638bf48a7b"
+    },
+    {
+      "path": "tests/pr02/object-write-scope.pg.spec.ts",
+      "authorSha256": "448acab0cfda3cd8b646ba20851387b7729c78c317f60ce3ab9a50c081bd8631",
+      "actualSha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1"
+    },
+    {
+      "path": "tests/pr03/quality-availability.pg.spec.ts",
+      "authorSha256": "701a421a03853afb8799e3ad6dfe934445a083e1d9f14cdc745eb2be2bf7a549",
+      "actualSha256": "e73ebd0dc1d5b2ffd26cb3e98e0f9eead8c80f7eb612fb3c74b720a7b38fb0e0"
+    }
+  ],
+  "bindingReason": "Exact accepted PR3 parent plus unchanged author increment applies cleanly, preserving accepted R2 ledger-reference changes and PR2/PR3 fixed fixtures. No internal code edits.",
+  "scopeDecision": "PR08-SCOPE-DECISION.json",
+  "ownCoverage": {
+    "rulesAndTransportDoubles": 26,
+    "domComponentWithApiDoubles": 8,
+    "localEffective": 34,
+    "realApiPgPlanned": 7,
+    "realApiPgExecuted": 0,
+    "runtimeSkipped": 0,
+    "realBrowserExecuted": 0,
+    "explanation": "Static canonical fixture initialization block; no PR8 database created, no new PG failure/pass claimed. jsdom is not real browser/network/PDA."
+  },
+  "staticFixture": {
+    "status": "NOT_RUN_STATIC_FIXTURE_BLOCK",
+    "businessPgPlanned": 7,
+    "businessPgExecuted": 0,
+    "runtimeSkipped": 0,
+    "freshOwnDatabaseCreated": false,
+    "reason": "Avoid rerunning already proven canonical initialization defect; API suite beforeAll warehouse seeds omit dept_id/material_types and use nonnumeric codes.",
+    "testPath": "tests/pr08/intent-api.pg.spec.ts",
+    "schemaPath": "packages/persistence/src/migrations/0003-master-data.ts",
+    "facts": [
+      "Both LINE_SIDE and WAREHOUSE INSERT omit mandatory dept_id/material_types.",
+      "P08-LINE-i/P08-FG-i warehouse codes violate four-digit numeric canonical rule.",
+      "NORMAL location P08-LINE violates six/eight-digit numeric canonical code; associated payload/report-output references must match actual legal location code."
+    ],
+    "positiveEvidenceSeparate": "Current application/persistence/full-test-source types PASS and DOM/component8 + calendar/intent26 PASS; none prove actual HTTP/PG committed-response-loss semantics."
+  },
+  "currentCandidateTypes": [
+    {
+      "name": "application",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "packages/application/tsconfig.json",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+      "startedAt": "2026-11-04T03:37:59.565705+00:00",
+      "completedAt": "2026-11-04T03:38:00.892295+00:00",
+      "log": "docs/review/evidence/pr-08/controller-r0-application-types.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "persistence",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "packages/persistence/tsconfig.json",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+      "startedAt": "2026-11-04T03:37:59.565936+00:00",
+      "completedAt": "2026-11-04T03:38:01.187828+00:00",
+      "log": "docs/review/evidence/pr-08/controller-r0-persistence-types.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "full-test-source",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr08/tsconfig.full.json",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+      "startedAt": "2026-11-04T03:37:59.567189+00:00",
+      "completedAt": "2026-11-04T03:38:02.372423+00:00",
+      "log": "docs/review/evidence/pr-08/controller-r0-full-test-source-types.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "unitProcess": {
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr08/vitest.config.ts",
+      "tests/pr08/calendar.unit.spec.ts",
+      "tests/pr08/intent.unit.spec.ts",
+      "--reporter=verbose"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-04T03:38:37.186341+00:00",
+    "completedAt": "2026-11-04T03:38:38.083025+00:00",
+    "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+    "reason": "Cumulative inventory-posting input differs from author fingerprint by accepted R2. Rebind calendar/intent evidence to current stable source once.",
+    "logSha256": "9236246b98b546007ca2f9fda6a1b2497a973e965d37b5677402d327a1b74e1c"
+  },
+  "domProcess": {
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr08/vitest.browser.config.ts",
+      "--reporter=verbose"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-04T03:37:59.543388+00:00",
+    "completedAt": "2026-11-04T03:38:02.211987+00:00",
+    "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+    "environment": "jsdom with actual project React19 dependencies; no real browser or network",
+    "logSha256": "015d7650993f6ade5963b09755163221b9e264c505e19499c92206f391173c94"
+  },
+  "cumulativeRegressions": [
+    {
+      "pr": 2,
+      "passed": 129,
+      "failed": 0,
+      "runtimeSkipped": 0,
+      "process": {
+        "command": [
+          "node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "tests/pr02/vitest.config.ts",
+          "tests/pr02/object-write-scope.pg.spec.ts",
+          "--reporter=verbose"
+        ],
+        "exitCode": 0,
+        "database": "cadenza_pr02_on_pr08_r0_20261104",
+        "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+        "startedAt": "2026-11-04T03:38:59.952064+00:00",
+        "completedAt": "2026-11-04T03:39:11.008682+00:00",
+        "reason": "PR8 changes common inventory calendar resolution/writeLine; bind affected C2/C7 stock/rollback/reference proof to current cumulative source.",
+        "logSha256": "1e4616b58f1cc0972d3242530f8e042672aac6497b5967a25a2c84f7453d5296"
+      }
+    },
+    {
+      "pr": 3,
+      "passed": 40,
+      "failed": 0,
+      "runtimeSkipped": 0,
+      "process": {
+        "command": [
+          "node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "tests/pr03/vitest.config.ts",
+          "tests/pr03/quality-availability.pg.spec.ts",
+          "--reporter=verbose"
+        ],
+        "exitCode": 0,
+        "database": "cadenza_pr03_on_pr08_r0_20261104",
+        "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+        "startedAt": "2026-11-04T03:38:59.952235+00:00",
+        "completedAt": "2026-11-04T03:39:06.320413+00:00",
+        "reason": "PR8 changes common inventory calendar resolution/writeLine; bind affected C2/C7 stock/rollback/reference proof to current cumulative source.",
+        "logSha256": "0b253707a89f549cbf47021d6522b870d89c7af6aad6aba4c19432d21c5736e1"
+      }
+    }
+  ],
+  "querySummary": {
+    "2": {
+      "counts": {
+        "PR02_QUERY": 123
+      },
+      "zeroMutationQueryRecords": 123,
+      "tableCounts": [
+        177
+      ],
+      "recordKeySets": [
+        [
+          "command",
+          "operationId",
+          "actor",
+          "expectedCode",
+          "before",
+          "after",
+          "replay",
+          "receiptRows"
+        ]
+      ]
+    },
+    "3": {
+      "counts": {
+        "PR03_QUERY": 23,
+        "PR03_AVAILABILITY": 4,
+        "PR03_REFERENCE": 8
+      },
+      "zeroMutationQueryRecords": 23,
+      "tableCounts": [
+        177
+      ],
+      "recordKeySets": [
+        [
+          "command",
+          "operationId",
+          "rule",
+          "before",
+          "after",
+          "replayUnchanged",
+          "receiptRows"
+        ]
+      ]
+    }
+  },
+  "next": "Same author narrow R1 for API/PG fixtures and necessary references/evidence; preserve7 business cases,34 valid local cases/all assertions/products/schema. Run missing real API7 in new empty PR08 DB only.",
+  "externalBoundary": [
+    "No real network disconnection, physical PDA or installed-site acceptance",
+    "No actual CN/KR calendar/warehouse config installed; fixtures only",
+    "Work local browser setting disabled; direct Chat retrieval blocked without retry or bypass",
+    "No new author or product edits by controller"
+  ]
+}

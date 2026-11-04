@@ -1,0 +1,40 @@
+{
+  "status": "STATIC_CONFIRMED_NOT_RUNTIME_EXECUTED_PENDING_CONTROLLER_SCOPE_RULING",
+  "testPath": "tests/pr08/intent-api.pg.spec.ts",
+  "line": 85,
+  "unchangedSourceLine": "    const login=`pr08-${code.toLowerCase()}`",
+  "values": [
+    "pr08-sz",
+    "pr08-hf"
+  ],
+  "constraintPath": "packages/persistence/src/migrations/0002-org-auth.ts",
+  "constraint": "user_account_login_charset_ck",
+  "pattern": "^[A-Za-z0-9]+$",
+  "eachValueRejected": true,
+  "laterMigrationAltersConstraint": false,
+  "failureOrder": "INSERT user_account occurs before warehouse inserts in beforeAll.",
+  "modifiedByThisIncrement": false,
+  "minimalSuggestedNextDelta": "Change only the fixture-generated login from `pr08-${code.toLowerCase()}` to `pr08${code.toLowerCase()}`; f.login already supplies all identity/login/owner references.",
+  "reasonNotChanged": "The successfully sent PR08-R1 contract authorizes department/warehouse/location fixtures and their code references only; new named login root is reported for controller ruling without schema or policy changes.",
+  "exactParentHead": "63eb1d7d508ff3028be725e1bbcf7b1294881665",
+  "evidence": [
+    {
+      "path": "tests/pr08/intent-api.pg.spec.ts",
+      "parentSha256": "4695274ad7dec3b5a0de5a6e15e1ec765180c2e3894bc38f65d2d07a53ea662d",
+      "parentGitBlobSha": "77f08dd176ecec4e12fa9ad89d98caab7e3d7a07",
+      "url": "https://github.com/yeemio/Cadenza/blob/63eb1d7d508ff3028be725e1bbcf7b1294881665/tests/pr08/intent-api.pg.spec.ts"
+    },
+    {
+      "path": "packages/persistence/src/migrations/0002-org-auth.ts",
+      "parentSha256": "016d25ecc426545ba7e35964c7c6229f65215e05c861907b02b04beec0dcb793",
+      "parentGitBlobSha": "8b080ca021d947915627b90c9818de3256ab4196",
+      "url": "https://github.com/yeemio/Cadenza/blob/63eb1d7d508ff3028be725e1bbcf7b1294881665/packages/persistence/src/migrations/0002-org-auth.ts"
+    },
+    {
+      "path": "packages/persistence/src/migrations/index.ts",
+      "parentSha256": "0f01cbf0b679c3754dc62c5f67a6bc66e2852285db7ed1503093353ced375897",
+      "parentGitBlobSha": "b2b625e064266a6e5414e9414f0651dba700c397",
+      "url": "https://github.com/yeemio/Cadenza/blob/63eb1d7d508ff3028be725e1bbcf7b1294881665/packages/persistence/src/migrations/index.ts"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "tests/pr03/vitest.config.ts",
+    "tests/pr03/quality-availability.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "exitCode": 0,
+  "database": "cadenza_pr03_on_pr08_r0_20261104",
+  "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+  "startedAt": "2026-11-04T03:38:59.952235+00:00",
+  "completedAt": "2026-11-04T03:39:06.320413+00:00",
+  "reason": "PR8 changes common inventory calendar resolution/writeLine; bind affected C2/C7 stock/rollback/reference proof to current cumulative source.",
+  "logSha256": "0b253707a89f549cbf47021d6522b870d89c7af6aad6aba4c19432d21c5736e1"
+}

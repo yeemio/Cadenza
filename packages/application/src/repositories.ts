@@ -134,6 +134,8 @@ export interface OrgNodePatch {
 }
 
 export interface OrgNodeRepository {
+  /** Existing persisted shift parameter, read in the same command transaction. */
+  findPlantDayShiftStart?(plantId: string): Promise<string | null>
   findById(id: string): Promise<OrgNodeRecord | null>
   findByCode(code: string): Promise<OrgNodeRecord | null>
   findActiveByName(name: string): Promise<OrgNodeRecord | null>

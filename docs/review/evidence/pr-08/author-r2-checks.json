@@ -1,0 +1,200 @@
+{
+  "currentNativeRegression": {
+    "process": {
+      "command": [
+        "node",
+        "docs/review/evidence/pr-08/author-r2-run-date-checks.mjs",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr08-r2/native-final-check"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r2-work",
+      "startedAt": "2026-11-04T08:33:42.112626+00:00",
+      "completedAt": "2026-11-04T08:33:42.446822+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-08/author-r2-date-native-final.log",
+      "logSha256": "79e15f6e8da124149cf71c7845fb4121de7906843c734749d135977acf8a95f7"
+    },
+    "result": {
+      "boundary": "NATIVE_NODE_EXECUTION_OF_SAME_ASSERTIONS_WITH_SQL_CLIENT_DOUBLES_NOT_VITEST_NOT_PG",
+      "product": {
+        "path": "packages/persistence/src/execution-repositories.ts",
+        "sha256": "2858e8336d5fb882018867094d766e1a3ea9aeac87851692393178c60468416e",
+        "compiledJsSha256": "8ed70faac4238d01725fc114473f9b8a9a51423ccef032c947d536bbc79c0843"
+      },
+      "test": {
+        "path": "tests/pr08/execution-date.unit.spec.ts",
+        "sha256": "cd3955cd834012e2c23d3ae3e05fa2071d1993d6dfebd3b2218a64b73e169fb0",
+        "compiledJsSha256": "a12a9324739755b7c99d44246c2487831680fe24d1785c8461002dc2d9cec2d4"
+      },
+      "registrationImportsAdapted": 1,
+      "repositoryImportPathsAdapted": 1,
+      "testBodyOrAssertionsRewritten": false,
+      "processTzModified": false,
+      "inheritedTimezone": "Asia/Tokyo",
+      "node": "v24.22.1",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-reporter=tap",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr08-r2/native-final-check/execution-date.unit.native.mjs"
+      ],
+      "startedAt": "2026-11-04T08:33:42.228Z",
+      "completedAt": "2026-11-04T08:33:42.419Z",
+      "exitCode": 0,
+      "counts": {
+        "tests": 21,
+        "pass": 21,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "sqlExecutedAgainstPostgres": false,
+      "typecheckCompilerInvoked": false
+    },
+    "uniqueEffectiveCases": 21,
+    "notPostgres": true,
+    "notVitest": true
+  },
+  "currentBoundaryCheck": {
+    "command": [
+      "python3",
+      "docs/review/evidence/pr-08/author-r2-boundary-check.py",
+      "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r2-base",
+      "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r2-work"
+    ],
+    "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r2-work",
+    "startedAt": "2026-11-04T08:33:42.447556+00:00",
+    "completedAt": "2026-11-04T08:33:42.560747+00:00",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-08/author-r2-boundary-check-final.log",
+    "logSha256": "a1ce75ebcfcad74ce9a55ad87597b26123482c0f8eed3bc09ca51255a4345238"
+  },
+  "earlierLocalEvidencePreserved": {
+    "native": {
+      "command": [
+        "node",
+        "docs/review/evidence/pr-08/author-r2-run-date-checks.mjs",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr08-r2/native-check"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r2-work",
+      "startedAt": "2026-11-04T08:28:37.008386+00:00",
+      "completedAt": "2026-11-04T08:28:37.350678+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-08/author-r2-date-native.log",
+      "logSha256": "93b983b25981f8520690982eff0e1d8575777f8af09b9747029f236fa6c7ea8a"
+    },
+    "boundary": {
+      "command": [
+        "python3",
+        "docs/review/evidence/pr-08/author-r2-boundary-check.py",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r2-base",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r2-work"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r2-work",
+      "startedAt": "2026-11-04T08:31:38.826394+00:00",
+      "completedAt": "2026-11-04T08:31:38.932409+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-08/author-r2-boundary-check.log",
+      "logSha256": "d33b7ca9b10b139d5118f60cf32664ed144bbd7b48e73cbbc99c9e129b0fabd6"
+    },
+    "nativeResult": {
+      "boundary": "NATIVE_NODE_EXECUTION_OF_SAME_ASSERTIONS_WITH_SQL_CLIENT_DOUBLES_NOT_VITEST_NOT_PG",
+      "product": {
+        "path": "packages/persistence/src/execution-repositories.ts",
+        "sha256": "2858e8336d5fb882018867094d766e1a3ea9aeac87851692393178c60468416e",
+        "compiledJsSha256": "8ed70faac4238d01725fc114473f9b8a9a51423ccef032c947d536bbc79c0843"
+      },
+      "test": {
+        "path": "tests/pr08/execution-date.unit.spec.ts",
+        "sha256": "23a5f1636905b0d533ce0bf17d8728d05a1a3d328b87942ddd2313ab2f6fc7a9",
+        "compiledJsSha256": "7215a61063bd3187e086ea76c4f01c92edf783b15918246ffb01456fbcd87728"
+      },
+      "registrationImportsAdapted": 1,
+      "repositoryImportPathsAdapted": 1,
+      "testBodyOrAssertionsRewritten": false,
+      "processTzModified": false,
+      "inheritedTimezone": "Asia/Tokyo",
+      "node": "v24.22.1",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "--test-reporter=tap",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr08-r2/native-check/execution-date.unit.native.mjs"
+      ],
+      "startedAt": "2026-11-04T08:28:37.148Z",
+      "completedAt": "2026-11-04T08:28:37.329Z",
+      "exitCode": 0,
+      "counts": {
+        "tests": 21,
+        "pass": 21,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      },
+      "sqlExecutedAgainstPostgres": false,
+      "typecheckCompilerInvoked": false
+    },
+    "reasonForFinalRerun": "Before freezing, the new test pagination helper gained an explicit total-property guard instead of a direct object type assertion. Final21 cases and byte checks bind the final test bytes. Product bytes did not change. No actual TypeScript compiler result is claimed.",
+    "countedAgain": false
+  },
+  "types": {
+    "status": "NOT_RUN_MISSING_PROJECT_DEPENDENCIES",
+    "compilerInvoked": false,
+    "compilerExitCode": null,
+    "commands": [
+      [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "packages/persistence/tsconfig.json",
+        "--noEmit"
+      ],
+      [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr08/tsconfig.full.json",
+        "--noEmit"
+      ]
+    ]
+  },
+  "vitest": {
+    "status": "NOT_RUN_MISSING_PROJECT_DEPENDENCIES",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr08/vitest.config.ts",
+      "tests/pr08/execution-date.unit.spec.ts",
+      "--reporter=verbose"
+    ]
+  },
+  "realHttpPg": {
+    "status": "NOT_RUN",
+    "runnerInvoked": false,
+    "executed": 0,
+    "runtimeSkipped": 0,
+    "databaseCreated": false,
+    "dedicatedEnvironmentVariable": "CADENZA_PR08_TEST_DB_URL",
+    "newEmptyDatabasePattern": "cadenza_pr08_*",
+    "selectedOriginalCases": 2,
+    "originalNames": [
+      "factory 0: dropped committed feed response / reload / second operation / trusted sales / calendar",
+      "factory 1: dropped committed feed response / reload / second operation / trusted sales / calendar"
+    ],
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr08/vitest.config.ts",
+      "tests/pr08/intent-api.pg.spec.ts",
+      "--testNamePattern",
+      "factory [01]: dropped committed feed response / reload / second operation / trusted sales / calendar",
+      "--reporter=verbose"
+    ],
+    "reason": "No task-owned database URL or native PG runtime; no old database access, guessed connection, migration rerun or mocked HTTP/PG acceptance."
+  }
+}

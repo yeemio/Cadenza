@@ -1,0 +1,296 @@
+{
+  "status": "PASS_AUTHORIZED_FIXTURE_DELTA_PRESERVATION",
+  "scope": "Static code/bytes/schema evidence only; no business runner or PostgreSQL invoked.",
+  "exactParentHead": "63eb1d7d508ff3028be725e1bbcf7b1294881665",
+  "test": "tests/pr08/intent-api.pg.spec.ts",
+  "parentTestSha256": "4695274ad7dec3b5a0de5a6e15e1ec765180c2e3894bc38f65d2d07a53ea662d",
+  "candidateTestSha256": "ec8b5fcb42042bb5e0fb74ed5a3e2c9cbbe45dd2cd1cfe3180c5994073d46e97",
+  "exactTextEdits": [
+    {
+      "description": "Factory stores the actual NORMAL location code",
+      "old": "location: string; rackLocation: string;",
+      "new": "location: string; locationCode: string; rackLocation: string;"
+    },
+    {
+      "description": "receive-goods fixture references that actual location code",
+      "old": "locationId:f.location,locationCode:'P08-LINE',",
+      "new": "locationId:f.location,locationCode:f.locationCode,"
+    },
+    {
+      "description": "report_output fixture parameterizes the same location code; later parameters remain aligned",
+      "old": "VALUES($1,$2,$3,1,20,20,$4,'M',$5,'P08-LINE',$6,$7,$8) RETURNING id`,[f.enterpriseId,f.plantId,reportId,uom,f.location,f.userId,f.login,unitId])",
+      "new": "VALUES($1,$2,$3,1,20,20,$4,'M',$5,$6,$7,$8,$9) RETURNING id`,[f.enterpriseId,f.plantId,reportId,uom,f.location,f.locationCode,f.userId,f.login,unitId])"
+    },
+    {
+      "description": "department lookup binds the existing real seed department to the same plant and enterprise",
+      "old": "    const plantId=await one('SELECT id FROM org_node WHERE code=$1',[`PLNT-${code}`]), deptId=await one('SELECT id FROM org_node WHERE code=$1',[`DEPT-${code}-JZ`])",
+      "new": "    const plantId=await one('SELECT id FROM org_node WHERE code=$1',[`PLNT-${code}`])\n    const deptId=await one(\"SELECT id FROM org_node WHERE code=$1 AND kind='department' AND parent_kind='plant' AND parent_id=$2 AND enterprise_id=$3\",[`DEPT-${code}-JZ`,plantId,enterpriseId])"
+    },
+    {
+      "description": "warehouse required fields and legal distinct numeric warehouse/NORMAL codes",
+      "old": "    const line=await one(`INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type) VALUES($1,$2,$3,$3,'LINE_SIDE') RETURNING id`,[enterpriseId,plantId,`P08-LINE-${i}`])\n    const warehouse=await one(`INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type) VALUES($1,$2,$3,$3,'WAREHOUSE') RETURNING id`,[enterpriseId,plantId,`P08-FG-${i}`])\n    const location=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL','P08-LINE') RETURNING id`,[enterpriseId,plantId,line])",
+      "new": "    const lineCode=String(8100+i*2), warehouseCode=String(8101+i*2), locationCode=`${lineCode}0001`\n    const line=await one(`INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types) VALUES($1,$2,$3,$4,$5,'LINE_SIDE',ARRAY[2,3]) RETURNING id`,[enterpriseId,plantId,deptId,lineCode,`P08-LINE-${i}`])\n    const warehouse=await one(`INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types) VALUES($1,$2,$3,$4,$5,'WAREHOUSE',ARRAY[3]) RETURNING id`,[enterpriseId,plantId,deptId,warehouseCode,`P08-FG-${i}`])\n    const location=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL',$4) RETURNING id`,[enterpriseId,plantId,line,locationCode])"
+    },
+    {
+      "description": "store the generated location code in each Factory",
+      "old": "materialId,wc,defs,location,rackLocation,warehouse,offset:8+i})",
+      "new": "materialId,wc,defs,location,locationCode,rackLocation,warehouse,offset:8+i})"
+    },
+    {
+      "description": "report HTTP request changes only its fixture location-code reference",
+      "old": "targetLocationId:f.location,targetLocationCode:'P08-LINE',",
+      "new": "targetLocationId:f.location,targetLocationCode:f.locationCode,"
+    },
+    {
+      "description": "controller-authorized synthetic account expression; all f.login references and Auth roles/permissions stay intact",
+      "old": "const login=`pr08-${code.toLowerCase()}`",
+      "new": "const login=`pr08${code.toLowerCase()}`"
+    }
+  ],
+  "registeredScenariosPreservedStatic": 7,
+  "scenarioNamesAndRegistrationLinesUnchanged": true,
+  "allAssertionLinesByteIdentical": true,
+  "describeEntirelyByteIdentical": false,
+  "describeBytesBefore": 6831,
+  "describeBytesAfter": 6835,
+  "onlyDescribeChange": "One source occurrence: report POST targetLocationCode literal P08-LINE -> f.locationCode, shared by the two factory cases. All other describe bytes identical.",
+  "describeNormalizedSha256": "217f281c4bca3328c4df23c5264e8ac3dda66ac5bbebabc437a4b9574a8a6f54",
+  "afterAllUnchanged": true,
+  "storageClientResponseLossAndRejectedUnchangedHelpersByteIdentical": true,
+  "actualCodeExpressionEvaluation": {
+    "command": [
+      "node",
+      "-e",
+      "const assert=require('node:assert/strict');const f=new Function('i',\"const lineCode=String(8100+i*2), warehouseCode=String(8101+i*2), locationCode=`${lineCode}0001`;return {lineCode,warehouseCode,locationCode}\");const rows=[0,1].map(f);for(const x of rows){assert.match(x.lineCode,/^[0-9]{4}$/);assert.match(x.warehouseCode,/^[0-9]{4}$/);assert.match(x.locationCode,/^[0-9]{8}$/);assert.equal(x.locationCode.slice(0,4),x.lineCode)}assert.equal(new Set(rows.flatMap(x=>[x.lineCode,x.warehouseCode])).size,4);assert.equal(new Set(rows.map(x=>x.locationCode)).size,2);console.log(JSON.stringify(rows));"
+    ],
+    "exitCode": 0,
+    "rows": [
+      {
+        "lineCode": "8100",
+        "warehouseCode": "8101",
+        "locationCode": "81000001"
+      },
+      {
+        "lineCode": "8102",
+        "warehouseCode": "8103",
+        "locationCode": "81020001"
+      }
+    ]
+  },
+  "warehouseMaterialTypes": {
+    "LINE_SIDE": [
+      2,
+      3
+    ],
+    "WAREHOUSE": [
+      3
+    ]
+  },
+  "schemaAndSeedFiles": [
+    {
+      "path": "packages/persistence/src/migrations/0003-master-data.ts",
+      "sha256": "ff06a17e0a4483323ed57088a1fa9781bcc41207f8cc14fcf5165c920b5a36da",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/persistence/src/seed.ts",
+      "sha256": "edddf0117127c209ba25f71c414b02871c1223f0b819ccc57c571673da6292a0",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/persistence/src/migrations/0002-org-auth.ts",
+      "sha256": "016d25ecc426545ba7e35964c7c6229f65215e05c861907b02b04beec0dcb793",
+      "unchangedFromParent": true
+    }
+  ],
+  "materializedParentFilesUnchanged": 1099,
+  "changedExistingPaths": [
+    "tests/pr08/intent-api.pg.spec.ts"
+  ],
+  "sourceTestFingerprint": "f10dab06df342ecfe8eb64778b2bfabe8245208f44ea0d4dc5b4edac621a98f3",
+  "sourceTestFiles": [
+    {
+      "path": "apps/pda/src/components/PdaLayout.tsx",
+      "sha256": "5f2c3a16772c8b5d038567ea4a4f91c56cf15a64f788049ca6e4fc0bc971adc6",
+      "parentSha256": "5f2c3a16772c8b5d038567ea4a4f91c56cf15a64f788049ca6e4fc0bc971adc6",
+      "unchanged": true
+    },
+    {
+      "path": "apps/pda/src/pages/FeedScanPage.tsx",
+      "sha256": "7f86d141d3d14d6a879afda7c3de919decc6907a055e9ae8c2acde30cb04f6ad",
+      "parentSha256": "7f86d141d3d14d6a879afda7c3de919decc6907a055e9ae8c2acde30cb04f6ad",
+      "unchanged": true
+    },
+    {
+      "path": "apps/pda/src/pages/PutawayScanPage.tsx",
+      "sha256": "3010f7ff4e645ed2c574eeb1fe2fbb69c2b43d0cc1d7460beb3aa82c5399da77",
+      "parentSha256": "3010f7ff4e645ed2c574eeb1fe2fbb69c2b43d0cc1d7460beb3aa82c5399da77",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/src/components/AppLayout.tsx",
+      "sha256": "a91073cdda95166e7d3d060cc51f0fd6bd540b998c8c10e7a3ac0e8a26ba3206",
+      "parentSha256": "a91073cdda95166e7d3d060cc51f0fd6bd540b998c8c10e7a3ac0e8a26ba3206",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/src/pages/FeedingPage.tsx",
+      "sha256": "e4b0e078b5fdc9dec7cf293e33d737f9c401377dd156d4c83468567485973d99",
+      "parentSha256": "e4b0e078b5fdc9dec7cf293e33d737f9c401377dd156d4c83468567485973d99",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/execution-handlers.ts",
+      "sha256": "59ce589601bbe157c81dbf326e5b017043bb2308ae4e7389ebb1c19a3dbb7dd6",
+      "parentSha256": "59ce589601bbe157c81dbf326e5b017043bb2308ae4e7389ebb1c19a3dbb7dd6",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "sha256": "4915d163bc25ca3cb9c7b14331d473c8d9f4ca072ae60c2664f61a638bf48a7b",
+      "parentSha256": "4915d163bc25ca3cb9c7b14331d473c8d9f4ca072ae60c2664f61a638bf48a7b",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/repositories.ts",
+      "sha256": "df9fec84b6bf6e063231f92bb070d3b97469b1f481869404f8ed1d1e7a719526",
+      "parentSha256": "df9fec84b6bf6e063231f92bb070d3b97469b1f481869404f8ed1d1e7a719526",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/scheduling-queries.ts",
+      "sha256": "46f649dca789f12e62e8dcde92c53d65be9b94fd44958833b8972df6a9215097",
+      "parentSha256": "46f649dca789f12e62e8dcde92c53d65be9b94fd44958833b8972df6a9215097",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/warehousing-handlers.ts",
+      "sha256": "bd71bf9f157da10822fe9e20eaba0e59b3fe7d2507e0433e15adbb45353e1e80",
+      "parentSha256": "bd71bf9f157da10822fe9e20eaba0e59b3fe7d2507e0433e15adbb45353e1e80",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/warehousing-repositories.ts",
+      "sha256": "53bb73f4b566d74a09b3c62ae9df141737a5edeb1129454b1defc2e3096669f8",
+      "parentSha256": "53bb73f4b566d74a09b3c62ae9df141737a5edeb1129454b1defc2e3096669f8",
+      "unchanged": true
+    },
+    {
+      "path": "packages/domain/src/inventory/time.ts",
+      "sha256": "d9257b14ac62bb9eaf7bded2a1494dfbfd62c0f1928e1883de8984f250a15828",
+      "parentSha256": "d9257b14ac62bb9eaf7bded2a1494dfbfd62c0f1928e1883de8984f250a15828",
+      "unchanged": true
+    },
+    {
+      "path": "packages/persistence/src/repositories.ts",
+      "sha256": "66465908449a4c2ea8563ec6f730751526eceab27760e81b528c7c96e4fb961b",
+      "parentSha256": "66465908449a4c2ea8563ec6f730751526eceab27760e81b528c7c96e4fb961b",
+      "unchanged": true
+    },
+    {
+      "path": "packages/persistence/src/warehousing-repositories.ts",
+      "sha256": "ab129688d85b4b460157e1bc5b04e5f0cd7180c2a40697d1d74338400680a617",
+      "parentSha256": "ab129688d85b4b460157e1bc5b04e5f0cd7180c2a40697d1d74338400680a617",
+      "unchanged": true
+    },
+    {
+      "path": "packages/ui/src/api/client.ts",
+      "sha256": "74294f25a934cabcebf70e9739fc2d50c74c823619ee2e2da226f1eb375f94b6",
+      "parentSha256": "74294f25a934cabcebf70e9739fc2d50c74c823619ee2e2da226f1eb375f94b6",
+      "unchanged": true
+    },
+    {
+      "path": "packages/ui/src/api/types.ts",
+      "sha256": "6b3327b3a03aac8bf620e19af4289bbc761f89ac7e9c3367618b7a46e340ae77",
+      "parentSha256": "6b3327b3a03aac8bf620e19af4289bbc761f89ac7e9c3367618b7a46e340ae77",
+      "unchanged": true
+    },
+    {
+      "path": "packages/ui/src/i18n/time.tsx",
+      "sha256": "7c7d58d1440fa30361a575b455ef2d669549eb9b2299edb51a9b7c0219e6ff73",
+      "parentSha256": "7c7d58d1440fa30361a575b455ef2d669549eb9b2299edb51a9b7c0219e6ff73",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr08/calendar.unit.spec.ts",
+      "sha256": "90815515a1a96e67b34335179c42b4dd9d08ae41f1aa1148bf7cf1aacda5ae75",
+      "parentSha256": "90815515a1a96e67b34335179c42b4dd9d08ae41f1aa1148bf7cf1aacda5ae75",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr08/intent-api.pg.spec.ts",
+      "sha256": "ec8b5fcb42042bb5e0fb74ed5a3e2c9cbbe45dd2cd1cfe3180c5994073d46e97",
+      "parentSha256": "4695274ad7dec3b5a0de5a6e15e1ec765180c2e3894bc38f65d2d07a53ea662d",
+      "unchanged": false
+    },
+    {
+      "path": "tests/pr08/intent.unit.spec.ts",
+      "sha256": "efe7e601253ef92458a0074de194b34327846dfb8961eba41ca1544be04feffc",
+      "parentSha256": "efe7e601253ef92458a0074de194b34327846dfb8961eba41ca1544be04feffc",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr08/operator-pages.browser.spec.tsx",
+      "sha256": "23bf628f3378a74dfde9753acdfd7f28327eb6381743ef09c3d8df847781bb08",
+      "parentSha256": "23bf628f3378a74dfde9753acdfd7f28327eb6381743ef09c3d8df847781bb08",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr08/tsconfig.full.json",
+      "sha256": "7ff94aebc187d33ea1c739fd71002842c476a46d1592600848f5d14509f7656f",
+      "parentSha256": "7ff94aebc187d33ea1c739fd71002842c476a46d1592600848f5d14509f7656f",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr08/tsconfig.json",
+      "sha256": "2a311c5437960b011ae76e62cfeb46e672c6618c01040e140fcdda958392972b",
+      "parentSha256": "2a311c5437960b011ae76e62cfeb46e672c6618c01040e140fcdda958392972b",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr08/vitest.browser.config.ts",
+      "sha256": "96c9ab83c967dd8ef7b29b6ea0ee3295782a7c8926dfb330c87ad9629045b46e",
+      "parentSha256": "96c9ab83c967dd8ef7b29b6ea0ee3295782a7c8926dfb330c87ad9629045b46e",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr08/vitest.config.ts",
+      "sha256": "fc6765c441144bed4e04a98efc803a4001568b6199ad8b4344f950b131c1210c",
+      "parentSha256": "fc6765c441144bed4e04a98efc803a4001568b6199ad8b4344f950b131c1210c",
+      "unchanged": true
+    }
+  ],
+  "resolvedAdditionalFixtureBlock": {
+    "status": "STATIC_REPAIRED_WITH_EXPLICIT_CONTROLLER_SCOPE_DECISION_NOT_RUNTIME_EXECUTED",
+    "scopeDecision": "PR08-R1-SCOPE-DECISION-ACCOUNT-FIXTURE",
+    "testPath": "tests/pr08/intent-api.pg.spec.ts",
+    "line": 85,
+    "candidateSourceLine": "    const login=`pr08${code.toLowerCase()}`",
+    "originalValues": [
+      "pr08-sz",
+      "pr08-hf"
+    ],
+    "candidateValues": [
+      "pr08sz",
+      "pr08hf"
+    ],
+    "constraintPath": "packages/persistence/src/migrations/0002-org-auth.ts",
+    "constraint": "user_account_login_charset_ck",
+    "pattern": "^[A-Za-z0-9]+$",
+    "eachNewValueAcceptedStatically": true,
+    "distinctFromSeedAccountNames": true,
+    "laterMigrationAltersConstraint": false,
+    "modifiedByThisIncrement": true,
+    "actualExpressionEvaluation": {
+      "command": [
+        "node",
+        "-e",
+        "const assert=require('node:assert/strict');const f=new Function('code',\"const login=`pr08${code.toLowerCase()}`;return login\");const values=['SZ','HF'].map(f);assert.equal(new Set(values).size,2);for(const value of values)assert.match(value,/^[A-Za-z0-9]+$/);console.log(JSON.stringify(values));"
+      ],
+      "exitCode": 0,
+      "stdout": "[\"pr08sz\",\"pr08hf\"]\n"
+    },
+    "identityBoundary": "Only the synthetic login expression changed. Independent original user creation, same role/permissions/plant/department/password hashing and real Nest/Auth login remain byte-identical. All uses of the existing f.login reference remain, except the separately authorized location-code references.",
+    "noRuntimeClaim": true
+  }
+}

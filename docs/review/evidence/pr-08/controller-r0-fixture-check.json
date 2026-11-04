@@ -1,0 +1,16 @@
+{
+  "status": "NOT_RUN_STATIC_FIXTURE_BLOCK",
+  "businessPgPlanned": 7,
+  "businessPgExecuted": 0,
+  "runtimeSkipped": 0,
+  "freshOwnDatabaseCreated": false,
+  "reason": "Avoid rerunning already proven canonical initialization defect; API suite beforeAll warehouse seeds omit dept_id/material_types and use nonnumeric codes.",
+  "testPath": "tests/pr08/intent-api.pg.spec.ts",
+  "schemaPath": "packages/persistence/src/migrations/0003-master-data.ts",
+  "facts": [
+    "Both LINE_SIDE and WAREHOUSE INSERT omit mandatory dept_id/material_types.",
+    "P08-LINE-i/P08-FG-i warehouse codes violate four-digit numeric canonical rule.",
+    "NORMAL location P08-LINE violates six/eight-digit numeric canonical code; associated payload/report-output references must match actual legal location code."
+  ],
+  "positiveEvidenceSeparate": "Current application/persistence/full-test-source types PASS and DOM/component8 + calendar/intent26 PASS; none prove actual HTTP/PG committed-response-loss semantics."
+}

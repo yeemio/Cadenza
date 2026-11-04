@@ -35,6 +35,7 @@ import {
   transferOut,
 } from './inventory-posting'
 import { violationOutcome } from './inventory-handlers'
+import { assertObjectWriteScope } from './object-scope-repositories'
 import { NOT_FOUND_RULE, buildPostingContext, type PostingContext } from './inventory-posting'
 import type {
   PutawayTaskRecord,
@@ -326,25 +327,31 @@ async function putawayConfirm(pc: PostingContext, p: Payload): Promise<Record<st
   await assertPlantScope(tools, plantId)
 
   const toWarehouseId = requireStr(p, 'toWarehouseId', 'warehousing.putaway.confirm')
-  const toWarehouseKind = str(p, 'toWarehouseKind')
-  if (toWarehouseKind === undefined) {
-    throw new WarehousingRuleViolation(
-      'A-T13-2',
-      '确认入库须携带 toWarehouseKind（目标仓库类型事实：物流仓/成品仓；0003 主数据字典扩展后由查询提供）',
-    )
-  }
   const toLocationId = requireStr(p, 'toLocationId', 'warehousing.putaway.confirm')
-  const toLocationCode = requireStr(p, 'toLocationCode', 'warehousing.putaway.confirm')
-  const ownerId = requireStr(p, 'ownerId', 'warehousing.putaway.confirm')
-  const ownerName = requireStr(p, 'ownerName', 'warehousing.putaway.confirm')
-  // A-T13-2：目标=成品类实体物流仓 + 货架码+层拼位
-  assertPutawayTargetWarehouse({ warehouseKind: toWarehouseKind, materialType: null, warehouseId: toWarehouseId })
-  assertRackPutawayLocation(toLocationCode, toLocationId)
+  const warehouse = await tools.wh.warehouses.findById(toWarehouseId)
   const toLocation = await tools.wh.locations.findById(toLocationId)
-  if (toLocation === null) throw new WarehousingRuleViolation(NOT_FOUND_RULE, '目标库位不存在')
-  if (toLocation.warehouseId !== toWarehouseId) {
-    throw new WarehousingRuleViolation('A-T13-2', '目标库位不属于目标仓库（同任务组单禁跨仓换库位）')
+  if (warehouse === null || warehouse.status !== 'active' || warehouse.plantId !== plantId || warehouse.enterpriseId !== pc.ctx.enterpriseId || warehouse.warehouseType !== 'WAREHOUSE' ||
+      toLocation === null || toLocation.status !== 'active' || toLocation.locationKind !== 'RACK' || toLocation.plantId !== plantId || toLocation.warehouseId !== warehouse.id) {
+    throw new WarehousingRuleViolation('A-T13-2', '目标必须是实际工厂的活动仓库及所属库位')
   }
+  const toLocationCode = toLocation.code
+  if (str(p, 'toLocationCode') !== undefined && str(p, 'toLocationCode') !== toLocationCode) {
+    throw new WarehousingRuleViolation('A-T13-2', '库位编码与服务端实际库位不一致')
+  }
+  // Frozen MD2 distinguishes WAREHOUSE/LINE_SIDE, not the finished/logistics subtype.
+  // An explicit server configuration binds that missing fact to the actual warehouse.
+  let configuredKinds: unknown
+  try { configuredKinds = JSON.parse(process.env['CADENZA_PUTAWAY_WAREHOUSE_KINDS'] ?? '{}') }
+  catch { throw new WarehousingRuleViolation('A-T13-2', '仓库用途配置无效，UNKNOWN') }
+  const toWarehouseKind = configuredKinds !== null && typeof configuredKinds === 'object' && !Array.isArray(configuredKinds)
+    ? (configuredKinds as Record<string, unknown>)[warehouse.id] : undefined
+  if (toWarehouseKind !== 'LOGISTICS' && toWarehouseKind !== 'FINISHED') {
+    throw new WarehousingRuleViolation('A-T13-2', '实际仓库的物流/成品用途尚未配置，UNKNOWN')
+  }
+  if (str(p, 'toWarehouseKind') !== undefined && str(p, 'toWarehouseKind') !== toWarehouseKind) {
+    throw new WarehousingRuleViolation('A-T13-2', '声明仓库用途与服务端配置不一致')
+  }
+  assertRackPutawayLocation(toLocationCode, toLocationId)
 
   // 任务定位：taskIds（台账入口）∪ unitNos（组单入口）∪ palletCode（整托）
   const taskIdsRaw = p['taskIds']
@@ -385,13 +392,44 @@ async function putawayConfirm(pc: PostingContext, p: Payload): Promise<Record<st
     throw new WarehousingRuleViolation('A-T13-1', '确认入库至少包含一条待入库任务（taskIds/unitNos/palletCode）')
   }
 
-  // 每任务校验 + 入库记账（同一记账服务：流水行号随任务实际占用推进——新单元 1 行、
-  // 既有单元移位 2 行，避让 stock_transaction (command_receipt_id, line_no) 唯一约束）
+  // Lock/reread every task in stable order before resolving stock or ownership.
+  const lockedTasks = await tools.wh.putawayTasks.findByIds([...tasks.keys()].sort(), true)
+  if (lockedTasks.length !== tasks.size) throw new WarehousingRuleViolation(NOT_FOUND_RULE, '上架任务在确认前已变化')
+  const unitHints = new Map<string, string>()
+  for (const task of lockedTasks) {
+    await assertObjectWriteScope(tools, pc.ctx, task, 'warehousing.post', message => new WarehousingRuleViolation('A-S1', message), plantId)
+    assertPutawayConfirmable({ status: task.status, sourceRef: task.sourceRef })
+    if (task.targetWarehouseId !== null && task.targetWarehouseId !== toWarehouseId) throw new WarehousingRuleViolation('A-T13-2', '目标仓库与任务指定仓库不一致')
+    if (task.unitNo !== null) {
+      const unit = await tools.inv.units.findByUnitNo(task.plantId, task.unitNo)
+      if (unit !== null) unitHints.set(task.id, unit.id)
+    }
+  }
+  const lockedUnits = await tools.inv.units.lockForUpdate(ensureStableLockOrder([...new Set(unitHints.values())]))
+  const unitMap = new Map(lockedUnits.map(unit => [unit.id, unit]))
   const results: Array<Record<string, unknown>> = []
   let lineNo = 0
-  for (const task of tasks.values()) {
-    assertPutawayConfirmable({ status: task.status, sourceRef: task.sourceRef }) // A-T13-1：仅 pending 可确认
+  for (const task of lockedTasks) {
+    const source = await tools.wh.putawayTasks.resolveSourceOwner(task)
+    if (source === null) throw new WarehousingRuleViolation('A-T13-1', '任务来源或货权 UNKNOWN，不能用客户端/演示所有者补造')
+    const unit = source.unitId === null ? undefined : unitMap.get(source.unitId)
+    if (source.unitId !== null && (unit === undefined || unit.id !== unitHints.get(task.id) || unit.enterpriseId !== task.enterpriseId ||
+        unit.plantId !== task.plantId || unit.materialId !== task.materialId)) {
+      throw new WarehousingRuleViolation('A-T13-1', '上架任务与来源实物身份不一致')
+    }
+    let ownerId = source.ownerId, ownerName = source.ownerName
+    if (unit !== undefined) {
+      const balances = await tools.inv.balances.listActiveByUnit(unit.id)
+      if (balances.length !== 1 || cmpQty(balances[0]!.quantity, task.quantity) !== 0) throw new WarehousingRuleViolation('A-T13-1', '任务与实物当前数量不一致')
+      ownerId = balances[0]!.ownerId; ownerName = balances[0]!.ownerName
+    } else if (unitHints.has(task.id)) {
+      throw new WarehousingRuleViolation('A-T13-1', '来源未绑定已存在同名单元，拒绝借任务覆盖')
+    }
+    if (str(p, 'ownerId') !== undefined && str(p, 'ownerId') !== ownerId || str(p, 'ownerName') !== undefined && str(p, 'ownerName') !== ownerName) {
+      throw new WarehousingRuleViolation('A-T13-1', '声明货权与任务来源/当前实物货权不一致')
+    }
     const materialType = await tools.wh.materials.findTypeById(task.materialId)
+    if (materialType === null) throw new WarehousingRuleViolation('A-T13-2', '任务料品类型 UNKNOWN')
     assertPutawayTargetWarehouse({ warehouseKind: toWarehouseKind, materialType, warehouseId: toWarehouseId }) // A-T13-2：成品上架
     const goods = await receiveUnitLine(pc, {
       lineNo: lineNo + 1,

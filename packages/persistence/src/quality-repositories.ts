@@ -96,9 +96,9 @@ function mapOrder(r: OrderRow): InspectionOrderRecord {
 export class PgInspectionOrderRepository implements InspectionOrderRepository {
   constructor(private readonly client: SqlClient) {}
 
-  async findById(id: string): Promise<InspectionOrderRecord | null> {
+  async findById(id: string, forUpdate = false): Promise<InspectionOrderRecord | null> {
     const r = await this.client.query(
-      `SELECT ${ORDER_COLUMNS} FROM quality_inspection_order WHERE id = $1`,
+      `SELECT ${ORDER_COLUMNS} FROM quality_inspection_order WHERE id = $1${forUpdate ? ' FOR UPDATE' : ''}`,
       [id],
     )
     return r.rows[0] === undefined ? null : mapOrder(r.rows[0] as OrderRow)
@@ -414,6 +414,44 @@ function mapHold(r: HoldRow): QualityHoldRecord {
 export class PgQualityHoldRepository implements QualityHoldRepository {
   constructor(private readonly client: SqlClient) {}
 
+  async currentQualityByUnit(inventoryUnitId: string): Promise<'qualified' | 'pending_inspection' | 'unqualified' | 'suspect' | null> {
+    // Recompute from persisted current versions. A concession on an older
+    // version is deliberately excluded; client-supplied business times do not
+    // choose the winning fact. The caller holds the physical unit lock.
+    const r = await this.client.query(
+      `WITH target AS (SELECT id,unit_no,enterprise_id,plant_id FROM inventory_unit WHERE id=$1),
+       facts AS (
+         SELECT q.id, CASE
+           WHEN tr.conclusion='qualified' THEN 'qualified'
+           WHEN tr.conclusion='unqualified' AND d.id IS NOT NULL THEN 'qualified'
+           WHEN tr.conclusion='unqualified' THEN 'unqualified'
+           ELSE 'pending_inspection' END AS quality_status,
+           GREATEST(q.created_at,tr.created_at,d.created_at) AS fact_at
+         FROM quality_inspection_order q JOIN target u
+           ON q.enterprise_id=u.enterprise_id AND q.plant_id=u.plant_id
+           AND (q.inventory_unit_id=u.id OR (q.inventory_unit_id IS NULL AND q.unit_no=u.unit_no))
+         LEFT JOIN quality_test_result tr ON tr.inspection_order_id=q.id AND tr.is_effective
+         LEFT JOIN LATERAL (
+           SELECT id,created_at FROM quality_disposition
+           WHERE inspection_order_id=q.id AND based_on_version=tr.version AND disposition_kind='concession'
+           ORDER BY created_at DESC,id DESC LIMIT 1
+         ) d ON true
+         WHERE q.status<>'cancelled'
+         UNION ALL
+         SELECT rd.id,CASE WHEN rd.quality_status IN ('qualified','exempt') THEN 'qualified'
+           WHEN rd.quality_status='unqualified' THEN 'unqualified' ELSE 'pending_inspection' END,rd.updated_at
+         FROM receipt_detail rd JOIN target u ON rd.inventory_unit_id=u.id
+         JOIN purchase_receipt_batch b ON b.id=rd.batch_id
+           AND b.enterprise_id=u.enterprise_id AND b.plant_id=u.plant_id
+       ) SELECT quality_status FROM facts
+       ORDER BY fact_at DESC,
+         CASE quality_status WHEN 'unqualified' THEN 0 WHEN 'suspect' THEN 1 WHEN 'pending_inspection' THEN 2 ELSE 3 END,
+         id DESC LIMIT 1`, [inventoryUnitId],
+    )
+    const value = r.rows[0]?.quality_status
+    return value === 'qualified' || value === 'unqualified' || value === 'suspect' || value === 'pending_inspection' ? value : null
+  }
+
   async insert(hold: NewQualityHold): Promise<QualityHoldRecord> {
     const r = await this.client.query(
       `INSERT INTO quality_hold
@@ -438,8 +476,8 @@ export class PgQualityHoldRepository implements QualityHoldRepository {
     return mapHold(r.rows[0] as HoldRow)
   }
 
-  async findById(id: string): Promise<QualityHoldRecord | null> {
-    const r = await this.client.query(`SELECT ${HOLD_COLUMNS} FROM quality_hold WHERE id = $1`, [id])
+  async findById(id: string, forUpdate = false): Promise<QualityHoldRecord | null> {
+    const r = await this.client.query(`SELECT ${HOLD_COLUMNS} FROM quality_hold WHERE id = $1${forUpdate ? ' FOR UPDATE' : ''}`, [id])
     return r.rows[0] === undefined ? null : mapHold(r.rows[0] as HoldRow)
   }
 

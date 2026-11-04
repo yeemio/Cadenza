@@ -1,0 +1,68 @@
+{
+  "decisionId": "PR08-R1-SCOPE-DECISION-ACCOUNT-FIXTURE",
+  "authority": "Sole controller explicit message in this same Chat after the first warehouse/location-only R1 freeze.",
+  "requiredParent": "63eb1d7d508ff3028be725e1bbcf7b1294881665",
+  "authorizedAdditionalChange": "Only the synthetic fixture expression generating pr08-sz/pr08-hf may become independent alphanumeric names; necessary references stay within the same fixture.",
+  "appliedDelta": {
+    "path": "tests/pr08/intent-api.pg.spec.ts",
+    "before": "const login=`pr08-${code.toLowerCase()}`",
+    "after": "const login=`pr08${code.toLowerCase()}`",
+    "beforeValues": [
+      "pr08-sz",
+      "pr08-hf"
+    ],
+    "afterValues": [
+      "pr08sz",
+      "pr08hf"
+    ],
+    "additionalReferenceEdits": 0,
+    "whyNoReferenceEdits": "The existing login/f.login variables already supply account INSERT, password login payload, command ctx, report operator and owner name."
+  },
+  "protected": "Account role, permissions, plant, department, password flow, all7 cases/registrations/assertions, product/schema/migrations/contracts and old evidence.",
+  "previouslyAuthorizedWarehouseAndThreeLocationReferenceChangesContinue": true,
+  "earlierFreeze": {
+    "zipName": "Cadenza-PR08-R1.zip",
+    "zipSha256": "06a7f84e7156e4ecc44b823dfd3c1f87078df581af1d24a0a41c8e491244de79",
+    "patchName": "pr08-r1-from-63eb1d7.patch",
+    "patchSha256": "b8fe8d1e5177466dbd925b42d0246891e96bfea21c63548b1376c8815446be19",
+    "sourceTestFingerprint": "df54f1cbe1aff0a4fa3189a6423f8774ddd3a932a0ce563a030462e110cfa646",
+    "preservedUnchanged": true,
+    "formallyDeliveredOrUploadedBeforeScopeDecision": false
+  },
+  "currentArtifactIdentity": "Cadenza-PR08-R1-Account-Fix",
+  "application": "New complete increment against original exact parent. Do not apply the old warehouse-only patch first.",
+  "staticAccountProof": {
+    "status": "STATIC_REPAIRED_WITH_EXPLICIT_CONTROLLER_SCOPE_DECISION_NOT_RUNTIME_EXECUTED",
+    "scopeDecision": "PR08-R1-SCOPE-DECISION-ACCOUNT-FIXTURE",
+    "testPath": "tests/pr08/intent-api.pg.spec.ts",
+    "line": 85,
+    "candidateSourceLine": "    const login=`pr08${code.toLowerCase()}`",
+    "originalValues": [
+      "pr08-sz",
+      "pr08-hf"
+    ],
+    "candidateValues": [
+      "pr08sz",
+      "pr08hf"
+    ],
+    "constraintPath": "packages/persistence/src/migrations/0002-org-auth.ts",
+    "constraint": "user_account_login_charset_ck",
+    "pattern": "^[A-Za-z0-9]+$",
+    "eachNewValueAcceptedStatically": true,
+    "distinctFromSeedAccountNames": true,
+    "laterMigrationAltersConstraint": false,
+    "modifiedByThisIncrement": true,
+    "actualExpressionEvaluation": {
+      "command": [
+        "node",
+        "-e",
+        "const assert=require('node:assert/strict');const f=new Function('code',\"const login=`pr08${code.toLowerCase()}`;return login\");const values=['SZ','HF'].map(f);assert.equal(new Set(values).size,2);for(const value of values)assert.match(value,/^[A-Za-z0-9]+$/);console.log(JSON.stringify(values));"
+      ],
+      "exitCode": 0,
+      "stdout": "[\"pr08sz\",\"pr08hf\"]\n"
+    },
+    "identityBoundary": "Only the synthetic login expression changed. Independent original user creation, same role/permissions/plant/department/password hashing and real Nest/Auth login remain byte-identical. All uses of the existing f.login reference remain, except the separately authorized location-code references.",
+    "noRuntimeClaim": true
+  },
+  "runtimePgStatus": "NOT_RUN"
+}

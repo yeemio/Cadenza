@@ -1,0 +1,66 @@
+{
+  "fixturePreservationAndActualFixtureExpressionValues": {
+    "command": [
+      "python3",
+      "docs/review/evidence/pr-08/author-r1-account-fix-fixture-check.py",
+      "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r1-base",
+      "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r1-account-fix-work"
+    ],
+    "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r1-account-fix-work",
+    "startedAt": "2026-11-04T07:49:05.079858+00:00",
+    "completedAt": "2026-11-04T07:49:05.313800+00:00",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-08/author-r1-account-fix-fixture-check.log",
+    "logSha256": "d702a3c637ffdc1ba3e26a9e8c82c7342a7bfbf7d92f4ada3640d18ad55a3a5b"
+  },
+  "syntaxOnly": {
+    "command": [
+      "node",
+      "-e",
+      "const fs=require('node:fs');const {stripTypeScriptTypes}=require('node:module');const {spawnSync}=require('node:child_process');const source=fs.readFileSync(process.argv[1],'utf8');const js=stripTypeScriptTypes(source,{mode:'transform',sourceUrl:process.argv[1]});const checked=spawnSync(process.execPath,['--input-type=module','--check'],{input:js,encoding:'utf8'});if(checked.stdout)process.stdout.write(checked.stdout);if(checked.stderr)process.stderr.write(checked.stderr);if(checked.error)throw checked.error;console.log(JSON.stringify({scope:'SYNTAX_ONLY_NOT_TYPECHECK_OR_RUNTIME',file:process.argv[1],sourceBytes:Buffer.byteLength(source),childExitCode:checked.status}));process.exit(checked.status??1)",
+      "tests/pr08/intent-api.pg.spec.ts"
+    ],
+    "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r1-account-fix-work",
+    "startedAt": "2026-11-04T07:49:20.514758+00:00",
+    "completedAt": "2026-11-04T07:49:20.682351+00:00",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-08/author-r1-account-fix-syntax-only.log",
+    "logSha256": "460eee7ba2d99e03d794f544ae8dd73440812ffacd91fade6df7ac1daa41a6bf",
+    "candidateTestSha256": "ec8b5fcb42042bb5e0fb74ed5a3e2c9cbbe45dd2cd1cfe3180c5994073d46e97",
+    "scope": "SYNTAX_ONLY_NOT_SEMANTIC_TYPECHECK_OR_BUSINESS_RUNTIME"
+  },
+  "typecheck": {
+    "status": "NOT_RUN_MISSING_PROJECT_DEPENDENCIES",
+    "invoked": false,
+    "compilerExitCode": null,
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tests/pr08/tsconfig.full.json",
+      "--noEmit"
+    ],
+    "environmentEvidence": "docs/review/evidence/pr-08/author-r1-account-fix-environment.json"
+  },
+  "businessPg": {
+    "status": "NOT_RUN",
+    "plannedRegisteredScenarios": 7,
+    "executed": 0,
+    "runtimeSkipped": 0,
+    "runnerInvoked": false,
+    "databaseCreated": false,
+    "taskDatabaseEnvironment": "CADENZA_PR08_TEST_DB_URL",
+    "newEmptyDatabasePattern": "cadenza_pr08_*",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr08/vitest.config.ts",
+      "tests/pr08/intent-api.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "reason": "No dedicated task database, native PG runtime or full project dependencies in the author environment. The reported account constraint root is now repaired statically under the explicit scope decision.",
+    "oldOrProductionDatabaseAccessed": false
+  }
+}

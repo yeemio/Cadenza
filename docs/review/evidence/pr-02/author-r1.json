@@ -1,0 +1,293 @@
+{
+  "delivery": "Cadenza-PR02-R1",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "revisionPurpose": "Narrow correction of the real PostgreSQL factory fixture after controller R0 REWORK",
+  "repository": "yeemio/Cadenza",
+  "originalPr": 2,
+  "originalBranch": "codex/fix-02-object-write-scope",
+  "exactParentHead": "0925e19cb9542c425fe70b05b1d8eb7db7019ecc",
+  "acceptedPrerequisiteAlreadyInParent": {
+    "pr": 1,
+    "head": "956d9e1bd4192943e1095e03884d4c58435de710",
+    "testedSourceAndTests": "d6cc96aa64fec40323ea40dde917ac8a2759fd06",
+    "files": 11,
+    "reapplyPrerequisite": false
+  },
+  "r0SourceAndTestCandidateSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+  "r1SourceAndTestCandidate": {
+    "kind": "sha256-of-sorted-path-tab-sha256-LF",
+    "sha256": "49c5649c415f8cdaa2f31aea1d9dbc3a05f146fa32d6c4a81963d558e637f021",
+    "gitCommit": "NOT_CREATED",
+    "files": [
+      {
+        "path": "packages/application/src/inventory-posting.ts",
+        "bytes": 59857,
+        "sha256": "cc06ff7bfc046a283fc434a5f0bce1f7a3f64808020732dc683498f1beeb4554",
+        "gitBlobSha": "9e7847c879ccf15de894352665d86cf43814c940",
+        "parentSha256": "cc06ff7bfc046a283fc434a5f0bce1f7a3f64808020732dc683498f1beeb4554"
+      },
+      {
+        "path": "packages/application/src/object-scope-repositories.ts",
+        "bytes": 3372,
+        "sha256": "487e54b5be25608a6c8d8d87e0f9a949862fad08cfeaf3737014c63bf8c8f374",
+        "gitBlobSha": "35b8857d8ddbc1085b93ea5e70c1375cad646e0b",
+        "parentSha256": "487e54b5be25608a6c8d8d87e0f9a949862fad08cfeaf3737014c63bf8c8f374"
+      },
+      {
+        "path": "packages/application/src/purchase-handlers.ts",
+        "bytes": 54615,
+        "sha256": "fcfe7efc8a8c1dd0b866afc555ebed82383ed17558cc870151b1ece46f5ad99a",
+        "gitBlobSha": "3b3673d990f9c11e13972c15bed536b90661ad04",
+        "parentSha256": "fcfe7efc8a8c1dd0b866afc555ebed82383ed17558cc870151b1ece46f5ad99a"
+      },
+      {
+        "path": "packages/application/src/purchase-repositories.ts",
+        "bytes": 14358,
+        "sha256": "b25647f9b7e9d46d8922ffde638b8cf2f3859832c1f78ae601ec06944795da01",
+        "gitBlobSha": "f3de17a9a3b74b7212054b923c5e0688477fbf31",
+        "parentSha256": "b25647f9b7e9d46d8922ffde638b8cf2f3859832c1f78ae601ec06944795da01"
+      },
+      {
+        "path": "packages/application/src/quality-handlers.ts",
+        "bytes": 28424,
+        "sha256": "a091059549c8a7391650f4fc106b5f4d67d3545107ea3f8d5caaad6f5e9e3b28",
+        "gitBlobSha": "af3f3c16929253af85e5a5c30691b3bbabc81bd0",
+        "parentSha256": "a091059549c8a7391650f4fc106b5f4d67d3545107ea3f8d5caaad6f5e9e3b28"
+      },
+      {
+        "path": "packages/application/src/quality-repositories.ts",
+        "bytes": 8637,
+        "sha256": "14d51b604e91a3dcc298322845ce20cbadd02015324c5985f543892c0e6f1656",
+        "gitBlobSha": "e45c81d5e652afd245614c494874b1fb23331ac6",
+        "parentSha256": "14d51b604e91a3dcc298322845ce20cbadd02015324c5985f543892c0e6f1656"
+      },
+      {
+        "path": "packages/persistence/src/purchase-repositories.ts",
+        "bytes": 39698,
+        "sha256": "a670d4eeea359bccaffb185e9e9be872074987bdf0e6b5b4f5ad7e34cf3ad792",
+        "gitBlobSha": "4f359151bcedd0e373a842b0d01c9f6d0e1a7e47",
+        "parentSha256": "a670d4eeea359bccaffb185e9e9be872074987bdf0e6b5b4f5ad7e34cf3ad792"
+      },
+      {
+        "path": "packages/persistence/src/quality-repositories.ts",
+        "bytes": 18646,
+        "sha256": "c5d07046194a00de5777cd070aeffd91f5d90e238bf3f83b093ba6e49f00fec3",
+        "gitBlobSha": "a11aad814a179aa44bd046c88c8def2ba44562bd",
+        "parentSha256": "c5d07046194a00de5777cd070aeffd91f5d90e238bf3f83b093ba6e49f00fec3"
+      },
+      {
+        "path": "tests/pr02/object-write-scope.pg.spec.ts",
+        "bytes": 26834,
+        "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1",
+        "gitBlobSha": "21beee98575d82f46b91d944eefa2ebe7b3971e5",
+        "parentSha256": "448acab0cfda3cd8b646ba20851387b7729c78c317f60ce3ab9a50c081bd8631"
+      },
+      {
+        "path": "tests/pr02/object-write-scope.unit.spec.ts",
+        "bytes": 6218,
+        "sha256": "f49bdeee85af2d2a025077255721152f6bc62cc34bb5f26c4c663e99b5f7c074",
+        "gitBlobSha": "f8aafce0b6be5caf8c36591e2518435b38a65c72",
+        "parentSha256": "f49bdeee85af2d2a025077255721152f6bc62cc34bb5f26c4c663e99b5f7c074"
+      },
+      {
+        "path": "tests/pr02/tsconfig.json",
+        "bytes": 221,
+        "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "gitBlobSha": "19d84320c5cc01aa9d3b74761b50fe31ca591fc9",
+        "parentSha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361"
+      },
+      {
+        "path": "tests/pr02/vitest.config.ts",
+        "bytes": 247,
+        "sha256": "458fbf30b23073f35b1f391d05b05f369c943c798cc09e7254c715d9608b065f",
+        "gitBlobSha": "4ec6b7901b25ccfe28cf4dd23011077312fd336c",
+        "parentSha256": "458fbf30b23073f35b1f391d05b05f369c943c798cc09e7254c715d9608b065f"
+      }
+    ]
+  },
+  "changedPaths": [
+    "docs/review/evidence/pr-02/author-r1-tests-typecheck.log",
+    "docs/review/evidence/pr-02/author-r1.json",
+    "docs/review/evidence/pr-02/author-r1.md",
+    "tests/pr02/object-write-scope.pg.spec.ts"
+  ],
+  "scopeExpansion": [],
+  "fixtureCorrection": {
+    "department": "Read user_account.dept_id through its real org_node department; require active department and plant, identical enterprise and the department path under the actor plant path. Fail setup if missing. No invented department UUID or org mutation.",
+    "materialTypes": [
+      1
+    ],
+    "materialTypesReason": "Matches the unchanged material fixture material_type=1 and the existing nonempty integer[] constraint.",
+    "factories": [
+      {
+        "tag": "A",
+        "seededUser": "szqc01",
+        "seededDepartmentCode": "DEPT-SZ-QC",
+        "warehouseCode": "0201",
+        "warehouseName": "PR02-WH-A",
+        "normalLocationCode": "02010001"
+      },
+      {
+        "tag": "B",
+        "seededUser": "hfadmin01",
+        "seededDepartmentCode": "DEPT-HF-JZ",
+        "warehouseCode": "0202",
+        "warehouseName": "PR02-WH-B",
+        "normalLocationCode": "02020001"
+      },
+      {
+        "tag": "C",
+        "seededUser": "gzadmin01",
+        "seededDepartmentCode": "DEPT-GZ-JZ",
+        "warehouseCode": "0203",
+        "warehouseName": "PR02-WH-C",
+        "normalLocationCode": "02030001"
+      }
+    ],
+    "readOnlyCanonicalSources": [
+      {
+        "path": "packages/persistence/src/migrations/0002-org-auth.ts",
+        "sha256": "016d25ecc426545ba7e35964c7c6229f65215e05c861907b02b04beec0dcb793",
+        "gitBlobSha": "8b080ca021d947915627b90c9818de3256ab4196",
+        "unchanged": true
+      },
+      {
+        "path": "packages/persistence/src/migrations/0003-master-data.ts",
+        "sha256": "ff06a17e0a4483323ed57088a1fa9781bcc41207f8cc14fcf5165c920b5a36da",
+        "gitBlobSha": "0118be9fe642ac5dbe39c6b75e5fc31e828ca01a",
+        "unchanged": true
+      },
+      {
+        "path": "packages/persistence/src/seed.ts",
+        "sha256": "edddf0117127c209ba25f71c414b02871c1223f0b819ccc57c571673da6292a0",
+        "gitBlobSha": "fba92e5419a7a73bb2554428f9e27556fdfb92e4",
+        "unchanged": true
+      }
+    ]
+  },
+  "controllerR0FailureRetained": {
+    "decision": "REWORK",
+    "head": "0925e19cb9542c425fe70b05b1d8eb7db7019ecc",
+    "receiptPath": "docs/review/evidence/pr-02/controller-r0.json",
+    "rawLogPath": "docs/review/evidence/pr-02/controller-r0-pg-and-unit.log",
+    "rawLogSha256": "4a1e7bafcb9001f75462b83d1daa493f34d50ba13b0b6ce32b670a5f1202ea20",
+    "sqlstate": "23502",
+    "table": "warehouse",
+    "column": "dept_id",
+    "stage": "beforeAll factory A",
+    "pgBusinessExecuted": 0,
+    "originalVitestSummary": {
+      "passed": 16,
+      "skipped": 129,
+      "failedSuites": 1
+    },
+    "originalDatabaseAndLogs": "Retained by controller; not accessed, reset or reused by this author"
+  },
+  "verification": {
+    "newTestSourceTypecheck": {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr02/tsconfig.json",
+        "--noEmit"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr2-r1-work",
+      "startedUtc": "2026-11-04T01:56:14.876873+00:00",
+      "finishedUtc": "2026-11-04T01:56:20.497575+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-02/author-r1-tests-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "outputBytes": 0,
+      "status": "PASS"
+    },
+    "staticPreservationAndSyntax": {
+      "check": "Static preservation and syntax only; no PostgreSQL execution",
+      "prefixOutsideFactoryByteIdentical": true,
+      "beforeAllAndAllBusinessAssertionsByteIdentical": true,
+      "unchangedBusinessTailSha256": "0059b56f194f940030683e765d5dc2d0d0850cef9aba99cb65c534e604ab2ac4",
+      "denialCommandCases": 29,
+      "denialContexts": 4,
+      "additionalBusinessCases": 13,
+      "plannedPgCasesStaticOnly": 129,
+      "parseDiagnosticCount": 0,
+      "preimageSha256": "448acab0cfda3cd8b646ba20851387b7729c78c317f60ce3ab9a50c081bd8631",
+      "postimageSha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1"
+    },
+    "parentBinding": {
+      "r0PostimagesMatchedImmutableParent": 31,
+      "unchangedR0PostimagesInR1": 30,
+      "unchangedR0SourceAndTestFiles": 11,
+      "controllerFailureAndCanonicalSources": [
+        {
+          "path": "docs/review/evidence/pr-02/controller-r0.json",
+          "sha256": "d0452b3de4aef4031a5ff5093cdc63d5f7a306f52ce304a78a9ecff88545a6c9",
+          "gitBlobSha": "10250388fa8e6171b2cd1f80bd200ba7f7f6faa2",
+          "unchanged": true
+        },
+        {
+          "path": "docs/review/evidence/pr-02/controller-r0.md",
+          "sha256": "68411ecf8952e02abff9fa1e428e80c186b5b6129c97303125aac898fe4fe376",
+          "gitBlobSha": "4e273be8d69ff89c76c992f83795779ed7a42886",
+          "unchanged": true
+        },
+        {
+          "path": "docs/review/evidence/pr-02/controller-r0-pg-and-unit.log",
+          "sha256": "4a1e7bafcb9001f75462b83d1daa493f34d50ba13b0b6ce32b670a5f1202ea20",
+          "gitBlobSha": "8ceada25010d06d6612ed86ad8b6ba639dd3da78",
+          "unchanged": true
+        },
+        {
+          "path": "packages/persistence/src/migrations/0002-org-auth.ts",
+          "sha256": "016d25ecc426545ba7e35964c7c6229f65215e05c861907b02b04beec0dcb793",
+          "gitBlobSha": "8b080ca021d947915627b90c9818de3256ab4196",
+          "unchanged": true
+        },
+        {
+          "path": "packages/persistence/src/migrations/0003-master-data.ts",
+          "sha256": "ff06a17e0a4483323ed57088a1fa9781bcc41207f8cc14fcf5165c920b5a36da",
+          "gitBlobSha": "0118be9fe642ac5dbe39c6b75e5fc31e828ca01a",
+          "unchanged": true
+        },
+        {
+          "path": "packages/persistence/src/seed.ts",
+          "sha256": "edddf0117127c209ba25f71c414b02871c1223f0b819ccc57c571673da6292a0",
+          "gitBlobSha": "fba92e5419a7a73bb2554428f9e27556fdfb92e4",
+          "unchanged": true
+        }
+      ]
+    },
+    "reusedControllerR0Evidence": {
+      "head": "0925e19cb9542c425fe70b05b1d8eb7db7019ecc",
+      "applicationTypes": "PASS, unchanged product source; not rerun in R1",
+      "persistenceTypes": "PASS, unchanged product source; not rerun in R1",
+      "unit": {
+        "passed": 16,
+        "failed": 0,
+        "skipped": 0,
+        "rerunInR1": false,
+        "boundary": "Repository doubles only; unchanged unit file, no PG business PASS"
+      }
+    },
+    "r1PostgreSQL": {
+      "status": "NOT_RUN_MISSING_TASK_OWNED_PG",
+      "explicitPr02UrlPresent": false,
+      "localPostgresOrPsqlOrDocker": false,
+      "suiteInvoked": false,
+      "businessTestsExecuted": 0,
+      "runtimeSummary": null,
+      "plannedCasesStaticOnly": 129,
+      "requiredNextRun": "A different NEW empty task-owned cadenza_pr02_* database via CADENZA_PR02_TEST_DB_URL. Retain the R0 failed database; never rerun setup against that nonempty database.",
+      "command": "pnpm exec vitest run --config tests/pr02/vitest.config.ts tests/pr02/object-write-scope.pg.spec.ts --reporter=verbose"
+    },
+    "frozenLockInstall": "NOT_RUN in this author environment; controller R0 install evidence remains separate",
+    "coldBuild": "NOT_RUN; no PR13 acceptance claim"
+  },
+  "preservedBoundaries": [
+    "Only factory() initialization changes in the PG test; all other test bytes are identical.",
+    "129 business cases, zero-change snapshots, durable rejection replay and real row-lock assertions preserved.",
+    "No product, permission policy, migration, frozen contract, other PR, R0 author evidence or controller evidence changed.",
+    "No remote write, new commit, merge, release, deployment, old database or real external service.",
+    "PR1 and PR14 accepted evidence is not rerun or broadened; PR2 remains controller pending."
+  ]
+}

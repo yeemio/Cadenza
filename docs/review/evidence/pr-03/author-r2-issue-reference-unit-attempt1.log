@@ -1,0 +1,62 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr3-r2-work
+
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'text holder without an explicit refer…' 6ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'matching text aliases' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'a type-only echo stays paired with th…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'a UUID-shaped holder is not an implic…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'an explicit UUID type and id' 3ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'an explicit UUID id with its existing…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling A0EEBC99-9C0…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling {a0eebc99-9c…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling a0eebc999c0b…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling a0ee-bc99-9c…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling {a0eebc99-9c…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'UUID-looking text with a trailing new…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'unreserved issue without a reference' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'unreserved explicit UUID and genealogy' 2ms
+ × tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > still rejects other actor before any write 9ms
+   → expected [Function] to throw error including 'IT-23' but got '预留仅可由其实际登记人消费/释放；未知登记人不得凭 UUID 获得权限'
+ × tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > still rejects wrong business reference before any write 5ms
+   → expected [Function] to throw error including 'IT-23' but got '预留的业务所有者与本次作业引用不一致'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > still rejects other actor before any write
+AssertionError: expected [Function] to throw error including 'IT-23' but got '预留仅可由其实际登记人消费/释放；未知登记人不得凭 UUID 获得权限'
+
+Expected: "IT-23"
+Received: "预留仅可由其实际登记人消费/释放；未知登记人不得凭 UUID 获得权限"
+
+ ❯ tests/pr03/issue-reference.unit.spec.ts:122:5
+    120|     if (kind === 'other actor') f.reservation!.createdBy = 'other-oper…
+    121|     else Object.assign(f.payload, { refType: 'task', refId: 'other-tas…
+    122|     await expect(issueMaterial(f.pc, f.payload)).rejects.toThrow('IT-2…
+       |     ^
+    123|     for (const write of [f.insertLine, f.insertEntry, f.adjust, f.cons…
+    124|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > still rejects wrong business reference before any write
+AssertionError: expected [Function] to throw error including 'IT-23' but got '预留的业务所有者与本次作业引用不一致'
+
+Expected: "IT-23"
+Received: "预留的业务所有者与本次作业引用不一致"
+
+ ❯ tests/pr03/issue-reference.unit.spec.ts:122:5
+    120|     if (kind === 'other actor') f.reservation!.createdBy = 'other-oper…
+    121|     else Object.assign(f.payload, { refType: 'task', refId: 'other-tas…
+    122|     await expect(issueMaterial(f.pc, f.payload)).rejects.toThrow('IT-2…
+       |     ^
+    123|     for (const write of [f.insertLine, f.insertEntry, f.adjust, f.cons…
+    124|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 14 passed (16)
+   Start at  11:51:58
+   Duration  2.71s (transform 1.55s, setup 0ms, collect 2.40s, tests 36ms, environment 0ms, prepare 103ms)
+

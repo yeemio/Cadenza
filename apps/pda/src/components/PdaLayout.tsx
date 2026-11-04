@@ -14,7 +14,7 @@ import {
 import type { ReactNode } from 'react'
 import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../auth'
-import { isMock } from '../api'
+import { api, isMock } from '../api'
 import { AIQUERY_USE, useP4Permissions } from '../p4/permissions'
 import { CSW_READ, useP3PdaPermissions } from '../p3/permissions'
 
@@ -70,7 +70,7 @@ export function PdaLayout() {
           <span className="truncate text-xs opacity-85">{session.user.plantName}</span>
         ) : null}
         <span className="flex-1" />
-        {session ? <BusinessClock plantName={session.user.plantName} /> : null}
+        {session ? <BusinessClock plantId={session.user.plantId} loadCalendar={api.schedulingShiftInfo} /> : null}
         <LocaleSelect className="h-7 border-white/25 bg-white/10 text-[12px] text-topbar-foreground" />
         {isMock ? <MockBadge /> : null}
       </header>

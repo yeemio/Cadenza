@@ -1,0 +1,86 @@
+{
+  "status": "PASS_SCOPE_AND_BYTE_PRESERVATION",
+  "exactParentHead": "d38fd52298586a3b225bc09d19a5c74ada952ffa",
+  "product": {
+    "path": "packages/persistence/src/execution-repositories.ts",
+    "parentSha256": "00c9456bb92b7826b316d99b2f3f00f55009c771b35de4ee9222d6b5f39ec02c",
+    "candidateSha256": "2858e8336d5fb882018867094d766e1a3ea9aeac87851692393178c60468416e",
+    "namedSubstitutionRules": 11
+  },
+  "readProjectionCounts": {
+    "select": 15,
+    "returning": 7,
+    "total": 22
+  },
+  "rowFamilies": [
+    "execution_session",
+    "production_report",
+    "material_consumption",
+    "labor_record"
+  ],
+  "allInsertUpdateSqlIdenticalAfterRemovingReadProjection": true,
+  "insertUpdateSqlStatementCount": 11,
+  "isoAndIsoOrNullFunctionBytesUnchanged": true,
+  "reportOutputRepositoryWholeSectionUnchanged": true,
+  "orderProgressMasterDataAndRepositoryFactoryTailUnchanged": true,
+  "writeArgumentsPredicatesOrderingPaginationAndAllOtherSourceBytesUnchangedOutsideDeclaredReadEdits": true,
+  "originalHttpPgTest": {
+    "path": "tests/pr08/intent-api.pg.spec.ts",
+    "bytes": 19496,
+    "sha256": "ec8b5fcb42042bb5e0fb74ed5a3e2c9cbbe45dd2cd1cfe3180c5994073d46e97",
+    "entireFileByteIdentical": true,
+    "registeredCasesRetained": 7,
+    "timeAccountWarehouseFixturesAndAllAssertionsUnchanged": true
+  },
+  "original25SourceTestFilesUnchanged": true,
+  "original25Fingerprint": "f10dab06df342ecfe8eb64778b2bfabe8245208f44ea0d4dc5b4edac621a98f3",
+  "changedExistingPaths": [
+    "packages/persistence/src/execution-repositories.ts"
+  ],
+  "unchangedMaterializedParentFileCount": 1118,
+  "protectedAcceptedInputs": [
+    {
+      "path": "tests/pr02/object-write-scope.pg.spec.ts",
+      "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1",
+      "unchanged": true
+    },
+    {
+      "path": "tests/pr03/quality-availability.pg.spec.ts",
+      "sha256": "e73ebd0dc1d5b2ffd26cb3e98e0f9eead8c80f7eb612fb3c74b720a7b38fb0e0",
+      "unchanged": true
+    },
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "sha256": "4915d163bc25ca3cb9c7b14331d473c8d9f4ca072ae60c2664f61a638bf48a7b",
+      "unchanged": true
+    }
+  ],
+  "parentFailureLog": {
+    "path": "docs/review/evidence/pr-08/controller-r1-pg.log",
+    "bytes": 3606,
+    "sha256": "d3911ecd4a87f92927e8c069651721e58d7eb75cf6c53988d86581af8ab7cd98",
+    "unchanged": true,
+    "parentCounts": {
+      "passed": 5,
+      "failed": 2,
+      "runtimeSkipped": 0
+    }
+  },
+  "noProcessTzMutationOrGlobalPgParserChange": true,
+  "newTest": {
+    "path": "tests/pr08/execution-date.unit.spec.ts",
+    "sha256": "cd3955cd834012e2c23d3ae3e05fa2071d1993d6dfebd3b2218a64b73e169fb0",
+    "boundedCases": 21,
+    "sqlClientDoubles": true,
+    "actualPg": false,
+    "explicitOffsetDateFixtures": [
+      "+00:00",
+      "+08:00",
+      "+09:00",
+      "+14:00",
+      "-10:00"
+    ],
+    "nativeProcessTimezoneNotChanged": true
+  },
+  "boundary": "Mechanical preservation plus declared local test coverage; not PostgreSQL, semantic types or full-repository review."
+}
