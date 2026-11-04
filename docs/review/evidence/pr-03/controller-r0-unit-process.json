@@ -1,0 +1,15 @@
+{
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    "tests/pr03/vitest.config.ts",
+    "tests/pr03/availability.unit.spec.ts",
+    "tests/domain/inventory-rules.spec.ts",
+    "--reporter=verbose"
+  ],
+  "exitCode": 0,
+  "log": "docs/review/evidence/pr-03/controller-r0-unit.log"
+}

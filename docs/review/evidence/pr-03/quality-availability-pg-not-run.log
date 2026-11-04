@@ -1,0 +1,24 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr3-work
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr03/quality-availability.pg.spec.ts [ tests/pr03/quality-availability.pg.spec.ts ]
+Error: NOT_RUN: CADENZA_PR03_TEST_DB_URL must name a NEW empty cadenza_pr03_* PostgreSQL database
+ ❯ tests/pr03/quality-availability.pg.spec.ts:14:9
+     12| const url = process.env['CADENZA_PR03_TEST_DB_URL']
+     13| if (!url || !/^cadenza_pr03_[a-z0-9_]+$/.test(new URL(url).pathname.sl…
+     14|   throw new Error('NOT_RUN: CADENZA_PR03_TEST_DB_URL must name a NEW e…
+       |         ^
+     15| }
+     16| const pool = createPool(url, { max: 8 })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  22:42:22
+   Duration  2.87s (transform 1.92s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 61ms)
+

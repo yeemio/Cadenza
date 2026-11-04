@@ -1,0 +1,156 @@
+{
+  "pr03": {
+    "actualQueryRecords": 23,
+    "tablesPerSnapshot": 177,
+    "beforeAfterEqual": true,
+    "replayEqualityAssertedByExecutedHelper": true,
+    "replaySnapshotsLogged": false,
+    "uniqueDenialReceipt": true
+  },
+  "pr02Regression": {
+    "actualQueryRecords": 123,
+    "tablesPerSnapshot": 177,
+    "beforeAfterReplayEqual": true,
+    "uniqueDenialReceipt": true
+  },
+  "availability": [
+    {
+      "unitId": "16861a34-caf5-49d4-b982-3619a5a1d3f0",
+      "kind": "business",
+      "inventory": {
+        "balanceId": "66d1b1ad-2286-4367-a199-9e04f533d89e",
+        "unitId": "16861a34-caf5-49d4-b982-3619a5a1d3f0",
+        "unitNo": "U-c72d20d6-82f0-4bab-82d3-ca6bb5fd4723",
+        "materialCode": "P03-91498583-42b",
+        "lotNo": "L-U-c72d20d6-82f0-4bab-82d3-ca6bb5fd4723",
+        "locationCode": "03010001",
+        "ownerName": "PR03 owner",
+        "quantity": "20.0000",
+        "reservedQuantity": "0.0000",
+        "businessHeld": true,
+        "qualityHeld": false,
+        "unavailableReasons": [
+          "BUSINESS_HOLD"
+        ],
+        "availableQuantity": "0.0000",
+        "uomCode": "M",
+        "qualityStatus": "qualified",
+        "status": "active",
+        "plantId": "133508fb-dd03-450f-81d0-d63abc37bf45",
+        "feetDisplay": "65.6167"
+      },
+      "ai": {
+        "grossQty": "20.0000",
+        "reservedQty": "0.0000",
+        "availableQty": "0.0000"
+      },
+      "notes": [
+        "库存单元 16861a34-caf5-49d4-b982-3619a5a1d3f0 可用量限制：BUSINESS_HOLD",
+        "缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）"
+      ]
+    },
+    {
+      "unitId": "efb5d39f-f3d0-44ad-8768-ad87115586f7",
+      "kind": "quality",
+      "inventory": {
+        "balanceId": "c41ba2c5-f49d-4c94-baf8-6484766d3cb1",
+        "unitId": "efb5d39f-f3d0-44ad-8768-ad87115586f7",
+        "unitNo": "U-da8cce0b-c721-4868-bd0b-b2e78a2dd7a7",
+        "materialCode": "P03-1c92fdf3-dbf",
+        "lotNo": "L-U-da8cce0b-c721-4868-bd0b-b2e78a2dd7a7",
+        "locationCode": "03010001",
+        "ownerName": "PR03 owner",
+        "quantity": "20.0000",
+        "reservedQuantity": "0.0000",
+        "businessHeld": false,
+        "qualityHeld": true,
+        "unavailableReasons": [
+          "QUALITY_HOLD",
+          "QUALITY_NOT_RELEASED"
+        ],
+        "availableQuantity": "0.0000",
+        "uomCode": "M",
+        "qualityStatus": "suspect",
+        "status": "active",
+        "plantId": "133508fb-dd03-450f-81d0-d63abc37bf45",
+        "feetDisplay": "65.6167"
+      },
+      "ai": {
+        "grossQty": "20.0000",
+        "reservedQty": "0.0000",
+        "availableQty": "0.0000"
+      },
+      "notes": [
+        "库存单元 efb5d39f-f3d0-44ad-8768-ad87115586f7 可用量限制：QUALITY_HOLD,QUALITY_NOT_RELEASED",
+        "缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）"
+      ]
+    },
+    {
+      "unitId": "51df1d3c-e8b6-4908-9450-710412b38a9e",
+      "kind": "reservation",
+      "inventory": {
+        "balanceId": "9ca862aa-dc27-4d1b-a07c-75147e4c4cbe",
+        "unitId": "51df1d3c-e8b6-4908-9450-710412b38a9e",
+        "unitNo": "U-70dfa91d-fcf3-42fa-993f-e538c0cfdbbe",
+        "materialCode": "P03-f09e9f7b-dde",
+        "lotNo": "L-U-70dfa91d-fcf3-42fa-993f-e538c0cfdbbe",
+        "locationCode": "03010001",
+        "ownerName": "PR03 owner",
+        "quantity": "20.0000",
+        "reservedQuantity": "6.0000",
+        "businessHeld": false,
+        "qualityHeld": false,
+        "unavailableReasons": [
+          "RESERVED"
+        ],
+        "availableQuantity": "14.0000",
+        "uomCode": "M",
+        "qualityStatus": "qualified",
+        "status": "active",
+        "plantId": "133508fb-dd03-450f-81d0-d63abc37bf45",
+        "feetDisplay": "65.6167"
+      },
+      "ai": {
+        "grossQty": "20.0000",
+        "reservedQty": "6.0000",
+        "availableQty": "14.0000"
+      },
+      "notes": [
+        "库存单元 51df1d3c-e8b6-4908-9450-710412b38a9e 可用量限制：RESERVED",
+        "缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）"
+      ]
+    },
+    {
+      "unitId": "72949f74-9d32-45e3-baff-dfb4e146bba8",
+      "kind": "none",
+      "inventory": {
+        "balanceId": "acc136e5-6cd5-4b28-978a-9c3dd63fd910",
+        "unitId": "72949f74-9d32-45e3-baff-dfb4e146bba8",
+        "unitNo": "U-d9bcc318-f344-41ce-8dde-cef53b11bdf5",
+        "materialCode": "P03-d6c96e95-c0e",
+        "lotNo": "L-U-d9bcc318-f344-41ce-8dde-cef53b11bdf5",
+        "locationCode": "03010001",
+        "ownerName": "PR03 owner",
+        "quantity": "20.0000",
+        "reservedQuantity": "0.0000",
+        "businessHeld": false,
+        "qualityHeld": false,
+        "unavailableReasons": [],
+        "availableQuantity": "20.0000",
+        "uomCode": "M",
+        "qualityStatus": "qualified",
+        "status": "active",
+        "plantId": "133508fb-dd03-450f-81d0-d63abc37bf45",
+        "feetDisplay": "65.6167"
+      },
+      "ai": {
+        "grossQty": "20.0000",
+        "reservedQty": "0.0000",
+        "availableQty": "20.0000"
+      },
+      "notes": [
+        "缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）"
+      ]
+    }
+  ]
+}

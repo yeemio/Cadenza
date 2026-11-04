@@ -1,0 +1,78 @@
+{
+  "decision": "ACCEPT",
+  "scope": "C3/C7/I09 local source and isolated real PostgreSQL only",
+  "testedSourceCommit": "4ef6bfbff6a2ff7832de8189a3df5501da50fae8",
+  "exactR2Parent": "b054adfaeeacb6f4f0afebded172357f302a9dec",
+  "authorPatchSha256": "70cf88efe178b6b75057fb236059d4ad85b8d4fde93c1d63f9fec1c8f1c8ffe2",
+  "sourceAndTestFingerprint": "7648c3cd9ec5c549e74544ecc9d330bb232f0b4d04295df65f1efcac2400a5df",
+  "identity": {
+    "authenticatedFullPatch": true,
+    "gitPostimagesMatched": 9,
+    "sourceTestFilesMatchedSha256": 17,
+    "sidecarDownload": "NOT_RECEIVED: two UI file retrieval timeouts; stopped, no original POSTIMAGES claim",
+    "controllerDecision": "Exact full patch SHA externally declared, all9full Git postimage hashes from that authenticated patch, externally declared17-file fingerprint and per-file author source hashes all match; sufficient candidate identity, no further sidecar retrieval needed"
+  },
+  "behavior": {
+    "fixed": "Nonempty text holder identity no longer implicitly cast to ledger UUID; actual reservation UUID links ledger and full text owner retained in audit; explicit legitimate UUID reference remains, no schema/holder-type-policy change",
+    "original32CasesBytePreserved": true,
+    "newReferencePgCases": 8,
+    "sameKeyReplayAndCompetingAllocation": "PASS",
+    "allOriginalOwnershipQualityGuardsPreserved": true
+  },
+  "checks": {
+    "freshPr03RealPg": {
+      "planned": 40,
+      "passed": 40,
+      "failed": 0,
+      "skipped": 0,
+      "database": "cadenza_pr03_quality_r2_20261104"
+    },
+    "freshC2OnThisCumulativeCandidate": {
+      "passed": 129,
+      "failed": 0,
+      "skipped": 0,
+      "database": "cadenza_pr02_on_pr03_r2_20261104",
+      "pr02OwnAcceptedHeadNotReopened": true
+    },
+    "reusedAuthorR2": {
+      "applicationTypes": "PASS",
+      "testSourceTypes": "PASS",
+      "actualIssueEntryWithRepositoryDoubles": {
+        "passed": 16,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "reusedUnchangedR0": {
+      "availabilityRules": 22,
+      "inventoryDomainRegression": 24,
+      "persistenceTypes": "PASS"
+    },
+    "ownEffectiveCases": 102,
+    "ownCounterBoundary": "40freshPG+62reusedlocal/doubles; C2regression129 separately rebound; no global unique sum"
+  },
+  "queryObservations": {
+    "pr03Denial": 23,
+    "pr03InventoryAi": 4,
+    "pr03ActualReferenceLedgerAuditAfterReplay": 8,
+    "c2BeforeAfterReplay": 123,
+    "businessTablesPerSnapshot": 177
+  },
+  "r0AndR1FailureEvidencePreserved": true,
+  "authorInitialR2UnitFailurePreserved": true,
+  "databasesPreserved": [
+    "cadenza_pr03_quality_r1_20261104",
+    "cadenza_pr02_on_pr03_r1_20261104",
+    "cadenza_pr03_quality_r2_20261104",
+    "cadenza_pr02_on_pr03_r2_20261104"
+  ],
+  "author": "same ordinary Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "controllerDidNotModifyAuthorCodeOrTests": true,
+  "unverified": [
+    "Install/site/oldDB upgrade/actual network disconnection/real SAP/model/enterprise channel/devices",
+    "IndependentR6 and recipient identity",
+    "No new independent business hold release policy",
+    "PR13 complete cold build not inferred"
+  ],
+  "mergeReleaseDeploy": false
+}
