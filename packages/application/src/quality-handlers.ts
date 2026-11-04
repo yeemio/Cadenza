@@ -102,12 +102,16 @@ async function syncUnitQualityByNo(
   if (unit === undefined) throw new QualityRuleViolation('A-S1', '检验单绑定的库存单元不存在')
   await assertQualityObjectScope(pc, unit, order.plantId)
   if (order.unitNo !== null && order.unitNo !== unit.unitNo) throw new QualityRuleViolation('A-S1', '检验单的库存身份不一致')
+  // Inspection/concession facts may advance while custody remains isolated.
+  // An active hold always wins the projection; release is a separate command.
+  const activeHold = await tools.qa.holds.findActiveByUnit(unit.id)
+  const projected = activeHold === null ? target : 'suspect'
   const balances = await tools.inv.balances.listActiveByUnit(unit.id)
   for (const b of balances) {
     if (b.unitId !== unit.id || b.enterpriseId !== unit.enterpriseId || b.plantId !== unit.plantId) {
       throw new QualityRuleViolation('A-S1', '检验单绑定余额的企业/工厂不一致')
     }
-    if (b.qualityStatus !== target) await tools.inv.balances.adjust(b.id, { qualityStatus: target }, null)
+    if (b.qualityStatus !== projected) await tools.inv.balances.adjust(b.id, { qualityStatus: projected }, null)
   }
   return unit.id
 }
@@ -291,7 +295,7 @@ async function dispositionRelease(pc: PostingContext, p: Payload): Promise<Recor
   // A-T12-1：仅生效结论=合格可常规放行（不合格走让步；待检不可放行）
   assertReleaseExecutable({
     effectiveConclusion: effective.conclusion,
-    alreadyReleased: dispositions.length > 0,
+    alreadyReleased: dispositions.some((d) => d.basedOnVersion === effective.version),
   })
   const disposition = await tools.qa.dispositions.insert({
     inspectionOrderId: order.id,
@@ -334,7 +338,7 @@ async function dispositionConcession(pc: PostingContext, p: Payload): Promise<Re
   const effective = await tools.qa.testResults.findEffective(order.id)
   if (effective === null) throw new QualityRuleViolation(NOT_FOUND_RULE, '检验单无生效结论行（链起点缺失）')
   const dispositions = await tools.qa.dispositions.listByOrder(order.id)
-  if (dispositions.length > 0) {
+  if (dispositions.some((d) => d.basedOnVersion === effective.version)) {
     throw new QualityRuleViolation('A-T12-1', '该检验单已有生效处置（放行/让步），不得重复处置')
   }
   const basedOnVersionRaw = p['basedOnVersion']
@@ -506,15 +510,22 @@ async function suspectRestore(pc: PostingContext, p: Payload): Promise<Record<st
     throw new QualityRuleViolation('A-T12-3', '存疑恢复必须填写处置依据（disposition_note，最小处置记录）')
   }
   const hold = await lockScopedHold(pc, p)
-  // A-T12-3/B-9：恢复须留恢复人/处置依据；记录与码回正常（previous_quality_status）
+  // Release custody separately; the historical pre-hold snapshot must never
+  // overwrite a later effective test or current-version concession.
   assertSuspectRestorable({ holdStatus: hold.status, releasedBy: pc.ctx.actorLoginName, dispositionNote, unitNo: hold.unitNo })
-  const restored = (hold.previousQualityStatus as 'qualified' | 'pending_inspection' | 'unqualified' | 'suspect' | null) ?? 'qualified'
+  const currentFact = await tools.qa.holds.currentQualityByUnit(hold.inventoryUnitId)
+  const balances = await tools.inv.balances.listActiveByUnit(hold.inventoryUnitId)
+  const historical = hold.previousQualityStatus
+  const fallback = balances.length === 1 && (historical === 'qualified' || historical === 'unqualified' || historical === 'pending_inspection')
+    ? historical : 'pending_inspection'
+  const current = [currentFact, ...balances.map((b) => b.qualityStatus === 'suspect' ? null : b.qualityStatus)]
+  const restored = current.includes('unqualified') ? 'unqualified' : current.includes('suspect') ? 'suspect'
+    : current.includes('pending_inspection') ? 'pending_inspection' : current.includes('qualified') ? 'qualified' : fallback
   const released = await tools.qa.holds.release(
     hold.id,
     { releasedBy: pc.ctx.actorLoginName, releasedAt: pc.businessTime, dispositionNote },
     pc.ctx.actorLoginName,
   )
-  const balances = await tools.inv.balances.listActiveByUnit(hold.inventoryUnitId)
   for (const b of balances) {
     if (b.enterpriseId !== hold.enterpriseId || b.plantId !== hold.plantId || b.unitId !== hold.inventoryUnitId) {
       throw new QualityRuleViolation('A-S1', '隔离余额与单元的企业/工厂不一致')
@@ -530,7 +541,7 @@ async function suspectRestore(pc: PostingContext, p: Payload): Promise<Record<st
     subjectType: 'quality_hold',
     subjectId: hold.id,
     before: { status: 'active', holdKind: hold.holdKind },
-    after: { status: 'released', restoredQualityStatus: restored, dispositionNote },
+    after: { status: 'released', restoredQualityStatus: restored, qualitySource: current.some((value) => value !== null) ? 'current_fact' : 'last_known_pre_hold', dispositionNote },
     reason: str(p, 'reason') ?? null,
   })
   pc.tools.outbox.collect({

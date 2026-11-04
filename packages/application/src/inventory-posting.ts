@@ -13,7 +13,7 @@ import {
   buildPostingLine,
   cmpQty,
   computeShiftDate,
-  computeAvailability,
+  evaluateAvailability,
   ensureStableLockOrder,
   feetDisplayFromMeters,
   isPositiveQty,
@@ -528,6 +528,7 @@ export async function issueMaterial(pc: PostingContext, p: Payload): Promise<Rec
   const inv = pc.tools.inv
   const unitId = requireStr(p, 'unitId', 'inventory.issue-material')
   const quantity = requireDec(p, 'quantity', 'inventory.issue-material')
+  if (!isPositiveQty(quantity)) throw new InventoryRuleViolation('IT-07', '发料数量必须大于 0')
   const units = await lockUnits(pc, [unitId], str(p, 'plantId')) // IT-25：先锁单元（稳定次序）
   const unit = units.get(unitId)!
   // 行号口径与 receiveGoods 一致：同一命令回执下多行发料（execution 多行投料）逐行递增，缺省 1。
@@ -554,25 +555,35 @@ export async function issueMaterial(pc: PostingContext, p: Payload): Promise<Rec
       throw new InventoryRuleViolation(NOT_FOUND_RULE, '预留不存在或不属于该库存单元')
     }
     assertReservationUsableForCommit(found, now) // IT-23：过期后旧终端提交必须重校验
+    assertReservationHolder(pc, found, p)
+    if (found.enterpriseId !== unit.enterpriseId || found.plantId !== unit.plantId ||
+        (found.locationId !== null && found.locationId !== balance.locationId) ||
+        found.uomId !== balance.uomId || found.uomCode !== balance.uomCode || found.measurementBasis !== balance.measurementBasis) {
+      throw new InventoryRuleViolation('IT-23', '预留与本次库存企业/工厂、库位或计量不一致')
+    }
+    const allocatedBalances = (await inv.balances.listActiveByUnit(unitId)).filter((b) => found.locationId === null || b.locationId === found.locationId)
+    if (allocatedBalances.length !== 1 || allocatedBalances[0]!.id !== balance.id) {
+      throw new InventoryRuleViolation('IT-23', '预留无法唯一定位当前余额所有权，须重新确认占用对象')
+    }
     reservation = found
   }
 
   // IT-14：可用量 = 质量 ∧ 预留；IT-15：同码并发消费经行锁串行后实时校验
-  const availability = computeAvailability({
+  const availability = evaluateAvailability({
     grossQty: balance.quantity,
     qualityStatus: balance.qualityStatus,
-    activeReservations: reservations.map((r) => ({ status: r.status, quantity: r.quantity, validUntil: r.validUntil })),
+    qualityHeld: await inv.units.hasActiveQualityHold(unit.id),
+    businessHeld: (await inv.units.businessHolds(unit.id)).length > 0,
+    activeReservations: reservations.filter((r) => r.id !== reservation?.id && (r.locationId === null || r.locationId === balance.locationId)),
     now,
   })
-  const allowedMax =
-    reservation !== null
-      ? addQty(availability.available, reservation.quantity) // 预留持有人可消耗自己预留的量
-      : availability.available
-  if (cmpQty(allowedMax, quantity) < 0) {
+  // Valid own reservation is excluded from competing allocation, never added
+  // back to a quantity already clamped to zero by quality or business custody.
+  if (!availability.eligible || cmpQty(availability.available, quantity) < 0) {
     throw new InventoryRuleViolation(
       'IT-14',
       `可用量不足（单元 ${unit.unitNo} 毛量 ${availability.gross}、有效预留 ${availability.reserved}、` +
-        `可用 ${availability.available}${reservation !== null ? `＋自有预留 ${reservation.quantity}` : ''}、本次申请 ${quantity}）`,
+        `可用 ${availability.available}、本次申请 ${quantity}；${availability.reasons.join(',')}）`,
     )
   }
 
@@ -588,8 +599,8 @@ export async function issueMaterial(pc: PostingContext, p: Payload): Promise<Rec
     afterQty,
     unit,
     reason: str(p, 'reason') ?? null,
-    refType: str(p, 'refType') ?? null,
-    refId: str(p, 'refId') ?? null,
+    refType: str(p, 'refType') ?? reservation?.holderType ?? null,
+    refId: str(p, 'refId') ?? reservation?.holderRef ?? null,
   })
   await closeUnitIfZero(pc, unit, written.closed) // IT-29
 
@@ -1253,6 +1264,16 @@ export async function splitStock(pc: PostingContext, p: Payload): Promise<Record
 
 // ---------------- 预留（IT-23 四要素 + 有效期） ----------------
 
+function assertReservationHolder(pc: PostingContext, reservation: import('./inventory-repositories').ReservationRecord, p: Payload): void {
+  if (reservation.createdBy === null || reservation.createdBy !== pc.ctx.actorLoginName) {
+    throw new InventoryRuleViolation('IT-23', '预留仅可由其实际登记人消费/释放；未知登记人不得凭 UUID 获得权限')
+  }
+  if (['holderType', 'refType'].some((key) => str(p, key) !== undefined && str(p, key) !== reservation.holderType) ||
+      ['holderRef', 'refId'].some((key) => str(p, key) !== undefined && str(p, key) !== reservation.holderRef)) {
+    throw new InventoryRuleViolation('IT-23', '预留的业务所有者与本次作业引用不一致')
+  }
+}
+
 export async function acquireReservation(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const inv = pc.tools.inv
   const unitId = requireStr(p, 'unitId', 'inventory.reservation.acquire')
@@ -1260,18 +1281,13 @@ export async function acquireReservation(pc: PostingContext, p: Payload): Promis
   const holderType = requireStr(p, 'holderType', 'inventory.reservation.acquire')
   const holderRef = requireStr(p, 'holderRef', 'inventory.reservation.acquire')
   const validUntil = requireStr(p, 'validUntil', 'inventory.reservation.acquire')
-  const now = pc.tools.now().toISOString()
-  assertReservationAcquirable({ unitId, holderType, holderRef, quantity, validUntil, now }) // IT-23
-
   const units = await lockUnits(pc, [unitId], str(p, 'plantId')) // IT-15：同码并发消费/预留串行
+  const now = pc.tools.now().toISOString()
+  assertReservationAcquirable({ unitId, holderType, holderRef, quantity, validUntil, now }) // Validate after acquiring the lock.
   const unit = units.get(unitId)!
   const balances = await inv.balances.listActiveByUnit(unitId)
-  const balance =
-    str(p, 'locationId') !== undefined
-      ? balances.find((b) => b.locationId === str(p, 'locationId')) ?? null
-      : balances.length === 1
-        ? balances[0]!
-        : null
+  const candidates = str(p, 'locationId') !== undefined ? balances.filter((b) => b.locationId === str(p, 'locationId')) : balances
+  const balance = candidates.length === 1 ? candidates[0]! : null
   if (balance === null) {
     throw new InventoryRuleViolation('IT-23', `库存单元 ${unit.unitNo} 无唯一活动余额，预留须显式指定库位`)
   }
@@ -1279,23 +1295,24 @@ export async function acquireReservation(pc: PostingContext, p: Payload): Promis
     throw new InventoryRuleViolation('IT-S1', '预留余额与库存单元的实际归属不一致')
   }
   const reservations = await inv.reservations.listActiveByUnit(unitId)
-  const availability = computeAvailability({
+  const availability = evaluateAvailability({
     grossQty: balance.quantity,
     qualityStatus: balance.qualityStatus,
-    activeReservations: reservations.map((r) => ({ status: r.status, quantity: r.quantity, validUntil: r.validUntil })),
+    qualityHeld: await inv.units.hasActiveQualityHold(unit.id),
+    businessHeld: (await inv.units.businessHolds(unit.id)).length > 0,
+    activeReservations: reservations.filter((r) => r.locationId === null || r.locationId === balance.locationId),
     now,
   })
-  const afterReserved = addQty(availability.reserved, quantity)
-  if (cmpQty(afterReserved, balance.quantity) > 0) {
+  if (!availability.eligible || cmpQty(quantity, availability.available) > 0) {
     throw new InventoryRuleViolation(
       'IT-23',
-      `预留合计不得超过余额（毛量 ${balance.quantity}、已预留 ${availability.reserved}、本次 ${quantity}）`,
+      `预留不得超过当前可用量（毛量 ${balance.quantity}、已预留 ${availability.reserved}、可用 ${availability.available}、本次 ${quantity}；${availability.reasons.join(',')}）`,
     )
   }
 
   const reservation = await inv.reservations.insert({
     unitId,
-    locationId: str(p, 'locationId') ?? null,
+    locationId: balance.locationId,
     holderType: holderType as 'job' | 'task' | 'order' | 'manual',
     holderRef,
     quantity,
@@ -1327,18 +1344,21 @@ export async function acquireReservation(pc: PostingContext, p: Payload): Promis
 
 export async function releaseReservation(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const reservationId = requireStr(p, 'reservationId', 'inventory.reservation.release')
-  const reservation = await pc.tools.inv.reservations.findById(reservationId)
+  let reservation = await pc.tools.inv.reservations.findById(reservationId)
   if (reservation === null) {
     throw new InventoryRuleViolation(NOT_FOUND_RULE, '预留不存在')
   }
   const units = await lockUnits(pc, [reservation.unitId], str(p, 'plantId'))
   const unit = units.get(reservation.unitId)!
+  reservation = await pc.tools.inv.reservations.findById(reservationId)
+  if (reservation === null || reservation.unitId !== unit.id) throw new InventoryRuleViolation('IT-23', '预留在单元锁内已失效')
   if (reservation.enterpriseId !== unit.enterpriseId || reservation.plantId !== unit.plantId) {
     throw new InventoryRuleViolation('IT-S1', '预留与库存单元的真实企业/工厂不一致')
   }
   if (reservation.status !== 'active') {
     throw new InventoryRuleViolation('IT-23', `预留 ${reservationId} 已处于 ${reservation.status} 状态，无须释放`)
   }
+  assertReservationHolder(pc, reservation, p)
   // IT-23：释放记录（released_by 由实现层落 actor；此处断言释放人非空）
   const released = await pc.tools.inv.reservations.release(
     reservationId,

@@ -1,0 +1,16 @@
+{
+  "kind": "STATIC_EXISTING_SCHEMA_COUNTEREXAMPLE",
+  "canonicalSchema": "packages/persistence/src/migrations/0003-master-data.ts:197",
+  "test": "tests/pr03/quality-availability.pg.spec.ts",
+  "violations": [
+    "warehouse fixture omits mandatory dept_id",
+    "warehouse fixture omits mandatory nonempty material_types",
+    "warehouse code PR03-W violates four numeric digits",
+    "storage_location codes PR03-L1/PR03-L2 violate six/eight numeric digits"
+  ],
+  "relatedFixtureReference": "stock() locationCode PR03-L1 must be rebound consistently to corrected fixture location",
+  "pgExecuted": 0,
+  "pgRuntimeSkipped": 0,
+  "pgInvoked": false,
+  "reasonNoRedundantFailureRun": "Existing PR2 actual23502 and current identical canonical mandatory/check constraints already determine this setup cannot reach a PR3 business case. Repair fixture before first PR3 PG run; no fresh failure loop or shared-DB probe."
+}

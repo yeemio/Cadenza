@@ -1,0 +1,41 @@
+[
+  {
+    "label": "application",
+    "command": [
+      "pnpm",
+      "exec",
+      "tsc",
+      "-p",
+      "packages/application/tsconfig.json",
+      "--noEmit"
+    ],
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-03/controller-r0-application-types.log"
+  },
+  {
+    "label": "persistence",
+    "command": [
+      "pnpm",
+      "exec",
+      "tsc",
+      "-p",
+      "packages/persistence/tsconfig.json",
+      "--noEmit"
+    ],
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-03/controller-r0-persistence-types.log"
+  },
+  {
+    "label": "test-source",
+    "command": [
+      "pnpm",
+      "exec",
+      "tsc",
+      "-p",
+      "tests/pr03/tsconfig.json",
+      "--noEmit"
+    ],
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-03/controller-r0-test-source-types.log"
+  }
+]

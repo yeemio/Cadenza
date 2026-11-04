@@ -180,6 +180,8 @@ export interface DispositionRepository {
 }
 
 export interface QualityHoldRepository {
+  /** Current inspection version/concession or purchase detail; never the hold's historical snapshot. */
+  currentQualityByUnit(inventoryUnitId: string): Promise<'qualified' | 'pending_inspection' | 'unqualified' | 'suspect' | null>
   insert(hold: NewQualityHold): Promise<QualityHoldRecord>
   findById(id: string, forUpdate?: boolean): Promise<QualityHoldRecord | null>
   /** 活动隔离（含已过期的活动作业预留口径行——有效性由域规则判定）。 */
