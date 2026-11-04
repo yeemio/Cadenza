@@ -1,0 +1,176 @@
+{
+  "pr": 7,
+  "revision": "AUTHOR_R1_CONTROLLER_R0",
+  "status": "REWORK",
+  "originalParent": "fe1f8bb4acc253747e6e95ddfd55f421e62b49d6",
+  "fullPatchSha256": "2eae9514bca17bc286be02ef4bbd5820c9dccff126d0818bdd4139f1c4cf1966",
+  "originalFullPostimagesMatched": 55,
+  "acceptedPrerequisiteHead": "0df991eac99a61132e50c10d8931d3532945dab2",
+  "authorApplicationCommit": "47249a346ece5daa453c9e848fcec644f54e13ba",
+  "sourceCommit": "fa0aa1df78e9d1aa8d369f6be182ebb25300ce77",
+  "sourceAndTestFingerprint": "f42b4823ce3fe2768bcd9f73e4f490955abf42b8451ce6355eff3d88bd772177",
+  "ownPostimagesMatched": 24,
+  "combinedPostimagesMatched": 54,
+  "combinedCount": 55,
+  "preservedPrerequisiteDifference": {
+    "path": "tests/pr02/object-write-scope.pg.spec.ts",
+    "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1"
+  },
+  "sourceTestFiles": [
+    {
+      "path": "apps/worker/src/handlers.ts",
+      "sha256": "1f2516d3e5b23dfc4ae17169472489ec860f6ea759536800923e429e7c4f8afe",
+      "parentSha256": "66aae304e99ecb94ab1a64b4f7c26f96ba4f3f9cb09000ab9b2847af14721577"
+    },
+    {
+      "path": "apps/worker/src/main.ts",
+      "sha256": "1b94737d109dc9fea887672da72e47b8accf350c061d8ebf881bca997803ee0a",
+      "parentSha256": "d91971533474412dbca094532d87b095e032748490f7531e72224ff940bea022"
+    },
+    {
+      "path": "apps/worker/src/outbox-claim.ts",
+      "sha256": "2debd319d562f6c228b84f75a8c4e9d80577c2cb7893dec320468386b0f18382",
+      "parentSha256": "f79e12f9482b2d8e09678ab56ae0630409dbc2ebbe8a55995e5b8569da85d027"
+    },
+    {
+      "path": "apps/worker/src/task-scope.ts",
+      "sha256": "c4bffb370a9c7e321a98ec7de6e0d13402e8471bfd302e37011fcc8fe4bb67e1",
+      "parentSha256": null
+    },
+    {
+      "path": "packages/application/src/conversion-handlers.ts",
+      "sha256": "665e9b0d5ef3dff950422a8366dcb593a6dfa566278198af170e4193fee2e5ee",
+      "parentSha256": "065f81d4dc507535898e609c438e028e717df2ec8f0a4e1f93f91494d49c533b"
+    },
+    {
+      "path": "packages/application/src/conversion-repositories.ts",
+      "sha256": "b16e065d6778941665c488b2ef961ced735cff90ef9ad5c65de46afd635b2e36",
+      "parentSha256": "8fd2e9305ab6d5c09dfe0d1d9255254cdccfb40c6db9714a6c6f3a1450052e9c"
+    },
+    {
+      "path": "packages/persistence/src/conversion-repositories.ts",
+      "sha256": "a12a87d1d6ccff74f1dd6518c2b676457ccf43e928b0eb35a93313763478d3cd",
+      "parentSha256": "119ed53e84e47954a95f797451a283eb59007cdb6693c314b99b0615e32066c5"
+    },
+    {
+      "path": "tests/pr07/confirmation.pg.spec.ts",
+      "sha256": "170b8b2c7fc0e8107a6ab7038ff9f93a09b27cf3e2640e073b916129f0c2b4b2",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/pr07/confirmation.unit.spec.ts",
+      "sha256": "d5c3907a49e96b92f470ca19c95774348c73a648cb31c4a36bda755f4667c40e",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/pr07/tsconfig.json",
+      "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/pr07/vitest.config.ts",
+      "sha256": "b2ad9abd3144ba836cb0c463910877f2fc01f0a7585d08550cdad557b37b8b94",
+      "parentSha256": null
+    }
+  ],
+  "codeAndTestAuthor": "Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "controllerOnlyAppliedExactAuthorBytes": true,
+  "browserRetrieval": "BLOCKED: Local browser use is disabled in Work settings; no retry or bypass; PR6 pending stable R1 retrieval",
+  "businessPg": {
+    "planned": 20,
+    "registered": 20,
+    "passed": 0,
+    "failed": 20,
+    "runtimeSkipped": 0,
+    "targetSemanticsReached": 0,
+    "database": "cadenza_pr07_confirmation_r1_20261104",
+    "fixtureFailures": [
+      {
+        "cases": 9,
+        "sqlState": "23514",
+        "constraint": "org_node_plant_code_ck",
+        "cause": "plants() omits mandatory plant_code"
+      },
+      {
+        "cases": 11,
+        "rule": "FC-07",
+        "cause": "completedConversion unitNo P07-UUID is not 10 characters with second char E/F/M/P"
+      }
+    ]
+  },
+  "freshProcess": {
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr07/vitest.config.ts",
+      "tests/pr07/confirmation.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "startedAt": "2026-11-04T03:32:41.817989+00:00",
+    "completedAt": "2026-11-04T03:32:46.379870+00:00",
+    "exitCode": 1,
+    "database": "cadenza_pr07_confirmation_r1_20261104",
+    "sourceCommit": "fa0aa1df78e9d1aa8d369f6be182ebb25300ce77",
+    "logSha256": "d03867eba8ca3711829fe42b18d80689edca82b27e97bfbafb151ffba23aa45a"
+  },
+  "reusedEvidence": [
+    {
+      "name": "worker-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p apps/worker/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/worker-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "application-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/application-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "persistence-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/persistence-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "confirmation-unit",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr07/vitest.config.ts tests/pr07/confirmation.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/confirmation-unit.log",
+      "logSha256": "4d1bdf7641088cc143019fc65724032f725c6459a27d3f51f76dcc03e0872274",
+      "executed": 20,
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "externalCalls": 0,
+      "businessPgPass": false
+    }
+  ],
+  "testSourceTypecheck": {
+    "status": "PASS_REUSED_EXACT_R1",
+    "log": "docs/review/evidence/pr-07/r1-tests-typecheck-final.log",
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "previousInitialFailuresRetained": true,
+  "diagnostic": {
+    "method": "read-only information_schema columns in same dedicated failure database",
+    "taskScopeTablesChecked": 27,
+    "missingReferencedColumns": [],
+    "notClaimedAsClaimRuntimeProof": true
+  },
+  "controllerDecision": "Allow one additional narrow fixture-only R2 despite earlier pre-PG ancestry R1; two newly observed fixture blockers are bounded; no product change or unlimited rework loop. Preserve all 20 registrations and assertions.",
+  "pr02Regression": {
+    "status": "REUSED_ACCEPTED_EXACT_SOURCE",
+    "reason": "PR7 source paths do not overlap C2 covered product; full accepted prerequisite retained, no C2 rerun"
+  },
+  "next": "Same Chat author fixture-only R2 bound to published controller evidence head; genuine fresh PG20 needed; preserve this nonempty failure database and raw log."
+}

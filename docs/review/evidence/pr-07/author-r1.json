@@ -1,0 +1,89 @@
+{
+  "pr": 7,
+  "revision": "R1",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "originalHead": "fe1f8bb4acc253747e6e95ddfd55f421e62b49d6",
+  "requiredR0FullPatchSha256": "a95a0e5dc88a63890a970cb50c33dd538a60ec71f63208db86820d048e3e4c91",
+  "changedProductSource": false,
+  "testPath": "tests/pr07/confirmation.pg.spec.ts",
+  "testPreimageSha256": "505e729c5f783fbb61783138b11df158d29608c8ff8791321df9da888e5d1aa5",
+  "testPostimageSha256": "170b8b2c7fc0e8107a6ab7038ff9f93a09b27cf3e2640e073b916129f0c2b4b2",
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "f42b4823ce3fe2768bcd9f73e4f490955abf42b8451ce6355eff3d88bd772177",
+    "files": [
+      {
+        "path": "apps/worker/src/handlers.ts",
+        "sha256": "1f2516d3e5b23dfc4ae17169472489ec860f6ea759536800923e429e7c4f8afe",
+        "parentSha256": "66aae304e99ecb94ab1a64b4f7c26f96ba4f3f9cb09000ab9b2847af14721577"
+      },
+      {
+        "path": "apps/worker/src/main.ts",
+        "sha256": "1b94737d109dc9fea887672da72e47b8accf350c061d8ebf881bca997803ee0a",
+        "parentSha256": "d91971533474412dbca094532d87b095e032748490f7531e72224ff940bea022"
+      },
+      {
+        "path": "apps/worker/src/outbox-claim.ts",
+        "sha256": "2debd319d562f6c228b84f75a8c4e9d80577c2cb7893dec320468386b0f18382",
+        "parentSha256": "f79e12f9482b2d8e09678ab56ae0630409dbc2ebbe8a55995e5b8569da85d027"
+      },
+      {
+        "path": "apps/worker/src/task-scope.ts",
+        "sha256": "c4bffb370a9c7e321a98ec7de6e0d13402e8471bfd302e37011fcc8fe4bb67e1",
+        "parentSha256": null
+      },
+      {
+        "path": "packages/application/src/conversion-handlers.ts",
+        "sha256": "665e9b0d5ef3dff950422a8366dcb593a6dfa566278198af170e4193fee2e5ee",
+        "parentSha256": "065f81d4dc507535898e609c438e028e717df2ec8f0a4e1f93f91494d49c533b"
+      },
+      {
+        "path": "packages/application/src/conversion-repositories.ts",
+        "sha256": "b16e065d6778941665c488b2ef961ced735cff90ef9ad5c65de46afd635b2e36",
+        "parentSha256": "8fd2e9305ab6d5c09dfe0d1d9255254cdccfb40c6db9714a6c6f3a1450052e9c"
+      },
+      {
+        "path": "packages/persistence/src/conversion-repositories.ts",
+        "sha256": "a12a87d1d6ccff74f1dd6518c2b676457ccf43e928b0eb35a93313763478d3cd",
+        "parentSha256": "119ed53e84e47954a95f797451a283eb59007cdb6693c314b99b0615e32066c5"
+      },
+      {
+        "path": "tests/pr07/confirmation.pg.spec.ts",
+        "sha256": "170b8b2c7fc0e8107a6ab7038ff9f93a09b27cf3e2640e073b916129f0c2b4b2",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr07/confirmation.unit.spec.ts",
+        "sha256": "d5c3907a49e96b92f470ca19c95774348c73a648cb31c4a36bda755f4667c40e",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr07/tsconfig.json",
+        "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr07/vitest.config.ts",
+        "sha256": "b2ad9abd3144ba836cb0c463910877f2fc01f0a7585d08550cdad557b37b8b94",
+        "parentSha256": null
+      }
+    ],
+    "sourceFiles": 7,
+    "testFiles": 4
+  },
+  "reason": "New plant fixture omitted mandatory parent_kind/path/depth. R1 copies actual legal-entity parent/depth and creates UUID-based path for the new plant.",
+  "validation": [
+    {
+      "command": "node pr7-r1-work/node_modules/typescript/bin/tsc -p pr7-r1-work/tests/pr07/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-07/r1-tests-typecheck-final.log"
+    }
+  ],
+  "reusedEvidence": "20 unchanged local unit cases and 3 product typechecks from R0; no new PG execution",
+  "businessPg": {
+    "status": "NOT_RUN",
+    "executed": 0,
+    "planned": 20
+  },
+  "controllerAccepted": false
+}

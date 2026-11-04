@@ -1,0 +1,29 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-work
+
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > canonical digest is valid sorted JSON and agrees across worker/application 3ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > noop is NOOP_NEEDED and explicitly SITE_PENDING 1ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > a matching explicit acknowledgement may dispatch 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > does not confirm {} 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > does not confirm {"outcome":"unknown"} 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > does not confirm {"outcome":"confirmed"} 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > does not confirm {"outcome":"confirmed","externalRef":"noop:fake","requestDigest":"7167e824fd67c9975152b20f338d1365b3ffc7bad700dd66b872a17bdde58ab3"} 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > does not confirm {"outcome":"confirmed","externalRef":"fixture","requestDigest":"wrong"} 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > delivery exception is unknown rather than a blind retry 1ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > foreign scope never calls the channel 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > empty worker scope fails before touching a pool 1ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > rejects invalid conversion outcome undefined 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > rejects invalid conversion outcome null 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > rejects invalid conversion outcome  0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > rejects invalid conversion outcome SUCCESS 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > rejects invalid conversion outcome true 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > rejects invalid conversion outcome other 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > external UNKNOWN is preserved, local UNKNOWN cannot mean success 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > accepts explicit success 0ms
+ ✓ tests/pr07/confirmation.unit.spec.ts > PR07 explicit acknowledgement semantics (local channel doubles) > accepts explicit failure 0ms
+
+ Test Files  1 passed (1)
+      Tests  20 passed (20)
+   Start at  23:35:30
+   Duration  2.08s (transform 1.20s, setup 0ms, collect 1.80s, tests 9ms, environment 0ms, prepare 104ms)
+

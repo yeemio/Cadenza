@@ -1,0 +1,3 @@
+(node:6) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"status":"STATIC_FIXTURE_AND_PRESERVATION_PASS_NOT_PG","plantCodes":18,"carrierCodes":11,"describeBytes":6507,"candidateTestSha256":"9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8"}

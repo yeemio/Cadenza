@@ -1,0 +1,379 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr07-20261104
+
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > two workers concurrent, start order 0, foreign row never locked or mutated 3ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > two workers concurrent, start order 1, foreign row never locked or mutated 1ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > one plant offline leaves its due retry intact until its worker returns 4ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > known object with missing plant snapshot resolves actual factory before claim 4ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > conflicting plant snapshot and actual object remains unchanged for both workers 4ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > unresolved scope is not claimed or changed 4ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > noop cannot make a real external receipt 4ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > legacy custom noop DISPATCHED is normalized to NOOP_NEEDED 5ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > unknown delivery is isolated and not blindly retried 5ms
+   → new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome undefined changes no business rows 51ms
+   → {"operationId":"cb0b960e-54a9-4206-aab3-ae0c1a144852","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-b47e51d8-0bff-4a3e-9c15-ad2c1018ebd6 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.058Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome null changes no business rows 29ms
+   → {"operationId":"87e12960-97ac-4166-82fc-bb9d8e7fb1fd","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-a2a19aad-77dd-4b48-8f3d-d739cb7cfb87 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.089Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome  changes no business rows 29ms
+   → {"operationId":"063b9ae9-e3b1-4bbd-8563-782c2ae63099","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-1d2db0af-520b-40fb-9268-8c3b6937753d 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.119Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome SUCCESS changes no business rows 21ms
+   → {"operationId":"bdac096a-841b-4c05-82ea-4eaf2895208e","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-97f6eae2-c193-4e5e-a03f-66ff608ecf8e 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.140Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome true changes no business rows 25ms
+   → {"operationId":"538e0d0e-9a56-4268-af85-33d19da37b63","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-4fa6bad6-ab04-429b-8969-522219d94878 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.166Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome invalid changes no business rows 19ms
+   → {"operationId":"85a79c63-df67-45f3-b50d-98f4c6ebfe16","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-fb4c3221-a5c8-42af-a291-dad84abba316 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.185Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > unknown preserves local assignment/snapshot and leaves EXTERNAL_UNKNOWN 20ms
+   → {"operationId":"2891b2ac-68be-482f-9536-be79e59d9624","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-ee2ec4c0-5691-4539-8a78-fb3e440aa508 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.205Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > success with missing persisted receipt is rejected 25ms
+   → {"operationId":"2e827c61-f28b-423e-aad7-cf3971529bbf","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-a286c040-34a7-4052-a860-5fd09b3ba9a4 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.229Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > success with noop persisted receipt is rejected 19ms
+   → {"operationId":"0d8c57fd-a327-4f8e-b1dd-5c74fbfae49f","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-c70905e7-b61d-49a0-a9e3-40d38e6150b3 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.248Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > success with wrong-digest persisted receipt is rejected 22ms
+   → {"operationId":"3d00b11e-81ed-4b17-bf09-8a4fbc37a9a7","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-3810ee20-50bd-4782-a377-a8292d8ed77f 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.270Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+ × tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > matching persisted fixture receipt confirms once without reapplying local conversion 22ms
+   → {"operationId":"6bca1185-6219-41e3-be02-89cb19e43065","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-1f4572db-8d21-4da2-a21b-ed22ccb23e2a 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.292Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > two workers concurrent, start order 0, foreign row never locked or mutated
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > two workers concurrent, start order 1, foreign row never locked or mutated
+error: new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ plants tests/pr07/confirmation.pg.spec.ts:34:20
+     32|   for (let i=0; i<2; i++) {
+     33|     const id = randomUUID()
+     34|     const result = await pool.query<{id:string}>(`INSERT INTO org_node…
+       |                    ^
+     35|       SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_repla…
+     36|       FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,…
+ ❯ tests/pr07/confirmation.pg.spec.ts:92:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 602, severity: 'ERROR', code: '23514', detail: 'Failing row contains (71261980-1c35-4e4c-87e3-89c6a171f991, plant, P07-be7ca15f-af30-479b-93cf-84f34fe73d54, P07-be7ca15f-af30-479b-93cf-84f34fe73d54, 3b1db887-8039-4694-80a7-2ced9e64fcc3, legal_entity, /faf2cce0-196e-4c05-a41c-d73ef45a5039/3b1db887-8039-4694-80a7-2c..., 2, null, null, null, active, faf2cce0-196e-4c05-a41c-d73ef45a5039, 2026-11-04 03:32:45.977993+00, null, 2026-11-04 03:32:45.977993+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'org_node', dataType: undefined, constraint: 'org_node_plant_code_ck', file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > one plant offline leaves its due retry intact until its worker returns
+error: new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ plants tests/pr07/confirmation.pg.spec.ts:34:20
+     32|   for (let i=0; i<2; i++) {
+     33|     const id = randomUUID()
+     34|     const result = await pool.query<{id:string}>(`INSERT INTO org_node…
+       |                    ^
+     35|       SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_repla…
+     36|       FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,…
+ ❯ tests/pr07/confirmation.pg.spec.ts:105:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 602, severity: 'ERROR', code: '23514', detail: 'Failing row contains (3b6aec95-2ff4-4329-abea-fe2a942d15d8, plant, P07-00a12445-d4da-48ef-816c-d008fbeb3751, P07-00a12445-d4da-48ef-816c-d008fbeb3751, 3b1db887-8039-4694-80a7-2ced9e64fcc3, legal_entity, /faf2cce0-196e-4c05-a41c-d73ef45a5039/3b1db887-8039-4694-80a7-2c..., 2, null, null, null, active, faf2cce0-196e-4c05-a41c-d73ef45a5039, 2026-11-04 03:32:45.984936+00, null, 2026-11-04 03:32:45.984936+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'org_node', dataType: undefined, constraint: 'org_node_plant_code_ck', file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > known object with missing plant snapshot resolves actual factory before claim
+error: new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ plants tests/pr07/confirmation.pg.spec.ts:34:20
+     32|   for (let i=0; i<2; i++) {
+     33|     const id = randomUUID()
+     34|     const result = await pool.query<{id:string}>(`INSERT INTO org_node…
+       |                    ^
+     35|       SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_repla…
+     36|       FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,…
+ ❯ tests/pr07/confirmation.pg.spec.ts:110:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 602, severity: 'ERROR', code: '23514', detail: 'Failing row contains (cbb3cc64-951e-4677-bfb5-fd6b2b0e00dd, plant, P07-e1ceb64e-f381-4910-af25-8748f1674c4a, P07-e1ceb64e-f381-4910-af25-8748f1674c4a, 3b1db887-8039-4694-80a7-2ced9e64fcc3, legal_entity, /faf2cce0-196e-4c05-a41c-d73ef45a5039/3b1db887-8039-4694-80a7-2c..., 2, null, null, null, active, faf2cce0-196e-4c05-a41c-d73ef45a5039, 2026-11-04 03:32:45.988828+00, null, 2026-11-04 03:32:45.988828+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'org_node', dataType: undefined, constraint: 'org_node_plant_code_ck', file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > conflicting plant snapshot and actual object remains unchanged for both workers
+error: new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ plants tests/pr07/confirmation.pg.spec.ts:34:20
+     32|   for (let i=0; i<2; i++) {
+     33|     const id = randomUUID()
+     34|     const result = await pool.query<{id:string}>(`INSERT INTO org_node…
+       |                    ^
+     35|       SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_repla…
+     36|       FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,…
+ ❯ tests/pr07/confirmation.pg.spec.ts:115:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 600, severity: 'ERROR', code: '23514', detail: 'Failing row contains (6788d8f1-5e70-4e2f-b75e-7d3ca6307410, plant, P07-7df13e1e-b94f-4181-b7ab-da3738ff3d5c, P07-7df13e1e-b94f-4181-b7ab-da3738ff3d5c, 3b1db887-8039-4694-80a7-2ced9e64fcc3, legal_entity, /faf2cce0-196e-4c05-a41c-d73ef45a5039/3b1db887-8039-4694-80a7-2c..., 2, null, null, null, active, faf2cce0-196e-4c05-a41c-d73ef45a5039, 2026-11-04 03:32:45.99218+00, null, 2026-11-04 03:32:45.99218+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'org_node', dataType: undefined, constraint: 'org_node_plant_code_ck', file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > unresolved scope is not claimed or changed
+error: new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ plants tests/pr07/confirmation.pg.spec.ts:34:20
+     32|   for (let i=0; i<2; i++) {
+     33|     const id = randomUUID()
+     34|     const result = await pool.query<{id:string}>(`INSERT INTO org_node…
+       |                    ^
+     35|       SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_repla…
+     36|       FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,…
+ ❯ tests/pr07/confirmation.pg.spec.ts:119:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 602, severity: 'ERROR', code: '23514', detail: 'Failing row contains (97297de2-49b2-4b9b-860f-590c7908d4ed, plant, P07-e6b35823-e4ee-4dbc-b632-e67e83cb96f7, P07-e6b35823-e4ee-4dbc-b632-e67e83cb96f7, 3b1db887-8039-4694-80a7-2ced9e64fcc3, legal_entity, /faf2cce0-196e-4c05-a41c-d73ef45a5039/3b1db887-8039-4694-80a7-2c..., 2, null, null, null, active, faf2cce0-196e-4c05-a41c-d73ef45a5039, 2026-11-04 03:32:45.996272+00, null, 2026-11-04 03:32:45.996272+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'org_node', dataType: undefined, constraint: 'org_node_plant_code_ck', file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > noop cannot make a real external receipt
+error: new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ plants tests/pr07/confirmation.pg.spec.ts:34:20
+     32|   for (let i=0; i<2; i++) {
+     33|     const id = randomUUID()
+     34|     const result = await pool.query<{id:string}>(`INSERT INTO org_node…
+       |                    ^
+     35|       SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_repla…
+     36|       FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,…
+ ❯ tests/pr07/confirmation.pg.spec.ts:123:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 602, severity: 'ERROR', code: '23514', detail: 'Failing row contains (a5028625-a0cf-4e68-bbea-9ca628382c18, plant, P07-6aca55a1-1c8a-4ad7-b8f4-63bcaf2d5f38, P07-6aca55a1-1c8a-4ad7-b8f4-63bcaf2d5f38, 3b1db887-8039-4694-80a7-2ced9e64fcc3, legal_entity, /faf2cce0-196e-4c05-a41c-d73ef45a5039/3b1db887-8039-4694-80a7-2c..., 2, null, null, null, active, faf2cce0-196e-4c05-a41c-d73ef45a5039, 2026-11-04 03:32:46.000264+00, null, 2026-11-04 03:32:46.000264+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'org_node', dataType: undefined, constraint: 'org_node_plant_code_ck', file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > legacy custom noop DISPATCHED is normalized to NOOP_NEEDED
+error: new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ plants tests/pr07/confirmation.pg.spec.ts:34:20
+     32|   for (let i=0; i<2; i++) {
+     33|     const id = randomUUID()
+     34|     const result = await pool.query<{id:string}>(`INSERT INTO org_node…
+       |                    ^
+     35|       SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_repla…
+     36|       FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,…
+ ❯ tests/pr07/confirmation.pg.spec.ts:127:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 602, severity: 'ERROR', code: '23514', detail: 'Failing row contains (7bd77fb2-44ad-4e70-8957-cd092efd8293, plant, P07-60e9b648-eb6d-48ab-85d2-4a02d2fdd054, P07-60e9b648-eb6d-48ab-85d2-4a02d2fdd054, 3b1db887-8039-4694-80a7-2ced9e64fcc3, legal_entity, /faf2cce0-196e-4c05-a41c-d73ef45a5039/3b1db887-8039-4694-80a7-2c..., 2, null, null, null, active, faf2cce0-196e-4c05-a41c-d73ef45a5039, 2026-11-04 03:32:46.005353+00, null, 2026-11-04 03:32:46.005353+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'org_node', dataType: undefined, constraint: 'org_node_plant_code_ck', file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 actual PG claim scope, without external network > unknown delivery is isolated and not blindly retried
+error: new row for relation "org_node" violates check constraint "org_node_plant_code_ck"
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ plants tests/pr07/confirmation.pg.spec.ts:34:20
+     32|   for (let i=0; i<2; i++) {
+     33|     const id = randomUUID()
+     34|     const result = await pool.query<{id:string}>(`INSERT INTO org_node…
+       |                    ^
+     35|       SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_repla…
+     36|       FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,…
+ ❯ tests/pr07/confirmation.pg.spec.ts:131:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 602, severity: 'ERROR', code: '23514', detail: 'Failing row contains (8a9c4c56-7907-4b7a-9701-9d9328913018, plant, P07-d0b37b7b-9355-411f-b14d-edfcf4b396b7, P07-d0b37b7b-9355-411f-b14d-edfcf4b396b7, 3b1db887-8039-4694-80a7-2ced9e64fcc3, legal_entity, /faf2cce0-196e-4c05-a41c-d73ef45a5039/3b1db887-8039-4694-80a7-2c..., 2, null, null, null, active, faf2cce0-196e-4c05-a41c-d73ef45a5039, 2026-11-04 03:32:46.010442+00, null, 2026-11-04 03:32:46.010442+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'org_node', dataType: undefined, constraint: 'org_node_plant_code_ck', file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome undefined changes no business rows
+AssertionError: {"operationId":"cb0b960e-54a9-4206-aab3-ae0c1a144852","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-b47e51d8-0bff-4a3e-9c15-ad2c1018ebd6 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.058Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:138:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome null changes no business rows
+AssertionError: {"operationId":"87e12960-97ac-4166-82fc-bb9d8e7fb1fd","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-a2a19aad-77dd-4b48-8f3d-d739cb7cfb87 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.089Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:138:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome  changes no business rows
+AssertionError: {"operationId":"063b9ae9-e3b1-4bbd-8563-782c2ae63099","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-1d2db0af-520b-40fb-9268-8c3b6937753d 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.119Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:138:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome SUCCESS changes no business rows
+AssertionError: {"operationId":"bdac096a-841b-4c05-82ea-4eaf2895208e","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-97f6eae2-c193-4e5e-a03f-66ff608ecf8e 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.140Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:138:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome true changes no business rows
+AssertionError: {"operationId":"538e0d0e-9a56-4268-af85-33d19da37b63","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-4fa6bad6-ab04-429b-8969-522219d94878 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.166Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:138:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > invalid outcome invalid changes no business rows
+AssertionError: {"operationId":"85a79c63-df67-45f3-b50d-98f4c6ebfe16","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-fb4c3221-a5c8-42af-a291-dad84abba316 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.185Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:138:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > unknown preserves local assignment/snapshot and leaves EXTERNAL_UNKNOWN
+AssertionError: {"operationId":"2891b2ac-68be-482f-9536-be79e59d9624","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-ee2ec4c0-5691-4539-8a78-fb3e440aa508 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.205Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:141:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > success with missing persisted receipt is rejected
+AssertionError: {"operationId":"2e827c61-f28b-423e-aad7-cf3971529bbf","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-a286c040-34a7-4052-a860-5fd09b3ba9a4 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.229Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:146:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > success with noop persisted receipt is rejected
+AssertionError: {"operationId":"0d8c57fd-a327-4f8e-b1dd-5c74fbfae49f","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-c70905e7-b61d-49a0-a9e3-40d38e6150b3 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.248Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:146:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > success with wrong-digest persisted receipt is rejected
+AssertionError: {"operationId":"3d00b11e-81ed-4b17-bf09-8a4fbc37a9a7","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-3810ee20-50bd-4782-a377-a8292d8ed77f 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.270Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:146:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/20]⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts > PR07 real conversion commands keep local execution and require persisted acknowledgement > matching persisted fixture receipt confirms once without reapplying local conversion
+AssertionError: {"operationId":"6bca1185-6219-41e3-be02-89cb19e43065","status":"BUSINESS_REJECTION","errorCode":"ERR_BUSINESS_RULE","errorMessage":"[FC-07] 扫码只接受载具码类型位 E/F/M/P（10 位第 2 位，不含 R）：P07-1f4572db-8d21-4da2-a21b-ed22ccb23e2a 不是可转换载具码","occurredAt":"2026-11-04T03:32:46.292Z"}: expected 'BUSINESS_REJECTION' to be 'COMMITTED' // Object.is equality
+
+Expected: "COMMITTED"
+Received: "BUSINESS_REJECTION"
+
+ ❯ committed tests/pr07/confirmation.pg.spec.ts:18:107
+     16| const envelope = (commandType: string, payload: Payload) => ({ command…
+     17| async function committed(bus: CommandBus, command: string, payload: Pa…
+     18|   const e=envelope(command,payload);const r=await bus.execute(e,actor)…
+       |                                                                                                           ^
+     19| }
+     20| async function snapshot() {
+ ❯ completedConversion tests/pr07/confirmation.pg.spec.ts:69:3
+ ❯ tests/pr07/confirmation.pg.spec.ts:152:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/20]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  20 failed (20)
+   Start at  11:32:43
+   Duration  2.86s (transform 775ms, setup 0ms, collect 1.12s, tests 1.61s, environment 0ms, prepare 44ms)
+

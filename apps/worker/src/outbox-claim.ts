@@ -1,5 +1,7 @@
 import type pg from 'pg'
-import type { HandlerOutcome, OutboxTaskRow, TaskHandlerRegistry } from './handlers'
+import type { HandlerOutcome, OutboxTaskRow, TaskHandlerRegistry, WorkerScope } from './handlers'
+import { TASK_PLANT_SQL } from './task-scope'
+import { outboxRequestDigest } from './handlers'
 
 /**
  * T07 outbox 真实处理循环核心：
@@ -16,13 +18,17 @@ import type { HandlerOutcome, OutboxTaskRow, TaskHandlerRegistry } from './handl
 
 /** 认领条件：PENDING 且到期（next_retry_at 为空或已过）；FAILED 仅在已排定且到期时重试。 */
 export const CLAIM_LOCK_SQL = /* sql */ `
-  SELECT event_id, aggregate_type, aggregate_id, task_kind, payload, attempt_count
-  FROM outbox
-  WHERE (status = 'PENDING' AND (next_retry_at IS NULL OR next_retry_at <= now()))
-     OR (status = 'FAILED' AND next_retry_at IS NOT NULL AND next_retry_at <= now())
-  ORDER BY created_at, event_id
+  SELECT o.event_id, o.aggregate_type, o.aggregate_id, o.task_kind, o.payload, o.attempt_count,
+         (${TASK_PLANT_SQL}) AS plant_id
+  FROM outbox o
+  WHERE ((o.status = 'PENDING' AND (o.next_retry_at IS NULL OR o.next_retry_at <= now()))
+     OR (o.status = 'FAILED' AND o.next_retry_at IS NOT NULL AND o.next_retry_at <= now()))
+    AND (${TASK_PLANT_SQL}) = ANY($2::text[])
+    AND (NOT (o.payload ? 'plantId') OR o.payload->>'plantId' = (${TASK_PLANT_SQL}))
+    AND EXISTS (SELECT 1 FROM org_node p WHERE p.id::text=(${TASK_PLANT_SQL}) AND p.kind='plant' AND p.status='active')
+  ORDER BY o.created_at, o.event_id
   LIMIT $1
-  FOR UPDATE SKIP LOCKED
+  FOR UPDATE OF o SKIP LOCKED
 `
 
 /** 指数退避：第 n 次失败后延迟 base * 2^(n-1)，封顶 max。 */
@@ -36,6 +42,7 @@ export function retryDelayMs(attemptCountAfterIncrement: number, baseMs: number,
 export interface ProcessBatchConfig {
   limit: number
   registry: TaskHandlerRegistry
+  scope?: WorkerScope
   /** 退避基值 ms（默认 30_000）。 */
   retryBaseMs?: number
   /** 退避封顶 ms（默认 3_600_000）。 */
@@ -59,6 +66,8 @@ export interface BatchProcessResult {
  * 返回本批逐行结果；任何行级处理器异常按 FAILED(retry=true) 落库，不中断同批其它行。
  */
 export async function processBatch(pool: pg.Pool, config: ProcessBatchConfig): Promise<BatchProcessResult> {
+  const scope = config.scope ?? config.registry.scope
+  if (!scope || scope.plantIds.length === 0) throw new Error('Worker requires explicit nonempty WORKER_SCOPE_PLANTS; no implicit enterprise scope')
   const retryBaseMs = config.retryBaseMs ?? 30_000
   const retryMaxMs = config.retryMaxMs ?? 3_600_000
   const client = await pool.connect()
@@ -72,7 +81,8 @@ export async function processBatch(pool: pg.Pool, config: ProcessBatchConfig): P
       task_kind: string
       payload: Record<string, unknown> | null
       attempt_count: number
-    }>(CLAIM_LOCK_SQL, [config.limit])
+      plant_id: string
+    }>(CLAIM_LOCK_SQL, [config.limit, [...scope.plantIds]])
 
     const results: RowProcessResult[] = []
     for (const raw of claimed.rows) {
@@ -83,6 +93,7 @@ export async function processBatch(pool: pg.Pool, config: ProcessBatchConfig): P
         taskKind: raw.task_kind,
         payload: raw.payload ?? {},
         attemptCount: raw.attempt_count,
+        plantId: raw.plant_id,
       }
       const handler = config.registry.resolve(row.taskKind)
       let outcome: HandlerOutcome
@@ -100,7 +111,15 @@ export async function processBatch(pool: pg.Pool, config: ProcessBatchConfig): P
           }
         }
       }
-      const attemptCount = row.attemptCount + 1
+      if (!outcome || !['DISPATCHED','NOOP_NEEDED','FAILED','SCOPE_SKIPPED','EXTERNAL_UNKNOWN'].includes(outcome.kind)) {
+        outcome = { kind: 'EXTERNAL_UNKNOWN', reason: 'Handler returned no valid outcome' }
+      } else if (outcome.kind === 'DISPATCHED') {
+        if (outcome.externalRef?.startsWith('noop:')) outcome = { kind: 'NOOP_NEEDED', reason: 'SITE_PENDING: noop is not external confirmation' }
+        else if (!outcome.externalRef?.trim() || outcome.requestDigest !== outboxRequestDigest(row)) {
+          outcome = { kind: 'EXTERNAL_UNKNOWN', reason: 'Handler confirmation is not bound to the original task digest' }
+        }
+      }
+      const attemptCount = row.attemptCount + (outcome.kind === 'SCOPE_SKIPPED' ? 0 : 1)
       await writeOutcome(client, row.eventId, attemptCount, outcome, retryBaseMs, retryMaxMs)
       results.push({ eventId: row.eventId, taskKind: row.taskKind, outcome: outcome.kind, attemptCount })
     }
@@ -138,21 +157,18 @@ async function writeOutcome(
     case 'NOOP_NEEDED':
       await client.query(
         `UPDATE outbox
-         SET status = 'NOOP_NEEDED', attempt_count = $2, last_error = $3,
+         SET status = 'NOOP_NEEDED', attempt_count = $2, last_error = $3, external_ref=NULL, request_digest=NULL,
              next_retry_at = NULL, updated_at = now()
          WHERE event_id = $1`,
         [eventId, attemptCount, outcome.reason],
       )
       return
     case 'SCOPE_SKIPPED':
-      // 越范围不外发：FAILED + next_retry_at=NULL（隔离，不入常规重试；范围修正后人工重排）
-      await client.query(
-        `UPDATE outbox
-         SET status = 'FAILED', attempt_count = $2, last_error = $3,
-             next_retry_at = NULL, updated_at = now()
-         WHERE event_id = $1`,
-        [eventId, attemptCount, outcome.reason],
-      )
+      return // no status, attempt, retry, timestamp or receipt mutation
+    case 'EXTERNAL_UNKNOWN':
+      await client.query(`UPDATE outbox SET status='EXTERNAL_UNKNOWN', attempt_count=$2,
+        last_error=$3, next_retry_at=NULL, external_ref=NULL, request_digest=NULL, updated_at=now() WHERE event_id=$1`,
+      [eventId, attemptCount, outcome.reason])
       return
     case 'FAILED': {
       const delayMs = outcome.retry ? retryDelayMs(attemptCount, retryBaseMs, retryMaxMs) : null

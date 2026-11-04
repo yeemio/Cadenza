@@ -1,0 +1,24 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-work
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  23:35:31
+   Duration  3.44s (transform 2.21s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 75ms)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr07/confirmation.pg.spec.ts [ tests/pr07/confirmation.pg.spec.ts ]
+Error: NOT_RUN: CADENZA_PR07_TEST_DB_URL must name a NEW empty cadenza_pr07_* PostgreSQL database
+ ❯ tests/pr07/confirmation.pg.spec.ts:12:86
+     10| import { seedCvFixtures, seedProductionOrder, seedUnitOwner, CV_OWNER_…
+     11| const url = process.env['CADENZA_PR07_TEST_DB_URL']
+     12| if (!url || !/^cadenza_pr07_[a-z0-9_]+$/.test(new URL(url).pathname.sl…
+       |                                                                                      ^
+     13| const pool = createPool(url, { max: 8 })
+     14| type Payload = Record<string, unknown>
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

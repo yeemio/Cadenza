@@ -7,7 +7,7 @@ import { processBatch } from './outbox-claim'
  * outbox 后台处理进程（T07 可靠派发）：
  * - 环境变量：WORKER_INTERVAL_MS（默认 5000）、WORKER_BATCH_LIMIT（默认 10）、
  *   WORKER_CHANNEL（默认 noop；真实外部接口 SITE_PENDING）、WORKER_SCOPE_PLANTS（逗号分隔
- *   工厂 id，空=不按工厂过滤）、WORKER_RETRY_BASE_MS（默认 30000）、
+ *   工厂 id，必须显式非空）、WORKER_RETRY_BASE_MS（默认 30000）、
  *   WORKER_RETRY_MAX_MS（默认 3600000）、WORKER_ONCE（true=单批后退出，批处理/cron 模式）、
  *   DATABASE_URL；
  * - 每 tick 单事务认领一批（FOR UPDATE SKIP LOCKED）→ 注册表分发 → 落状态机；
@@ -38,6 +38,7 @@ async function main(): Promise<void> {
   if (safeMaxMs < safeBaseMs) {
     console.warn('[worker] WORKER_RETRY_MAX_MS < BASE，封顶取基值')
   }
+  if (scope.plantIds.length === 0) throw new Error('WORKER_SCOPE_PLANTS must name the authorized factories')
   const channel = createChannel(channelName) // 未知通道直接启动失败，不静默回落
   const registry = buildRegistry(channel, scope)
   const url = resolveDatabaseUrl()
@@ -74,6 +75,7 @@ async function main(): Promise<void> {
       const batch = await processBatch(pool, {
         limit: safeLimit,
         registry,
+        scope,
         retryBaseMs: safeBaseMs,
         retryMaxMs: safeMaxMs,
       })
