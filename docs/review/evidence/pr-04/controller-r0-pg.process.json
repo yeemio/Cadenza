@@ -1,0 +1,17 @@
+{
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    "tests/pr04/vitest.config.ts",
+    "tests/pr04/fulfilment.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "database": "cadenza_pr04_fulfilment_r0_20261104",
+  "startedUtc": "2026-11-04T03:15:36.358230+00:00",
+  "finishedUtc": "2026-11-04T03:15:44.763933+00:00",
+  "exitCode": 0,
+  "logSha256": "4409f6d9316cd683008380d750f5c05ef553aa7965024ba74cb92f468ab0d40a"
+}
