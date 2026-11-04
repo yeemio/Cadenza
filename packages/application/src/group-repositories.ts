@@ -1,4 +1,5 @@
 import type { CommandTools } from './command-bus'
+import type { QualityStatus, ReservationLike } from '@cadenza/domain'
 
 /** 集团分配修订行（非成本分摊）。 */
 export interface GroupAllocationRevisionRecord {
@@ -70,6 +71,7 @@ export interface NewGroupShortageKittingResult {
 }
 
 export interface GroupShortageKittingFilter {
+  enterpriseId: string
   plantIds: string[] | null
   plantId?: string
   orderNoLike?: string
@@ -77,7 +79,31 @@ export interface GroupShortageKittingFilter {
   offset: number
 }
 
+export interface GroupKittingFacts {
+  order: { id: string; enterpriseId: string; plantId: string; orderNo: string; materialId: string; quantity: string; uom: string; settingsVersion: number; bomRevisionId: string | null; status: string; operationCount: number; operationBomIds: string[] } | null
+  bom: { id: string; enterpriseId: string; plantId: string; materialId: string; version: number; status: string; publishedAt: string | null; lines: unknown[] } | null
+  materials: Array<{ id: string; code: string; baseUom: string; status: string; conversions: Array<{ id: string; version: number; unitName: string; factor: string }> }>
+  stocks: Array<{ unitId: string; materialId: string; uom: string; quantity: string; qualityStatus: QualityStatus; unitStatus: string; qualityHeld: boolean; businessHeld: boolean; measurementKnown: boolean; conversionRevisionId?: string | null; conversionFactor?: string | null; reservations: ReservationLike[] }>
+}
+export interface GroupKittingBasis { outputQuantity: string; outputUom: string }
+export interface GroupKittingCalculation {
+  requirementBasis: 'FULL_ORDER_BOM'
+  stockScope: 'CURRENT_FACTORY_UNRESERVED'
+  outcome: 'KIT_COMPLETE' | 'SHORTAGE' | 'ORDER_NOT_FOUND' | 'MISSING_DATA' | 'UNCONVERTIBLE'
+  checkStatus: 'ok' | 'shortage' | 'error'
+  reason: string | null
+  orderId: string | null
+  settingsVersion: number | null
+  bomRevisionId: string | null
+  bomVersion: number | null
+  basis: GroupKittingBasis | null
+  evaluatedAt: string
+  lines: Array<{ materialId: string; materialCode: string; uom: string; required: string; available: string; shortage: string; eligibleUnitIds: string[]; excludedUnitIds: string[] }>
+}
+
 export interface GroupShortageKittingRepository {
+  /** One statement snapshot, already restricted to actual enterprise/factory/order. */
+  readFacts(enterpriseId: string, plantId: string, orderNo: string): Promise<GroupKittingFacts>
   listPaged(filter: GroupShortageKittingFilter): Promise<{ total: number; items: GroupShortageKittingRecord[] }>
   insert(row: NewGroupShortageKittingResult): Promise<GroupShortageKittingRecord>
 }

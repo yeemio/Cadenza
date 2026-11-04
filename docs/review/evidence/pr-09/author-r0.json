@@ -1,0 +1,148 @@
+{
+  "pr": 9,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-09-group-kitting",
+  "exactRecordedParentHead": "b30eba3e364d32fb26f97f458c61eb3d464d5943",
+  "prerequisites": [
+    {
+      "pr": 1,
+      "head": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "status": "ACCEPTED_PRIOR_NOT_RETESTED"
+    },
+    {
+      "pr": 2,
+      "sourceAndTestSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+      "status": "CANDIDATE_CONTROLLER_PENDING"
+    },
+    {
+      "pr": 3,
+      "sourceAndTestSha256": "5cd5ded5590fa2e08726850278dcb29b56113562a088bbd43029f48081cdaf90",
+      "fullPatchSha256": "795b9eb73a1755bbcd8e0eb865eb1987f3611ab0a0fb76702697ef49f0e32520",
+      "selectedExactPostimages": 50,
+      "status": "CANDIDATE_CONTROLLER_PENDING"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "3669c18adb85a2b62ab714474f3de9fc1cf809640d6c34add62d683973d00eba",
+    "files": [
+      {
+        "path": "packages/application/src/group-handlers.ts",
+        "sha256": "4364ae9c4ba84539a158925f27f733a8b7697b75cc6ddabcf2f613313288da8b",
+        "parentSha256": "514ce85a147b21d4c1faa685aedc58e8f77cf0590f9802a1e76c708bdc91e739"
+      },
+      {
+        "path": "packages/application/src/group-queries.ts",
+        "sha256": "0f88a0b6b2c1cefc6439df3e77780c6e2d7a6c3689a8db483e1bb80e020d9f8d",
+        "parentSha256": "f557bae7deabfec9312b967240f5403be9110e812b47b394e1a09a8040d9d4a0"
+      },
+      {
+        "path": "packages/application/src/group-repositories.ts",
+        "sha256": "4ebc13e626db51128daadcaa2f3f9667a3099cb34f0fd75143d0f57f1e902046",
+        "parentSha256": "98a86939494929e1e6398a15199702f472054b938c37cf161c0cdb2ed81afbf4"
+      },
+      {
+        "path": "packages/persistence/src/group-repositories.ts",
+        "sha256": "1e84b6ddf4f7adaf7f9f32a72da5bf78a471a4058691d549ff3d34c276ba870d",
+        "parentSha256": "70d76e37f13324a9c18b8e2680907ac5e75fd089bf15ecdfdfdd9cc8894f3b88"
+      },
+      {
+        "path": "tests/pr09/kitting.pg.spec.ts",
+        "sha256": "11645af5ca7de0c0db4baa98183a9310aca8915d22c3fccd8a45a20151c8976c",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr09/kitting.unit.spec.ts",
+        "sha256": "b90316a9060f9a5b4f7c103e938e0664091c69813f52c00700cdeacee644d5f5",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr09/tsconfig.json",
+        "sha256": "2bee9518c53ac2921e1697b3642583be1ea1aefda8a5836bca47d900e6a4e77a",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr09/vitest.config.ts",
+        "sha256": "015261ef40c2d3baf9ae48eb7403ceb8543aba5fb5c9ec17e489d5fdd7ea7420",
+        "parentSha256": null
+      }
+    ]
+  },
+  "scopeExtensions": {
+    "packages/application/src/group-queries.ts": "Pass authenticated enterprise ID to the shortage-result repository list so an enterprise-wide read remains enterprise-bound; other group features unchanged."
+  },
+  "scopeExtensionReview": "CONTROLLER_PENDING; named before edit",
+  "commands": [
+    {
+      "name": "application-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck-final.log"
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "persistence-typecheck-final.log"
+    },
+    {
+      "name": "tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr09/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck.log"
+    },
+    {
+      "name": "kitting-unit-final",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr09/vitest.config.ts tests/pr09/kitting.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "kitting-unit-final.log"
+    },
+    {
+      "name": "kitting-pg-not-run",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr09/vitest.config.ts tests/pr09/kitting.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "kitting-pg-not-run.log"
+    },
+    {
+      "name": "application-typecheck-final-measurement",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck-final-measurement.log"
+    },
+    {
+      "name": "tests-typecheck-final-measurement",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr09/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck-final-measurement.log"
+    },
+    {
+      "name": "kitting-unit-final-measurement",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr09/vitest.config.ts tests/pr09/kitting.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "kitting-unit-final-measurement.log"
+    }
+  ],
+  "unit": {
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0,
+    "kind": "pure calculation fixtures only"
+  },
+  "realPG": {
+    "plannedCases": 16,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "reason": "No CADENZA_PR09_TEST_DB_URL or PostgreSQL runtime; explicit precondition abort with no fallback or skip"
+  },
+  "limitations": [
+    "Calculation is explicitly FULL_ORDER_BOM demand against CURRENT_FACTORY_UNRESERVED stock. It does not silently deduct already-consumed materials or promise future allocation/reservation.",
+    "Missing BOM quantity basis yields MISSING_DATA. CADENZA_KITTING_BOM_BASES must map the exact frozen BOM UUID to outputQuantity/outputUom; no per-one default and no real factory configuration installed.",
+    "Three final typechecks PASS using cached dependencies, not a cold locked install/build.",
+    "Actual SQL, PostgreSQL concurrency, site business rules and external acceptance remain NOT_RUN/UNVERIFIED.",
+    "Original controller publication/acceptance pending; no external message channel found or used."
+  ],
+  "remoteWrite": false,
+  "controllerAccepted": false
+}
