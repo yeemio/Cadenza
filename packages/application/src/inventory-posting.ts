@@ -25,6 +25,7 @@ import {
   type MovementKind,
 } from '@cadenza/domain'
 import type { CommandContext } from './command-bus'
+import { assertObjectWriteScope, type ObjectScope } from './object-scope-repositories'
 import type {
   InventoryCommandTools,
   InventoryUnitRecord,
@@ -53,6 +54,8 @@ export interface PostingContext {
   /** IT-37：业务时间（载荷缺省取系统时间，但分列落库） */
   businessTime: string
   shiftDate: string | null
+  /** Trusted originating command permission; never read from the payload. */
+  writePermission?: string
 }
 
 type Payload = Record<string, unknown>
@@ -117,32 +120,51 @@ export async function buildPostingContext(
     throw new InventoryRuleViolation('IT-21', '命令回执未落库：幂等键缺失，拒绝记账')
   }
   const { businessTime, shiftDate } = resolveBusinessTime(tools, str(payload, 'businessTime'))
-  return { tools, ctx, commandReceiptId: receiptId, businessTime, shiftDate }
+  const writePermission = commandType.startsWith('inventory.reservation.') ? INVENTORY_PERMISSIONS.INVENTORY_RESERVE
+    : commandType.startsWith('inventory.') ? INVENTORY_PERMISSIONS.INVENTORY_POST
+      : commandType.startsWith('quality.') ? 'quality.post'
+        : commandType.startsWith('purchase.') ? 'purchase.post' : undefined
+  return { tools, ctx, commandReceiptId: receiptId, businessTime, shiftDate, writePermission }
 }
 
 // ---------------- 通用前置 ----------------
 
-/** IT-S1（组织隔离）+ OA-24/26 二道防线：目标工厂须在 actor 数据范围内。 */
-async function assertPlantScope(tools: InventoryCommandTools, plantId: string): Promise<void> {
-  const scope = await tools.actorDataScope()
-  if (!scope.enterpriseWide && !scope.plantIds.includes(plantId)) {
-    throw new InventoryRuleViolation('IT-S1', `目标工厂不在授权数据范围内（plant=${plantId}）`)
+/** Check persisted identity before any quantity, reservation or custody write. */
+async function assertInventoryObjectScope(pc: PostingContext, target: ObjectScope, claimedPlantId?: string): Promise<void> {
+  const reject = (message: string) => new InventoryRuleViolation('IT-S1', message)
+  if (pc.writePermission !== undefined) {
+    await assertObjectWriteScope(pc.tools, pc.ctx, target, pc.writePermission, reject, claimedPlantId)
+    return
   }
+  // Other domains own their originating command permission. Keep that contract,
+  // while still checking the actual inventory identity at this shared boundary.
+  const plant = await pc.tools.org.findById(target.plantId)
+  if (target.enterpriseId !== pc.ctx.enterpriseId || plant === null || plant.kind !== 'plant' ||
+      plant.status !== 'active' || plant.enterpriseId !== pc.ctx.enterpriseId ||
+      (claimedPlantId !== undefined && claimedPlantId !== target.plantId)) throw reject('库存对象的真实企业/工厂不一致')
+  const scope = await pc.tools.actorDataScope()
+  if (!scope.enterpriseWide && !scope.plantIds.includes(target.plantId)) throw reject('库存对象不在授权工厂范围内')
+}
+
+async function assertPlantScope(pc: PostingContext, plantId: string): Promise<void> {
+  await assertInventoryObjectScope(pc, { enterpriseId: pc.ctx.enterpriseId, plantId })
 }
 
 /** 锁定库存单元并校验存在（IT-25：一切记账先锁单元，稳定次序）。 */
 async function lockUnits(
-  tools: InventoryCommandTools,
+  pc: PostingContext,
   unitIds: readonly string[],
+  claimedPlantId?: string,
 ): Promise<Map<string, InventoryUnitRecord>> {
   const ordered = ensureStableLockOrder(unitIds) // IT-25/27 稳定次序
   if (ordered.length !== unitIds.length) {
     throw new InventoryRuleViolation('IT-25', '载荷出现重复单元，拒绝')
   }
-  const locked = await tools.inv.units.lockForUpdate(ordered)
+  const locked = await pc.tools.inv.units.lockForUpdate(ordered)
   if (locked.length !== ordered.length) {
     throw new InventoryRuleViolation(NOT_FOUND_RULE, '库存单元不存在或已不可用')
   }
+  for (const unit of locked) await assertInventoryObjectScope(pc, unit, claimedPlantId)
   return new Map(locked.map((u) => [u.id, u]))
 }
 
@@ -213,6 +235,11 @@ export interface LineWrite {
 export async function writeLine(pc: PostingContext, spec: LineWrite): Promise<{ transactionId: string; closed: boolean }> {
   const inv = pc.tools.inv
   const actor = pc.ctx.actorLoginName
+  await assertInventoryObjectScope(pc, spec.unit)
+  if (spec.balance.unitId !== spec.unit.id || spec.balance.enterpriseId !== spec.unit.enterpriseId ||
+      spec.balance.plantId !== spec.unit.plantId) {
+    throw new InventoryRuleViolation('IT-S1', '余额与库存单元的真实企业/工厂不一致')
+  }
   if (cmpQty(spec.afterQty,spec.beforeQty)<0 && (await inv.units.businessHolds(spec.unit.id)).length>0) {
     throw new InventoryRuleViolation('IT-BUSINESS-HOLD',`库存单元 ${spec.unit.unitNo} 处于业务留置，不可扣减、转移或拆分`)
   }
@@ -312,7 +339,7 @@ export async function closeUnitIfZero(pc: PostingContext, unit: InventoryUnitRec
 export async function receiveGoods(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const inv = pc.tools.inv
   const plantId = requireStr(p, 'plantId', 'inventory.receive-goods')
-  await assertPlantScope(pc.tools, plantId)
+  await assertPlantScope(pc, plantId)
   const quantity = requireDec(p, 'quantity', 'inventory.receive-goods')
   if (!isPositiveQty(quantity)) {
     throw new InventoryRuleViolation('IT-07', '收货数量必须大于 0')
@@ -358,8 +385,11 @@ export async function receiveGoods(pc: PostingContext, p: Payload): Promise<Reco
       businessTime: pc.businessTime,
       createdBy: pc.ctx.actorLoginName,
     })
-  } else if (lot.materialId !== materialId) {
-    throw new InventoryRuleViolation('IT-01', `批次 ${lotNo} 已绑定其它物料，批次身份不可覆盖历史`)
+  } else {
+    await assertInventoryObjectScope(pc, lot, plantId)
+    if (lot.materialId !== materialId) {
+      throw new InventoryRuleViolation('IT-01', `批次 ${lotNo} 已绑定其它物料，批次身份不可覆盖历史`)
+    }
   }
 
   const unitNo = requireStr(p, 'unitNo', 'inventory.receive-goods')
@@ -498,7 +528,7 @@ export async function issueMaterial(pc: PostingContext, p: Payload): Promise<Rec
   const inv = pc.tools.inv
   const unitId = requireStr(p, 'unitId', 'inventory.issue-material')
   const quantity = requireDec(p, 'quantity', 'inventory.issue-material')
-  const units = await lockUnits(pc.tools, [unitId]) // IT-25：先锁单元（稳定次序）
+  const units = await lockUnits(pc, [unitId], str(p, 'plantId')) // IT-25：先锁单元（稳定次序）
   const unit = units.get(unitId)!
   // 行号口径与 receiveGoods 一致：同一命令回执下多行发料（execution 多行投料）逐行递增，缺省 1。
   const issueLineNoRaw = p['lineNo']
@@ -626,7 +656,7 @@ export async function issueMaterial(pc: PostingContext, p: Payload): Promise<Rec
 export async function returnMaterial(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const inv = pc.tools.inv
   const plantId = requireStr(p, 'plantId', 'inventory.return-material')
-  await assertPlantScope(pc.tools, plantId)
+  await assertPlantScope(pc, plantId)
   const unitId = requireStr(p, 'unitId', 'inventory.return-material')
   const quantity = requireDec(p, 'quantity', 'inventory.return-material')
   if (!isPositiveQty(quantity)) {
@@ -635,7 +665,7 @@ export async function returnMaterial(pc: PostingContext, p: Payload): Promise<Re
   const locationId = requireStr(p, 'locationId', 'inventory.return-material')
   const locationCode = requireStr(p, 'locationCode', 'inventory.return-material')
 
-  const units = await lockUnits(pc.tools, [unitId]) // IT-25：先锁单元
+  const units = await lockUnits(pc, [unitId], str(p, 'plantId')) // IT-25：先锁单元
   const unit = units.get(unitId)!
   if (unit.status === 'in_transit' || unit.status === 'shipped') {
     throw new InventoryRuleViolation('IT-13', `库存单元 ${unit.unitNo} 状态为 ${unit.status}，不可退料`)
@@ -758,7 +788,7 @@ export async function moveStock(pc: PostingContext, p: Payload): Promise<Record<
     typeof lineNoBaseRaw === 'number' && Number.isInteger(lineNoBaseRaw) && lineNoBaseRaw >= 1 ? lineNoBaseRaw : 1
   const refType = str(p, 'refType') ?? null
   const refId = str(p, 'refId') ?? null
-  const units = await lockUnits(pc.tools, [unitId])
+  const units = await lockUnits(pc, [unitId], str(p, 'plantId'))
   const unit = units.get(unitId)!
 
   const fromOwnerId = str(p, 'fromOwnerId')
@@ -855,7 +885,7 @@ export async function transferOut(pc: PostingContext, p: Payload): Promise<Recor
   const lineNoBaseRaw = p['lineNoBase']
   const lineNoBase =
     typeof lineNoBaseRaw === 'number' && Number.isInteger(lineNoBaseRaw) && lineNoBaseRaw >= 1 ? lineNoBaseRaw : 1
-  const units = await lockUnits(pc.tools, [unitId])
+  const units = await lockUnits(pc, [unitId], str(p, 'plantId'))
   const unit = units.get(unitId)!
 
   const from = await lockResolvedBalance(pc.tools, unit, str(p, 'fromLocationId'), str(p, 'ownerId'))
@@ -942,7 +972,7 @@ export async function transferIn(pc: PostingContext, p: Payload): Promise<Record
   const lineNoBaseRaw = p['lineNoBase']
   const lineNoBase =
     typeof lineNoBaseRaw === 'number' && Number.isInteger(lineNoBaseRaw) && lineNoBaseRaw >= 1 ? lineNoBaseRaw : 1
-  const units = await lockUnits(pc.tools, [unitId])
+  const units = await lockUnits(pc, [unitId], str(p, 'plantId'))
   const unit = units.get(unitId)!
 
   // 在途余额定位：显式 owner 或按"该库位上的活动余额"解析（在途余额在调拨出库段创建）
@@ -969,7 +999,7 @@ export async function transferIn(pc: PostingContext, p: Payload): Promise<Record
   const explicitDestination = str(p, 'toPlantId') !== undefined || str(p, 'toOwnerId') !== undefined
   if (explicitDestination) {
     if (unit.enterpriseId !== pc.ctx.enterpriseId) throw new InventoryRuleViolation('IT-S1', '源单元不属于本企业')
-    await assertPlantScope(pc.tools, unit.plantId)
+    await assertPlantScope(pc, unit.plantId)
     const toPlantId = requireStr(p, 'toPlantId', 'inventory.transfer.in')
     const toOwnerId = requireStr(p, 'toOwnerId', 'inventory.transfer.in')
     const destination = await pc.tools.inv.units.findTransferDestination(toPlantId, toOwnerId, toLocationId)
@@ -978,7 +1008,7 @@ export async function transferIn(pc: PostingContext, p: Payload): Promise<Record
         sourcePlant.kind !== 'plant' || sourcePlant.status !== 'active' || sourcePlant.enterpriseId !== pc.ctx.enterpriseId) {
       throw new InventoryRuleViolation('IT-S1', '目标厂/所有者/库位身份不合法或跨企业')
     }
-    await assertPlantScope(pc.tools, destination.plantId)
+    await assertPlantScope(pc, destination.plantId)
     const active = (await pc.tools.inv.balances.listActiveByUnit(unitId)).filter(row => cmpQty(row.quantity, '0') > 0)
     if (unit.status !== 'in_transit' || active.length !== 1 || active[0]!.id !== transit.id ||
         !(await pc.tools.inv.units.isTransferOutBalance(unitId, transit.id, unit.plantId))) {
@@ -1070,7 +1100,7 @@ export async function splitStock(pc: PostingContext, p: Payload): Promise<Record
     throw new InventoryRuleViolation('IT-31', '分盘记录损耗必须填写原因与去向（reason/ref）')
   }
 
-  const units = await lockUnits(pc.tools, [sourceUnitId])
+  const units = await lockUnits(pc, [sourceUnitId], str(p, 'plantId'))
   const unit = units.get(sourceUnitId)!
   const source = await lockResolvedBalance(pc.tools, unit, undefined, undefined)
   if (source === null || source.status === 'closed') {
@@ -1233,7 +1263,7 @@ export async function acquireReservation(pc: PostingContext, p: Payload): Promis
   const now = pc.tools.now().toISOString()
   assertReservationAcquirable({ unitId, holderType, holderRef, quantity, validUntil, now }) // IT-23
 
-  const units = await lockUnits(pc.tools, [unitId]) // IT-15：同码并发消费/预留串行
+  const units = await lockUnits(pc, [unitId], str(p, 'plantId')) // IT-15：同码并发消费/预留串行
   const unit = units.get(unitId)!
   const balances = await inv.balances.listActiveByUnit(unitId)
   const balance =
@@ -1244,6 +1274,9 @@ export async function acquireReservation(pc: PostingContext, p: Payload): Promis
         : null
   if (balance === null) {
     throw new InventoryRuleViolation('IT-23', `库存单元 ${unit.unitNo} 无唯一活动余额，预留须显式指定库位`)
+  }
+  if (balance.unitId !== unit.id || balance.enterpriseId !== unit.enterpriseId || balance.plantId !== unit.plantId) {
+    throw new InventoryRuleViolation('IT-S1', '预留余额与库存单元的实际归属不一致')
   }
   const reservations = await inv.reservations.listActiveByUnit(unitId)
   const availability = computeAvailability({
@@ -1298,6 +1331,11 @@ export async function releaseReservation(pc: PostingContext, p: Payload): Promis
   if (reservation === null) {
     throw new InventoryRuleViolation(NOT_FOUND_RULE, '预留不存在')
   }
+  const units = await lockUnits(pc, [reservation.unitId], str(p, 'plantId'))
+  const unit = units.get(reservation.unitId)!
+  if (reservation.enterpriseId !== unit.enterpriseId || reservation.plantId !== unit.plantId) {
+    throw new InventoryRuleViolation('IT-S1', '预留与库存单元的真实企业/工厂不一致')
+  }
   if (reservation.status !== 'active') {
     throw new InventoryRuleViolation('IT-23', `预留 ${reservationId} 已处于 ${reservation.status} 状态，无须释放`)
   }
@@ -1337,12 +1375,12 @@ export async function establishBusinessHold(pc: PostingContext,p:Payload):Promis
   const reason=requireStr(p,'reason','inventory.business-hold.establish').trim()
   const businessRef=requireStr(p,'businessRef','inventory.business-hold.establish').trim()
   if(!reason||!businessRef)throw new InventoryRuleViolation('IT-22','留置理由和业务引用不可为空')
-  const units=await lockUnits(pc.tools,ids as string[])
+  const units=await lockUnits(pc,ids as string[],str(p,'plantId'))
   // Validate all units before inserting any hold/audit, including enterprise-wide actors.
   for(const unit of units.values()){
     const plant=await pc.tools.org.findById(unit.plantId)
     if(unit.enterpriseId!==pc.ctx.enterpriseId||plant===null||plant.kind!=='plant'||plant.status!=='active'||plant.enterpriseId!==pc.ctx.enterpriseId)throw new InventoryRuleViolation('IT-S1','留置单元不在本企业真实活动工厂')
-    await assertPlantScope(pc.tools,unit.plantId)
+    await assertPlantScope(pc,unit.plantId)
     if(unit.status!=='in_stock'||(await pc.tools.inv.balances.listActiveByUnit(unit.id)).every(b=>cmpQty(b.quantity,'0')<=0))throw new InventoryRuleViolation('IT-BUSINESS-HOLD','仅可留置真实在库实物')
   }
   const holds=[]
