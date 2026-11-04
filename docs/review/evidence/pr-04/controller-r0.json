@@ -1,0 +1,68 @@
+{
+  "decision": "ACCEPT",
+  "scope": "C4 local exact source plus isolated real PostgreSQL shipping fulfilment",
+  "originalParent": "df864060609f24b89b84d5a453757ffbe555f971",
+  "acceptedPr03Head": "2b78fc41c4bb71a1da9f4c418f52500a323684da",
+  "cumulativeParent": "c27473d7225857f793857edce52372414e91fd11",
+  "testedSourceCommit": "d98f83e5cccb039eb8f2b88a65828f353722a0c3",
+  "sourceTestFingerprint": "2c194fec1592e430bb56b856370b2f752e091afd8eb57a6be498258aa21e5dff",
+  "incrementPatchSha256": "d8a99949567faf215f36644468750d5b7ec2573304a36a298df2ce6914e38603",
+  "applicationRoute": "ActualGitmerge acceptedPR3 then unchanged author incremental patch, not old complete cumulative patch",
+  "ownedPostimagesMatched": 16,
+  "frozenCombinedPostimagesMatched": 62,
+  "frozenCombinedPostimagesTotal": 65,
+  "intentionalAcceptedPrerequisiteDifferences": [
+    "packages/application/src/inventory-posting.ts",
+    "tests/pr02/object-write-scope.pg.spec.ts",
+    "tests/pr03/quality-availability.pg.spec.ts"
+  ],
+  "allThreeDifferencesByteIdenticalToAcceptedPr03Head": true,
+  "checks": {
+    "freshRealPg": {
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "database": "cadenza_pr04_fulfilment_r0_20261104"
+    },
+    "reusedExactAuthorSourceEvidence": {
+      "newFulfilmentRules": 27,
+      "existingShippingDomainRegression": 31,
+      "totalPassed": 58,
+      "applicationTypes": "PASS",
+      "persistenceTypes": "PASS",
+      "testSourceTypes": "PASS",
+      "rawLogsHashVerified": true
+    },
+    "ownEffectiveCases": 90,
+    "counterBoundary": "32freshPG+58reusedrules/domain, not90PG/new"
+  },
+  "actualDenialObservations": {
+    "actualDenialQueryRecords": 27,
+    "uniqueOperations": 27,
+    "tablesPerBeforeAfterSnapshot": 177,
+    "beforeAfterEqual": true,
+    "replaySnapshotEqualityAssertedByExecutedHelper": true,
+    "replaySnapshotRawLogged": false,
+    "receiptRowsPerOperation": 1,
+    "boundary": "All27actual before/after snapshots retained in raw PG log, helper separately executes and compares replay snapshot; no unlogged replay JSON claim."
+  },
+  "covered": [
+    "legal axis/plain shipping and automatic identity match",
+    "explicit/automatic material/sales order/line/segment/quantity/UOM/unknown refusal",
+    "supplement registration remains allowed; unresolved identity blocks zero-unit shipment",
+    "later real identity is validated and captured without mutating immutable scan",
+    "progress count spoof/origin/quantity change refused",
+    "second-item late quality/business-hold/reservation denial rolls back first and second item and same-key replays refusal"
+  ],
+  "regressionApplicability": "PR1/PR3 previous shipping fixtures lack newly mandatory approved commercial provenance and must not be rerun/claimed unchanged onPR4. PR4actual legal-origin late-quality/business-hold/reservation cases supply relevant current shipping proof. Exact inherited inventory/quality/authorization source and accepted own-head evidence remain; PR2 own acceptance not reopened.",
+  "fixtureBoundary": "INSERT-only execution fixture helper creates explicit approved-output provenance; no execution-report workflow or real site proof claimed",
+  "splitLineageBoundary": "Uses existing exact originReportsForUnit verifier; this32case suite does not claim a new end-to-end split shipment scenario",
+  "controllerDidNotModifyAuthorSourceOrTests": true,
+  "author": "same ordinary Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "notProven": [
+    "Unknown historical sales mapping remains UNKNOWN/refused",
+    "real SAP/channel/model/site/oldDB/independentR6",
+    "deployment or complete cold build"
+  ],
+  "mergeReleaseDeploy": false
+}

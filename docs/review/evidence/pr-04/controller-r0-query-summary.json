@@ -1,0 +1,10 @@
+{
+  "actualDenialQueryRecords": 27,
+  "uniqueOperations": 27,
+  "tablesPerBeforeAfterSnapshot": 177,
+  "beforeAfterEqual": true,
+  "replaySnapshotEqualityAssertedByExecutedHelper": true,
+  "replaySnapshotRawLogged": false,
+  "receiptRowsPerOperation": 1,
+  "boundary": "All27actual before/after snapshots retained in raw PG log, helper separately executes and compares replay snapshot; no unlogged replay JSON claim."
+}

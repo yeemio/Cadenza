@@ -26,6 +26,7 @@ import type {
   ShippingRepositories,
 } from '@cadenza/application'
 import type { SqlClient } from './sql-client'
+import { PgReportOutputRepository } from './execution-repositories'
 
 /**
  * shipping 域仓储的 PostgreSQL 实现（implements application 端口；0010 shipping 表
@@ -910,8 +911,46 @@ export class PgQuarantinedInboxWriter implements QuarantinedInboxWriter {
 }
 
 /** shipping 仓储束（命令事务客户端绑定）。 */
+type ShipmentFulfilmentRepository = ShippingRepositories['fulfilment']
+class PgShipmentFulfilmentRepository implements ShipmentFulfilmentRepository {
+  constructor(private readonly client: SqlClient) {}
+
+  async originForUnit(unitId: string): ReturnType<ShippingRepositories['fulfilment']['originForUnit']> {
+    // Reuse the existing approved-output/split-edge verifier, including cycle,
+    // boundary and missing-source rejection. Do not invent sales ownership from
+    // axis labels, a request field or the shipment itself.
+    const roots = await new PgReportOutputRepository(this.client).originReportsForUnit(unitId)
+    if (roots.length === 0 || roots.some((r) => r.reportId === null)) return null
+    const ids = [...new Set(roots.map((r) => r.reportId!))]
+    const r = await this.client.query(`SELECT pr.id AS report_id,po.id AS order_id,po.enterprise_id,po.plant_id,po.material_id,
+      po.sales_order_no,po.line_no,po.uom,ax.unit_no AS axis_unit_no,ax.sales_order_no AS axis_sales_order_no,
+      ax.order_line_no AS axis_order_line_no,ax.segment_length,ax.customer_axis_no,u.unit_no
+      FROM production_report pr JOIN production_order po ON po.id=pr.order_id
+      JOIN inventory_unit u ON u.id=$1 AND po.enterprise_id=u.enterprise_id AND po.plant_id=u.plant_id AND po.material_id=u.material_id
+      LEFT JOIN axis_no_state ax ON ax.unit_id=u.id
+      WHERE pr.id=ANY($2::uuid[]) AND pr.status='submitted' AND pr.review_status IN ('auto_approved','manual_approved')
+        AND pr.review_cancelled_at IS NULL AND po.order_status<>'voided'
+        AND pr.enterprise_id=po.enterprise_id AND pr.plant_id=po.plant_id
+      FOR SHARE OF pr,po`, [unitId, ids])
+    type Row = { report_id: string; order_id: string; enterprise_id: string; plant_id: string; material_id: string;
+      sales_order_no: string | null; line_no: string | null; uom: string; axis_unit_no: string | null;
+      axis_sales_order_no: string | null; axis_order_line_no: string | null; segment_length: string | null;
+      customer_axis_no: string | null; unit_no: string }
+    const rows = r.rows as unknown as Row[]
+    if (rows.length !== ids.length || rows.some((row) => !row.sales_order_no?.trim() || !row.line_no?.trim())) return null
+    const keys = new Set(rows.map((row) => JSON.stringify([row.enterprise_id,row.plant_id,row.material_id,row.sales_order_no,row.line_no,row.uom])))
+    if (keys.size !== 1) return null
+    const row = rows[0]!
+    if (row.axis_unit_no !== null && (row.axis_unit_no !== row.unit_no || row.axis_sales_order_no !== row.sales_order_no || row.axis_order_line_no !== row.line_no)) return null
+    return { enterpriseId: row.enterprise_id, plantId: row.plant_id, materialId: row.material_id,
+      salesOrderNo: row.sales_order_no!, salesOrderLineNo: row.line_no!, uomCode: row.uom,
+      segmentLength: row.segment_length, customerAxisNo: row.customer_axis_no, sourceOrderIds: [...new Set(rows.map((item) => item.order_id))] }
+  }
+}
+
 export function createPgShippingRepositories(client: SqlClient): ShippingRepositories {
   return {
+    fulfilment: new PgShipmentFulfilmentRepository(client),
     orders: new PgShipmentOrderRepository(client),
     lines: new PgShipmentLineRepository(client),
     packings: new PgPackingOrderRepository(client),

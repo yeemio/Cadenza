@@ -1,0 +1,167 @@
+{
+  "pr": 4,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-04-shipping-fulfilment",
+  "exactRecordedParentHead": "df864060609f24b89b84d5a453757ffbe555f971",
+  "prerequisites": [
+    {
+      "pr": 1,
+      "acceptedHead": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "testedSource": "d6cc96aa64fec40323ea40dde917ac8a2759fd06",
+      "status": "ACCEPTED_REUSED_NOT_RERUN"
+    },
+    {
+      "pr": 2,
+      "recordedHead": "70fe34fa654e50ff9b8f41aacc5aef825118a9ed",
+      "sourceAndTestSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+      "fullPatchSha256": "e91b61c9f9ef72d781f353ea11df320f471300a961f3ae0e5e84a57779120ccc",
+      "zipSha256": "aaafa2ae3f781686a927285ee45598109956de0bce1f008bd7b317a7eaeb4fc4",
+      "status": "CANDIDATE_CONTROLLER_PENDING_NOT_ACCEPTED"
+    },
+    {
+      "pr": 3,
+      "recordedHead": "ca1392c721cf071826badb648a4dba15f2c7d866",
+      "sourceAndTestSha256": "5cd5ded5590fa2e08726850278dcb29b56113562a088bbd43029f48081cdaf90",
+      "fullPatchSha256": "795b9eb73a1755bbcd8e0eb865eb1987f3611ab0a0fb76702697ef49f0e32520",
+      "zipSha256": "3912ed092f771dcc107ecd0910dc14c251ee09a94b77db5fcb8eb1ffc18b5b4f",
+      "status": "CANDIDATE_CONTROLLER_PENDING_NOT_ACCEPTED"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "2c194fec1592e430bb56b856370b2f752e091afd8eb57a6be498258aa21e5dff",
+    "files": [
+      {
+        "path": "packages/application/src/shipping-handlers.ts",
+        "sha256": "cac54b1dbaaff441e27f809c3d826fcf045a5ff9524dd63ec7debc7fa9143a94",
+        "parentSha256": "9769568db492b98da39990b84c12ed5cb665703085d9c5c47a4723e2b41de5be"
+      },
+      {
+        "path": "packages/application/src/shipping-repositories.ts",
+        "sha256": "97fecf71a67beaf6fa908d34546cc2b5679abcd8a08cba704012ec06d8c5ef9e",
+        "parentSha256": "ee606105b29f9e19063407519caf166dab28dae1981b56e32b0015984ace9354"
+      },
+      {
+        "path": "packages/domain/src/shipping/fulfilment-rules.ts",
+        "sha256": "63164aa8103ea1e131bd585318cd768efddda16c6e3e563f2805fc70b41a9690",
+        "parentSha256": null
+      },
+      {
+        "path": "packages/domain/src/shipping/index.ts",
+        "sha256": "7c95865f8c4bd7516a1c7dab34fdbcab3babaa07af7f7522d7f1833f52017480",
+        "parentSha256": "280060eecbc62fc5c63003337e8affe1e43ce84ca6ea1ea23fef5c57cfd46c27"
+      },
+      {
+        "path": "packages/persistence/src/shipping-repositories.ts",
+        "sha256": "2df293f4b73cba6d82bb237142f1e6805c77cb0f1eb2886e4ae1435db5d1fc88",
+        "parentSha256": "1304f84a7bd9a1665b5d5cea76db6960dc6f58570f0d2e93df7d61b5bbdf0ec3"
+      },
+      {
+        "path": "tests/pr04/fulfilment.pg.spec.ts",
+        "sha256": "16b60c9ad6496d751638c49ed1d1c542b12e04c0cb79c53a32c3fd3cebb03b1b",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr04/fulfilment.unit.spec.ts",
+        "sha256": "97e841329cef8ea8f272ab7ea5eafbb66ff8c1cf70db5f0ce0e6be1d8d9a85bc",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr04/tsconfig.json",
+        "sha256": "db31cfccf677d5e33bfb4d808fcc5b5464cac207868ae1bde675313d3871cbaa",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr04/vitest.config.ts",
+        "sha256": "421add720f24ce6158210cf194973472bdf438081b64bf95d726e0c4201e36b1",
+        "parentSha256": null
+      }
+    ],
+    "sourceFiles": 5,
+    "testFiles": 4
+  },
+  "scopeExtension": [],
+  "validation": [
+    {
+      "name": "application-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-04/application-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS"
+    },
+    {
+      "name": "persistence-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-04/persistence-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS"
+    },
+    {
+      "name": "pr04-tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr04/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-04/pr04-tests-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS"
+    },
+    {
+      "name": "fulfilment-unit-and-regression",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr04/vitest.config.ts tests/pr04/fulfilment.unit.spec.ts tests/domain/shipping-rules.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-04/fulfilment-unit-and-regression.log",
+      "logSha256": "a7ba35fa3d414c0ca4d80e773f7a721f50a15c315405b14cf86947d71a8fed09",
+      "status": "PASS",
+      "executed": 58,
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0,
+      "newUnitCases": 27,
+      "existingDomainCases": 31,
+      "businessPgPass": false
+    },
+    {
+      "name": "fulfilment-pg-not-run",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr04/vitest.config.ts tests/pr04/fulfilment.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "docs/review/evidence/pr-04/fulfilment-pg-not-run.log",
+      "logSha256": "d701a4c8280242363c1bb906fda2c4fa4baf2dee2612a98d6101cbb91a640186",
+      "status": "NOT_RUN",
+      "reason": "CADENZA_PR04_TEST_DB_URL absent",
+      "businessTestsExecuted": 0,
+      "plannedSourceCases": 32,
+      "failedSuites": 1,
+      "skipped": 0
+    }
+  ],
+  "notRun": [
+    "real PostgreSQL behavior/concurrency",
+    "full API/build or cold install",
+    "real SAP/model/device/site",
+    "independent R6"
+  ],
+  "environment": {
+    "node": "24.22.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "vite": "7.3.7",
+    "pg": "8.23.1",
+    "dependencies": "existing locally cached dependencies; no frozen install claimed"
+  },
+  "boundaries": [
+    "Approved output and validated split genealogy are the only sales ownership evidence; missing/conflicting historical mapping is UNKNOWN and rejects shipping",
+    "Supplementary registration remains permitted; each active scan must resolve to a distinct actual unit before shipping",
+    "No immutable packing_scan rewrite or migration change; final physical bindings are in shipment actualAxisSnapshot",
+    "Client segment length is a checked claim, never a replacement for server facts",
+    "Production-order/approved-report rows are read with shared locks; inventory units and shipment order use existing row locks",
+    "PG fixtures seed approved production output explicitly; they do not claim production execution workflow coverage",
+    "Original PR01/PR03 shipping PG fixtures lack the new commercial provenance and are not claimed as passing at this candidate; PR01 historical acceptance is reused only as prerequisite",
+    "No original Chat full transcript inheritance or remote write",
+    "No full PG PASS, controller ACCEPT, E04 R6, installation or field acceptance claimed"
+  ],
+  "controllerAccepted": false,
+  "remoteWrite": false
+}

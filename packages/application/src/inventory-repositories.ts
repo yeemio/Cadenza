@@ -303,6 +303,8 @@ export interface ReservationRecord {
   releaseReason: string | null
   plantId: string
   enterpriseId: string
+  /** Persisted issuer; a known reservation UUID alone conveys no consumption authority. */
+  createdBy: string | null
 }
 
 export interface NewReservation {
@@ -464,6 +466,7 @@ export interface InventoryBusinessHoldRecord {
 }
 
 export interface InventoryUnitRepository {
+  hasActiveQualityHold(unitId: string): Promise<boolean>
   businessHolds(unitId: string): Promise<InventoryBusinessHoldRecord[]>
   insertBusinessHold(input: Omit<InventoryBusinessHoldRecord, 'id' | 'createdAt'> & { createdAt: string }): Promise<InventoryBusinessHoldRecord>
 

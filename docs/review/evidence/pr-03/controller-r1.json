@@ -1,0 +1,88 @@
+{
+  "decision": "REWORK",
+  "scope": "C3/C7/I09 local source and isolated real PostgreSQL; no install/site/production acceptance",
+  "testedSourceCommit": "c57980c53e0bd5003a1367f0d16c46d8861aca37",
+  "exactR1Parent": "62b95cab58c249e88d52481605fa293686cae87d",
+  "authorPatchSha256": "c8ecf37c3ce8db4c64ebd3b15c9364447c6ccf342e95bb514d2dfc229256840f",
+  "sourceTestFingerprint": "13326aea32477a1f100eff2180f541879e3fc3bee0ae757076736b080d035848",
+  "postimagesMatched": 4,
+  "productAndOtherTestsUnchangedByR1": true,
+  "businessDescribeBodiesByteIdentical": true,
+  "pr02AcceptedR1FixtureUnchanged": true,
+  "checks": {
+    "pr03RealPg": {
+      "passed": 31,
+      "failed": 1,
+      "skipped": 0,
+      "planned": 32,
+      "database": "cadenza_pr03_quality_r1_20261104"
+    },
+    "pr02RegressionOnThisCandidate": {
+      "passed": 129,
+      "failed": 0,
+      "skipped": 0,
+      "database": "cadenza_pr02_on_pr03_r1_20261104"
+    },
+    "changedTestSourceTypes": "PASS",
+    "reusedR0": {
+      "rulesAndDomainRegression": 46,
+      "applicationTypes": "PASS",
+      "persistenceTypes": "PASS",
+      "exactHead": "62b95cab58c249e88d52481605fa293686cae87d"
+    }
+  },
+  "causalFailure": {
+    "test": "valid own reservation consumes only its own allocation and preserves a competing one",
+    "sqlstate": "22P02",
+    "value": "PR03-task",
+    "sink": "stock_transaction.ref_id uuid, PgStockTransactionRepository.insertLine parameter $23",
+    "origin": "PR03 issueMaterial newly defaults refId to reservation.holderRef",
+    "contractEvidence": "reservation.holder_ref text nonempty; assertReservationAcquirable requires nonblank string, not UUID; legitimate own reservation must consume per PR03 acceptance condition 2",
+    "classification": "PRODUCT_REFERENCE_TYPE_REGRESSION; do not convert existing valid text fixture to UUID to hide defect"
+  },
+  "controllerNextDecision": {
+    "decision": "AUTHOR_R2_BOUNDED_PRODUCT_REPAIR",
+    "reason": "First real execution exposed new product root cause after R1 fixture repair. Same original C7 acceptance cannot close without legal own consumption. This is explicit controller disposition after original one-rework limit, not an automatic retry.",
+    "writer": "same ordinary Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+    "allowedProductPath": "packages/application/src/inventory-posting.ts",
+    "allowedTests": "tests/pr03/** only relevant proof; retain original32 cases and semantics",
+    "prohibited": "schema/history/frozen contract changes, new UUID-only reservation policy, erasing failures, changing PR2 or other PRs",
+    "proof": "same existing failing legal case plus relevant reference semantics; retain all unaffected evidence; no strict TDD"
+  },
+  "rawEvidence": {
+    "docs/review/evidence/pr-03/controller-r1-pg.log": {
+      "bytes": 895478,
+      "sha256": "2ad9948b9d4b1a4b6af9b71e7cb111e6fa8056c0aad50cdee10ab8041d462d2e"
+    },
+    "docs/review/evidence/pr-03/controller-r1-pg.process.json": {
+      "bytes": 513,
+      "sha256": "958c7161659e2f9edd068a12a9845985f953dbec75a6872bd86c526c28ebe744"
+    },
+    "docs/review/evidence/pr-03/controller-r1-pr02-regression.log": {
+      "bytes": 7035369,
+      "sha256": "81335e9427888eae660027b137397a1a5a22315672c4a79465ccedbf842db103"
+    },
+    "docs/review/evidence/pr-03/controller-r1-pr02-regression.process.json": {
+      "bytes": 524,
+      "sha256": "afa53cc39d65c304bb4b52ce2d2cce41dec9c301f4f4d1120bbdcce826637356"
+    },
+    "docs/review/evidence/pr-03/controller-r1-query-summary.json": {
+      "bytes": 5447,
+      "sha256": "317de21b2ac740470eceb7fce0d03499150bd685459901c34bda0b6f99967161"
+    },
+    "docs/review/evidence/pr-03/controller-r1-types-tests.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/review/evidence/pr-03/controller-r1-types-tests.process.json": {
+      "bytes": 336,
+      "sha256": "014460f5d712d62b1c990cfe25d834b5461cc726732f0b32139972986da7982b"
+    }
+  },
+  "preservedDatabases": [
+    "cadenza_pr03_quality_r1_20261104",
+    "cadenza_pr02_on_pr03_r1_20261104"
+  ],
+  "controllerDidNotModifyAuthorCodeOrTests": true,
+  "finalAcceptance": false
+}
