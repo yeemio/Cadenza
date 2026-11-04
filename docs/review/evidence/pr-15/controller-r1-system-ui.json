@@ -1,0 +1,58 @@
+{
+  "assignment": "PR15-SYSTEM-UI-20261104-R1",
+  "controller": "01a190b9-6bd9-7500-bfa7-d1aca5fd6fe0",
+  "executor": {
+    "threadId": "01a1a1cd-e99c-7ce2-9f8a-14f8a9094ddf",
+    "cursor": "b5e3d295-d2e7-490e-b128-8506b08813a3:28",
+    "turnId": "01a1a53f-8630-7ce0-80ac-f0979ae34f3b",
+    "messageId": "msg_0aa2c8004a292900016aead1e6c14887d18520785a1e474918"
+  },
+  "sourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+  "fingerprint": "811cc44d9f4d968f2273f6240f3576a974a3d733aa735bbff264cb04816bfc7c",
+  "coldAggregate": "cd3f6119b97dd6148dfbd3c144e7a75890fc797044b395b7eaec4aa9fbe01f4b",
+  "actualBrowser": {
+    "browserId": "2",
+    "tabId": "3",
+    "formalClientAvailable": true,
+    "realHttpPageRead": true
+  },
+  "rawResult": {
+    "passed": 4,
+    "failed": 1,
+    "notRun": 0,
+    "report": "PR15-TERRA-SYSTEM-UI-R1/RESULT.md"
+  },
+  "acceptedScope": [
+    "Web anonymous deep link -> actual login",
+    "Synthetic Web admin actual form login -> original inventory route",
+    "Quality/calibration lazy routes heading/nav and permission-denied branches render",
+    "Web Chinese/Korean switch"
+  ],
+  "limitations": [
+    "Protected inventory/quality/calibration data queries NOT_VERIFIED; current synthetic admin lacks inventory.read/disposition.read/spc.read",
+    "PDA /scan -> /login and login form observed, language switch not executable because anonymous page has no selector",
+    "Physical PDA device/timing NOT_RUN",
+    "No PR15 engineering ACCEPT; paired byte measurement/types authorR1 pending"
+  ],
+  "baselineQualification": {
+    "loginPageSha256": "3f808407d7c0d11a396fe8cd6cf310009dd00c72dd8c25c2247e0dff3adbecba",
+    "pdaLayoutSha256": "043b83ae0937ba769546bc8edd43c3294b8f0c8b6fdbe3745024a78d6362cad2",
+    "bothFilesUnchangedFromAcceptedPr13ColdBaseline": true,
+    "loginRouteOutsidePdaLayoutUnchanged": true,
+    "localeSelectInAuthenticatedPdaLayout": true,
+    "controllerDecision": "Raw flow5 FAIL retained. Evidence does not establish a PR15-introduced regression; preserve anonymous PDA language UX gap without widening current helper-only authorR1 or changing roles/platforms."
+  },
+  "cleanup": "PR15-SYSTEM-UI-R1-STOP.json; only exact owned33177/33178/33179 terminated and NO_PROCESS readback; synthetic DB, logs and private credentials preserved",
+  "controllerOwnBrowser": {
+    "normalNavigateToOwnThread": true,
+    "oneOwnJsKernelReconnect": true,
+    "freshFormalGetIab": "Local browser use is disabled in Work settings",
+    "state": "MAIN_SESSION_ACCESS_STILL_REJECTED_TERRA_SYSTEM_UI_OPERATIONAL",
+    "noGuardOrIdentityChanges": true,
+    "ordinaryChatPatchesRetrieved": 0
+  },
+  "engineeringAcceptedPrCount": 9,
+  "authorR1RequiredParent": "a8ea17df961837680a715c5dae295ba07cb3c238",
+  "authorR1RequestAlreadySent": true,
+  "pr15BranchHeadUnchanged": true
+}

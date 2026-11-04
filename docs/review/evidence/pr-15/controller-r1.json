@@ -1,0 +1,79 @@
+{
+  "pr": 15,
+  "decision": "ACCEPT",
+  "acceptedScope": "Frozen M01 reproducible initial-build-byte improvement and retained route/login/auth/language source behavior; physical/device/site performance not accepted",
+  "at": "2026-11-04T07:26:48.597429+00:00",
+  "sourceAndTestCommit": "d434867d7ed5deb817949e5d3a09d39b31ff527e",
+  "runtimeProductSourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+  "runtimeProductTreeUnchanged": true,
+  "sourceTestFingerprint": "fc2eb9a66984334f92e657cba89bc75c0ac20c38341218595f1e02b90ae3ac0f",
+  "parentHead": "a8ea17df961837680a715c5dae295ba07cb3c238",
+  "patchSha256": "796c9612bf77a9b471608356eae25c9d56977329fd8bbfd97dc80447f0b209a2",
+  "postimagesMatched": 14,
+  "coldInputs": "Two original successful unchanged PR13 baseline and PR15R0 cold roots; new recipe executed outside frozen roots; original receipt/full1426or1383file source guard and lock checks passed",
+  "helperSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25",
+  "sameLock": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7",
+  "sameToolchain": {
+    "node": "24.18.0",
+    "pnpm": "11.28.5",
+    "vite": "7.3.7"
+  },
+  "freshTypes": "PASS complete test-source command exit0 on exact R1 with complete same-lock installed dependencies; author incomplete-cache exit2/5161diagnostics retained",
+  "measuredByteResults": {
+    "web": {
+      "beforeInitialJsBytes": 1473147,
+      "afterInitialJsBytes": 853476,
+      "initialJsDecreasePercent": 42.064,
+      "beforeInitialGzipBytes": 424278,
+      "afterInitialGzipBytes": 257930,
+      "initialGzipDecreasePercent": 39.207,
+      "totalJsByteChange": 32107,
+      "totalPerFileGzipByteChange": 84068,
+      "largestAfterChunkBytes": 853476,
+      "dynamicRouteEntries": 65,
+      "initialCssByteChange": 476
+    },
+    "pda": {
+      "beforeInitialJsBytes": 1058770,
+      "afterInitialJsBytes": 821723,
+      "initialJsDecreasePercent": 22.389,
+      "beforeInitialGzipBytes": 318436,
+      "afterInitialGzipBytes": 247812,
+      "initialGzipDecreasePercent": 22.178,
+      "totalJsByteChange": 14084,
+      "totalPerFileGzipByteChange": 25461,
+      "largestAfterChunkBytes": 821723,
+      "dynamicRouteEntries": 26,
+      "initialCssByteChange": 476
+    }
+  },
+  "comparison": "BUILD_BYTES_IMPROVED",
+  "validReusedTests": {
+    "authorR1Node": 38,
+    "originalControllerReactJsdomMockApi": 16,
+    "effectiveRegisteredLocalCases": 54,
+    "sameInputHashesVerified": true
+  },
+  "realBrowserUi": {
+    "rawPass": 4,
+    "rawFail": 1,
+    "permissionBranchesOnly": "Protected data queries unverified",
+    "pdaAnonymousLanguageControl": "Absent in both exact baseline and candidate; raw flow5FAIL retained, not proved PR15 introduced regression",
+    "physicalPdaAndTime": "NOT_RUN",
+    "fullRecord": "controller-system-ui-r1/RESULT.md"
+  },
+  "retainedLimitations": [
+    "Largest main chunks still853476/821723bytes, above Vite default warning; no warning-clearance claim",
+    "Total JS and sum-of-per-file gzip increased; initial import closure decreased, not total-all-routes download",
+    "PDA anonymous language control missing in unchanged baseline; no scope expansion",
+    "No physical device speed, memory, field fault fix, install/deploy, protected query or full PDA auth proof"
+  ],
+  "originalFailuresPreserved": [
+    "authorR0 dependency/build/UI failures",
+    "controllerR0 failed type and NOT_MEASURED reports",
+    "authorR1 incomplete-cache type failures",
+    "initial realUI data-error-page failure and raw PDA flow5 failure"
+  ],
+  "controllerDidNotEditAuthorCode": true,
+  "automaticMergeReleaseDeploy": false
+}

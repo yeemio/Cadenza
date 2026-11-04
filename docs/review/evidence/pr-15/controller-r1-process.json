@@ -1,0 +1,77 @@
+{
+  "sourceCommit": "d434867d7ed5deb817949e5d3a09d39b31ff527e",
+  "helperSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25",
+  "startedAt": "2026-11-04T07:09:27.506592+00:00",
+  "finishedAt": "2026-11-04T07:09:36.738934+00:00",
+  "checks": [
+    {
+      "label": "TYPES",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/ui/pr15.tsconfig.json",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "log": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-TYPES.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "BASELINE",
+      "command": [
+        "node",
+        "/Users/yeemio/AI/workspaces/Cadenza-pr15-20261104/tests/ui/pr15-measure-build.mjs",
+        "--root",
+        "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source",
+        "--label",
+        "baseline",
+        "--cold-receipt",
+        "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/cold-build-receipt.json",
+        "--out",
+        "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-BASELINE-MEASUREMENT.json"
+      ],
+      "exitCode": 0,
+      "log": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-BASELINE.log",
+      "logSha256": "105d54adbb56a9934d27c8eb34aeb4a29752ca22fcc4ea8b37e535ca0dd15d2c"
+    },
+    {
+      "label": "CANDIDATE",
+      "command": [
+        "node",
+        "/Users/yeemio/AI/workspaces/Cadenza-pr15-20261104/tests/ui/pr15-measure-build.mjs",
+        "--root",
+        "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+        "--label",
+        "candidate",
+        "--cold-receipt",
+        "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/cold-build-receipt.json",
+        "--out",
+        "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-CANDIDATE-MEASUREMENT.json"
+      ],
+      "exitCode": 0,
+      "log": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-CANDIDATE.log",
+      "logSha256": "7ee8086d7160495e0de69ab9c5c16332a0bea760b8e031bb80d6ef92829721df"
+    },
+    {
+      "label": "COMPARE",
+      "command": [
+        "node",
+        "/Users/yeemio/AI/workspaces/Cadenza-pr15-20261104/tests/ui/pr15-measure-build.mjs",
+        "--baseline",
+        "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-BASELINE-MEASUREMENT.json",
+        "--candidate",
+        "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-CANDIDATE-MEASUREMENT.json",
+        "--out",
+        "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-BYTE-COMPARISON.json"
+      ],
+      "exitCode": 0,
+      "log": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-CONTROLLER-R1-COMPARE.log",
+      "logSha256": "add123b0fc1785d563628721d9c02c0e86b148f3cbe2f83f646ee409786ea31e"
+    }
+  ],
+  "productsUnchangedFromColdInputs": true,
+  "coldRootsNeverPatched": true,
+  "fullColdBuildAnd16UiNotRerun": true,
+  "exactInstalledSameLockDependenciesReused": true
+}

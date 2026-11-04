@@ -1,0 +1,22 @@
+{
+  "status": "BUILD_BYTES_IMPROVED",
+  "apps": {
+    "web": {
+      "initialJsByteChange": -619671,
+      "initialGzipByteChange": -166348,
+      "totalJsByteChange": 32107,
+      "totalGzipByteChange": 84068,
+      "largestAfterChunkBytes": 853476
+    },
+    "pda": {
+      "initialJsByteChange": -237047,
+      "initialGzipByteChange": -70624,
+      "totalJsByteChange": 14084,
+      "totalGzipByteChange": 25461,
+      "largestAfterChunkBytes": 821723
+    }
+  },
+  "failures": [],
+  "devicePerformance": "NOT_MEASURED_BY_THIS_TOOL",
+  "scope": "Comparable built asset bytes only; full app/browser/device behavior requires separate tests."
+}
