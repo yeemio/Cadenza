@@ -1,0 +1,67 @@
+{
+  "checkedAt": "2026-11-04T08:31:38.933405+00:00",
+  "node": "v24.22.1",
+  "dependencyFiles": [
+    {
+      "name": "originalAuthorTsc",
+      "path": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-work/node_modules/typescript/bin/tsc",
+      "exists": false
+    },
+    {
+      "name": "previousSharedTsc",
+      "path": "/workspace/scratch/feb0b9dab353/cadence-pr3/node_modules/typescript/bin/tsc",
+      "exists": false
+    },
+    {
+      "name": "previousSharedVitest",
+      "path": "/workspace/scratch/feb0b9dab353/cadence-pr3/node_modules/vitest/vitest.mjs",
+      "exists": false
+    },
+    {
+      "name": "originalAuthorNestTesting",
+      "path": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-work/node_modules/@nestjs/testing/package.json",
+      "exists": false
+    },
+    {
+      "name": "primaryRuntimeTsc",
+      "path": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/typescript/bin/tsc",
+      "exists": false
+    }
+  ],
+  "tools": {
+    "tsc": null,
+    "vitest": null,
+    "psql": null,
+    "postgres": null,
+    "docker": null
+  },
+  "dedicatedPgUrlPresent": false,
+  "noConnectionGuessed": true,
+  "noProcessTimezoneModification": true,
+  "typecheckStatus": "NOT_RUN_MISSING_PROJECT_DEPENDENCIES",
+  "typecheckInvoked": false,
+  "compilerExitCode": null,
+  "requiredTypeCommands": [
+    [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "packages/persistence/tsconfig.json",
+      "--noEmit"
+    ],
+    [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tests/pr08/tsconfig.full.json",
+      "--noEmit"
+    ]
+  ],
+  "vitestStatus": "NOT_RUN_MISSING_PROJECT_DEPENDENCIES",
+  "nativeSameAssertionsStatus": "PASS21_SQL_CLIENT_DOUBLES",
+  "realPgStatus": "NOT_RUN",
+  "businessExecuted": 0,
+  "runtimeSkipped": 0,
+  "databaseCreated": false,
+  "reason": "No dedicated task PostgreSQL URL or native PG tools and current cached project TypeScript/Vitest dependencies are unavailable. Native Node execution uses the actual changed repository class implementations and the same21 assertions with explicit SQL-client doubles; it is neither a Vitest nor real PostgreSQL pass."
+}

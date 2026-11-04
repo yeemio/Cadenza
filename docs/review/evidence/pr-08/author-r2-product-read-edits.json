@@ -1,0 +1,57 @@
+[
+  {
+    "old": "function dateStr(value: Date | string): string {\n  return value instanceof Date ? value.toISOString().slice(0, 10) : String(value).slice(0, 10)\n}",
+    "new": "// DATE is a calendar value, not an instant. Project it as text before the pg\n// DATE parser can turn local midnight into a Date. The explicit timestamp\n// (without time zone) cast and fixed format also avoid session TimeZone/DateStyle.\n// ISO business/audit timestamps continue through iso()/isoOrNull() unchanged.\nconst SHIFT_DATE_COLUMNS = `*, to_char(shift_date::timestamp, 'YYYY-MM-DD') AS shift_date_text`\nconst SESSION_SHIFT_DATE_COLUMNS = `s.*, to_char(s.shift_date::timestamp, 'YYYY-MM-DD') AS shift_date_text`",
+    "count": 1
+  },
+  {
+    "old": "  shift_date: Date | string | null",
+    "new": "  shift_date_text: string | null",
+    "count": 1
+  },
+  {
+    "old": "  shift_date: Date | string",
+    "new": "  shift_date_text: string",
+    "count": 3
+  },
+  {
+    "old": "shiftDate: dateStr(r.shift_date),",
+    "new": "shiftDate: r.shift_date_text,",
+    "count": 3
+  },
+  {
+    "old": "shiftDate: r.shift_date === null ? null : dateStr(r.shift_date),",
+    "new": "shiftDate: r.shift_date_text,",
+    "count": 1
+  },
+  {
+    "old": "SELECT * FROM execution_session",
+    "new": "SELECT ${SHIFT_DATE_COLUMNS} FROM execution_session",
+    "count": 2
+  },
+  {
+    "old": "SELECT * FROM production_report",
+    "new": "SELECT ${SHIFT_DATE_COLUMNS} FROM production_report",
+    "count": 5
+  },
+  {
+    "old": "SELECT * FROM material_consumption",
+    "new": "SELECT ${SHIFT_DATE_COLUMNS} FROM material_consumption",
+    "count": 5
+  },
+  {
+    "old": "SELECT * FROM labor_record",
+    "new": "SELECT ${SHIFT_DATE_COLUMNS} FROM labor_record",
+    "count": 1
+  },
+  {
+    "old": "SELECT s.* FROM execution_session",
+    "new": "SELECT ${SESSION_SHIFT_DATE_COLUMNS} FROM execution_session",
+    "count": 2
+  },
+  {
+    "old": "RETURNING *`",
+    "new": "RETURNING ${SHIFT_DATE_COLUMNS}`",
+    "count": 7
+  }
+]
