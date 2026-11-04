@@ -1,0 +1,696 @@
+{
+  "delivery": "Cadenza-PR07-R2",
+  "status": "FIXTURE_SOURCE_READY_TYPES_NOT_RUN_PG_NOT_RUN_CONTROLLER_PENDING",
+  "revision": "AUTHOR_R2",
+  "repository": "yeemio/Cadenza",
+  "originalPr": 7,
+  "originalBranch": "codex/fix-07-outbox-confirmation",
+  "exactParentHead": "e3c1c2d2af1c206be6abd66ee6c39a248df6ec0c",
+  "parentTestedSourceCommit": "fa0aa1df78e9d1aa8d369f6be182ebb25300ce77",
+  "parentSourceTestFingerprint": "f42b4823ce3fe2768bcd9f73e4f490955abf42b8451ce6355eff3d88bd772177",
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "9b538d2eb60dc7f4f750b616109d0bdfdfcd27876c07cef23f4cceae15a5fc55",
+    "pathCount": 11,
+    "samePathSetAsParent": true,
+    "files": [
+      {
+        "path": "apps/worker/src/handlers.ts",
+        "sha256": "1f2516d3e5b23dfc4ae17169472489ec860f6ea759536800923e429e7c4f8afe",
+        "bytes": 7800,
+        "gitMode": "100644",
+        "parentSha256": "1f2516d3e5b23dfc4ae17169472489ec860f6ea759536800923e429e7c4f8afe",
+        "parentGitBlobSha": "a2157fced0f929a1c4bf296a7105a3d02a241ee9",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/worker/src/main.ts",
+        "sha256": "1b94737d109dc9fea887672da72e47b8accf350c061d8ebf881bca997803ee0a",
+        "bytes": 4559,
+        "gitMode": "100644",
+        "parentSha256": "1b94737d109dc9fea887672da72e47b8accf350c061d8ebf881bca997803ee0a",
+        "parentGitBlobSha": "9a325e44261987bd6dc8de47dd38bdf55b29a001",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/worker/src/outbox-claim.ts",
+        "sha256": "2debd319d562f6c228b84f75a8c4e9d80577c2cb7893dec320468386b0f18382",
+        "bytes": 8101,
+        "gitMode": "100644",
+        "parentSha256": "2debd319d562f6c228b84f75a8c4e9d80577c2cb7893dec320468386b0f18382",
+        "parentGitBlobSha": "0095018fa1cf394ced31444f05f3806cc9c22893",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/worker/src/task-scope.ts",
+        "sha256": "c4bffb370a9c7e321a98ec7de6e0d13402e8471bfd302e37011fcc8fe4bb67e1",
+        "bytes": 3404,
+        "gitMode": "100644",
+        "parentSha256": "c4bffb370a9c7e321a98ec7de6e0d13402e8471bfd302e37011fcc8fe4bb67e1",
+        "parentGitBlobSha": "59022f951d579c9b4ced5c829363b1e430498eba",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "packages/application/src/conversion-handlers.ts",
+        "sha256": "665e9b0d5ef3dff950422a8366dcb593a6dfa566278198af170e4193fee2e5ee",
+        "bytes": 62801,
+        "gitMode": "100644",
+        "parentSha256": "665e9b0d5ef3dff950422a8366dcb593a6dfa566278198af170e4193fee2e5ee",
+        "parentGitBlobSha": "0b8f0703407abcc017eaf2263aed3eaed0590119",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "packages/application/src/conversion-repositories.ts",
+        "sha256": "b16e065d6778941665c488b2ef961ced735cff90ef9ad5c65de46afd635b2e36",
+        "bytes": 19298,
+        "gitMode": "100644",
+        "parentSha256": "b16e065d6778941665c488b2ef961ced735cff90ef9ad5c65de46afd635b2e36",
+        "parentGitBlobSha": "28cb68abc8f4a8639dded75bdde622486d934183",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "packages/persistence/src/conversion-repositories.ts",
+        "sha256": "a12a87d1d6ccff74f1dd6518c2b676457ccf43e928b0eb35a93313763478d3cd",
+        "bytes": 54368,
+        "gitMode": "100644",
+        "parentSha256": "a12a87d1d6ccff74f1dd6518c2b676457ccf43e928b0eb35a93313763478d3cd",
+        "parentGitBlobSha": "1b783dff49d2e29f7cbf909baccbc3532ccad2d9",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr07/confirmation.pg.spec.ts",
+        "sha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+        "bytes": 14527,
+        "gitMode": "100644",
+        "parentSha256": "170b8b2c7fc0e8107a6ab7038ff9f93a09b27cf3e2640e073b916129f0c2b4b2",
+        "parentGitBlobSha": "9d4e47c3279ff484ca442c3af9004e66ba0e10a7",
+        "unchangedFromParent": false
+      },
+      {
+        "path": "tests/pr07/confirmation.unit.spec.ts",
+        "sha256": "d5c3907a49e96b92f470ca19c95774348c73a648cb31c4a36bda755f4667c40e",
+        "bytes": 3917,
+        "gitMode": "100644",
+        "parentSha256": "d5c3907a49e96b92f470ca19c95774348c73a648cb31c4a36bda755f4667c40e",
+        "parentGitBlobSha": "d614aa9a8a9ac57da8209a5d92d45e117a18bed7",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr07/tsconfig.json",
+        "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "bytes": 221,
+        "gitMode": "100644",
+        "parentSha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "parentGitBlobSha": "19d84320c5cc01aa9d3b74761b50fe31ca591fc9",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr07/vitest.config.ts",
+        "sha256": "b2ad9abd3144ba836cb0c463910877f2fc01f0a7585d08550cdad557b37b8b94",
+        "bytes": 247,
+        "gitMode": "100644",
+        "parentSha256": "b2ad9abd3144ba836cb0c463910877f2fc01f0a7585d08550cdad557b37b8b94",
+        "parentGitBlobSha": "e918b6d0e97086c8f13d41994a8bac835e24f12d",
+        "unchangedFromParent": true
+      }
+    ]
+  },
+  "acceptedPR02AlreadyInParent": {
+    "head": "0df991eac99a61132e50c10d8931d3532945dab2",
+    "fixture": "tests/pr02/object-write-scope.pg.spec.ts",
+    "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1",
+    "gitBlobSha": "21beee98575d82f46b91d944eefa2ebe7b3971e5",
+    "unchanged": true,
+    "reapplyPrerequisite": false
+  },
+  "repair": {
+    "onlySourcePath": "tests/pr07/confirmation.pg.spec.ts",
+    "plants": "Add a fixture-only monotonic plant-code counter; each new plant gets P07 plus seven decimal digits (10 characters), passed as $4 in the existing INSERT. Existing parent_id/parent_kind/path/depth/enterprise ancestry copy remains intact.",
+    "carriers": "Add a fixture-only monotonic carrier counter; completedConversion generates PE plus eight decimal digits (10 characters, second character E), distinct across all11 conversion setups.",
+    "references": "Existing unitNo variable still supplies receive-goods unitNo/lotNo and conversion.order.scan. No scenario-body literals or assertions changed.",
+    "scope": "Only fixture generation. Products, permission policies, schema/migrations, contracts, PR2, real conversion command sequence, worker logic and all old failures remain unchanged."
+  },
+  "preservation": {
+    "status": "STATIC_FIXTURE_AND_PRESERVATION_PASS_NOT_PG",
+    "testPath": "tests/pr07/confirmation.pg.spec.ts",
+    "parentTestSha256": "170b8b2c7fc0e8107a6ab7038ff9f93a09b27cf3e2640e073b916129f0c2b4b2",
+    "candidateTestSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+    "exactReplacementOnly": true,
+    "replacements": [
+      {
+        "oldText": "async function plants() {",
+        "newText": "let fixturePlantSequence = 0\nlet fixtureCarrierSequence = 0\nasync function plants() {"
+      },
+      {
+        "oldText": "    const id = randomUUID()\n",
+        "newText": "    const id = randomUUID()\n    const plantCode = `P07${String(++fixturePlantSequence).padStart(7,'0')}`\n"
+      },
+      {
+        "oldText": "INSERT INTO org_node(id,code,name,kind,parent_id,parent_kind,path,depth,enterprise_id)",
+        "newText": "INSERT INTO org_node(id,code,name,kind,parent_id,parent_kind,path,depth,enterprise_id,plant_code)"
+      },
+      {
+        "oldText": "regexp_replace(path,'[^/]+/$','')||$3::text||'/',depth,enterprise_id\n",
+        "newText": "regexp_replace(path,'[^/]+/$','')||$3::text||'/',depth,enterprise_id,$4\n"
+      },
+      {
+        "oldText": "[`P07-${randomUUID()}`,fx.szPlantId,id])",
+        "newText": "[`P07-${randomUUID()}`,fx.szPlantId,id,plantCode])"
+      },
+      {
+        "oldText": "const unitNo=`P07-${randomUUID()}`",
+        "newText": "const unitNo=`PE${String(++fixtureCarrierSequence).padStart(8,'0')}`"
+      }
+    ],
+    "allDescribeBytesUnchanged": true,
+    "describeBytes": 6507,
+    "describeSha256": "a1d8a0fc10890298061f87c827d805466895c8a1f49b12c0ac9d59f420a96bd5",
+    "beforeAllAfterAllAndAllScenariosByteIdentical": true,
+    "registeredCasesFromParentActualRun": 20,
+    "registeredCaseCountBasis": "The exact parent controller registered 20; all describe blocks, registrations, names, bodies and assertions remain byte-identical.",
+    "expectTextOccurrences": 33,
+    "expectCountBasis": "Text occurrence count only; exact-file six-splice proof establishes all assertions unchanged.",
+    "generatedPlantCodes": [
+      "P070000001",
+      "P070000002",
+      "P070000003",
+      "P070000004",
+      "P070000005",
+      "P070000006",
+      "P070000007",
+      "P070000008",
+      "P070000009",
+      "P070000010",
+      "P070000011",
+      "P070000012",
+      "P070000013",
+      "P070000014",
+      "P070000015",
+      "P070000016",
+      "P070000017",
+      "P070000018"
+    ],
+    "generatedCarrierCodes": [
+      "PE00000001",
+      "PE00000002",
+      "PE00000003",
+      "PE00000004",
+      "PE00000005",
+      "PE00000006",
+      "PE00000007",
+      "PE00000008",
+      "PE00000009",
+      "PE00000010",
+      "PE00000011"
+    ],
+    "uniquePlantCodes": 18,
+    "uniqueCarrierCodes": 11,
+    "actualUnchangedFc07PredicateAndAssertionPassed": 11,
+    "ruleSource": {
+      "path": "packages/domain/src/conversionform/order-conversion-rules.ts",
+      "sha256": "c32fb1c4f4020ed6611c343625bfce066d7ab209351130effe689e85676646ae"
+    },
+    "ruleErrorClass": {
+      "path": "packages/domain/src/conversionform/errors.ts",
+      "sha256": "1f1bd585e34caae49e3c5d7048a91cc3225fadf69d2958d82d65727a99f34477"
+    },
+    "schemaSource": {
+      "path": "packages/persistence/src/migrations/0002-org-auth.ts",
+      "sha256": "016d25ecc426545ba7e35964c7c6229f65215e05c861907b02b04beec0dcb793"
+    },
+    "priorAncestrySqlPreserved": true,
+    "sourceSyntaxTransform": {
+      "method": "Node24 built-in stripTypeScriptTypes transform; no TypeScript semantic typecheck",
+      "outputSha256": "362137ef1b55645e8bf6ff91fe3d6f7f6e67a8434da458c33a1c99477fd83cc5"
+    },
+    "businessPgExecuted": 0,
+    "businessPgRuntimeSkips": 0,
+    "meaning": "Local byte preservation, actual fixture-expression evaluation and unchanged pure FC-07 validation only. No PostgreSQL query, migration, INSERT, real conversion or worker case was executed. This is not the missing tsc proof."
+  },
+  "checks": {
+    "fixtureAndPreservation": {
+      "command": [
+        "node",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr07-r2/check-fixture-preservation.cjs"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+      "startedUtc": "2026-11-04T07:12:37.452339+00:00",
+      "finishedUtc": "2026-11-04T07:12:37.607374+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-07/author-r2-fixture-check.log",
+      "logBytes": 380,
+      "logSha256": "1d78a163b31c364812622d4cedbf9951404df31a78a7887e63c39ab22058cb27",
+      "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+      "checkerSha256": "da8ebe70924d996e3ba55acb4d7d04f295bd9b4d747c3912ed48913a213940cc"
+    },
+    "syntaxOnly": {
+      "command": [
+        "node",
+        "--check",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr07-r2/confirmation.syntax-only.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "boundary": "Syntax check of Node type-erased copy only; not TypeScript semantic typecheck, PG execution or a build."
+    },
+    "testSourceTypecheck": {
+      "status": "NOT_RUN_MISSING_TYPESCRIPT_DEPENDENCY",
+      "compilerExecuted": false,
+      "launchAttempts": [
+        {
+          "command": [
+            "node",
+            "node_modules/typescript/bin/tsc",
+            "-p",
+            "tests/pr07/tsconfig.json",
+            "--noEmit"
+          ],
+          "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+          "startedUtc": "2026-11-04T07:07:59.391672+00:00",
+          "finishedUtc": "2026-11-04T07:07:59.449589+00:00",
+          "exitCode": 1,
+          "log": "docs/review/evidence/pr-07/author-r2-tests-typecheck-dependency-block.log",
+          "logBytes": 811,
+          "logSha256": "b4bf8c64937a713dbf4efbc89673d438e35338b557d78924988db1786c9eddc3",
+          "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+          "reason": "TypeScript entry point missing from previously cached dependencies; command stopped before compiler or validation logic. No source failure or PostgreSQL execution."
+        },
+        {
+          "command": [
+            "node",
+            "node_modules/typescript/bin/tsc",
+            "-p",
+            "tests/pr07/tsconfig.json",
+            "--noEmit"
+          ],
+          "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+          "startedUtc": "2026-11-04T07:08:45.293587+00:00",
+          "finishedUtc": "2026-11-04T07:08:45.354310+00:00",
+          "exitCode": 1,
+          "log": "docs/review/evidence/pr-07/author-r2-tests-typecheck-dependency-block.log",
+          "logBytes": 811,
+          "logSha256": "b4bf8c64937a713dbf4efbc89673d438e35338b557d78924988db1786c9eddc3",
+          "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+          "reason": "TypeScript entry point missing from previously cached dependencies; command stopped before compiler or validation logic. No source failure or PostgreSQL execution."
+        }
+      ],
+      "rawExitCode": 1,
+      "reason": "Previously linked shared cache /workspace/scratch/feb0b9dab353/cadence-pr3/node_modules no longer contains the TypeScript entry. Primary runtime also has no tsc. Node exited before type analysis. No stubs, product edits or syntax-as-typecheck substitution.",
+      "controllerCommand": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr07/tsconfig.json",
+        "--noEmit"
+      ]
+    }
+  },
+  "reusedUnchangedEvidence": [
+    {
+      "name": "worker-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p apps/worker/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/worker-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "application-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/application-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "persistence-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/persistence-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "confirmation-unit",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr07/vitest.config.ts tests/pr07/confirmation.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/confirmation-unit.log",
+      "logSha256": "4d1bdf7641088cc143019fc65724032f725c6459a27d3f51f76dcc03e0872274",
+      "executed": 20,
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "externalCalls": 0,
+      "businessPgPass": false
+    }
+  ],
+  "protectedPriorEvidence": [
+    {
+      "path": "docs/review/evidence/pr-07/application-typecheck.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/author-r0.json",
+      "parentGitBlobSha": "244cca723610f7effb3908017f260e69daf58ea5",
+      "bytes": 8008,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "c158584e0e99c0d3b19fad8cfa3bd5b9f26775ad9faa60d33422a589f9f8888a"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/author-r0.md",
+      "parentGitBlobSha": "d825e134945fd0370d00e54c80085b3c2ee06fa9",
+      "bytes": 3801,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "1ebf9ecac192755bdd6c07045528fa78c8033696e3ec5014680744886fae58d7"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/author-r1.json",
+      "parentGitBlobSha": "8049c4e667523913ac13cd2e7af88d5d0f4f0160",
+      "bytes": 3824,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "c1c0da77b64c211969078f22d3d46a7ccadf4ef073b0f9094e1e9c7b2a675538"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/author-r1.md",
+      "parentGitBlobSha": "ed6dae861907da49b62a9920484389d9da91e62b",
+      "bytes": 1013,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "f8713d95eaa8fc7c72d00e8591c13e87104c151c93b8b41c9952f2102cad8512"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/confirmation-pg-not-run.log",
+      "parentGitBlobSha": "235449e3d9eb2e1faad0657f09958574daaebff6",
+      "bytes": 1040,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "35f3d21c00d1fe42369b944f59697b5de78de4ec1d3bea3f170f601661f00195"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/confirmation-unit.log",
+      "parentGitBlobSha": "0178d016f3d8ebbc1681e98705e6c4da5d4bd7c9",
+      "bytes": 3554,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "4d1bdf7641088cc143019fc65724032f725c6459a27d3f51f76dcc03e0872274"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/controller-r0-pg-process.json",
+      "parentGitBlobSha": "9d0d6a215f7b0600e2babf39bc8da26964339e79",
+      "bytes": 523,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-07/controller-r0-pg.log",
+      "parentGitBlobSha": "9d6ebc838cba060e2754a58cb71f080922531450",
+      "bytes": 37103,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "d03867eba8ca3711829fe42b18d80689edca82b27e97bfbafb151ffba23aa45a"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/controller-r0.json",
+      "parentGitBlobSha": "e07235468b7e6a9d24602c30f9cdc9b56bd272ed",
+      "bytes": 7296,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "10d309aa506094850c135cd3087586b72dae9755bacc6ca320c856995ff6574d"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/controller-r0.md",
+      "parentGitBlobSha": "d3328e951583301e71eb5833deec79bbecdb648b",
+      "bytes": 1673,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "26d62bf6f84718e0108c0bdec0c94d4df169c02951cdbfd6d136d34df10a249d"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/persistence-typecheck.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/pr07-tests-typecheck-initial-failure.log",
+      "parentGitBlobSha": "315f02983358da8b0f3998288f186605c28000a6",
+      "bytes": 151,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "b0ed22c65514700ef9db9f8d989f2bc429d61144d5642983ac4b313caed9dde1"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/pr07-tests-typecheck.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/r1-tests-typecheck-final.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/r1-tests-typecheck.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-07/worker-typecheck.log",
+      "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "priorActualFailure": {
+    "revision": "AUTHOR_R1_CONTROLLER_R0",
+    "businessPg": {
+      "planned": 20,
+      "registered": 20,
+      "passed": 0,
+      "failed": 20,
+      "runtimeSkipped": 0,
+      "targetSemanticsReached": 0,
+      "database": "cadenza_pr07_confirmation_r1_20261104",
+      "fixtureFailures": [
+        {
+          "cases": 9,
+          "sqlState": "23514",
+          "constraint": "org_node_plant_code_ck",
+          "cause": "plants() omits mandatory plant_code"
+        },
+        {
+          "cases": 11,
+          "rule": "FC-07",
+          "cause": "completedConversion unitNo P07-UUID is not 10 characters with second char E/F/M/P"
+        }
+      ]
+    },
+    "rawLog": {
+      "path": "docs/review/evidence/pr-07/controller-r0-pg.log",
+      "bytes": 37103,
+      "sha256": "d03867eba8ca3711829fe42b18d80689edca82b27e97bfbafb151ffba23aa45a",
+      "gitBlobSha": "9d6ebc838cba060e2754a58cb71f080922531450",
+      "fetchedAndHashVerified": true,
+      "unchanged": true
+    },
+    "failedDatabaseAccessedOrReused": false,
+    "receiptUrl": "https://github.com/yeemio/Cadenza/blob/e3c1c2d2af1c206be6abd66ee6c39a248df6ec0c/docs/review/evidence/pr-07/controller-r0.json"
+  },
+  "localValidationFailuresRetained": {
+    "dependencyLaunches": {
+      "fixture-check": {
+        "attempts": [
+          {
+            "command": [
+              "node",
+              "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr07-r2/check-fixture-preservation.cjs"
+            ],
+            "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+            "startedUtc": "2026-11-04T07:07:59.387106+00:00",
+            "finishedUtc": "2026-11-04T07:07:59.453766+00:00",
+            "exitCode": 1,
+            "log": "docs/review/evidence/pr-07/author-r2-fixture-check-dependency-block.log",
+            "logBytes": 1208,
+            "logSha256": "6c2dce6de6c0a2f2f7560a1b7ca508d238729cd11e825387f8b1971ae4620483",
+            "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+            "reason": "TypeScript entry point missing from previously cached dependencies; command stopped before compiler or validation logic. No source failure or PostgreSQL execution."
+          },
+          {
+            "command": [
+              "node",
+              "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr07-r2/check-fixture-preservation.cjs"
+            ],
+            "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+            "startedUtc": "2026-11-04T07:08:45.301969+00:00",
+            "finishedUtc": "2026-11-04T07:08:45.363855+00:00",
+            "exitCode": 1,
+            "log": "docs/review/evidence/pr-07/author-r2-fixture-check-dependency-block.log",
+            "logBytes": 1208,
+            "logSha256": "6c2dce6de6c0a2f2f7560a1b7ca508d238729cd11e825387f8b1971ae4620483",
+            "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+            "reason": "TypeScript entry point missing from previously cached dependencies; command stopped before compiler or validation logic. No source failure or PostgreSQL execution."
+          }
+        ],
+        "identicalRawOutputSha256": "6c2dce6de6c0a2f2f7560a1b7ca508d238729cd11e825387f8b1971ae4620483"
+      },
+      "tests-typecheck": {
+        "attempts": [
+          {
+            "command": [
+              "node",
+              "node_modules/typescript/bin/tsc",
+              "-p",
+              "tests/pr07/tsconfig.json",
+              "--noEmit"
+            ],
+            "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+            "startedUtc": "2026-11-04T07:07:59.391672+00:00",
+            "finishedUtc": "2026-11-04T07:07:59.449589+00:00",
+            "exitCode": 1,
+            "log": "docs/review/evidence/pr-07/author-r2-tests-typecheck-dependency-block.log",
+            "logBytes": 811,
+            "logSha256": "b4bf8c64937a713dbf4efbc89673d438e35338b557d78924988db1786c9eddc3",
+            "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+            "reason": "TypeScript entry point missing from previously cached dependencies; command stopped before compiler or validation logic. No source failure or PostgreSQL execution."
+          },
+          {
+            "command": [
+              "node",
+              "node_modules/typescript/bin/tsc",
+              "-p",
+              "tests/pr07/tsconfig.json",
+              "--noEmit"
+            ],
+            "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+            "startedUtc": "2026-11-04T07:08:45.293587+00:00",
+            "finishedUtc": "2026-11-04T07:08:45.354310+00:00",
+            "exitCode": 1,
+            "log": "docs/review/evidence/pr-07/author-r2-tests-typecheck-dependency-block.log",
+            "logBytes": 811,
+            "logSha256": "b4bf8c64937a713dbf4efbc89673d438e35338b557d78924988db1786c9eddc3",
+            "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+            "reason": "TypeScript entry point missing from previously cached dependencies; command stopped before compiler or validation logic. No source failure or PostgreSQL execution."
+          }
+        ],
+        "identicalRawOutputSha256": "b4bf8c64937a713dbf4efbc89673d438e35338b557d78924988db1786c9eddc3"
+      }
+    },
+    "checkerFailures": [
+      {
+        "command": [
+          "node",
+          "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr07-r2/check-fixture-preservation.cjs"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+        "startedUtc": "2026-11-04T07:11:14.456894+00:00",
+        "finishedUtc": "2026-11-04T07:11:14.524918+00:00",
+        "exitCode": 1,
+        "log": "docs/review/evidence/pr-07/author-r2-fixture-check-helper-error.log",
+        "logBytes": 872,
+        "logSha256": "2aa60cce33cc060f40560587229a68594faf77175106f8ed07f7ecd575683e12",
+        "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+        "checkerSha256": "cc56dd13571374fd2f240631ecdcf772d6c65f01c8b8401bc6db7b79bd046aec"
+      },
+      {
+        "command": [
+          "node",
+          "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr07-r2/check-fixture-preservation.cjs"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr7-r2-work",
+        "startedUtc": "2026-11-04T07:11:44.800429+00:00",
+        "finishedUtc": "2026-11-04T07:11:44.867209+00:00",
+        "exitCode": 1,
+        "log": "docs/review/evidence/pr-07/author-r2-fixture-check-helper-error2.log",
+        "logBytes": 864,
+        "logSha256": "51deca7cff4dd7c1d363ee48a1a8e5aade451d42401af7f02b64ead5157167b9",
+        "testedPgSourceSha256": "9270c764520a05abfef1138168ae3a78bf1560f7ff8f0a22e70202a960a783f8",
+        "checkerSha256": "03d2b8f4be1d07b58b1599a53af70d8bd6062fe50b4aebe1f537166ff4a07a04"
+      }
+    ],
+    "explanation": "Dependency-based checker/type launches stopped before analysis. A dependency-free local verification script then had an extra parenthesis and a JS replacement-string dollar expansion error; both checker errors and raw logs retained. Only the verification script was corrected; candidate PG source SHA stayed identical. These are not business PG failures or deliberate TDD."
+  },
+  "realPg": {
+    "status": "NOT_RUN",
+    "runnerInvoked": false,
+    "executed": 0,
+    "runtimeSkips": 0,
+    "plannedRegisteredCases": 20,
+    "targetedControllerExecution": "All20 previously blocked business scenarios, in another NEW EMPTY dedicated cadenza_pr07_* database",
+    "requiredEnvironmentVariable": "CADENZA_PR07_TEST_DB_URL",
+    "reason": "No dedicated task database URL or local PostgreSQL runtime; no guessed connection, old database or migration invocation.",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr07/vitest.config.ts",
+      "tests/pr07/confirmation.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "realExternalCalls": 0
+  },
+  "runtime": {
+    "node": "v24.22.1",
+    "typescript": "NOT_AVAILABLE",
+    "nativePgTools": {
+      "psql": null,
+      "postgres": null,
+      "docker": null
+    },
+    "dependencyInstallPerformed": false
+  },
+  "gitCommit": "NOT_CREATED",
+  "remoteWrite": "NOT_ATTEMPTED",
+  "controllerAccepted": false,
+  "batchAcceptanceFromController": {
+    "count": 10,
+    "total": 15,
+    "prs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      13,
+      14
+    ]
+  },
+  "protectedDeliveries": "PR6 accepted and closed; frozen PR12R1/PR15R1 already downloaded by controller, not repackaged or resent. PR8R1/PR9R1 remain separate queued increments.",
+  "changedPaths": [
+    "docs/review/evidence/pr-07/author-r2-fixture-check-dependency-block.log",
+    "docs/review/evidence/pr-07/author-r2-fixture-check-helper-error.log",
+    "docs/review/evidence/pr-07/author-r2-fixture-check-helper-error2.log",
+    "docs/review/evidence/pr-07/author-r2-fixture-check.json",
+    "docs/review/evidence/pr-07/author-r2-fixture-check.log",
+    "docs/review/evidence/pr-07/author-r2-syntax-only.json",
+    "docs/review/evidence/pr-07/author-r2-tests-typecheck-dependency-block.log",
+    "docs/review/evidence/pr-07/author-r2.json",
+    "docs/review/evidence/pr-07/author-r2.md",
+    "tests/pr07/confirmation.pg.spec.ts"
+  ]
+}

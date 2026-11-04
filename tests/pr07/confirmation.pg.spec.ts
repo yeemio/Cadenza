@@ -27,13 +27,16 @@ async function denied(payload: Payload) {
   expect(await conversion.execute(e,actor)).toEqual(r);expect(await snapshot()).toEqual(before)
   console.log('PR07_DENIAL',JSON.stringify({operationId:e.operationId,before,after:await snapshot(),receipt:r}))
 }
+let fixturePlantSequence = 0
+let fixtureCarrierSequence = 0
 async function plants() {
   const ids: string[] = []
   for (let i=0; i<2; i++) {
     const id = randomUUID()
-    const result = await pool.query<{id:string}>(`INSERT INTO org_node(id,code,name,kind,parent_id,parent_kind,path,depth,enterprise_id)
-      SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_replace(path,'[^/]+/$','')||$3::text||'/',depth,enterprise_id
-      FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,fx.szPlantId,id])
+    const plantCode = `P07${String(++fixturePlantSequence).padStart(7,'0')}`
+    const result = await pool.query<{id:string}>(`INSERT INTO org_node(id,code,name,kind,parent_id,parent_kind,path,depth,enterprise_id,plant_code)
+      SELECT $3::uuid,$1,$1,'plant',parent_id,parent_kind,regexp_replace(path,'[^/]+/$','')||$3::text||'/',depth,enterprise_id,$4
+      FROM org_node WHERE id=$2 RETURNING id`, [`P07-${randomUUID()}`,fx.szPlantId,id,plantCode])
     ids.push(result.rows[0]!.id)
   }
   return ids as [string,string]
@@ -60,7 +63,7 @@ async function run(plantId:string,r=registry(plantId)) { return processBatch(poo
 async function completedConversion() {
   const src=await seedProductionOrder(pool,fx,{orderNo:`SRC-${randomUUID()}`,salesOrderNo:`SO-${randomUUID()}`,lineNo:'1'})
   const tgt=await seedProductionOrder(pool,fx,{orderNo:`TGT-${randomUUID()}`,salesOrderNo:`SO-${randomUUID()}`,lineNo:'2'})
-  const unitNo=`P07-${randomUUID()}`
+  const unitNo=`PE${String(++fixtureCarrierSequence).padStart(8,'0')}`
   const stock=await committed(inventory,'inventory.receive-goods',{plantId:fx.szPlantId,unitNo,lotNo:unitNo,materialId:fx.materialId,materialCode:'MAT-CV-FIN',
     quantity:'100',uomId:CV_UOM_ID,uomCode:'KG',locationId:fx.warehouseLocationId,locationCode:fx.warehouseLocationCode,ownerId:CV_OWNER_ID,ownerName:'PR07 owner',qualityStatus:'qualified'})
   await seedUnitOwner(pool,fx,{orderId:src.orderId,operationId:src.operationId,unitId:String(stock.unitId),quantity:'100'})
