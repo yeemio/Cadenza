@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["./pr15-route-loading.test.tsx", "./pr15.vitest.config.ts", "./setup.ts", "../../apps/web/src/App.tsx", "../../apps/pda/src/App.tsx"]
+}

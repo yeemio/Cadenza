@@ -1,0 +1,8 @@
+{
+  "command": [
+    "TypeScript.createSourceFile",
+    "tests/ui/pr15-route-loading.test.tsx"
+  ],
+  "parseDiagnosticCount": 0,
+  "scope": "syntax only; UI runtime NOT_RUN"
+}

@@ -1,5 +1,6 @@
-import type { ReactElement } from 'react'
-import { AiQueryPage } from './pages/AiQueryPage'
+import { lazy, type ReactElement } from 'react'
+
+const AiQueryPage = lazy(() => import('./pages/AiQueryPage').then((module) => ({ default: module.AiQueryPage })))
 
 /**
  * [L0-整合标记] P4-UI 问数入口挂载点（web）。

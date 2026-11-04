@@ -1,0 +1,37 @@
+{
+  "originalPr": 15,
+  "originalHead": "1dd796cd329c752733811ef3ac413739cab214db",
+  "pr13PrerequisiteFullPatchSha256": "9e319407e1fba558b2ee6c4a21d44d6f487a9a31d00c9777591d49b170a77e43",
+  "pr13PrerequisiteSourceDigest": "faee16d466852b2c968a2c08040f281d896fbb27c0599a3d650f46acd360e632",
+  "sourceFiles": {
+    "apps/web/src/App.tsx": "1fb7303e07333b9e503788b4bf4dd978ba6d6ea97f5c59c9c188942ed89f5498",
+    "apps/pda/src/App.tsx": "91d735ae3e211ffacc54ce777d20aebe21c5a44e12425aa13879264b0669e979",
+    "apps/web/src/p2/mount.tsx": "bf19624d6d4c3a161e874d86e5d4151de4062b26b1c37a2fcd129e90a1a3c6b8",
+    "apps/web/src/p3/mount.tsx": "4fb80c0ff2c65bf830e12f3cfd133d01cac3c2d608a07ff6da78bf734ede597f",
+    "apps/web/src/p4/mount.tsx": "30a75780561ce27519895d2143da6d27b6169a8ed97e199178c22f0739e54213",
+    "apps/pda/src/p2/mount.tsx": "e45af66675fc191eac3c302e9a55e6cf5c2e1f5d1d726431f2b5c5d331ab1834",
+    "apps/pda/src/p3/mount.tsx": "a3cce7b4b28e2504c6702d37942c0b5b15f60daa49808999d7b8f7e28546fc49",
+    "apps/pda/src/p4/mount.tsx": "c2bb474727f748d6357ccf2e5ea40a5b2b7d5af6e28c840be4cf544079e5819f",
+    "apps/web/vite.config.ts": "61552aca4c33976df936ed94bdd1da4d22e04289c7afcbf76d54893c5fb9070a",
+    "apps/pda/vite.config.ts": "ea668b851c945ede5b757f417af087e5f9ee606398ab4219e0cf8f839168fe62"
+  },
+  "historicalBuildLog": {
+    "path": "docs/review/BUILD-20261103.log",
+    "gitSourceHead": "cb25076d99cda0ac359151ff9eea65507de8cc4d",
+    "sha256": "265799c41a2297214521768f643317883910c05ea885b6a9f3cfd19bad512064",
+    "web": {
+      "mainJsName": "index-C81l2fPB.js",
+      "kilobytes": 1473.61,
+      "gzipKilobytes": 425.42
+    },
+    "pda": {
+      "mainJsName": "index-Bz7cPuN3.js",
+      "kilobytes": 1059.41,
+      "gzipKilobytes": 319.36
+    },
+    "meaning": "Historical reported build, not a clean build or current candidate measurement"
+  },
+  "currentLockedBuildSizes": null,
+  "currentStatus": "NOT_MEASURED_DEPENDENCIES_UNAVAILABLE",
+  "realDeviceMeasurement": "NOT_RUN"
+}

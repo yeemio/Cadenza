@@ -1,0 +1,34 @@
+ MISSING DEPENDENCY  Cannot find dependency 'jsdom'
+
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-work
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯⎯ Unhandled Error ⎯⎯⎯⎯⎯⎯⎯
+Error: Cannot find package 'jsdom' imported from /workspace/scratch/feb0b9dab353/cadence-pr3/node_modules/.pnpm/vitest@3.2.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_supports-color@7.2.0_terser@5.51.2/node_modules/vitest/dist/chunks/index.CmSc2RE5.js
+ ❯ Object.getPackageJSONURL node:internal/modules/package_json_reader:331:9
+ ❯ packageResolve node:internal/modules/esm/resolve:784:25
+ ❯ moduleResolve node:internal/modules/esm/resolve:873:18
+ ❯ defaultResolve node:internal/modules/esm/resolve:1006:11
+ ❯ ModuleLoader.#cachedDefaultResolve node:internal/modules/esm/loader:705:20
+ ❯ ModuleLoader.#resolveAndMaybeBlockOnLoaderThread node:internal/modules/esm/loader:725:38
+ ❯ ModuleLoader.resolveSync node:internal/modules/esm/loader:763:56
+ ❯ ModuleLoader.#resolve node:internal/modules/esm/loader:687:17
+ ❯ ModuleLoader.getOrCreateModuleJob node:internal/modules/esm/loader:607:35
+ ❯ node:internal/modules/esm/loader:636:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files   (1)
+      Tests  no tests
+     Errors  1 error
+   Start at  01:32:52
+   Duration  286ms (transform 26ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 0ms)
+

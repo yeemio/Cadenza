@@ -1,18 +1,19 @@
-import type { ReactElement } from 'react'
-import { ReelSplitPdaPage } from './pages/ReelSplitPdaPage'
-import { PalletTaskPdaPage } from './pages/PalletTaskPdaPage'
-import { AxisCorrectionPdaPage } from './pages/AxisCorrectionPdaPage'
-import { AxisRetirePdaPage } from './pages/AxisRetirePdaPage'
-import { OrderConversionScanPdaPage } from './pages/OrderConversionScanPdaPage'
-import { ReverseMovePdaPage } from './pages/ReverseMovePdaPage'
-import { ReverseTransferOutPdaPage } from './pages/ReverseTransferOutPdaPage'
-import { ReverseTransferInPdaPage } from './pages/ReverseTransferInPdaPage'
-import { QualitySuspectPdaPage } from './pages/QualitySuspectPdaPage'
-import { FinishedDefectPdaPage } from './pages/FinishedDefectPdaPage'
-import { IqcCodePdaPage } from './pages/IqcCodePdaPage'
-import { EquipmentExceptionPdaPage } from './pages/EquipmentExceptionPdaPage'
-import { EquipmentStartPdaPage } from './pages/EquipmentStartPdaPage'
-import { PdaCumulativePdaPage } from './pages/PdaCumulativePdaPage'
+import { lazy, type ReactElement } from 'react'
+
+const ReelSplitPdaPage = lazy(() => import('./pages/ReelSplitPdaPage').then((module) => ({ default: module.ReelSplitPdaPage })))
+const PalletTaskPdaPage = lazy(() => import('./pages/PalletTaskPdaPage').then((module) => ({ default: module.PalletTaskPdaPage })))
+const AxisCorrectionPdaPage = lazy(() => import('./pages/AxisCorrectionPdaPage').then((module) => ({ default: module.AxisCorrectionPdaPage })))
+const AxisRetirePdaPage = lazy(() => import('./pages/AxisRetirePdaPage').then((module) => ({ default: module.AxisRetirePdaPage })))
+const OrderConversionScanPdaPage = lazy(() => import('./pages/OrderConversionScanPdaPage').then((module) => ({ default: module.OrderConversionScanPdaPage })))
+const ReverseMovePdaPage = lazy(() => import('./pages/ReverseMovePdaPage').then((module) => ({ default: module.ReverseMovePdaPage })))
+const ReverseTransferOutPdaPage = lazy(() => import('./pages/ReverseTransferOutPdaPage').then((module) => ({ default: module.ReverseTransferOutPdaPage })))
+const ReverseTransferInPdaPage = lazy(() => import('./pages/ReverseTransferInPdaPage').then((module) => ({ default: module.ReverseTransferInPdaPage })))
+const QualitySuspectPdaPage = lazy(() => import('./pages/QualitySuspectPdaPage').then((module) => ({ default: module.QualitySuspectPdaPage })))
+const FinishedDefectPdaPage = lazy(() => import('./pages/FinishedDefectPdaPage').then((module) => ({ default: module.FinishedDefectPdaPage })))
+const IqcCodePdaPage = lazy(() => import('./pages/IqcCodePdaPage').then((module) => ({ default: module.IqcCodePdaPage })))
+const EquipmentExceptionPdaPage = lazy(() => import('./pages/EquipmentExceptionPdaPage').then((module) => ({ default: module.EquipmentExceptionPdaPage })))
+const EquipmentStartPdaPage = lazy(() => import('./pages/EquipmentStartPdaPage').then((module) => ({ default: module.EquipmentStartPdaPage })))
+const PdaCumulativePdaPage = lazy(() => import('./pages/PdaCumulativePdaPage').then((module) => ({ default: module.PdaCumulativePdaPage })))
 
 /**
  * [L0-整合标记] P2-UI 六域入口挂载点（PDA）。
