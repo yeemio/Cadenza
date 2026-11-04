@@ -21,6 +21,9 @@ let actor: CommandContext; let other: CommandContext; let auth: VerifiedAuthCont
 let plantId: string; let enterpriseId: string; let locationId: string; let location2Id: string
 let familyId: string; let deptId: string; let snapshotSql: string
 const uomId = randomUUID()
+const warehouseCode = '0301'
+const locationCode = `${warehouseCode}0001`
+const location2Code = `${warehouseCode}0002`
 const qa = createPgQualityRepositories(pool)
 const future = () => new Date(Date.now() + 3_600_000).toISOString()
 const envelope = (commandType: string, payload: Payload) => ({ commandType, payload, operationId: randomUUID(), targetId: 'pr03', expectedRevision: 0 })
@@ -50,7 +53,7 @@ async function stock(status: QualityStatus = 'qualified', quantity = '20.0000'):
     VALUES ($1,$2,$2,3,'M',1,'PR03') RETURNING id`, [enterpriseId, materialCode])).rows[0]!.id
   const unitNo = `U-${randomUUID()}`
   const data = await committed(inventory, 'inventory.receive-goods', { plantId, unitNo, lotNo: `L-${unitNo}`, materialId, materialCode,
-    quantity, uomId, uomCode: 'M', locationId, locationCode: 'PR03-L1', ownerId: enterpriseId, ownerName: 'PR03 owner', qualityStatus: status })
+    quantity, uomId, uomCode: 'M', locationId, locationCode, ownerId: enterpriseId, ownerName: 'PR03 owner', qualityStatus: status })
   return { unitId: String(data.unitId), balanceId: String(data.balanceId), unitNo, materialId, materialCode }
 }
 async function inspection(s: Stock, conclusion: 'qualified' | 'unqualified') {
@@ -87,9 +90,17 @@ beforeAll(async () => {
   const tables = await pool.query("SELECT 1 FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'")
   if (tables.rowCount !== 0) throw new Error('Refusing nonempty PR03 database; supply a fresh task-owned database')
   await migrateUp(pool, migrations); await seedOrgAuth(pool, { passwordHasher: createScryptPasswordHasher() })
-  const users = (await pool.query<{ id: string; login_name: string; enterprise_id: string; plant_id: string; role_id: string }>(
-    "SELECT id,login_name,enterprise_id,plant_id,role_id FROM user_account WHERE login_name IN ('szqc01','szws01') ORDER BY login_name")).rows
-  const first = users.find((u) => u.login_name === 'szqc01')!; const second = users.find((u) => u.login_name === 'szws01')!
+  const users = (await pool.query<{ id: string; login_name: string; enterprise_id: string; plant_id: string; role_id: string; dept_id: string }>(
+    `SELECT u.id,u.login_name,u.enterprise_id,u.plant_id,u.role_id,u.dept_id FROM user_account u
+     JOIN org_node d ON d.id=u.dept_id AND d.kind='department' AND d.status='active'
+     JOIN org_node p ON p.id=u.plant_id AND p.kind='plant' AND p.status='active'
+     WHERE u.login_name IN ('szqc01','szws01')
+       AND d.enterprise_id=u.enterprise_id AND p.enterprise_id=u.enterprise_id
+       AND d.path LIKE p.path || '%' ORDER BY u.login_name`)).rows
+  const first = users.find((u) => u.login_name === 'szqc01'); const second = users.find((u) => u.login_name === 'szws01')
+  if (!first || !second || first.enterprise_id !== second.enterprise_id || first.plant_id !== second.plant_id) {
+    throw new Error('PR03 fixture requires both seeded users and their active departments in the same enterprise and factory')
+  }
   actor = { actorUserId: first.id, actorLoginName: first.login_name, enterpriseId: first.enterprise_id }
   other = { actorUserId: second.id, actorLoginName: second.login_name, enterpriseId: second.enterprise_id }
   plantId = first.plant_id; enterpriseId = first.enterprise_id
@@ -100,13 +111,13 @@ beforeAll(async () => {
   auth = { user: { id: first.id, loginName: first.login_name, displayName: first.login_name, enterpriseId, plantId, roleId: first.role_id, loginPlatform: 'WEB' },
     role: { id: first.role_id, name: 'fixture', alias: 'qc' }, session: { id: randomUUID(), expiresAt: future() },
     permissions, dataScope: { enterpriseWide: false, plantIds: [plantId] } }
-  const warehouseId = (await pool.query<{ id: string }>(`INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type)
-    VALUES ($1,$2,'PR03-W','PR03 warehouse','WAREHOUSE') RETURNING id`, [enterpriseId, plantId])).rows[0]!.id
+  const warehouseId = (await pool.query<{ id: string }>(`INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types)
+    VALUES ($1,$2,$3,$4,'PR03 warehouse','WAREHOUSE',ARRAY[3]::integer[]) RETURNING id`, [enterpriseId, plantId, first.dept_id, warehouseCode])).rows[0]!.id
   const locations = (await pool.query<{ id: string; code: string }>(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code)
-    VALUES ($1,$2,$3,'NORMAL','PR03-L1'),($1,$2,$3,'NORMAL','PR03-L2') RETURNING id,code`, [enterpriseId, plantId, warehouseId])).rows
-  locationId = locations.find((l) => l.code === 'PR03-L1')!.id; location2Id = locations.find((l) => l.code === 'PR03-L2')!.id
+    VALUES ($1,$2,$3,'NORMAL',$4),($1,$2,$3,'NORMAL',$5) RETURNING id,code`, [enterpriseId, plantId, warehouseId, locationCode, location2Code])).rows
+  locationId = locations.find((l) => l.code === locationCode)!.id; location2Id = locations.find((l) => l.code === location2Code)!.id
   familyId = (await pool.query<{ id: string }>(`INSERT INTO product_family(enterprise_id,plant_id,code,name) VALUES ($1,$2,'P03','P03') RETURNING id`, [enterpriseId, plantId])).rows[0]!.id
-  deptId = (await pool.query<{ id: string }>("SELECT id FROM org_node WHERE code='DEPT-SZ-JZ'")).rows[0]!.id
+  deptId = second.dept_id // The same seeded DEPT-SZ-JZ production department, now verified under this factory.
   inventory = buildInventoryCommandBus(pool); quality = buildQualityCommandBus(pool); shipping = buildShippingCommandBus(pool)
   await seedAiQueryCapabilities(pool, enterpriseId, AI_QUERY_CAPABILITY_SEEDS, 'pr03-fixture')
   const names = (await pool.query<{ tablename: string }>("SELECT tablename FROM pg_tables WHERE schemaname='public' AND tablename<>'command_receipt' ORDER BY tablename")).rows.map((r) => r.tablename)
