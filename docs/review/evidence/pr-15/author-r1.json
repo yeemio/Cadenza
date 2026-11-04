@@ -1,0 +1,916 @@
+{
+  "delivery": "Cadenza-PR15-R1",
+  "revision": "AUTHOR_R1",
+  "status": "NARROW_HELPER_SOURCE_READY_LOCAL_GUARDS_PASS_FULL_UI_TYPES_BLOCKED_PAIRED_MEASUREMENT_NOT_RUN",
+  "repository": "yeemio/Cadenza",
+  "originalPr": 15,
+  "originalBranch": "codex/fix-15-frontend-loading",
+  "exactParentHead": "a8ea17df961837680a715c5dae295ba07cb3c238",
+  "acceptedPrerequisiteAlreadyInParent": "e7a9985c87f02aa95bff6a3322140cc25bf969f5",
+  "parentSourceTestCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+  "parentSourceTestFingerprint": "811cc44d9f4d968f2273f6240f3576a974a3d733aa735bbff264cb04816bfc7c",
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "fc2eb9a66984334f92e657cba89bc75c0ac20c38341218595f1e02b90ae3ac0f",
+    "pathCount": 20,
+    "scope": "Original 19 source/test paths plus one focused physical-root helper regression file. Seventeen original paths unchanged; only two authorized original helper/config paths change.",
+    "files": [
+      {
+        "path": "apps/pda/src/App.tsx",
+        "sha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+        "bytes": 3761,
+        "gitMode": "100644",
+        "parentSha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+        "parentGitBlobSha": "c935d5f9c39964792cfb3feddc069fb42c653b83",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/src/loading/mount.tsx",
+        "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "bytes": 1629,
+        "gitMode": "100644",
+        "parentSha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "parentGitBlobSha": "4ff1dfc361e6f019062bca2409572d50774067a4",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/src/p2/mount.tsx",
+        "sha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+        "bytes": 4798,
+        "gitMode": "100644",
+        "parentSha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+        "parentGitBlobSha": "256f61f7c6009ecd49eaca6f3b6216f0a2587601",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/src/p3/mount.tsx",
+        "sha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+        "bytes": 1095,
+        "gitMode": "100644",
+        "parentSha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+        "parentGitBlobSha": "2941008ca472d32599f6ad0233ebbafd6563bbb4",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/src/p4/mount.tsx",
+        "sha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+        "bytes": 1105,
+        "gitMode": "100644",
+        "parentSha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+        "parentGitBlobSha": "c917a57f67af8c7c38ac179a0109a379d13dee05",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/vite.config.ts",
+        "sha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+        "bytes": 1022,
+        "gitMode": "100644",
+        "parentSha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+        "parentGitBlobSha": "0e0de998ae303f061292a58863380dd5fc1d4fa8",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/App.tsx",
+        "sha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+        "bytes": 11540,
+        "gitMode": "100644",
+        "parentSha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+        "parentGitBlobSha": "8b31bcb18b64af008f9bbf6e8d99dd1bbdf4781d",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/loading/mount.tsx",
+        "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "bytes": 1629,
+        "gitMode": "100644",
+        "parentSha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "parentGitBlobSha": "4ff1dfc361e6f019062bca2409572d50774067a4",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/p2/mount.tsx",
+        "sha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+        "bytes": 6541,
+        "gitMode": "100644",
+        "parentSha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+        "parentGitBlobSha": "451c8215309fab866983d571966f747ef9f0f696",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/p3/mount.tsx",
+        "sha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+        "bytes": 4224,
+        "gitMode": "100644",
+        "parentSha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+        "parentGitBlobSha": "68172bb6019e015d810da6663330dda6cd82d69c",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/p4/mount.tsx",
+        "sha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+        "bytes": 1823,
+        "gitMode": "100644",
+        "parentSha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+        "parentGitBlobSha": "567467a157a130587ab0d301c2b37e07bb0d6852",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/vite.config.ts",
+        "sha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+        "bytes": 1071,
+        "gitMode": "100644",
+        "parentSha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+        "parentGitBlobSha": "e347744dc33e76c35dbf826ab665fd0e6acd06b7",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/ui/pr15-baseline-routes.json",
+        "sha256": "c88e3eaaf869ae38a70fdf1f593c4699213f0967c22058db5b0d7022d1ab5a61",
+        "bytes": 19897,
+        "gitMode": "100644",
+        "parentSha256": "c88e3eaaf869ae38a70fdf1f593c4699213f0967c22058db5b0d7022d1ab5a61",
+        "parentGitBlobSha": "839654060c29b6ee442dd8c983ee1702a53b7f6a",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/ui/pr15-loading-structure.test.mjs",
+        "sha256": "e77c848b00ec611da43f3e031c66d76ea349a89fbcf6a9595e249411a000fdd9",
+        "bytes": 9191,
+        "gitMode": "100644",
+        "parentSha256": "e77c848b00ec611da43f3e031c66d76ea349a89fbcf6a9595e249411a000fdd9",
+        "parentGitBlobSha": "d8da81436861e653cdb578a7eb4b385d9682155e",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/ui/pr15-measure-build.mjs",
+        "sha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25",
+        "bytes": 11474,
+        "gitMode": "100644",
+        "parentSha256": "7328418540525e1c80b3aea2cff1fa78a65cde879d87318a25acc2f6a48e923e",
+        "parentGitBlobSha": "ce5e48a034c6e817778fa66c9c0b9797611aec79",
+        "unchangedFromParent": false
+      },
+      {
+        "path": "tests/ui/pr15-physical-root.test.mjs",
+        "sha256": "6857f8d6aab422ef380e4eb967e17cda8e210657ee89f9f4b7dee646c14486bb",
+        "bytes": 11594,
+        "gitMode": "100644",
+        "parentSha256": null,
+        "parentGitBlobSha": null,
+        "unchangedFromParent": false
+      },
+      {
+        "path": "tests/ui/pr15-route-loading.test.tsx",
+        "sha256": "bf00c9bbad703e554e55c25432d5cafc79b08482538eccb36e8dcb3d8d4c213f",
+        "bytes": 7622,
+        "gitMode": "100644",
+        "parentSha256": "bf00c9bbad703e554e55c25432d5cafc79b08482538eccb36e8dcb3d8d4c213f",
+        "parentGitBlobSha": "7cdf4a2f64585666639b091e1b51504abe9578ca",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/ui/pr15-source-graph.mjs",
+        "sha256": "704edee0cefd0fc8c8dac12cd3e7e313e39954dfa67b7afbdd4b1a27ac526f58",
+        "bytes": 4896,
+        "gitMode": "100644",
+        "parentSha256": "704edee0cefd0fc8c8dac12cd3e7e313e39954dfa67b7afbdd4b1a27ac526f58",
+        "parentGitBlobSha": "867947d883a1299bcc3eeca0d5d4be51b16f75e7",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/ui/pr15.tsconfig.json",
+        "sha256": "94e54fc19440e168d411f3fb62f8dabdf38aa041180eedc9f8e9bd40270693da",
+        "bytes": 253,
+        "gitMode": "100644",
+        "parentSha256": "04c340c67d2e577951e8e126b0260441e585dbb7d685b784fe9160be37b15945",
+        "parentGitBlobSha": "055a7f7f7f39769eedec996a04ecaae28431e6f0",
+        "unchangedFromParent": false
+      },
+      {
+        "path": "tests/ui/pr15.vitest.config.ts",
+        "sha256": "abe5d4d835796d0ce8eedfb4e0e3ed5ec63a39038154dea053e72224b7a67652",
+        "bytes": 255,
+        "gitMode": "100644",
+        "parentSha256": "abe5d4d835796d0ce8eedfb4e0e3ed5ec63a39038154dea053e72224b7a67652",
+        "parentGitBlobSha": "dbb618533daf7b2de165fd8c219b4c2480293301",
+        "unchangedFromParent": true
+      }
+    ]
+  },
+  "changedCodePaths": [
+    "tests/ui/pr15-measure-build.mjs",
+    "tests/ui/pr15-physical-root.test.mjs",
+    "tests/ui/pr15.tsconfig.json"
+  ],
+  "repair": {
+    "testTypes": "Only tests/ui/pr15.tsconfig.json adds vite/client while retaining vitest/globals; include/extends and all shared/production declarations unchanged.",
+    "rootBinding": "realpathSync establishes actual physical identity for requested and receipt source roots. Genuine symlink aliases match; another physical directory does not match even if its file bytes are identical.",
+    "childBuildPaths": "Physical source root and output directory, resolved Vite package/CLI, application roots, config files, and child cwd. Root alias and receipt identity/hash/count are recorded. CLI entry detection also resolves a real script alias.",
+    "preservedGuards": "Full tracked source manifest loop, file count and digest checks, input file selection, lock/status/toolchain/recipe and unsafe path guards, static closure byte calculation and comparison logic are retained.",
+    "externalRecipe": "Invoke the new helper from the R1 checkout against both unchanged successful cold roots; do not copy it or the new tsconfig into either immutable source."
+  },
+  "preservation": {
+    "fullTrackedManifestLoopAndCountHash": {
+      "unchanged": true,
+      "sha256": "a930d372cc566f425e857dd2d93ed062c25c047ea72f131cf6d090a83731179d"
+    },
+    "buildMetricGuardsAndComparison": {
+      "unchanged": true,
+      "sha256": "e9cf059b095c702d6c250309b6188385ed247ec6a76b02b1abd545c27ad4c7ac"
+    },
+    "tsconfigOnlyViteClientContextAdded": true,
+    "originalNodeCases": 23,
+    "originalNodeSourceByteIdentical": true,
+    "originalUiCases": 16,
+    "originalUiSourceByteIdentical": true,
+    "unchangedProductFiles": [
+      {
+        "path": "apps/pda/src/App.tsx",
+        "sha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+        "bytes": 3761,
+        "gitMode": "100644",
+        "parentSha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+        "parentGitBlobSha": "c935d5f9c39964792cfb3feddc069fb42c653b83",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/src/loading/mount.tsx",
+        "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "bytes": 1629,
+        "gitMode": "100644",
+        "parentSha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "parentGitBlobSha": "4ff1dfc361e6f019062bca2409572d50774067a4",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/src/p2/mount.tsx",
+        "sha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+        "bytes": 4798,
+        "gitMode": "100644",
+        "parentSha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+        "parentGitBlobSha": "256f61f7c6009ecd49eaca6f3b6216f0a2587601",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/src/p3/mount.tsx",
+        "sha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+        "bytes": 1095,
+        "gitMode": "100644",
+        "parentSha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+        "parentGitBlobSha": "2941008ca472d32599f6ad0233ebbafd6563bbb4",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/src/p4/mount.tsx",
+        "sha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+        "bytes": 1105,
+        "gitMode": "100644",
+        "parentSha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+        "parentGitBlobSha": "c917a57f67af8c7c38ac179a0109a379d13dee05",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/pda/vite.config.ts",
+        "sha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+        "bytes": 1022,
+        "gitMode": "100644",
+        "parentSha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+        "parentGitBlobSha": "0e0de998ae303f061292a58863380dd5fc1d4fa8",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/App.tsx",
+        "sha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+        "bytes": 11540,
+        "gitMode": "100644",
+        "parentSha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+        "parentGitBlobSha": "8b31bcb18b64af008f9bbf6e8d99dd1bbdf4781d",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/loading/mount.tsx",
+        "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "bytes": 1629,
+        "gitMode": "100644",
+        "parentSha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "parentGitBlobSha": "4ff1dfc361e6f019062bca2409572d50774067a4",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/p2/mount.tsx",
+        "sha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+        "bytes": 6541,
+        "gitMode": "100644",
+        "parentSha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+        "parentGitBlobSha": "451c8215309fab866983d571966f747ef9f0f696",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/p3/mount.tsx",
+        "sha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+        "bytes": 4224,
+        "gitMode": "100644",
+        "parentSha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+        "parentGitBlobSha": "68172bb6019e015d810da6663330dda6cd82d69c",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/src/p4/mount.tsx",
+        "sha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+        "bytes": 1823,
+        "gitMode": "100644",
+        "parentSha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+        "parentGitBlobSha": "567467a157a130587ab0d301c2b37e07bb0d6852",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "apps/web/vite.config.ts",
+        "sha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+        "bytes": 1071,
+        "gitMode": "100644",
+        "parentSha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+        "parentGitBlobSha": "e347744dc33e76c35dbf826ab665fd0e6acd06b7",
+        "unchangedFromParent": true
+      }
+    ],
+    "schemaMigrationsContractsSharedDeclarationsChanged": false,
+    "acceptedPR13Prerequisite": "e7a9985c87f02aa95bff6a3322140cc25bf969f5",
+    "lockSha256": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7"
+  },
+  "protectedPriorEvidence": [
+    {
+      "path": "docs/review/evidence/pr-15/MEASUREMENT.md",
+      "parentGitBlobSha": "988721e9941760052b00c91b2af6addf2d47a5d0",
+      "bytes": 4935,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "70b0d07f579228a0df22cbe5a5b719f776b14200ae510c3a43e13c17f7177d83"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/author-r0.json",
+      "parentGitBlobSha": "334060e49240f68de30837aec988c71c64c53465",
+      "bytes": 10044,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "ce1ef2986b0e1067d0a5342516b244b042b6d5344ff8b74a917247e1db1e82cc"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/author-r0.md",
+      "parentGitBlobSha": "12345aead1f8c18d8821fb52d22e2d6a08085782",
+      "bytes": 5879,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "493eb9d217daa1761635f3043c2e0ad189a8c8f692b1d84d4b929c2c1baca818"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/baseline-binding.json",
+      "parentGitBlobSha": "cde135a3b218c2b1a9355167209ba478cd941c3d",
+      "bytes": 2001,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "d10c2c4ebf52b6ffb4ed9be8f687bd938c420aa55725653ea238dafadc198885"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/baseline-pda-build.log",
+      "parentGitBlobSha": "8ed4d4687f0c4c0ae309ce680bb3b01b29acd4ff",
+      "bytes": 1204,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "93e96fcd0f0828b51f9d0c6c8701ac90ffbb19859fb5629115e72676e00b6fa6"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/baseline-source-graph.json",
+      "parentGitBlobSha": "839654060c29b6ee442dd8c983ee1702a53b7f6a",
+      "bytes": 19897,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "c88e3eaaf869ae38a70fdf1f593c4699213f0967c22058db5b0d7022d1ab5a61"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/baseline-web-build.log",
+      "parentGitBlobSha": "88cb99f58333cf9cdb085f01c1dcbc7e9b7afbde",
+      "bytes": 1204,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "030255a025c81a61888cdb41029e9629f8b03c130781866d18228463265b1fe5"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/candidate-build-measurement.log",
+      "parentGitBlobSha": "ba9c37682661522ff719734e05e534a6a0505645",
+      "bytes": 184,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "67faf76b059f882608c1212c3997d4699d5e3bd805485174184e60295ae0d472"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/candidate-source-graph.json",
+      "parentGitBlobSha": "2c4f025495255c167f967c047f2745e9c57623ad",
+      "bytes": 9640,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "adacb6598adb5b83c628a2658f4a42cf846386391f471386eaf2d665da3efca6"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-baseline-measurement.json",
+      "parentGitBlobSha": "d6da4747cc8dc9435c186361ccbc4482376d51b6",
+      "bytes": 42367,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-baseline-web-build.log",
+      "parentGitBlobSha": "a93cf0497795a125976caed4aacd81c2dc176293",
+      "bytes": 2443,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "4ab80881d3b49b707a6d37fad6bca6ca77eb44b32c5b9acf70c48e4fd0c93893"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-candidate-measurement.json",
+      "parentGitBlobSha": "0aa199666707b3375a8455581f7d4d4b7e5dd400",
+      "bytes": 42656,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-candidate-web-build.log",
+      "parentGitBlobSha": "20e07049e1e8778ea0d088773e35a3cc89175d70",
+      "bytes": 2443,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "ac6741ca6ef5c45728b417679e1a818d4848a3e15af736b139dfd656082be200"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-canonical-path-probe.json",
+      "parentGitBlobSha": "d889dfd72fea3fbb9fb8be491b10660a64da8e3d",
+      "bytes": 1376,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "9d094b5aac3f1b58af276cc94fff2460631d649938d6ceb6acd16dc88eafdd8e"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-canonical-path-probe.log",
+      "parentGitBlobSha": "0719458e30345d9d9b3bdbd7f1d24aa2a9aff329",
+      "bytes": 11121,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-cold-process.json",
+      "parentGitBlobSha": "1f2bd6518251ace42acfc7fd6830e532cc22e89b",
+      "bytes": 568,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-cold-receipt.json",
+      "parentGitBlobSha": "0e58f9f0ab3bd71342e51bdd0d955d2ca7040a85",
+      "bytes": 261857,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-cold.log",
+      "parentGitBlobSha": "a57ae2866addba67ba6656e3d1b400e1a624a6e6",
+      "bytes": 144,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-system-ui-stop.json",
+      "parentGitBlobSha": "e47ae916149ac51341b40838b3a8288e088edb70",
+      "bytes": 1542,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-system-ui.json",
+      "parentGitBlobSha": "d110e0a9ace9f6fe4a58524037ec89a8948deeae",
+      "bytes": 1298,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-ui-process.json",
+      "parentGitBlobSha": "90b6f848520d4ac8be7e8401446a0ecd914aeaab",
+      "bytes": 790,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": false
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-ui.log",
+      "parentGitBlobSha": "8c88566083e67d080d8d99f9b34bd804559e42c5",
+      "bytes": 4217,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "1b7e2e997724dc4712bcffbc9803baba05f08ffcc219f4156f098e5b4d869a2a"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0.json",
+      "parentGitBlobSha": "922bd36b2827d82f0cca2f12f56a8346c80722e5",
+      "bytes": 11501,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "b0010831205256a411c567af2b4c4327c3df98232ba28c22af3716aec549fbca"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0.md",
+      "parentGitBlobSha": "f2bdd92353d8bc9850542fe575f214169512cdcf",
+      "bytes": 1995,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "3413e27abfcbe6fb96af415398b172fdca13a511c49f206a172983fac8b357a4"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/current-build-measurement.json",
+      "parentGitBlobSha": "39f39ee56b3566bcf0b42c7ef8a5633b129ecd02",
+      "bytes": 40740,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "30e92c4dce5889def98561e6b26bc9f20eea2cd8437f41076d48b0ba9c22d0c0"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/javascript-syntax.json",
+      "parentGitBlobSha": "f3251df8ba8a23355986ac821f4460db9de06d88",
+      "bytes": 485,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "85e5cc1430e572ca7dcd061dbd068a87033be585ed6e760e58507185ed19a1f8"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/structure-measurement-unit.log",
+      "parentGitBlobSha": "aa9a24d880b311d7bd493d1d440fac351a9f0300",
+      "bytes": 2101,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "8b69d51f8f035cfcef9535b1d940ea498b64bda094932d283b4974bfc458421f"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/ui-behavior-attempt.log",
+      "parentGitBlobSha": "f9da9adfcf18bf7dca296063782a7ebf52df2738",
+      "bytes": 1782,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "e0ef89523014c3e4f6a1dc6ba5dc15a1359b939a694bcff5068fadf355de1606"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/ui-test-syntax.json",
+      "parentGitBlobSha": "4d031f449f7b7b7b9e187cacb937476e86bc81e4",
+      "bytes": 176,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "edd56ce17a939600c948eb9c752a477354049c7182fe5d48fa3f5f5ba345b219"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/ui-types-attempt.log",
+      "parentGitBlobSha": "e86e47996014c6bc353385c4a90f6a18c73e277a",
+      "bytes": 812658,
+      "changedByIncrement": false,
+      "locallyReadAndHashVerified": true,
+      "sha256": "1f4a8de98f8334a9de06b8a735f297bc4d354776987084d3091884e26ea42ddd"
+    }
+  ],
+  "actualChecks": {
+    "helper-regression": {
+      "command": [
+        "node",
+        "--test",
+        "tests/ui/pr15-physical-root.test.mjs"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-r1-work",
+      "startedUtc": "2026-11-04T04:47:33.640094+00:00",
+      "finishedUtc": "2026-11-04T04:47:33.912669+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-15/author-r1-helper-regression.log",
+      "logBytes": 1558,
+      "logSha256": "3f4c4af3cb490dd6955a62a2befec0cf0054797bfdcde04cced0167b544f89a3",
+      "helperSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25",
+      "testSha256": "6857f8d6aab422ef380e4eb967e17cda8e210657ee89f9f4b7dee646c14486bb",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "kind": "Real local filesystem alias/guard checks plus explicit child-build port doubles and an actual CLI missing-input refusal. No actual cold build or performance claim."
+    },
+    "existing-node": {
+      "command": [
+        "node",
+        "--test",
+        "tests/ui/pr15-loading-structure.test.mjs"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-r1-work",
+      "startedUtc": "2026-11-04T04:43:48.189523+00:00",
+      "finishedUtc": "2026-11-04T04:43:49.042353+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-15/author-r1-existing-node.log",
+      "logBytes": 2100,
+      "logSha256": "a4a52fb5a179959e9b78fcba23dbdcce14c34f37ebcb54de0ee2e28ac24609f6",
+      "helperSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25",
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "kind": "Unchanged original Node AST/measurement/guard suite rerun against the final helper."
+    },
+    "ui-types": {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/ui/pr15.tsconfig.json",
+        "--noEmit"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-r1-work",
+      "startedUtc": "2026-11-04T04:41:16.783621+00:00",
+      "finishedUtc": "2026-11-04T04:41:20.400582+00:00",
+      "exitCode": 2,
+      "log": "docs/review/evidence/pr-15/author-r1-ui-types.log",
+      "logBytes": 811425,
+      "logSha256": "a40cb8ce5bb0f3bd9cf7ea1ede269cbf70352ab897822110c817b7335ff3c9e9",
+      "status": "BLOCKED_MISSING_DEPENDENCIES_NOT_PASS",
+      "diagnosticCounts": {
+        "TS18046": 388,
+        "TS2307": 175,
+        "TS2322": 603,
+        "TS2339": 35,
+        "TS2345": 3,
+        "TS2503": 4,
+        "TS2571": 2,
+        "TS2875": 124,
+        "TS7006": 670,
+        "TS7026": 3131,
+        "TS7031": 3,
+        "TS7053": 23
+      },
+      "totalDiagnostics": 5161,
+      "boundary": "Actual tsc command exit2 with incomplete cached UI dependencies and cascading diagnostics; no full test-source type PASS is claimed. Actual Vite client/importMeta declarations loaded and zero ImportMeta.env diagnostics is narrower evidence only."
+    },
+    "uiTypeContext": {
+      "configurationOnlyNotFullTypePass": true,
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/ui/pr15.tsconfig.json",
+        "--showConfig"
+      ],
+      "startedUtc": "2026-11-04T04:42:45.758644+00:00",
+      "finishedUtc": "2026-11-04T04:42:46.823603+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-15/author-r1-ui-config-resolved.log",
+      "logBytes": 2259,
+      "logSha256": "a61a62f4b22e8d701f2b2f226d4ba4c5592fc1fd24e929c20d2eb7058ce1793f",
+      "resolvedTypes": [
+        "vitest/globals",
+        "vite/client"
+      ],
+      "declarationListing": {
+        "command": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "tests/ui/pr15.tsconfig.json",
+          "--listFilesOnly"
+        ],
+        "exitCode": 0,
+        "log": "docs/review/evidence/pr-15/author-r1-ui-type-files.log",
+        "logBytes": 63736,
+        "logSha256": "4963a591c78f2dfd56c4a7feb6e5dfa19fb92385f2a40ea73b55ef40ece21762",
+        "actualViteDeclarations": [
+          "/workspace/scratch/feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/types/importMeta.d.ts",
+          "/workspace/scratch/feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/client.d.ts"
+        ]
+      },
+      "fullTypecheck": {
+        "exitCode": 2,
+        "status": "BLOCKED_MISSING_DEPENDENCIES_NOT_PASS",
+        "diagnosticCounts": {
+          "TS18046": 388,
+          "TS2307": 175,
+          "TS2322": 603,
+          "TS2339": 35,
+          "TS2345": 3,
+          "TS2503": 4,
+          "TS2571": 2,
+          "TS2875": 124,
+          "TS7006": 670,
+          "TS7026": 3131,
+          "TS7031": 3,
+          "TS7053": 23
+        },
+        "missingModules": [
+          "@testing-library/react",
+          "@testing-library/user-event",
+          "class-variance-authority",
+          "clsx",
+          "lucide-react",
+          "radix-ui",
+          "react",
+          "react-router-dom",
+          "tailwind-merge"
+        ],
+        "remainingImportMetaEnvDiagnosticCount": 0
+      }
+    },
+    "javascriptSyntax": [
+      {
+        "command": [
+          "node",
+          "--check",
+          "tests/ui/pr15-measure-build.mjs"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "fileSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25"
+      },
+      {
+        "command": [
+          "node",
+          "--check",
+          "tests/ui/pr15-physical-root.test.mjs"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "fileSha256": "6857f8d6aab422ef380e4eb967e17cda8e210657ee89f9f4b7dee646c14486bb"
+      }
+    ]
+  },
+  "effectiveFreshLocalCases": {
+    "passed": 38,
+    "failed": 0,
+    "skipped": 0,
+    "newFocused": 15,
+    "originalNodeRerun": 23,
+    "actualBuildOrBrowserOrDeviceCases": 0
+  },
+  "previousLocalPassLogsPreserved": {
+    "runs": [
+      {
+        "command": [
+          "node",
+          "--test",
+          "tests/ui/pr15-loading-structure.test.mjs"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-r1-work",
+        "startedUtc": "2026-11-04T04:41:16.770554+00:00",
+        "finishedUtc": "2026-11-04T04:41:17.597184+00:00",
+        "exitCode": 0,
+        "log": "docs/review/evidence/pr-15/author-r1-existing-node-attempt1.log",
+        "logBytes": 2103,
+        "logSha256": "944c00afc8de6a579c1c1a441cbbe49b4c21349f972dceeca41dd8b73514a8fc",
+        "helperSha256": "5c8e525c08bea2beba871fc71f363938b0f032f409aa20e4d8150c5933a35b79"
+      },
+      {
+        "command": [
+          "node",
+          "--test",
+          "tests/ui/pr15-physical-root.test.mjs"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-r1-work",
+        "startedUtc": "2026-11-04T04:41:16.767657+00:00",
+        "finishedUtc": "2026-11-04T04:41:17.012280+00:00",
+        "exitCode": 0,
+        "log": "docs/review/evidence/pr-15/author-r1-helper-regression-attempt1.log",
+        "logBytes": 1433,
+        "logSha256": "977fccac17eb7fdfbb2341174dbaee32b32e13ae0802ad1912386809b12ffc77",
+        "helperSha256": "5c8e525c08bea2beba871fc71f363938b0f032f409aa20e4d8150c5933a35b79"
+      },
+      {
+        "command": [
+          "node",
+          "--test",
+          "tests/ui/pr15-physical-root.test.mjs"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-r1-work",
+        "startedUtc": "2026-11-04T04:43:48.189169+00:00",
+        "finishedUtc": "2026-11-04T04:43:48.527544+00:00",
+        "exitCode": 0,
+        "log": "docs/review/evidence/pr-15/author-r1-helper-regression-attempt2.log",
+        "logBytes": 1556,
+        "logSha256": "9d6a485d2e35e6a201fa605fb1eaa76ecb93ee20499402492e4dc71bccd2525a",
+        "helperSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25"
+      }
+    ],
+    "countedAgainAsUnique": false,
+    "reason": "Final helper CLI alias handling and one targeted case were added after the first pass; a trailing blank line in the new test was then removed during packaging checks. Final exact-byte runs supersede those preliminary passes without adding unique cases."
+  },
+  "unchangedEvidenceReuse": {
+    "actualReactJsdomMockApi": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "sourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+      "log": "controller-r0-ui.log",
+      "scope": "React/jsdom mock API direct URL/login/permission/scanner/language/chunk-failure behavior; not real browser or physical device"
+    },
+    "coldBuild": {
+      "status": "PASS",
+      "entryCount": 12,
+      "aggregate": "cd3f6119b97dd6148dfbd3c144e7a75890fc797044b395b7eaec4aa9fbe01f4b",
+      "receipt": "controller-r0-cold-receipt.json",
+      "oldDistUsed": false
+    },
+    "newUiSuiteRun": false,
+    "newFullColdBuildRun": false,
+    "boundary": "Prior 16 React/jsdom and successful 12-entry immutable cold product build remain unchanged controller evidence, not new R1 executions. No browser/device acceptance."
+  },
+  "pairedMeasurement": {
+    "status": "NOT_RUN",
+    "helperRunnerInvokedOnActualColdInputs": false,
+    "actualPairedMeasurements": 0,
+    "reason": "Both controller-preserved exact immutable macOS cold roots and receipts are absent in this author environment. No substitute cold build, fake receipt or current warm checkout measurement was used.",
+    "inputAvailabilityCheckedUtc": "2026-11-04T04:47:34.349695+00:00",
+    "exactInputs": [
+      {
+        "label": "baseline-source",
+        "path": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source",
+        "existsInAuthorEnvironment": false
+      },
+      {
+        "label": "baseline-receipt",
+        "path": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/cold-build-receipt.json",
+        "sha256": "d2457ade00bb63469c552b7a08188853ca06c839a711ac2fbbca29834e6370c4",
+        "existsInAuthorEnvironment": false
+      },
+      {
+        "label": "candidate-source",
+        "path": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+        "existsInAuthorEnvironment": false
+      },
+      {
+        "label": "candidate-receipt",
+        "path": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/cold-build-receipt.json",
+        "sha256": "853556c940851361acee11ee93752f59c8ebf7b2fe7c970bbc13e4d43af2767c",
+        "existsInAuthorEnvironment": false
+      }
+    ],
+    "originalSourceCommits": {
+      "baseline": "f282104534f6373423dd42ef6d6b9449613ba96c",
+      "candidate": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0"
+    },
+    "originalColdAggregates": {
+      "baseline": "02eb89192efc162fb63f6ea698181b59e82d957ffd1a3371037d2436d3048dfa",
+      "candidate": "cd3f6119b97dd6148dfbd3c144e7a75890fc797044b395b7eaec4aa9fbe01f4b"
+    },
+    "newExternalRecipeSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25",
+    "newRecipeLocation": "tests/ui/pr15-measure-build.mjs in the R1 patched original PR15 checkout, outside both immutable cold roots",
+    "oldRecipeSha256PreservedInColdInputs": "7328418540525e1c80b3aea2cff1fa78a65cde879d87318a25acc2f6a48e923e",
+    "requiredCommonLockSha256": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7",
+    "controllerPriorCommonToolchain": {
+      "node": "24.18.0",
+      "pnpm": "11.28.5",
+      "vite": "7.3.7"
+    },
+    "newSameToolchainRequired": true,
+    "physicalPdaTiming": "NOT_RUN",
+    "byteImprovement": null,
+    "boundary": "Read exact original receipts without rewriting. Each run rechecks all tracked source hashes/count and lock against its own receipt; only measurement outputs are newly created outside the cold roots. Compare reports from this same R1 helper recipe, not old failed measurement reports."
+  },
+  "systemUiBoundary": {
+    "terraActualCases": 0,
+    "reason": "Separate browser-control capability gap per controller receipt",
+    "ownerDisabledClaim": false,
+    "terraChatRetrieved": false,
+    "physicalDevicePerformance": "NOT_RUN"
+  },
+  "runtime": {
+    "node": "v24.22.1",
+    "typescript": "5.9.3",
+    "dependencies": "Existing incomplete cached dependencies; no frozen install or new cold-build claim."
+  },
+  "gitCommit": "NOT_CREATED",
+  "remoteWrite": "NOT_ATTEMPTED",
+  "controllerAccepted": false,
+  "batchAcceptanceFromController": {
+    "count": 9,
+    "total": 15,
+    "prs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      13,
+      14
+    ]
+  },
+  "otherRequests": "PR6/7/8/9/12 not restarted, rewritten or repackaged by this increment",
+  "changedPaths": [
+    "docs/review/evidence/pr-15/author-r1-existing-node-attempt1.log",
+    "docs/review/evidence/pr-15/author-r1-existing-node.log",
+    "docs/review/evidence/pr-15/author-r1-helper-regression-attempt1.log",
+    "docs/review/evidence/pr-15/author-r1-helper-regression-attempt2.log",
+    "docs/review/evidence/pr-15/author-r1-helper-regression.log",
+    "docs/review/evidence/pr-15/author-r1-javascript-syntax.json",
+    "docs/review/evidence/pr-15/author-r1-ui-config-resolved.log",
+    "docs/review/evidence/pr-15/author-r1-ui-type-files.log",
+    "docs/review/evidence/pr-15/author-r1-ui-types.log",
+    "docs/review/evidence/pr-15/author-r1.json",
+    "docs/review/evidence/pr-15/author-r1.md",
+    "tests/ui/pr15-measure-build.mjs",
+    "tests/ui/pr15-physical-root.test.mjs",
+    "tests/ui/pr15.tsconfig.json"
+  ]
+}

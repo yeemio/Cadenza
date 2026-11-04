@@ -16,6 +16,8 @@ export default defineConfig({
       { find: /^@cadenza\/contracts$/, replacement: r('../../packages/contracts/src/index.ts') },
     ],
   },
+  // Emitted for repeatable initial-import-closure and route-chunk measurements.
+  build: { manifest: true },
   server: {
     port: 5173,
     strictPort: true, // 端口被占直接失败，不静默换端口

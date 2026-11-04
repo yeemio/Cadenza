@@ -1,15 +1,16 @@
-import type { ReactElement } from 'react'
-import { CostEnergyPage } from './pages/CostEnergyPage'
-import { CostReportsPage } from './pages/CostReportsPage'
-import { OtFactsPage } from './pages/OtFactsPage'
-import { OtMonitorPage } from './pages/OtMonitorPage'
-import { OtSamplesPage } from './pages/OtSamplesPage'
-import { OutsourcingTasksPage } from './pages/OutsourcingTasksPage'
-import { SpcCalibrationPage } from './pages/SpcCalibrationPage'
-import { SpcChartsPage } from './pages/SpcChartsPage'
-import { SpcChangesPage } from './pages/SpcChangesPage'
-import { SpcToolsPage } from './pages/SpcToolsPage'
+import { lazy, type ReactElement } from 'react'
 import { COST_READ, CSW_READ, OT_READ, SPC_READ } from './permissions'
+
+const CostEnergyPage = lazy(() => import('./pages/CostEnergyPage').then((module) => ({ default: module.CostEnergyPage })))
+const CostReportsPage = lazy(() => import('./pages/CostReportsPage').then((module) => ({ default: module.CostReportsPage })))
+const OtFactsPage = lazy(() => import('./pages/OtFactsPage').then((module) => ({ default: module.OtFactsPage })))
+const OtMonitorPage = lazy(() => import('./pages/OtMonitorPage').then((module) => ({ default: module.OtMonitorPage })))
+const OtSamplesPage = lazy(() => import('./pages/OtSamplesPage').then((module) => ({ default: module.OtSamplesPage })))
+const OutsourcingTasksPage = lazy(() => import('./pages/OutsourcingTasksPage').then((module) => ({ default: module.OutsourcingTasksPage })))
+const SpcCalibrationPage = lazy(() => import('./pages/SpcCalibrationPage').then((module) => ({ default: module.SpcCalibrationPage })))
+const SpcChartsPage = lazy(() => import('./pages/SpcChartsPage').then((module) => ({ default: module.SpcChartsPage })))
+const SpcChangesPage = lazy(() => import('./pages/SpcChangesPage').then((module) => ({ default: module.SpcChangesPage })))
+const SpcToolsPage = lazy(() => import('./pages/SpcToolsPage').then((module) => ({ default: module.SpcToolsPage })))
 
 /**
  * [L0-整合标记] P3-UI 域页面挂载点（web）。

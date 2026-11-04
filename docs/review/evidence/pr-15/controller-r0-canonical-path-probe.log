@@ -1,0 +1,94 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 2273 modules transformed.
+
+(!) outDir /private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-canonical-probe-z9jhgarb/web is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+rendering chunks...
+computing gzip size...
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/index.html                                        0.60 kB │ gzip:   0.41 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/.vite/manifest.json                              28.33 kB │ gzip:   2.82 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/index-CIcWCm_n.css                        33.50 kB │ gzip:   7.00 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/shared-DfTqkWEB.js                         0.60 kB │ gzip:   0.42 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/Badge-DKRq69VC.js                          0.74 kB │ gzip:   0.42 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/PageContainer-lgMUhh4h.js                  0.76 kB │ gzip:   0.41 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ReturnRestoreHubPage-uM-ri68S.js           1.22 kB │ gzip:   0.72 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/CorrectClearPage-DB8coTZ7.js               1.34 kB │ gzip:   0.85 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/DashboardPage-DjSL1ojc.js                  1.41 kB │ gzip:   0.84 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ShortageKittingPage-DgWgzvDV.js            1.49 kB │ gzip:   0.98 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/GroupAllocationRevisionPage-BI0Ch_p_.js    1.54 kB │ gzip:   1.01 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/VendorRiskPage-37GywkD9.js                 1.81 kB │ gzip:   1.09 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/group-api-DxrEg_Dp.js                      1.94 kB │ gzip:   0.68 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ReworkScrapRecallHubPage-JskqR0IK.js       2.19 kB │ gzip:   1.23 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/QualitySuspectPage-bawspg03.js             2.29 kB │ gzip:   1.32 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ScanInput-BlHfqj8H.js                      2.33 kB │ gzip:   1.32 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ScanBlockPage-DVz-hc5s.js                  2.62 kB │ gzip:   1.53 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/FeedRacePlanPage-D9rDcD-Y.js               2.70 kB │ gzip:   1.53 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/Table-Cx-L_j4I.js                          3.09 kB │ gzip:   1.46 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/InventoryBalancesPage-CbwttYqh.js          3.20 kB │ gzip:   1.67 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/QualityInspectionsPage-Djeg_A20.js         3.49 kB │ gzip:   1.79 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/MaintenancePlansPage-CYs3pIbN.js           3.52 kB │ gzip:   1.83 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ReportSummaryPage-DVWiToDL.js              3.60 kB │ gzip:   1.86 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/types-BweTRxEf.js                          3.74 kB │ gzip:   1.91 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/InventoryBarcodePage-Btmnrx4D.js           3.80 kB │ gzip:   1.86 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/AxisQueryPage-C2EnmVgk.js                  3.82 kB │ gzip:   1.76 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OtFactsPage-BoVel4Rl.js                    4.09 kB │ gzip:   1.96 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ReverseStocktakePage-C5NEY821.js           4.13 kB │ gzip:   1.93 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ProductionOrdersPage-D-PtENEW.js           4.19 kB │ gzip:   2.12 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ReverseLedgerPage-DH-UDZBC.js              4.42 kB │ gzip:   1.88 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/StockStatisticsPage-CCQYmHBK.js            4.43 kB │ gzip:   2.14 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/FinishedDefectPage-qfFj-fVm.js             4.52 kB │ gzip:   2.11 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OrgRolesPage-CtjibHi5.js                   4.78 kB │ gzip:   2.17 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/WarehousingMovesPage-HLark1St.js           4.80 kB │ gzip:   2.40 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OtMonitorPage-Nc7Ki8US.js                  4.87 kB │ gzip:   2.27 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/QualityHoldsPage-BkRKOtIa.js               5.11 kB │ gzip:   2.35 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/DispositionPage-DthpQiGm.js                5.22 kB │ gzip:   2.20 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/IqcVersionPage-Co-TW0EG.js                 5.45 kB │ gzip:   2.36 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OrderConversionPage-D3KuoKs5.js            5.59 kB │ gzip:   2.37 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/MasterWorkCentersPage-DAeoGh8f.js          5.63 kB │ gzip:   2.53 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/SpcChangesPage-BgPgbiaR.js                 5.74 kB │ gzip:   2.63 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/InventoryUnitPage-VN_slqvs.js              5.81 kB │ gzip:   2.07 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ReceiptCorrectionPage-Dfke9mwy.js          5.82 kB │ gzip:   2.45 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/WarehousingPutawayPage-DlpOaQ8r.js         5.88 kB │ gzip:   2.70 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/PurchaseOrdersPage-CETDAQ9C.js             6.23 kB │ gzip:   2.50 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/SpcToolsPage-lXNvTPOh.js                   6.26 kB │ gzip:   2.79 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ReverseTransferPage-LJ_LNXl_.js            6.29 kB │ gzip:   2.49 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/CostEnergyPage-sMsOukcX.js                 6.42 kB │ gzip:   2.88 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ShiftMetricsPage-DnDZRptn.js               6.95 kB │ gzip:   2.87 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OtSamplesPage-D4v4F4qP.js                  6.99 kB │ gzip:   3.22 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/MaintenanceOrdersPage-CI1q8zvH.js          7.56 kB │ gzip:   2.89 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ShippingOutboundPage-Dsw_3t9H.js           7.67 kB │ gzip:   2.88 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/MasterMaterialsPage-CvQ0Yk4v.js            7.79 kB │ gzip:   3.15 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/FeedingPage-B0L1qjfd.js                    7.89 kB │ gzip:   3.30 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OrgGrantsPage-DGBORSX9.js                  8.39 kB │ gzip:   3.33 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ProductionOrderDetailPage-6rcNTOqi.js      8.63 kB │ gzip:   3.55 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/StockConversionPage-DCLHqPtD.js            9.17 kB │ gzip:   3.50 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ReworkLedgerPage-CD77yhsY.js               9.49 kB │ gzip:   3.42 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/MasterWarehousesPage--iJI3lkg.js           9.51 kB │ gzip:   3.92 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/SpcCalibrationPage-DnrG9T9n.js             9.57 kB │ gzip:   3.82 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/MasterWarehouseDetailPage-DtsBM_fq.js      9.68 kB │ gzip:   3.45 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/SapReconciliationPage-PT2oQHTs.js          9.84 kB │ gzip:   3.39 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/WarehousingTransfersPage-Cx76apjo.js      10.36 kB │ gzip:   3.79 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/SpcChartsPage-CMW_sxb9.js                 10.36 kB │ gzip:   4.59 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OrgNodesPage-T6nzQK4D.js                  10.64 kB │ gzip:   4.29 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OrgUsersPage-Bqtc-8oq.js                  10.71 kB │ gzip:   3.88 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/OutsourcingTasksPage-CFbuCwXQ.js          10.86 kB │ gzip:   3.99 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/QualityInspectionDetailPage-CpL5zlRW.js   10.96 kB │ gzip:   3.88 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/MasterEquipmentPage-CETWTTGH.js           11.33 kB │ gzip:   4.13 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ShippingPackingPage-vaDyVzwV.js           12.59 kB │ gzip:   4.22 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/SchedulingPage-CFYgn9Eq.js                12.93 kB │ gzip:   4.70 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ShippingOrdersPage-C2bVgi5Y.js            14.02 kB │ gzip:   4.55 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/ExecutionWorkbenchPage-BD7ZTi-A.js        14.88 kB │ gzip:   5.28 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/CostReportsPage-Dv-3lYzi.js               17.49 kB │ gzip:   6.00 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/client-D8Imqdyp.js                        19.62 kB │ gzip:   9.19 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/Modal-Anbo_Y52.js                         38.26 kB │ gzip:  13.37 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/AiQueryPage-BBxJ2UoS.js                   51.62 kB │ gzip:  16.75 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/shared-D_7y94_w.js                       107.11 kB │ gzip:  31.48 kB
+../../../../cadenza-pr15-canonical-probe-z9jhgarb/web/assets/index-a8o2WnZV.js                        853.48 kB │ gzip: 258.39 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.43s

@@ -1,0 +1,712 @@
+{
+  "web": {
+    "graph": {
+      "filesVisited": 204,
+      "staticPageModules": [
+        "apps/web/src/p2/pages/AxisQueryPage.tsx",
+        "apps/web/src/p2/pages/DispositionPage.tsx",
+        "apps/web/src/p2/pages/FinishedDefectPage.tsx",
+        "apps/web/src/p2/pages/IqcVersionPage.tsx",
+        "apps/web/src/p2/pages/MaintenanceOrdersPage.tsx",
+        "apps/web/src/p2/pages/MaintenancePlansPage.tsx",
+        "apps/web/src/p2/pages/OrderConversionPage.tsx",
+        "apps/web/src/p2/pages/QualitySuspectPage.tsx",
+        "apps/web/src/p2/pages/ReceiptCorrectionPage.tsx",
+        "apps/web/src/p2/pages/ReportSummaryPage.tsx",
+        "apps/web/src/p2/pages/ReverseLedgerPage.tsx",
+        "apps/web/src/p2/pages/ReverseStocktakePage.tsx",
+        "apps/web/src/p2/pages/ReverseTransferPage.tsx",
+        "apps/web/src/p2/pages/ReworkLedgerPage.tsx",
+        "apps/web/src/p2/pages/ShiftMetricsPage.tsx",
+        "apps/web/src/p2/pages/StockConversionPage.tsx",
+        "apps/web/src/p2/pages/StockStatisticsPage.tsx",
+        "apps/web/src/p3/pages/CostEnergyPage.tsx",
+        "apps/web/src/p3/pages/CostReportsPage.tsx",
+        "apps/web/src/p3/pages/OtFactsPage.tsx",
+        "apps/web/src/p3/pages/OtMonitorPage.tsx",
+        "apps/web/src/p3/pages/OtSamplesPage.tsx",
+        "apps/web/src/p3/pages/OutsourcingTasksPage.tsx",
+        "apps/web/src/p3/pages/SpcCalibrationPage.tsx",
+        "apps/web/src/p3/pages/SpcChangesPage.tsx",
+        "apps/web/src/p3/pages/SpcChartsPage.tsx",
+        "apps/web/src/p3/pages/SpcToolsPage.tsx",
+        "apps/web/src/p4/pages/AiQueryPage.tsx",
+        "apps/web/src/pages/CorrectClearPage.tsx",
+        "apps/web/src/pages/DashboardPage.tsx",
+        "apps/web/src/pages/ExecutionWorkbenchPage.tsx",
+        "apps/web/src/pages/FeedRacePlanPage.tsx",
+        "apps/web/src/pages/FeedingPage.tsx",
+        "apps/web/src/pages/GroupAllocationRevisionPage.tsx",
+        "apps/web/src/pages/InventoryBalancesPage.tsx",
+        "apps/web/src/pages/InventoryBarcodePage.tsx",
+        "apps/web/src/pages/InventoryUnitPage.tsx",
+        "apps/web/src/pages/LoginPage.tsx",
+        "apps/web/src/pages/MasterEquipmentPage.tsx",
+        "apps/web/src/pages/MasterMaterialsPage.tsx",
+        "apps/web/src/pages/MasterWarehouseDetailPage.tsx",
+        "apps/web/src/pages/MasterWarehousesPage.tsx",
+        "apps/web/src/pages/MasterWorkCentersPage.tsx",
+        "apps/web/src/pages/OrgGrantsPage.tsx",
+        "apps/web/src/pages/OrgNodesPage.tsx",
+        "apps/web/src/pages/OrgRolesPage.tsx",
+        "apps/web/src/pages/OrgUsersPage.tsx",
+        "apps/web/src/pages/ProductionOrderDetailPage.tsx",
+        "apps/web/src/pages/ProductionOrdersPage.tsx",
+        "apps/web/src/pages/PurchaseOrdersPage.tsx",
+        "apps/web/src/pages/QualityHoldsPage.tsx",
+        "apps/web/src/pages/QualityInspectionDetailPage.tsx",
+        "apps/web/src/pages/QualityInspectionsPage.tsx",
+        "apps/web/src/pages/ReturnRestoreHubPage.tsx",
+        "apps/web/src/pages/ReworkScrapRecallHubPage.tsx",
+        "apps/web/src/pages/SapReconciliationPage.tsx",
+        "apps/web/src/pages/ScanBlockPage.tsx",
+        "apps/web/src/pages/SchedulingPage.tsx",
+        "apps/web/src/pages/ShippingOrdersPage.tsx",
+        "apps/web/src/pages/ShippingOutboundPage.tsx",
+        "apps/web/src/pages/ShippingPackingPage.tsx",
+        "apps/web/src/pages/ShortageKittingPage.tsx",
+        "apps/web/src/pages/VendorRiskPage.tsx",
+        "apps/web/src/pages/WarehousingMovesPage.tsx",
+        "apps/web/src/pages/WarehousingPutawayPage.tsx",
+        "apps/web/src/pages/WarehousingTransfersPage.tsx"
+      ],
+      "meaning": "Static TypeScript import graph only, not measured production bytes or browser performance."
+    },
+    "routes": [
+      {
+        "path": "*",
+        "component": "Navigate",
+        "redirect": "/dashboard"
+      },
+      {
+        "path": "/clear",
+        "component": "CorrectClearPage",
+        "redirect": null
+      },
+      {
+        "path": "/correct",
+        "component": "CorrectClearPage",
+        "redirect": null
+      },
+      {
+        "path": "/dashboard",
+        "component": "DashboardPage",
+        "redirect": null
+      },
+      {
+        "path": "/group/allocation-revision",
+        "component": "GroupAllocationRevisionPage",
+        "redirect": null
+      },
+      {
+        "path": "/group/rework-scrap-recall",
+        "component": "ReworkScrapRecallHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/group/sap-reconciliation",
+        "component": "SapReconciliationPage",
+        "redirect": null
+      },
+      {
+        "path": "/group/shortage-kitting",
+        "component": "ShortageKittingPage",
+        "redirect": null
+      },
+      {
+        "path": "/group/vendor-risk",
+        "component": "VendorRiskPage",
+        "redirect": null
+      },
+      {
+        "path": "/inventory/balances",
+        "component": "InventoryBalancesPage",
+        "redirect": null
+      },
+      {
+        "path": "/inventory/barcode",
+        "component": "InventoryBarcodePage",
+        "redirect": null
+      },
+      {
+        "path": "/inventory/clear",
+        "component": "CorrectClearPage",
+        "redirect": null
+      },
+      {
+        "path": "/inventory/correct",
+        "component": "CorrectClearPage",
+        "redirect": null
+      },
+      {
+        "path": "/inventory/shortage",
+        "component": "ShortageKittingPage",
+        "redirect": null
+      },
+      {
+        "path": "/inventory/units",
+        "component": "InventoryUnitPage",
+        "redirect": null
+      },
+      {
+        "path": "/login",
+        "component": "LoginPage",
+        "redirect": null
+      },
+      {
+        "path": "/masterdata/equipment",
+        "component": "MasterEquipmentPage",
+        "redirect": null
+      },
+      {
+        "path": "/masterdata/materials",
+        "component": "MasterMaterialsPage",
+        "redirect": null
+      },
+      {
+        "path": "/masterdata/warehouses",
+        "component": "MasterWarehousesPage",
+        "redirect": null
+      },
+      {
+        "path": "/masterdata/warehouses/:id",
+        "component": "MasterWarehouseDetailPage",
+        "redirect": null
+      },
+      {
+        "path": "/masterdata/work-centers",
+        "component": "MasterWorkCentersPage",
+        "redirect": null
+      },
+      {
+        "path": "/org/grants",
+        "component": "OrgGrantsPage",
+        "redirect": null
+      },
+      {
+        "path": "/org/nodes",
+        "component": "OrgNodesPage",
+        "redirect": null
+      },
+      {
+        "path": "/org/roles",
+        "component": "OrgRolesPage",
+        "redirect": null
+      },
+      {
+        "path": "/org/users",
+        "component": "OrgUsersPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/allocation",
+        "component": "GroupAllocationRevisionPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/correct-clear",
+        "component": "CorrectClearPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/feed-race-plan",
+        "component": "FeedRacePlanPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/feeding",
+        "component": "FeedingPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/feeding/return",
+        "component": "ReturnRestoreHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/kitting",
+        "component": "ShortageKittingPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/orders",
+        "component": "ProductionOrdersPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/orders/:id",
+        "component": "ProductionOrderDetailPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/scan-block",
+        "component": "ScanBlockPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/scheduling",
+        "component": "SchedulingPage",
+        "redirect": null
+      },
+      {
+        "path": "/production/workbench",
+        "component": "ExecutionWorkbenchPage",
+        "redirect": null
+      },
+      {
+        "path": "/purchase/orders",
+        "component": "PurchaseOrdersPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality/holds",
+        "component": "QualityHoldsPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality/inspections",
+        "component": "QualityInspectionsPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality/inspections/:id",
+        "component": "QualityInspectionDetailPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality/recall",
+        "component": "ReworkScrapRecallHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality/restore",
+        "component": "ReturnRestoreHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality/return-restore",
+        "component": "ReturnRestoreHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality/rework",
+        "component": "ReworkScrapRecallHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality/scrap",
+        "component": "ReworkScrapRecallHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/reconciliation",
+        "component": "SapReconciliationPage",
+        "redirect": null
+      },
+      {
+        "path": "/return",
+        "component": "ReturnRestoreHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/sap/reconciliation",
+        "component": "SapReconciliationPage",
+        "redirect": null
+      },
+      {
+        "path": "/scan-block",
+        "component": "ScanBlockPage",
+        "redirect": null
+      },
+      {
+        "path": "/shipping/orders",
+        "component": "ShippingOrdersPage",
+        "redirect": null
+      },
+      {
+        "path": "/shipping/outbound",
+        "component": "ShippingOutboundPage",
+        "redirect": null
+      },
+      {
+        "path": "/shipping/packing",
+        "component": "ShippingPackingPage",
+        "redirect": null
+      },
+      {
+        "path": "/vendor-risk",
+        "component": "VendorRiskPage",
+        "redirect": null
+      },
+      {
+        "path": "/warehousing/moves",
+        "component": "WarehousingMovesPage",
+        "redirect": null
+      },
+      {
+        "path": "/warehousing/putaway",
+        "component": "WarehousingPutawayPage",
+        "redirect": null
+      },
+      {
+        "path": "/warehousing/transfers",
+        "component": "WarehousingTransfersPage",
+        "redirect": null
+      },
+      {
+        "path": "<index>",
+        "component": "Navigate",
+        "redirect": "/dashboard"
+      },
+      {
+        "path": "ai/query",
+        "component": "AiQueryPage",
+        "redirect": null
+      },
+      {
+        "path": "cost/energy",
+        "component": "CostEnergyPage",
+        "redirect": null
+      },
+      {
+        "path": "cost/reports",
+        "component": "CostReportsPage",
+        "redirect": null
+      },
+      {
+        "path": "ot/facts",
+        "component": "OtFactsPage",
+        "redirect": null
+      },
+      {
+        "path": "ot/monitor",
+        "component": "OtMonitorPage",
+        "redirect": null
+      },
+      {
+        "path": "ot/samples",
+        "component": "OtSamplesPage",
+        "redirect": null
+      },
+      {
+        "path": "outsourcing/tasks",
+        "component": "OutsourcingTasksPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/conversion/order",
+        "component": "OrderConversionPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/conversion/stock",
+        "component": "StockConversionPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/maintenance/orders",
+        "component": "MaintenanceOrdersPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/maintenance/plans",
+        "component": "MaintenancePlansPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/quality/defect",
+        "component": "FinishedDefectPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/quality/disposition",
+        "component": "DispositionPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/quality/iqc",
+        "component": "IqcVersionPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/quality/suspect",
+        "component": "QualitySuspectPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reporting/axis-query",
+        "component": "AxisQueryPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reporting/metrics",
+        "component": "ShiftMetricsPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reporting/stock-stats",
+        "component": "StockStatisticsPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reporting/summary",
+        "component": "ReportSummaryPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reverse/ledger",
+        "component": "ReverseLedgerPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reverse/receipt",
+        "component": "ReceiptCorrectionPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reverse/stocktake",
+        "component": "ReverseStocktakePage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reverse/transfer",
+        "component": "ReverseTransferPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/rework",
+        "component": "ReworkLedgerPage",
+        "redirect": null
+      },
+      {
+        "path": "spc/calibration",
+        "component": "SpcCalibrationPage",
+        "redirect": null
+      },
+      {
+        "path": "spc/changes",
+        "component": "SpcChangesPage",
+        "redirect": null
+      },
+      {
+        "path": "spc/charts",
+        "component": "SpcChartsPage",
+        "redirect": null
+      },
+      {
+        "path": "spc/tools",
+        "component": "SpcToolsPage",
+        "redirect": null
+      }
+    ],
+    "routeSourceDigest": "e63431549f127897e80f8838639d7375d0ae6c34d21a46b0adcff64d8378965f"
+  },
+  "pda": {
+    "graph": {
+      "filesVisited": 160,
+      "staticPageModules": [
+        "apps/pda/src/p2/pages/AxisCorrectionPdaPage.tsx",
+        "apps/pda/src/p2/pages/AxisRetirePdaPage.tsx",
+        "apps/pda/src/p2/pages/EquipmentExceptionPdaPage.tsx",
+        "apps/pda/src/p2/pages/EquipmentStartPdaPage.tsx",
+        "apps/pda/src/p2/pages/FinishedDefectPdaPage.tsx",
+        "apps/pda/src/p2/pages/IqcCodePdaPage.tsx",
+        "apps/pda/src/p2/pages/OrderConversionScanPdaPage.tsx",
+        "apps/pda/src/p2/pages/PalletTaskPdaPage.tsx",
+        "apps/pda/src/p2/pages/PdaCumulativePdaPage.tsx",
+        "apps/pda/src/p2/pages/QualitySuspectPdaPage.tsx",
+        "apps/pda/src/p2/pages/ReelSplitPdaPage.tsx",
+        "apps/pda/src/p2/pages/ReverseMovePdaPage.tsx",
+        "apps/pda/src/p2/pages/ReverseTransferInPdaPage.tsx",
+        "apps/pda/src/p2/pages/ReverseTransferOutPdaPage.tsx",
+        "apps/pda/src/p3/pages/OutsourcingReceivePage.tsx",
+        "apps/pda/src/p4/pages/AiQueryPdaPage.tsx",
+        "apps/pda/src/pages/FeedScanPage.tsx",
+        "apps/pda/src/pages/InventoryHubPage.tsx",
+        "apps/pda/src/pages/LoginPage.tsx",
+        "apps/pda/src/pages/MePage.tsx",
+        "apps/pda/src/pages/PackingAliasPage.tsx",
+        "apps/pda/src/pages/ProductionPage.tsx",
+        "apps/pda/src/pages/PutawayScanPage.tsx",
+        "apps/pda/src/pages/ScanPage.tsx",
+        "apps/pda/src/pages/ShippingOutboundPage.tsx",
+        "apps/pda/src/pages/ShippingScanPage.tsx",
+        "apps/pda/src/pages/TasksPage.tsx"
+      ],
+      "meaning": "Static TypeScript import graph only, not measured production bytes or browser performance."
+    },
+    "routes": [
+      {
+        "path": "*",
+        "component": "Navigate",
+        "redirect": "/tasks"
+      },
+      {
+        "path": "/feed",
+        "component": "FeedScanPage",
+        "redirect": null
+      },
+      {
+        "path": "/inspect",
+        "component": "Navigate",
+        "redirect": "/p2/iqc-code"
+      },
+      {
+        "path": "/inventory",
+        "component": "InventoryHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/login",
+        "component": "LoginPage",
+        "redirect": null
+      },
+      {
+        "path": "/me",
+        "component": "MePage",
+        "redirect": null
+      },
+      {
+        "path": "/moves",
+        "component": "InventoryHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/outbound",
+        "component": "ShippingOutboundPage",
+        "redirect": null
+      },
+      {
+        "path": "/packing",
+        "component": "PackingAliasPage",
+        "redirect": null
+      },
+      {
+        "path": "/production",
+        "component": "ProductionPage",
+        "redirect": null
+      },
+      {
+        "path": "/putaway",
+        "component": "PutawayScanPage",
+        "redirect": null
+      },
+      {
+        "path": "/quality",
+        "component": "Navigate",
+        "redirect": "/p2/suspect"
+      },
+      {
+        "path": "/scan",
+        "component": "ScanPage",
+        "redirect": null
+      },
+      {
+        "path": "/shipping",
+        "component": "ShippingScanPage",
+        "redirect": null
+      },
+      {
+        "path": "/shipping/outbound",
+        "component": "ShippingOutboundPage",
+        "redirect": null
+      },
+      {
+        "path": "/stock",
+        "component": "InventoryHubPage",
+        "redirect": null
+      },
+      {
+        "path": "/tasks",
+        "component": "TasksPage",
+        "redirect": null
+      },
+      {
+        "path": "<index>",
+        "component": "Navigate",
+        "redirect": "/tasks"
+      },
+      {
+        "path": "ai/query",
+        "component": "AiQueryPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "outsourcing/receive",
+        "component": "OutsourcingReceivePage",
+        "redirect": null
+      },
+      {
+        "path": "p2/axis-correction",
+        "component": "AxisCorrectionPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/axis-retire",
+        "component": "AxisRetirePdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/conversion-scan",
+        "component": "OrderConversionScanPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/cumulative",
+        "component": "PdaCumulativePdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/defect",
+        "component": "FinishedDefectPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/equipment-exception",
+        "component": "EquipmentExceptionPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/equipment-start",
+        "component": "EquipmentStartPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/iqc-code",
+        "component": "IqcCodePdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/move",
+        "component": "ReverseMovePdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/pallet-task",
+        "component": "PalletTaskPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/reel-split",
+        "component": "ReelSplitPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/suspect",
+        "component": "QualitySuspectPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/transfer-in",
+        "component": "ReverseTransferInPdaPage",
+        "redirect": null
+      },
+      {
+        "path": "p2/transfer-out",
+        "component": "ReverseTransferOutPdaPage",
+        "redirect": null
+      }
+    ],
+    "routeSourceDigest": "376aee52709dc5a7ea7389ca0e1d4de396a4e231bb43f34e7804cedc05cca6de"
+  }
+}

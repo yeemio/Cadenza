@@ -1,0 +1,392 @@
+{
+  "web": {
+    "graph": {
+      "filesVisited": 113,
+      "staticPageModules": [
+        "apps/web/src/pages/LoginPage.tsx"
+      ],
+      "meaning": "Static TypeScript import graph only, not measured production bytes or browser performance."
+    },
+    "routesUnchanged": true,
+    "lazyImports": [
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/DashboardPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/PurchaseOrdersPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/GroupAllocationRevisionPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ShortageKittingPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/FeedRacePlanPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ScanBlockPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/VendorRiskPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/SapReconciliationPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ReworkScrapRecallHubPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/CorrectClearPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ReturnRestoreHubPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ExecutionWorkbenchPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/FeedingPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/InventoryBalancesPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/InventoryBarcodePage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/InventoryUnitPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/MasterEquipmentPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/MasterMaterialsPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/MasterWarehouseDetailPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/MasterWarehousesPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/MasterWorkCentersPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/OrgGrantsPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/OrgNodesPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/OrgRolesPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/OrgUsersPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ProductionOrderDetailPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ProductionOrdersPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/QualityHoldsPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/QualityInspectionDetailPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/QualityInspectionsPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/SchedulingPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ShippingOrdersPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ShippingOutboundPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ShippingPackingPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/WarehousingMovesPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/WarehousingPutawayPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/WarehousingTransfersPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReworkLedgerPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/OrderConversionPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/StockConversionPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReverseLedgerPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReverseTransferPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReverseStocktakePage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReceiptCorrectionPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/QualitySuspectPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/FinishedDefectPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/IqcVersionPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/DispositionPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/MaintenanceOrdersPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/MaintenancePlansPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/StockStatisticsPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/AxisQueryPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReportSummaryPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ShiftMetricsPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/CostEnergyPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/CostReportsPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/OtFactsPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/OtMonitorPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/OtSamplesPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/OutsourcingTasksPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/SpcCalibrationPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/SpcChartsPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/SpcChangesPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/SpcToolsPage"
+      },
+      {
+        "file": "src/p4/mount.tsx",
+        "module": "./pages/AiQueryPage"
+      }
+    ],
+    "routeSourceDigest": "6afb33bea70f50d636689894009bf6404ecf4d32b7403450f9878ae2f559284c"
+  },
+  "pda": {
+    "graph": {
+      "filesVisited": 113,
+      "staticPageModules": [
+        "apps/pda/src/pages/LoginPage.tsx"
+      ],
+      "meaning": "Static TypeScript import graph only, not measured production bytes or browser performance."
+    },
+    "routesUnchanged": true,
+    "lazyImports": [
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/FeedScanPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/MePage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ProductionPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/PutawayScanPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ShippingOutboundPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ShippingScanPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/ScanPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/TasksPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/InventoryHubPage"
+      },
+      {
+        "file": "src/App.tsx",
+        "module": "./pages/PackingAliasPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReelSplitPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/PalletTaskPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/AxisCorrectionPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/AxisRetirePdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/OrderConversionScanPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReverseMovePdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReverseTransferOutPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/ReverseTransferInPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/QualitySuspectPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/FinishedDefectPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/IqcCodePdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/EquipmentExceptionPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/EquipmentStartPdaPage"
+      },
+      {
+        "file": "src/p2/mount.tsx",
+        "module": "./pages/PdaCumulativePdaPage"
+      },
+      {
+        "file": "src/p3/mount.tsx",
+        "module": "./pages/OutsourcingReceivePage"
+      },
+      {
+        "file": "src/p4/mount.tsx",
+        "module": "./pages/AiQueryPdaPage"
+      }
+    ],
+    "routeSourceDigest": "cb3e971cdbb52dd87b25d0811c3db5926e16327ac380f07b189ecc6852e90d9c"
+  }
+}

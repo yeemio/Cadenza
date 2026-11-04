@@ -1,0 +1,39 @@
+Browser tab: 3, Title: "Cadenza 管理工作台", URL: "http://127.0.0.1:5173/inventory/units".
+0 AXWebArea Cadenza 管理工作台, URL: 127.0.0.1:5173/inventory/units
+	1 container root
+		2 container 主导航面板
+			3 text Cadenza
+			4 text 线缆协同工作台
+			5 container 主导航
+				6 link Description: 看板, Value: 127.0.0.1:5173/dashboard
+				7 link Description: 机构管理, Value: 127.0.0.1:5173/org/nodes
+				8 link Description: 用户管理, Value: 127.0.0.1:5173/org/users
+				9 link Description: 角色管理, Value: 127.0.0.1:5173/org/roles
+				10 link Description: 授权管理, Value: 127.0.0.1:5173/org/grants
+				11 text 集团计划
+				12 link Description: 分配修订, Value: 127.0.0.1:5173/group/allocation-revision
+				13 link Description: 缺料/齐套, Value: 127.0.0.1:5173/group/shortage-kitting
+				14 link Description: 供应商风险, Value: 127.0.0.1:5173/group/vendor-risk
+				15 link Description: 返工/报废/召回, Value: 127.0.0.1:5173/group/rework-scrap-recall
+				16 link Description: 双账对账, Value: 127.0.0.1:5173/sap/reconciliation
+				17 text 异常与拦截
+				18 link Description: 轴号修正/清码, Value: 127.0.0.1:5173/production/correct-clear
+				19 link Description: 投料竞争/计划部分, Value: 127.0.0.1:5173/production/feed-race-plan
+				20 link Description: 退料/退货/恢复, Value: 127.0.0.1:5173/quality/return-restore
+				21 link Description: 扫描拦截, Value: 127.0.0.1:5173/scan-block
+			22 button 收窄导航
+		23 container
+			24 text 华东电缆集团 工厂 苏州线缆厂 企业范围 业务日 2026-11-04 UTC+8 14:30
+			25 pop up button (collapsed, settable) Description: 语言选择, Value: 简体中文, Secondary Actions: Expand
+				26 menu
+					27 (selected) 简体中文
+					28 한국어
+			29 text 集 集团管理员 （ [TEST_ADMIN] ）
+			30 button 退出登录
+		31 container
+			32 heading 单元详情, Value: 2
+				33 text 单元详情
+			34 text 库存单元身份/余额/预留/流水/谱系（inventory-trace-core 合同 IT-01/35）
+			35 text 没有库存查询许可（inventory.read）
+
+The focused UI element is 0 AXWebArea Cadenza 管理工作台, URL: 127.0.0.1:5173/inventory/units

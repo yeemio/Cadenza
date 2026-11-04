@@ -1,0 +1,22 @@
+✔ real filesystem aliases bind the same physical cold source in both directions (4.833916ms)
+✔ an unrelated physical root rejects even when every tracked byte is identical (4.997533ms)
+✔ mutation outside the UI measurement subset still invalidates the full cold manifest through an alias (1.91573ms)
+✔ cold source file count remains mandatory through a genuine alias (2.271665ms)
+✔ cold source manifest digest remains mandatory through a genuine alias (1.833666ms)
+✔ failed cold status cannot bind an otherwise matching physical source (1.650651ms)
+✔ a different dependency lock cannot bind an otherwise matching physical source (1.807557ms)
+✔ aliased source retains unsafe tracked path rejection: ../outside.ts (1.987627ms)
+✔ aliased source retains unsafe tracked path rejection: /outside.ts (4.564852ms)
+✔ aliased source retains unsafe tracked path rejection: ..\outside.ts (1.738414ms)
+✔ a missing exact tracked-source list still rejects through an alias (1.323931ms)
+✔ external recipe dispatches Web and PDA with physical roots/configs/output/cwd and leaves the frozen inputs untouched (10.75693ms)
+✔ the pinned package-manager guard still stops before dispatching any build (2.732097ms)
+✔ the actual coordinator rejects an unrelated receipt before dispatching any build (3.622836ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 178.117329

@@ -1,0 +1,13 @@
+Browser tab: 3, Title: "Cadenza 现场终端", URL: "http://127.0.0.1:5174/login".
+1 AXWebArea Cadenza 现场终端, URL: 127.0.0.1:5174/login
+	2 container
+		3 heading Cadenza 现场终端, Value: 1
+			4 text Cadenza 现场终端
+		5 text 扫码与工位操作（账号密码登录）
+		6 text 登录账号
+		7 text field (settable) 登录账号
+		8 text 密码
+		9 text field (settable) 密码
+		10 button 登录
+
+The focused UI element is 1 AXWebArea Cadenza 现场终端, URL: 127.0.0.1:5174/login

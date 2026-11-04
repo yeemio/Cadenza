@@ -1,0 +1,306 @@
+{
+  "pr": 15,
+  "authorRevision": "R1",
+  "parentHead": "a8ea17df961837680a715c5dae295ba07cb3c238",
+  "patchSha256": "796c9612bf77a9b471608356eae25c9d56977329fd8bbfd97dc80447f0b209a2",
+  "postimagesMatched": 14,
+  "sourceTestFingerprint": "fc2eb9a66984334f92e657cba89bc75c0ac20c38341218595f1e02b90ae3ac0f",
+  "sourceFiles": [
+    {
+      "path": "apps/pda/src/App.tsx",
+      "sha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+      "bytes": 3761,
+      "gitMode": "100644",
+      "parentSha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+      "parentGitBlobSha": "c935d5f9c39964792cfb3feddc069fb42c653b83",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/loading/mount.tsx",
+      "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "bytes": 1629,
+      "gitMode": "100644",
+      "parentSha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "parentGitBlobSha": "4ff1dfc361e6f019062bca2409572d50774067a4",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/p2/mount.tsx",
+      "sha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+      "bytes": 4798,
+      "gitMode": "100644",
+      "parentSha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+      "parentGitBlobSha": "256f61f7c6009ecd49eaca6f3b6216f0a2587601",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/p3/mount.tsx",
+      "sha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+      "bytes": 1095,
+      "gitMode": "100644",
+      "parentSha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+      "parentGitBlobSha": "2941008ca472d32599f6ad0233ebbafd6563bbb4",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/p4/mount.tsx",
+      "sha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+      "bytes": 1105,
+      "gitMode": "100644",
+      "parentSha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+      "parentGitBlobSha": "c917a57f67af8c7c38ac179a0109a379d13dee05",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/vite.config.ts",
+      "sha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+      "bytes": 1022,
+      "gitMode": "100644",
+      "parentSha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+      "parentGitBlobSha": "0e0de998ae303f061292a58863380dd5fc1d4fa8",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/App.tsx",
+      "sha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+      "bytes": 11540,
+      "gitMode": "100644",
+      "parentSha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+      "parentGitBlobSha": "8b31bcb18b64af008f9bbf6e8d99dd1bbdf4781d",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/loading/mount.tsx",
+      "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "bytes": 1629,
+      "gitMode": "100644",
+      "parentSha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "parentGitBlobSha": "4ff1dfc361e6f019062bca2409572d50774067a4",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/p2/mount.tsx",
+      "sha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+      "bytes": 6541,
+      "gitMode": "100644",
+      "parentSha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+      "parentGitBlobSha": "451c8215309fab866983d571966f747ef9f0f696",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/p3/mount.tsx",
+      "sha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+      "bytes": 4224,
+      "gitMode": "100644",
+      "parentSha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+      "parentGitBlobSha": "68172bb6019e015d810da6663330dda6cd82d69c",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/p4/mount.tsx",
+      "sha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+      "bytes": 1823,
+      "gitMode": "100644",
+      "parentSha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+      "parentGitBlobSha": "567467a157a130587ab0d301c2b37e07bb0d6852",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/vite.config.ts",
+      "sha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+      "bytes": 1071,
+      "gitMode": "100644",
+      "parentSha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+      "parentGitBlobSha": "e347744dc33e76c35dbf826ab665fd0e6acd06b7",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/ui/pr15-baseline-routes.json",
+      "sha256": "c88e3eaaf869ae38a70fdf1f593c4699213f0967c22058db5b0d7022d1ab5a61",
+      "bytes": 19897,
+      "gitMode": "100644",
+      "parentSha256": "c88e3eaaf869ae38a70fdf1f593c4699213f0967c22058db5b0d7022d1ab5a61",
+      "parentGitBlobSha": "839654060c29b6ee442dd8c983ee1702a53b7f6a",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/ui/pr15-loading-structure.test.mjs",
+      "sha256": "e77c848b00ec611da43f3e031c66d76ea349a89fbcf6a9595e249411a000fdd9",
+      "bytes": 9191,
+      "gitMode": "100644",
+      "parentSha256": "e77c848b00ec611da43f3e031c66d76ea349a89fbcf6a9595e249411a000fdd9",
+      "parentGitBlobSha": "d8da81436861e653cdb578a7eb4b385d9682155e",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/ui/pr15-measure-build.mjs",
+      "sha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25",
+      "bytes": 11474,
+      "gitMode": "100644",
+      "parentSha256": "7328418540525e1c80b3aea2cff1fa78a65cde879d87318a25acc2f6a48e923e",
+      "parentGitBlobSha": "ce5e48a034c6e817778fa66c9c0b9797611aec79",
+      "unchangedFromParent": false
+    },
+    {
+      "path": "tests/ui/pr15-physical-root.test.mjs",
+      "sha256": "6857f8d6aab422ef380e4eb967e17cda8e210657ee89f9f4b7dee646c14486bb",
+      "bytes": 11594,
+      "gitMode": "100644",
+      "parentSha256": null,
+      "parentGitBlobSha": null,
+      "unchangedFromParent": false
+    },
+    {
+      "path": "tests/ui/pr15-route-loading.test.tsx",
+      "sha256": "bf00c9bbad703e554e55c25432d5cafc79b08482538eccb36e8dcb3d8d4c213f",
+      "bytes": 7622,
+      "gitMode": "100644",
+      "parentSha256": "bf00c9bbad703e554e55c25432d5cafc79b08482538eccb36e8dcb3d8d4c213f",
+      "parentGitBlobSha": "7cdf4a2f64585666639b091e1b51504abe9578ca",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/ui/pr15-source-graph.mjs",
+      "sha256": "704edee0cefd0fc8c8dac12cd3e7e313e39954dfa67b7afbdd4b1a27ac526f58",
+      "bytes": 4896,
+      "gitMode": "100644",
+      "parentSha256": "704edee0cefd0fc8c8dac12cd3e7e313e39954dfa67b7afbdd4b1a27ac526f58",
+      "parentGitBlobSha": "867947d883a1299bcc3eeca0d5d4be51b16f75e7",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/ui/pr15.tsconfig.json",
+      "sha256": "94e54fc19440e168d411f3fb62f8dabdf38aa041180eedc9f8e9bd40270693da",
+      "bytes": 253,
+      "gitMode": "100644",
+      "parentSha256": "04c340c67d2e577951e8e126b0260441e585dbb7d685b784fe9160be37b15945",
+      "parentGitBlobSha": "055a7f7f7f39769eedec996a04ecaae28431e6f0",
+      "unchangedFromParent": false
+    },
+    {
+      "path": "tests/ui/pr15.vitest.config.ts",
+      "sha256": "abe5d4d835796d0ce8eedfb4e0e3ed5ec63a39038154dea053e72224b7a67652",
+      "bytes": 255,
+      "gitMode": "100644",
+      "parentSha256": "abe5d4d835796d0ce8eedfb4e0e3ed5ec63a39038154dea053e72224b7a67652",
+      "parentGitBlobSha": "dbb618533daf7b2de165fd8c219b4c2480293301",
+      "unchangedFromParent": true
+    }
+  ],
+  "unchangedProductFiles": [
+    {
+      "path": "apps/pda/src/App.tsx",
+      "sha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+      "bytes": 3761,
+      "gitMode": "100644",
+      "parentSha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+      "parentGitBlobSha": "c935d5f9c39964792cfb3feddc069fb42c653b83",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/loading/mount.tsx",
+      "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "bytes": 1629,
+      "gitMode": "100644",
+      "parentSha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "parentGitBlobSha": "4ff1dfc361e6f019062bca2409572d50774067a4",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/p2/mount.tsx",
+      "sha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+      "bytes": 4798,
+      "gitMode": "100644",
+      "parentSha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+      "parentGitBlobSha": "256f61f7c6009ecd49eaca6f3b6216f0a2587601",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/p3/mount.tsx",
+      "sha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+      "bytes": 1095,
+      "gitMode": "100644",
+      "parentSha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+      "parentGitBlobSha": "2941008ca472d32599f6ad0233ebbafd6563bbb4",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/p4/mount.tsx",
+      "sha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+      "bytes": 1105,
+      "gitMode": "100644",
+      "parentSha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+      "parentGitBlobSha": "c917a57f67af8c7c38ac179a0109a379d13dee05",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/vite.config.ts",
+      "sha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+      "bytes": 1022,
+      "gitMode": "100644",
+      "parentSha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+      "parentGitBlobSha": "0e0de998ae303f061292a58863380dd5fc1d4fa8",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/App.tsx",
+      "sha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+      "bytes": 11540,
+      "gitMode": "100644",
+      "parentSha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+      "parentGitBlobSha": "8b31bcb18b64af008f9bbf6e8d99dd1bbdf4781d",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/loading/mount.tsx",
+      "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "bytes": 1629,
+      "gitMode": "100644",
+      "parentSha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "parentGitBlobSha": "4ff1dfc361e6f019062bca2409572d50774067a4",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/p2/mount.tsx",
+      "sha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+      "bytes": 6541,
+      "gitMode": "100644",
+      "parentSha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+      "parentGitBlobSha": "451c8215309fab866983d571966f747ef9f0f696",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/p3/mount.tsx",
+      "sha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+      "bytes": 4224,
+      "gitMode": "100644",
+      "parentSha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+      "parentGitBlobSha": "68172bb6019e015d810da6663330dda6cd82d69c",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/p4/mount.tsx",
+      "sha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+      "bytes": 1823,
+      "gitMode": "100644",
+      "parentSha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+      "parentGitBlobSha": "567467a157a130587ab0d301c2b37e07bb0d6852",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/vite.config.ts",
+      "sha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+      "bytes": 1071,
+      "gitMode": "100644",
+      "parentSha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+      "parentGitBlobSha": "e347744dc33e76c35dbf826ab665fd0e6acd06b7",
+      "unchangedFromParent": true
+    }
+  ],
+  "original23NodeSourceUnchanged": true,
+  "original16UiSourceUnchanged": true,
+  "reusedAuthorNode": 38,
+  "newTypesAndActualPairedMeasurement": "PENDING",
+  "coldSourcesRemainImmutable": true,
+  "sourceCommit": "d434867d7ed5deb817949e5d3a09d39b31ff527e"
+}

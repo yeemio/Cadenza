@@ -1,5 +1,6 @@
-import type { ReactElement } from 'react'
-import { OutsourcingReceivePage } from './pages/OutsourcingReceivePage'
+import { lazy, type ReactElement } from 'react'
+
+const OutsourcingReceivePage = lazy(() => import('./pages/OutsourcingReceivePage').then((module) => ({ default: module.OutsourcingReceivePage })))
 
 /**
  * [L0-整合标记] P3-UI 域页面挂载点（PDA）。

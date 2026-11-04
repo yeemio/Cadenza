@@ -1,0 +1,264 @@
+{
+  "pr": 15,
+  "originalParent": "1dd796cd329c752733811ef3ac413739cab214db",
+  "acceptedPrerequisite": "e7a9985c87f02aa95bff6a3322140cc25bf969f5",
+  "cumulativeParent": "fa71144262912d2ccf1404f3696c715a73ed97d8",
+  "sourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+  "incrementSha256": "ad21bd62a53fe48af133645f82f71209fc03775f592802250e55b70f99f92c60",
+  "fingerprint": "811cc44d9f4d968f2273f6240f3576a974a3d733aa735bbff264cb04816bfc7c",
+  "allCombinedPostimagesMatched": 89,
+  "ownPostimagesMatched": 34,
+  "scopeExtensions": null,
+  "baselineColdReceipt": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/cold-build-receipt.json",
+  "status": "REWORK_MEASUREMENT_PATH_AND_TEST_TYPES",
+  "coldSnapshot": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+  "coldReceipt": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/cold-build-receipt.json",
+  "coldReceiptSha256": "853556c940851361acee11ee93752f59c8ebf7b2fe7c970bbc13e4d43af2767c",
+  "coldAggregate": "cd3f6119b97dd6148dfbd3c144e7a75890fc797044b395b7eaec4aa9fbe01f4b",
+  "coldStatus": "PASS_12_ENTRIES",
+  "revision": "CONTROLLER_R0",
+  "decision": "REWORK",
+  "state": "DRAFT_REWORK_MEASUREMENT_PATH_AND_TEST_TYPES",
+  "controllerAccepted": false,
+  "at": "2026-11-04T04:32:44.089262+00:00",
+  "sourceAndTestFiles": [
+    {
+      "path": "apps/pda/src/App.tsx",
+      "sha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+      "gitMode": "100644",
+      "parentSha256": "91d735ae3e211ffacc54ce777d20aebe21c5a44e12425aa13879264b0669e979"
+    },
+    {
+      "path": "apps/pda/src/loading/mount.tsx",
+      "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "gitMode": "100644",
+      "parentSha256": null
+    },
+    {
+      "path": "apps/pda/src/p2/mount.tsx",
+      "sha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+      "gitMode": "100644",
+      "parentSha256": "e45af66675fc191eac3c302e9a55e6cf5c2e1f5d1d726431f2b5c5d331ab1834"
+    },
+    {
+      "path": "apps/pda/src/p3/mount.tsx",
+      "sha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+      "gitMode": "100644",
+      "parentSha256": "a3cce7b4b28e2504c6702d37942c0b5b15f60daa49808999d7b8f7e28546fc49"
+    },
+    {
+      "path": "apps/pda/src/p4/mount.tsx",
+      "sha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+      "gitMode": "100644",
+      "parentSha256": "c2bb474727f748d6357ccf2e5ea40a5b2b7d5af6e28c840be4cf544079e5819f"
+    },
+    {
+      "path": "apps/pda/vite.config.ts",
+      "sha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+      "gitMode": "100644",
+      "parentSha256": "ea668b851c945ede5b757f417af087e5f9ee606398ab4219e0cf8f839168fe62"
+    },
+    {
+      "path": "apps/web/src/App.tsx",
+      "sha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+      "gitMode": "100644",
+      "parentSha256": "1fb7303e07333b9e503788b4bf4dd978ba6d6ea97f5c59c9c188942ed89f5498"
+    },
+    {
+      "path": "apps/web/src/loading/mount.tsx",
+      "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+      "gitMode": "100644",
+      "parentSha256": null
+    },
+    {
+      "path": "apps/web/src/p2/mount.tsx",
+      "sha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+      "gitMode": "100644",
+      "parentSha256": "bf19624d6d4c3a161e874d86e5d4151de4062b26b1c37a2fcd129e90a1a3c6b8"
+    },
+    {
+      "path": "apps/web/src/p3/mount.tsx",
+      "sha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+      "gitMode": "100644",
+      "parentSha256": "4fb80c0ff2c65bf830e12f3cfd133d01cac3c2d608a07ff6da78bf734ede597f"
+    },
+    {
+      "path": "apps/web/src/p4/mount.tsx",
+      "sha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+      "gitMode": "100644",
+      "parentSha256": "30a75780561ce27519895d2143da6d27b6169a8ed97e199178c22f0739e54213"
+    },
+    {
+      "path": "apps/web/vite.config.ts",
+      "sha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+      "gitMode": "100644",
+      "parentSha256": "61552aca4c33976df936ed94bdd1da4d22e04289c7afcbf76d54893c5fb9070a"
+    },
+    {
+      "path": "tests/ui/pr15-baseline-routes.json",
+      "sha256": "c88e3eaaf869ae38a70fdf1f593c4699213f0967c22058db5b0d7022d1ab5a61",
+      "gitMode": "100644",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/ui/pr15-loading-structure.test.mjs",
+      "sha256": "e77c848b00ec611da43f3e031c66d76ea349a89fbcf6a9595e249411a000fdd9",
+      "gitMode": "100644",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/ui/pr15-measure-build.mjs",
+      "sha256": "7328418540525e1c80b3aea2cff1fa78a65cde879d87318a25acc2f6a48e923e",
+      "gitMode": "100644",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/ui/pr15-route-loading.test.tsx",
+      "sha256": "bf00c9bbad703e554e55c25432d5cafc79b08482538eccb36e8dcb3d8d4c213f",
+      "gitMode": "100644",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/ui/pr15-source-graph.mjs",
+      "sha256": "704edee0cefd0fc8c8dac12cd3e7e313e39954dfa67b7afbdd4b1a27ac526f58",
+      "gitMode": "100644",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/ui/pr15.tsconfig.json",
+      "sha256": "04c340c67d2e577951e8e126b0260441e585dbb7d685b784fe9160be37b15945",
+      "gitMode": "100644",
+      "parentSha256": null
+    },
+    {
+      "path": "tests/ui/pr15.vitest.config.ts",
+      "sha256": "abe5d4d835796d0ce8eedfb4e0e3ed5ec63a39038154dea053e72224b7a67652",
+      "gitMode": "100644",
+      "parentSha256": null
+    }
+  ],
+  "validEvidence": {
+    "freshReactJsdomMockApi": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "sourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+      "log": "controller-r0-ui.log",
+      "scope": "React/jsdom mock API direct URL/login/permission/scanner/language/chunk-failure behavior; not real browser or physical device"
+    },
+    "reusedNode": {
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "log": "structure-measurement-unit.log",
+      "sha256": "8b69d51f8f035cfcef9535b1d940ea498b64bda094932d283b4974bfc458421f",
+      "scope": "same exact 19 source/test files and 89 cumulative postimages; AST/manifest/comparison guards, not performance"
+    },
+    "coldBuild": {
+      "status": "PASS",
+      "entryCount": 12,
+      "aggregate": "cd3f6119b97dd6148dfbd3c144e7a75890fc797044b395b7eaec4aa9fbe01f4b",
+      "receipt": "controller-r0-cold-receipt.json",
+      "oldDistUsed": false
+    }
+  },
+  "uiTestTypecheck": {
+    "exitCode": 2,
+    "error": "TS2339 ImportMeta.env",
+    "diagnosticCount": 12,
+    "cause": "PR15 test tsconfig lacks Vite client declaration context",
+    "log": "controller-r0-ui.log"
+  },
+  "comparableByteMeasurement": {
+    "status": "NOT_MEASURED",
+    "baselineSourceCommit": "f282104534f6373423dd42ef6d6b9449613ba96c",
+    "candidateSourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+    "baselineColdReceiptSha256": "d2457ade00bb63469c552b7a08188853ca06c839a711ac2fbbca29834e6370c4",
+    "candidateColdReceiptSha256": "853556c940851361acee11ee93752f59c8ebf7b2fe7c970bbc13e4d43af2767c",
+    "baselineAggregate": "02eb89192efc162fb63f6ea698181b59e82d957ffd1a3371037d2436d3048dfa",
+    "candidateAggregate": "cd3f6119b97dd6148dfbd3c144e7a75890fc797044b395b7eaec4aa9fbe01f4b",
+    "sameLockSha256": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7",
+    "sameRecipeSha256": "7328418540525e1c80b3aea2cff1fa78a65cde879d87318a25acc2f6a48e923e",
+    "sameToolchain": {
+      "node": "24.18.0",
+      "pnpm": "11.28.5",
+      "vite": "7.3.7"
+    },
+    "failure": "Both authentic measurement invocations fail Web Rollup build-html fileName traversal because logical /var root differs from canonical /private/var HTML path",
+    "probe": "controller-r0-canonical-path-probe.json",
+    "probeBoundary": "Single candidate Web command canonicalized paths only -> PASS; diagnostic, not paired measurement or improvement"
+  },
+  "systemUi": {
+    "status": "BLOCKED_BROWSER_CONTROL_UNAVAILABLE",
+    "assignment": "PR15-SYSTEM-UI-20261104-R0",
+    "threadId": "01a1a1cd-e99c-7ce2-9f8a-14f8a9094ddf",
+    "cursor": "b5e3d295-d2e7-490e-b128-8506b08813a3:2",
+    "actualExecuted": 0,
+    "reason": "No available supported browser interaction tool; open panel alone cannot bind/read/operate a page",
+    "ownerSettingsClaim": false,
+    "credentialReadByTerra": false,
+    "cleanup": "Only exact owned API/Web/PDA PIDs terminated after stable worker final; DB/private credential file/logs preserved"
+  },
+  "devicePerformance": "NOT_RUN",
+  "byteImprovement": null,
+  "siteFaultClaim": false,
+  "next": "Same sole author narrow R1 for physical root identity in measurement helper and Vite client types in test-only config; preserve products/old23cases/16UI/all failures. No controller source edit.",
+  "evidenceFiles": [
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-cold.log",
+      "sha256": "c744a919241256872ba894fd803221626ae7d6e6ed5a71aaff23657b32fa1f0c"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-cold-process.json",
+      "sha256": "d01a2201f262c788513cde83813eb0334e244db366989243a62fa82c08516a00"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-ui.log",
+      "sha256": "1b7e2e997724dc4712bcffbc9803baba05f08ffcc219f4156f098e5b4d869a2a"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-ui-process.json",
+      "sha256": "99e4a6bbee6ac6293854c91d61c830258290b8d51ed839d654cceb24eb3f4c1f"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-baseline-measurement.json",
+      "sha256": "8806f50fd33fdded26821440edeb3614951923edad3858815fa2365f4b25fb6c"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-candidate-measurement.json",
+      "sha256": "652d6b8a6784a1af3631b8965f6ef614fac54eac03f6918cd802f86a18b12a8b"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-canonical-path-probe.json",
+      "sha256": "9d094b5aac3f1b58af276cc94fff2460631d649938d6ceb6acd16dc88eafdd8e"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-canonical-path-probe.log",
+      "sha256": "3d74ad394a18b014d2007e17d856d8f651b399616a7d0e6a0202d73cded7734c"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-system-ui.json",
+      "sha256": "299bbe5a2a715e7c97b7647a1f138ed91c15164e98b3d353756db68b61b3e395"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-system-ui-stop.json",
+      "sha256": "e75d71fade5bdbf2e61036e811503f90d7253b9306a38fc45e9269c6996603ea"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-cold-receipt.json",
+      "sha256": "853556c940851361acee11ee93752f59c8ebf7b2fe7c970bbc13e4d43af2767c"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-baseline-web-build.log",
+      "sha256": "4ab80881d3b49b707a6d37fad6bca6ca77eb44b32c5b9acf70c48e4fd0c93893"
+    },
+    {
+      "path": "docs/review/evidence/pr-15/controller-r0-candidate-web-build.log",
+      "sha256": "ac6741ca6ef5c45728b417679e1a818d4848a3e15af736b139dfd656082be200"
+    }
+  ],
+  "protectedAuthorUnitLog": {
+    "path": "docs/review/evidence/pr-15/structure-measurement-unit.log",
+    "sha256": "8b69d51f8f035cfcef9535b1d940ea498b64bda094932d283b4974bfc458421f"
+  }
+}

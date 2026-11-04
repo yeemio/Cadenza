@@ -1,0 +1,16 @@
+{
+  "status": "FAIL",
+  "suite": "idempotency",
+  "counts": {
+    "declared": 0,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "unknown": 0
+  },
+  "runnerStarted": false,
+  "databaseCleanup": "PRESERVED",
+  "e01Claim": "No historical SIM evidence is replaced by this gate.",
+  "reason": "CADENZA_TEST_ADMIN_URL is required; no default/shared database or skip is permitted"
+}
