@@ -1,3 +1,4 @@
+import { cswCalibrationEffectAt } from '@cadenza/application'
 // 跨包类型导入（type-only，编译期擦除）：指向 application 已构建的 dist（构建顺序由 workspace
 // 拓扑保证：persistence 依赖 application）。csw 端口尚未并入 @cadenza/application 包名入口
 // （application/src/index.ts 为共享文件不改动），故走 dist 相对；L0 整合步把端口导出并入
@@ -630,232 +631,127 @@ export class PgCswOverrideAuditRepository implements CswOverrideAuditRepository 
   }
 }
 
-// ---------------- csw_equipment_calibration_state ----------------
+// ---------------- Direct maintenance / SPC business facts (I11) ----------------
 
-interface CalibrationRow {
-  id: string
-  enterprise_id: string
-  plant_id: string
-  equipment_id: string
-  calibration_result: CswCalibrationStateRecord['calibrationResult']
-  valid_until: Date | string | null
-  certificate_no: string | null
-  affected_slot_ids: string[]
-  created_at: Date | string
-  created_by: string | null
-  updated_at: Date | string
-  updated_by: string | null
-}
-
-function mapCalibration(r: CalibrationRow): CswCalibrationStateRecord {
-  return {
-    id: r.id,
-    enterpriseId: r.enterprise_id,
-    plantId: r.plant_id,
-    equipmentId: r.equipment_id,
-    calibrationResult: r.calibration_result,
-    validUntil: r.valid_until === null ? null : dateStr(r.valid_until),
-    certificateNo: r.certificate_no,
-    affectedSlotIds: Array.isArray(r.affected_slot_ids) ? r.affected_slot_ids : [],
-    updatedAt: iso(r.updated_at),
-    updatedBy: r.updated_by,
-    createdAt: iso(r.created_at),
-    createdBy: r.created_by,
-  }
+/** No implicit gauge/equipment identity. Configure exact UUIDs only after the association is verified. */
+export function cswGaugeBindings(raw: string | undefined): { bindings: Record<string,string>; issue: string | null } {
+  if (!raw) return { bindings: {}, issue: 'EQUIPMENT_GAUGE_BINDING_NOT_CONFIGURED' }
+  const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+  try {
+    const value: unknown = JSON.parse(raw)
+    if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('shape')
+    const entries = Object.entries(value)
+    if (entries.some(([equipment,gauge]) => !uuid.test(equipment) || typeof gauge !== 'string' || !uuid.test(gauge))) throw new Error('identity')
+    return {bindings: Object.fromEntries(entries.map(([e,g]) => [e.toLowerCase(),String(g).toLowerCase()])), issue:null}
+  } catch { return {bindings:{},issue:'INVALID_EQUIPMENT_GAUGE_BINDING_CONFIG'} }
 }
 
 export class PgCswCalibrationStateRepository implements CswCalibrationStateRepository {
   constructor(private readonly client: SqlClient) {}
 
-  async upsert(state: {
-    enterpriseId: string
-    plantId: string
-    equipmentId: string
-    calibrationResult: 'qualified' | 'limited' | 'invalid'
-    validUntil: string | null
-    certificateNo?: string | null
-    affectedSlotIds: string[]
-    updatedBy: string | null
-  }): Promise<CswCalibrationStateRecord> {
-    const r = await this.client.query(
-      `INSERT INTO csw_equipment_calibration_state
-         (enterprise_id, plant_id, equipment_id, calibration_result, valid_until, certificate_no,
-          affected_slot_ids, created_by, updated_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,$8,$8)
-       ON CONFLICT (equipment_id) DO UPDATE SET
-         calibration_result = EXCLUDED.calibration_result,
-         valid_until = EXCLUDED.valid_until,
-         certificate_no = EXCLUDED.certificate_no,
-         affected_slot_ids = EXCLUDED.affected_slot_ids,
-         updated_at = now(), updated_by = EXCLUDED.updated_by
-       RETURNING id, enterprise_id, plant_id, equipment_id, calibration_result, valid_until,
-         certificate_no, affected_slot_ids, created_at, created_by, updated_at, updated_by`,
-      [
-        state.enterpriseId,
-        state.plantId,
-        state.equipmentId,
-        state.calibrationResult,
-        state.validUntil,
-        state.certificateNo ?? null,
-        JSON.stringify(state.affectedSlotIds),
-        state.updatedBy ?? null,
-      ],
-    )
-    return mapCalibration(r.rows[0] as CalibrationRow)
+  async upsert(_state: Parameters<CswCalibrationStateRepository['upsert']>[0]): Promise<CswCalibrationStateRecord> {
+    throw new Error('I11: CSW calibration shadow writes are disabled; use spc.calibration.record')
   }
 
-  async findByEquipment(equipmentId: string): Promise<CswCalibrationStateRecord | null> {
-    const r = await this.client.query(
-      `SELECT id, enterprise_id, plant_id, equipment_id, calibration_result,
-         valid_until::text AS valid_until, certificate_no, affected_slot_ids, created_at, created_by,
-         updated_at, updated_by
-       FROM csw_equipment_calibration_state WHERE equipment_id = $1`,
-      [equipmentId],
+  private async facts(filter: { equipmentId?: string; plantIds?: string[] | null; enterpriseId?: string; productionDate?: string; knownAt?: string }): Promise<CswCalibrationStateRecord[]> {
+    const knownAt = filter.knownAt ?? new Date().toISOString(), date = filter.productionDate ?? knownAt.slice(0,10)
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(knownAt))) throw new Error('Invalid scheduling fact date')
+    const mapping = cswGaugeBindings(process.env['CADENZA_EQUIPMENT_GAUGES'])
+    const result = await this.client.query(
+      `SELECT e.id AS equipment_id,e.enterprise_id,e.plant_id,e.created_at AS equipment_created_at,
+         e.updated_at AS equipment_updated_at,g.id AS gauge_id,c.id AS record_id,c.result,
+         c.calibrated_at,c.valid_until,c.certificate_no,c.created_at,c.created_by,
+         COALESCE((SELECT jsonb_agg(jsonb_build_object('id',s.id,'date',s.production_date::text))
+           FROM schedule_slot s WHERE s.equipment_id=e.id AND s.plant_id=e.plant_id AND s.enterprise_id=e.enterprise_id
+             AND s.production_date >= $3::date AND s.planned_qty > 0),'[]'::jsonb) AS slots
+       FROM equipment e
+       LEFT JOIN spc_gauge g ON g.id=($1::jsonb->>e.id::text)::uuid
+         AND g.enterprise_id=e.enterprise_id AND g.plant_id=e.plant_id
+       LEFT JOIN LATERAL (
+         SELECT r.* FROM spc_calibration_record r WHERE r.gauge_id=g.id
+           AND r.enterprise_id=e.enterprise_id AND r.plant_id=e.plant_id
+           AND r.calibrated_at <= $2::timestamptz AND r.calibrated_at < (($3::date + 1)::timestamp AT TIME ZONE 'UTC')
+           AND r.created_at <= $2::timestamptz
+         ORDER BY r.calibrated_at DESC,r.created_at DESC,r.id DESC LIMIT 1
+       ) c ON true
+       WHERE e.status='active' AND ($4::uuid IS NULL OR e.id=$4)
+         AND ($5::uuid[] IS NULL OR e.plant_id=ANY($5)) AND ($6::uuid IS NULL OR e.enterprise_id=$6)
+       ORDER BY e.id`,
+      [JSON.stringify(mapping.bindings),knownAt,date,filter.equipmentId??null,filter.plantIds??null,filter.enterpriseId??null],
     )
-    return r.rows[0] === undefined ? null : mapCalibration(r.rows[0] as CalibrationRow)
+    return result.rows.map(row => {
+      const state: CswCalibrationStateRecord = {
+        id: String(row.record_id??row.equipment_id),enterpriseId:String(row.enterprise_id),plantId:String(row.plant_id),equipmentId:String(row.equipment_id),
+        calibrationResult: row.record_id ? row.result==='failed'?'invalid':row.result as 'qualified'|'limited' : 'unknown',
+        validUntil: row.valid_until ? dateStr(row.valid_until as Date|string) : null,certificateNo:row.certificate_no as string|null??null,
+        source:row.record_id?'spc_calibration_record':'UNKNOWN',
+        sourceIssue:row.record_id?null:mapping.issue??(!mapping.bindings[String(row.equipment_id)]?'EQUIPMENT_GAUGE_BINDING_MISSING':!row.gauge_id?'GAUGE_NOT_FOUND_OR_SCOPE_MISMATCH':'NO_EFFECTIVE_CALIBRATION_RECORD'),
+        gaugeId:row.gauge_id as string|null??null,sourceRecordId:row.record_id as string|null??null,
+        sourceCalibratedAt:isoOrNull(row.calibrated_at as Date|null),sourceValidUntil:isoOrNull(row.valid_until as Date|null),knowledgeAt:knownAt,
+        createdAt:iso((row.created_at??row.equipment_created_at) as Date),updatedAt:iso((row.created_at??row.equipment_updated_at) as Date),
+        createdBy:row.created_by as string|null??null,updatedBy:row.created_by as string|null??null,affectedSlotIds:[],
+      }
+      const slots = row.slots as Array<{id:string;date:string}>
+      state.affectedSlotIds=slots.filter(slot => ['invalid','expired'].includes(cswCalibrationEffectAt(state,slot.date))).map(slot=>slot.id)
+      state.reviewSlotIds=slots.map(slot=>slot.id)
+      state.planReviewRequired=state.sourceRecordId!==null && slots.length>0
+      return state
+    })
   }
 
-  async list(filter: { plantIds: string[] | null }): Promise<CswCalibrationStateRecord[]> {
-    const clause =
-      filter.plantIds === null
-        ? ''
-        : filter.plantIds.length === 0
-          ? 'WHERE false'
-          : 'WHERE plant_id = ANY($1)'
-    const r = await this.client.query(
-      `SELECT id, enterprise_id, plant_id, equipment_id, calibration_result,
-         valid_until::text AS valid_until, certificate_no, affected_slot_ids, created_at, created_by,
-         updated_at, updated_by
-       FROM csw_equipment_calibration_state ${clause} ORDER BY equipment_id`,
-      filter.plantIds === null || filter.plantIds.length === 0 ? [] : [filter.plantIds],
-    )
-    return r.rows.map((row) => mapCalibration(row as CalibrationRow))
+  async findByEquipment(equipmentId:string,productionDate?:string,knownAt?:string):Promise<CswCalibrationStateRecord|null> {
+    return (await this.facts({equipmentId,productionDate,knownAt}))[0]??null
+  }
+  async list(filter:Parameters<CswCalibrationStateRepository['list']>[0]):Promise<CswCalibrationStateRecord[]> {
+    return this.facts(filter)
   }
 }
 
-// ---------------- csw_equipment_downtime ----------------
+const MAINTENANCE_FACT_SELECT = `SELECT d.id,d.enterprise_id,d.plant_id,d.equipment_id,d.order_id,d.start_at,d.end_at,
+  d.reason,d.created_at,d.created_by,d.updated_by,
+  COALESCE((SELECT jsonb_agg(s.id ORDER BY s.production_date,s.id) FROM schedule_slot s
+    WHERE s.equipment_id=d.equipment_id AND s.enterprise_id=d.enterprise_id AND s.plant_id=d.plant_id
+      AND s.production_date >= (d.start_at AT TIME ZONE 'UTC')::date AND s.planned_qty>0),'[]'::jsonb) AS impact_slot_ids
+  FROM downtime_event d JOIN equipment e ON e.id=d.equipment_id
+    AND e.enterprise_id=d.enterprise_id AND e.plant_id=d.plant_id`
 
-const DOWNTIME_COLUMNS = `id, enterprise_id, plant_id, equipment_id, kind, from_at, to_at, status,
-  note, impact_slot_ids, closed_by, closed_at, created_at, created_by, updated_at, updated_by`
-
-interface DowntimeRow {
-  id: string
-  enterprise_id: string
-  plant_id: string
-  equipment_id: string
-  kind: CswDowntimeRecord['kind']
-  from_at: string
-  to_at: string
-  status: CswDowntimeRecord['status']
-  note: string | null
-  impact_slot_ids: string[]
-  closed_by: string | null
-  closed_at: Date | string | null
-  created_at: Date | string
-  created_by: string | null
-  updated_at: Date | string
-  updated_by: string | null
-}
-
-function mapDowntime(r: DowntimeRow): CswDowntimeRecord {
+function mapMaintenanceFact(row: Record<string,unknown>): CswDowntimeRecord {
   return {
-    id: r.id,
-    enterpriseId: r.enterprise_id,
-    plantId: r.plant_id,
-    equipmentId: r.equipment_id,
-    kind: r.kind,
-    fromAt: r.from_at,
-    toAt: r.to_at,
-    status: r.status,
-    note: r.note,
-    impactSlotIds: Array.isArray(r.impact_slot_ids) ? r.impact_slot_ids : [],
-    closedBy: r.closed_by,
-    closedAt: isoOrNull(r.closed_at),
-    createdBy: r.created_by,
-    createdAt: iso(r.created_at),
+    id:String(row.id),enterpriseId:String(row.enterprise_id),plantId:String(row.plant_id),equipmentId:String(row.equipment_id),
+    kind:'repair',fromAt:iso(row.start_at as Date),toAt:isoOrNull(row.end_at as Date|null),status:row.end_at===null?'active':'closed',
+    note:String(row.reason),impactSlotIds:row.impact_slot_ids as string[],closedBy:row.end_at===null?null:row.updated_by as string|null,
+    closedAt:isoOrNull(row.end_at as Date|null),createdAt:iso(row.created_at as Date),createdBy:row.created_by as string|null,
+    source:'downtime_event',sourceOrderId:row.order_id as string|null,planReviewRequired:row.end_at!==null,
+    reviewReason:row.end_at===null?null:'CAPACITY_CHANGED_REVIEW_REQUIRED_NO_AUTOMATIC_RESCHEDULE',
   }
 }
 
 export class PgCswDowntimeRepository implements CswDowntimeRepository {
-  constructor(private readonly client: SqlClient) {}
-
-  async insert(downtime: NewCswDowntimeRecord): Promise<CswDowntimeRecord> {
-    const r = await this.client.query(
-      `INSERT INTO csw_equipment_downtime
-         (enterprise_id, plant_id, equipment_id, kind, from_at, to_at, note, created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING ${DOWNTIME_COLUMNS}`,
-      [
-        downtime.enterpriseId,
-        downtime.plantId,
-        downtime.equipmentId,
-        downtime.kind,
-        downtime.fromAt,
-        downtime.toAt,
-        downtime.note ?? null,
-        downtime.createdBy ?? null,
-      ],
-    )
-    return mapDowntime(r.rows[0] as DowntimeRow)
+  constructor(private readonly client:SqlClient) {}
+  async insert(_input:NewCswDowntimeRecord):Promise<CswDowntimeRecord> { throw new Error('I11: use maintenance business commands; CSW cannot create downtime facts') }
+  async close(_id:string,_patch:Parameters<CswDowntimeRepository['close']>[1]):Promise<CswDowntimeRecord> { throw new Error('I11: use maintenance.order.restart; CSW cannot close downtime facts') }
+  async findById(id:string):Promise<CswDowntimeRecord|null> {
+    const r=await this.client.query(`${MAINTENANCE_FACT_SELECT} WHERE d.id=$1`,[id]);return r.rows[0]?mapMaintenanceFact(r.rows[0]):null
   }
-
-  async findById(id: string): Promise<CswDowntimeRecord | null> {
-    const r = await this.client.query(`SELECT ${DOWNTIME_COLUMNS} FROM csw_equipment_downtime WHERE id = $1`, [id])
-    return r.rows[0] === undefined ? null : mapDowntime(r.rows[0] as DowntimeRow)
+  async lockById(id:string):Promise<CswDowntimeRecord|null> {
+    const r=await this.client.query(`${MAINTENANCE_FACT_SELECT} WHERE d.id=$1 FOR UPDATE OF d`,[id]);return r.rows[0]?mapMaintenanceFact(r.rows[0]):null
   }
-
-  async lockById(id: string): Promise<CswDowntimeRecord | null> {
-    const r = await this.client.query(
-      `SELECT ${DOWNTIME_COLUMNS} FROM csw_equipment_downtime WHERE id = $1 FOR UPDATE`,
-      [id],
-    )
-    return r.rows[0] === undefined ? null : mapDowntime(r.rows[0] as DowntimeRow)
+  async listActiveByEquipment(equipmentId:string,fromDate?:string,toDate?:string):Promise<CswDowntimeRecord[]> {
+    const r=await this.client.query(`${MAINTENANCE_FACT_SELECT} WHERE d.equipment_id=$1
+      AND ($2::date IS NULL OR d.end_at IS NULL OR d.end_at > $2::date::timestamp AT TIME ZONE 'UTC')
+      AND ($3::date IS NULL OR d.start_at < ($3::date + 1)::timestamp AT TIME ZONE 'UTC') ORDER BY d.start_at,d.id`,[equipmentId,fromDate??null,toDate??null])
+    return r.rows.map(mapMaintenanceFact)
   }
-
-  async close(id: string, patch: { closedBy: string; closedAt: string; impactSlotIds: string[] }): Promise<CswDowntimeRecord> {
-    const r = await this.client.query(
-      `UPDATE csw_equipment_downtime SET status = 'closed', closed_by = $2, closed_at = $3,
-         impact_slot_ids = $4::jsonb, updated_at = now(), updated_by = $2
-       WHERE id = $1 RETURNING ${DOWNTIME_COLUMNS}`,
-      [id, patch.closedBy, patch.closedAt, JSON.stringify(patch.impactSlotIds)],
-    )
-    return mapDowntime(r.rows[0] as DowntimeRow)
-  }
-
-  async listActiveByEquipment(equipmentId: string): Promise<CswDowntimeRecord[]> {
-    const r = await this.client.query(
-      `SELECT ${DOWNTIME_COLUMNS} FROM csw_equipment_downtime WHERE equipment_id = $1 AND status = 'active'`,
-      [equipmentId],
-    )
-    return r.rows.map((row) => mapDowntime(row as DowntimeRow))
-  }
-
-  async list(
-    filter: { plantIds: string[] | null; equipmentId?: string; status?: 'active' | 'closed' } & { page?: number; pageSize?: number },
-  ): Promise<{ items: CswDowntimeRecord[]; total: number; page: number; pageSize: number }> {
-    const { page, pageSize, offset } = pageNum(filter.page, filter.pageSize)
-    const where: string[] = []
-    const args: unknown[] = []
-    if (filter.plantIds !== null) {
-      if (filter.plantIds.length === 0) return { items: [], total: 0, page, pageSize }
-      args.push(filter.plantIds)
-      where.push(`plant_id = ANY($${args.length})`)
-    }
-    if (filter.equipmentId !== undefined) {
-      args.push(filter.equipmentId)
-      where.push(`equipment_id = $${args.length}`)
-    }
-    if (filter.status !== undefined) {
-      args.push(filter.status)
-      where.push(`status = $${args.length}`)
-    }
-    const clause = where.length > 0 ? `WHERE ${where.join(' AND ')}` : ''
-    const total = await this.client.query(`SELECT count(*)::int AS n FROM csw_equipment_downtime ${clause}`, args)
-    const r = await this.client.query(
-      `SELECT ${DOWNTIME_COLUMNS} FROM csw_equipment_downtime ${clause}
-       ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}`,
-      args,
-    )
-    return { items: r.rows.map((row) => mapDowntime(row as DowntimeRow)), total: total.rows[0]?.n ?? 0, page, pageSize }
+  async list(filter:Parameters<CswDowntimeRepository['list']>[0]) {
+    const {page,pageSize,offset}=pageNum(filter.page,filter.pageSize)
+    const args=[filter.plantIds,filter.equipmentId??null,filter.status??null,filter.enterpriseId??null]
+    const where=`WHERE ($1::uuid[] IS NULL OR d.plant_id=ANY($1)) AND ($2::uuid IS NULL OR d.equipment_id=$2)
+      AND ($3::text IS NULL OR CASE WHEN d.end_at IS NULL THEN 'active' ELSE 'closed' END=$3)
+      AND ($4::uuid IS NULL OR d.enterprise_id=$4)`
+    const all=await this.client.query(`${MAINTENANCE_FACT_SELECT} ${where} ORDER BY d.start_at DESC,d.id LIMIT ${pageSize} OFFSET ${offset}`,args)
+    const count=await this.client.query(`SELECT count(*)::int AS n FROM downtime_event d JOIN equipment e ON e.id=d.equipment_id
+      AND e.enterprise_id=d.enterprise_id AND e.plant_id=d.plant_id ${where}`,args)
+    return {items:all.rows.map(mapMaintenanceFact),total:Number(count.rows[0]?.n??0),page,pageSize}
   }
 }
 

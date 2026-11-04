@@ -1,0 +1,151 @@
+{
+  "pr": 10,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-10-maintenance-scheduling",
+  "exactRecordedParentHead": "59ee963106d1ad731cce8b33923eb7774ca95c91",
+  "prerequisites": [
+    {
+      "pr": 1,
+      "head": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "status": "ACCEPTED_PRIOR_NOT_RETESTED"
+    },
+    {
+      "pr": 2,
+      "sourceAndTestSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+      "fullPatchSha256": "e91b61c9f9ef72d781f353ea11df320f471300a961f3ae0e5e84a57779120ccc",
+      "selectedExactPostimages": 31,
+      "status": "CANDIDATE_CONTROLLER_PENDING"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "0ab5ae25496d5d43a005e40c3e0b0aa5a1dc5b1953e3d6172e2671a98279fc3a",
+    "files": [
+      {
+        "path": "packages/application/src/csw-handlers.ts",
+        "sha256": "8adac91abaa56e586c4e6af90f5e7e943233a36486b12b6ec606e990e88d6664",
+        "parentSha256": "325165280b235fe7b40c6f2f947125289ea364ae0cae53de57c7a415e1523bc6"
+      },
+      {
+        "path": "packages/application/src/csw-queries.ts",
+        "sha256": "481cf9b4a40c6c8bcd4d6c82e52f57dddb6e618b5eeae5c6c36442c6ba0b53f2",
+        "parentSha256": "fa04ad070208ee646d867309c59a9a9ec32682d24abe47a28b521249ae3afafe"
+      },
+      {
+        "path": "packages/application/src/csw-repositories.ts",
+        "sha256": "78e2aa68a928e9d976e7adb761b8e70939fa992e9cebc1cfc13abfbaca405399",
+        "parentSha256": "c64b37f41f3a5bc3562755e41004311d259fcab784706dff0587fda2bd729dac"
+      },
+      {
+        "path": "packages/persistence/src/csw-repositories.ts",
+        "sha256": "fe9425c2b374d99e2287ea96ac7300a20499c7a6a4aa60817d10020b6e3cce06",
+        "parentSha256": "825d3078514985b0566ed5acc002affcb3ddf67a7eb0e40eebe7de5ac2d5796c"
+      },
+      {
+        "path": "tests/pr10/maintenance-scheduling.pg.spec.ts",
+        "sha256": "59332ad2c38f8b5723b02efed834b45c1fe6505c148822284c6d6f0d0e61e29e",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr10/maintenance-scheduling.unit.spec.ts",
+        "sha256": "2c31922c4d1160b784b8d6f53532a95436b5a691639eb47ee1d8f7bfbb4e1417",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr10/tsconfig.json",
+        "sha256": "2bee9518c53ac2921e1697b3642583be1ea1aefda8a5836bca47d900e6a4e77a",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr10/vitest.config.ts",
+        "sha256": "ca31e2da2db9f561c99cca78871716e83428912f69896868127beca356db56db",
+        "parentSha256": null
+      }
+    ]
+  },
+  "scopeExtensions": {
+    "packages/application/src/csw-queries.ts": "Use the same live maintenance/SPC sources for readiness and fact listings; bind touched lists to authenticated enterprise/factory; remove obsolete shadow-source label."
+  },
+  "scopeExtensionReview": "CONTROLLER_PENDING; announced before edit",
+  "commands": [
+    {
+      "name": "application-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 2,
+      "log": "application-typecheck.log"
+    },
+    {
+      "name": "persistence-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 2,
+      "log": "persistence-typecheck.log"
+    },
+    {
+      "name": "tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr10/tsconfig.json --noEmit",
+      "exitCode": 2,
+      "log": "tests-typecheck.log"
+    },
+    {
+      "name": "maintenance-unit",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr10/vitest.config.ts tests/pr10/maintenance-scheduling.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "maintenance-unit.log"
+    },
+    {
+      "name": "maintenance-pg-required",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr10/vitest.config.ts tests/pr10/maintenance-scheduling.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "maintenance-pg-required.log"
+    },
+    {
+      "name": "application-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck-final.log"
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "persistence-typecheck-final.log"
+    },
+    {
+      "name": "tests-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr10/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck-final.log"
+    },
+    {
+      "name": "maintenance-unit-final",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr10/vitest.config.ts tests/pr10/maintenance-scheduling.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "maintenance-unit-final.log"
+    }
+  ],
+  "unit": {
+    "passed": 31,
+    "failed": 0,
+    "skipped": 0,
+    "kind": "pure interpretation and deprecated-entry behavior only"
+  },
+  "realPG": {
+    "plannedCases": 12,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "reason": "No CADENZA_PR10_TEST_DB_URL or PostgreSQL runtime; explicit precondition abort, no database fallback or skip"
+  },
+  "limitations": [
+    "CADENZA_EQUIPMENT_GAUGES must explicitly bind an equipment UUID to its actual gauge UUID. The schema has no relationship; no name/number guess or real-site mapping is installed. A gauge must match actual equipment enterprise/factory.",
+    "UNKNOWN calibration retains frozen CSW policy (does not itself hard-block scheduling); it is not evidence of usable qualification. Exact SPC timestamps must cover a complete UTC scheduling date; no factory-shift/timezone claim.",
+    "Recovery prompts are recomputed read-only from business facts and slots, not an acknowledgement workflow or automatic replan. Historical shadow rows remain stored but no longer authoritative.",
+    "Propose/commit/readiness now read current business facts; absolute serialization with concurrently inserted SPC facts is not claimed. No source schema, historical migration or frozen contract changed.",
+    "31 unit cases and 3 final typechecks PASS using cached dependencies, not a cold build, real PG or site proof. Initial nullable-capacity typecheck failure retained and fixed.",
+    "Original shadow-write integration cases are superseded by real-business-entry cases, not claimed passing unchanged.",
+    "Controller acceptance/publication and named scope-extension review pending. No external controller message channel available or used."
+  ],
+  "remoteWrite": false,
+  "controllerAccepted": false
+}

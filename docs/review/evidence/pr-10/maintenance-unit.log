@@ -1,0 +1,40 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr10-work
+
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > whole-day qualified fact permits scheduling 1ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > limited retains the frozen positive gate 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > failed calibration remains invalid even before certificate expiry 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > midday expiry cannot be rounded up to a full available day 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > exact next-day midnight covers the prior half-open UTC date 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > new calibration during a date does not prove the earlier part qualified 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > missing mapping is explicitly UNKNOWN 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > missing calibration remains UNKNOWN 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > invalid timestamp cannot manufacture usable qualification 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > negative invalid gate rejects a new positive slot 1ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > negative expired gate rejects a new positive slot 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > negative invalid gate retains existing slot changes and zero deletion 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > negative expired gate retains existing slot changes and zero deletion 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > empty events give zero use 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > open event occupies the remaining part of the day 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > prior open event occupies the full day 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > closed event still occupies its actual historical interval 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > disjoint outages add, rather than taking only their maximum 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > overlapping facts are unioned without double counting 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > closing exactly at midnight consumes no next-day capacity 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > future outage consumes no earlier-day capacity 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > reversed and invalid intervals do not invent downtime 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > accepts an explicit UUID mapping 1ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > does not infer mapping from missing/invalid config undefined 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > does not infer mapping from missing/invalid config {} 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > does not infer mapping from missing/invalid config [] 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > does not infer mapping from missing/invalid config { 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > does not infer mapping from missing/invalid config {"EQ-NAME":"GAUGE-NAME"} 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > csw.calibration.state.set cannot create independent shadow facts 2ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > csw.downtime.register cannot create independent shadow facts 0ms
+ ✓ tests/pr10/maintenance-scheduling.unit.spec.ts > PR10 pure business-fact interpretation (no DB claim) > csw.downtime.close cannot create independent shadow facts 0ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  00:31:17
+   Duration  3.19s (transform 2.02s, setup 0ms, collect 2.89s, tests 11ms, environment 0ms, prepare 84ms)
+
