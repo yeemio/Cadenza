@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Cadenza 升级脚本（T26，DO-20）——先备份后升级；恢复方案考虑已发生业务写入，不能只回滚容器。
 #
-# 步骤：0 环境版本锚（DO-05）→ 1 升级前备份（DO-15）→ 2 兼容检查（DO-20：漂移/路径/重入）
+# 步骤：0 环境版本锚（DO-05）→ 1 升级前备份（DO-15）→ 2 只读兼容检查（DO-20：漂移/路径）
 #       → 3 应用迁移（幂等，失败可续跑）→ 4 安装后自检（DO-04，可选 --api-url 时含健康端点）
 #
 # 用法：
@@ -40,14 +40,15 @@ node "$REPO_ROOT/scripts/delivery/install/verify-anchor.mjs" \
   --anchor "$REPO_ROOT/deploy/release/RELEASE-ANCHOR.json" --database-url "$DATABASE_URL" \
   || die "环境版本锚校验未通过——升级拒绝执行（DO-05）"
 
-log "1/4 升级前备份（DO-20：恢复方案必须考虑已发生的业务写入，不能只回滚容器）"
+log "1/4 只读升级兼容检查（DO-20）"
+node "$REPO_ROOT/scripts/delivery/upgrade-compat-check.mjs" --database-url "$DATABASE_URL" \
+  --repo-root "$REPO_ROOT" \
+  || die "只读升级兼容检查未通过（漂移/不可跳转路径见上方输出）"
+
+
+log "2/4 升级前备份（DO-20：恢复方案必须考虑已发生的业务写入，不能只回滚容器）"
 BACKUP_ARGS=(--database-url "$DATABASE_URL" --repo-root "$REPO_ROOT" "${EXTRA_BACKUP[@]+"${EXTRA_BACKUP[@]}"}")
 "$REPO_ROOT/deploy/backup/backup.sh" "${BACKUP_ARGS[@]}" || die "升级前备份失败——不升级（备份失败必告警，DO-15）"
-
-log "2/4 升级兼容检查（DO-20）"
-node "$REPO_ROOT/scripts/delivery/upgrade-compat-check.mjs" --database-url "$DATABASE_URL" \
-  --repo-root "$REPO_ROOT" --no-reentrancy \
-  || die "升级兼容检查未通过（漂移/不可跳转路径见上方输出）"
 
 log "3/4 应用数据库迁移（幂等；失败修复后重跑本脚本续跑，不重复应用）"
 DATABASE_URL="$DATABASE_URL" node "$REPO_ROOT/packages/persistence/dist/cli.js" up

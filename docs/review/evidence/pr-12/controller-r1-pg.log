@@ -1,0 +1,58 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr12-20261104
+
+stdout | tests/pr12/backup-upgrade.pg.spec.ts
+PR12_TWO_INSTANCES {"a":{"systemIdentifier":"7703921207614033957","instanceStartedAt":"2026-11-04T01:47:44.27717+00:00","database":"cadenza_dops_pr12_source_20261104","databaseOid":"178448"},"b":{"systemIdentifier":"7704159568197472293","instanceStartedAt":"2026-11-04T03:53:53.639207+00:00","database":"cadenza_dops_pr12_source_20261104","databaseOid":"16388"}}
+
+stdout | tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > latest registry check preserves schema/data/version digest
+PR12_READ_ONLY_DIGEST {"before":"25e97f6591f764981fc18eda59f8d1467ed8c86e9aee3f93c609d454717d3bf1","after":"25e97f6591f764981fc18eda59f8d1467ed8c86e9aee3f93c609d454717d3bf1","result":{"mode":"READ_ONLY","ok":true,"current":"0031","target":"0031","applied":["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021","0022","0023","0024","0025","0026","0027","0028","0029","0030","0031"],"pending":[],"failures":[],"upgraded":false,"reentrancy":"NOT_RUN","legacySampleEvidence":"E02_UNVERIFIED"}}
+
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > same-name different-instance native identity is rejected before dump/recreation 70ms
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > latest registry check preserves schema/data/version digest 61ms
+stdout | tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > synthetic 0030 prefix is read-only and leaves E02/0031 unverified
+PR12_READ_ONLY_DIGEST {"before":"456e8891e613d71eb9e754c09c9a247425799daa71111135c14639807298c9ef","after":"456e8891e613d71eb9e754c09c9a247425799daa71111135c14639807298c9ef","result":{"mode":"READ_ONLY","ok":false,"current":"0030","target":"0031","applied":["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021","0022","0023","0024","0025","0026","0027","0028","0029","0030"],"pending":["0031"],"failures":["UPGRADE_HOP_UNVERIFIED_0030_TO_0031"],"upgraded":false,"reentrancy":"NOT_RUN","legacySampleEvidence":"E02_UNVERIFIED"}}
+
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > synthetic 0030 prefix is read-only and leaves E02/0031 unverified 44ms
+stdout | tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > downgrade preflight cannot mutate target
+PR12_READ_ONLY_DIGEST {"before":"a931cd6e98857cba1ddf3a28ce88ac988e2d4678378ee7323adbd33be968342e","after":"a931cd6e98857cba1ddf3a28ce88ac988e2d4678378ee7323adbd33be968342e","result":{"mode":"READ_ONLY","ok":false,"current":"0031","target":"0009","applied":["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021","0022","0023","0024","0025","0026","0027","0028","0029","0030","0031"],"pending":[],"failures":["DOWNGRADE_FORBIDDEN"],"upgraded":false,"reentrancy":"NOT_RUN","legacySampleEvidence":"E02_UNVERIFIED"}}
+
+stdout | tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > unknown migration preflight cannot mutate target
+PR12_READ_ONLY_DIGEST {"before":"53c8671b4b38b423051b73e69e665616f57e4f8306e1b6481c44dde8c039ef78","after":"53c8671b4b38b423051b73e69e665616f57e4f8306e1b6481c44dde8c039ef78","result":{"mode":"READ_ONLY","ok":false,"current":"9999","target":"0031","applied":["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021","0022","0023","0024","0025","0026","0027","0028","0029","0030","0031","9999"],"pending":[],"failures":["UNKNOWN_APPLIED_MIGRATION","APPLIED_MIGRATIONS_NOT_CONTIGUOUS_PREFIX","DOWNGRADE_FORBIDDEN"],"upgraded":false,"reentrancy":"NOT_RUN","legacySampleEvidence":"E02_UNVERIFIED"}}
+
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > downgrade preflight cannot mutate target 122ms
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > unknown migration preflight cannot mutate target 40ms
+stdout | tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > non-contiguous registry prefix cannot mutate target
+PR12_READ_ONLY_DIGEST {"before":"8d790370d216706d8186bf307c0adfd8a7227bb36e6e81cbbf09578728ee2970","after":"8d790370d216706d8186bf307c0adfd8a7227bb36e6e81cbbf09578728ee2970","result":{"mode":"READ_ONLY","ok":false,"current":"0031","target":"0031","applied":["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021","0022","0023","0024","0025","0026","0027","0028","0029","0031"],"pending":["0030"],"failures":["APPLIED_MIGRATIONS_NOT_CONTIGUOUS_PREFIX"],"upgraded":false,"reentrancy":"NOT_RUN","legacySampleEvidence":"E02_UNVERIFIED"}}
+
+stdout | tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > missing migration table is not created by inspection
+PR12_READ_ONLY_DIGEST {"before":"ea1cc05be68d5e792e50a175a47889c79b1cc7e85958b7b51b0e6244d7b131fc","after":"ea1cc05be68d5e792e50a175a47889c79b1cc7e85958b7b51b0e6244d7b131fc","result":{"mode":"READ_ONLY","ok":false,"current":null,"target":"0031","applied":[],"pending":["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021","0022","0023","0024","0025","0026","0027","0028","0029","0030","0031"],"failures":["SCHEMA_MIGRATIONS_MISSING_NO_IMPLICIT_CREATE"],"upgraded":false,"reentrancy":"NOT_RUN","legacySampleEvidence":"E02_UNVERIFIED"}}
+
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > non-contiguous registry prefix cannot mutate target 35ms
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > missing migration table is not created by inspection 50ms
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > actual custom-format backup and all generated artifacts contain none of the synthetic secret values 118ms
+ ✓ tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > wrong dual locator refuses restore before target recreation 5ms
+ × tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > restore binds the intended target and recovers A sentinel while B remains B 1614ms
+   → PG_NATIVE_TOOL_FAILED
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr12/backup-upgrade.pg.spec.ts > PR12 actual PostgreSQL/native clients; synthetic isolated fixture is not E02 legacy evidence > restore binds the intended target and recovers A sentinel while B remains B
+Error: PG_NATIVE_TOOL_FAILED
+ ❯ ChildProcess.<anonymous> scripts/delivery/backup/connection.mjs:55:57
+     53|       const child=spawn(tool,args,{env:nativePgEnvironment(connection)…
+     54|       child.once('error',()=>reject(new BackupSafetyError('PG_NATIVE_T…
+     55|       child.once('exit',code=>code===0?resolve():reject(new BackupSafe…
+       |                                                         ^
+     56|     })
+     57|   }finally{await outputHandle?.close();await inputHandle?.close()}
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'PG_NATIVE_TOOL_FAILED' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 passed (10)
+   Start at  11:55:23
+   Duration  3.63s (transform 845ms, setup 0ms, collect 1.21s, tests 2.33s, environment 0ms, prepare 22ms)
+

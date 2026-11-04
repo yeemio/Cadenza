@@ -1,0 +1,7 @@
+# PR12 controller R1 actual native validation: REWORK
+
+AuthorR0 source `72facaaff169486f8d80eb5bd91ce40a3a3c0ebb` / fingerprint `94b494190d806fe2a7785f902921a14a9706ec22a0e3181584d5c861d9094ea8` unchanged. Owner approved one named extra PG16.15 B instance and fresh A/B synthetic DBs. Actual10cases:9PASS/1FAIL/0skip. Distinct system IDs/same database name and six read-only schema/data/version digests verified. Real dump excludes all six synthetic secret sentinels, wrong dual-locator refuses before target recreation.
+
+Actual restore fails PG_NATIVE_TOOL_FAILED. Original archive copied intact before authored temporary cleanup; pg_dump18.6 emits SET transaction_timeout=0, and a read-only exact-statement probe on target PG16.15 returns SQL42704 unsupported parameter. This is a bounded client/server compatibility failure; archive --list alone did not detect it before target recreation. A/B source sentinels remain INSTANCE_A/INSTANCE_B, target empty after single-transaction rollback. Failure DBs and raw media/logs all preserved; no old DB touched.
+
+Same author R1 must guard unsupported native client/archive/target combination before recreate, or establish a clearly supported compatible client route. No requirement for arbitrary cross-major restore. Original10cases/assertions retained, no bypass or synthetic success.41local/types/syntax remain valid for unchanged source. E02 remains UNVERIFIED.

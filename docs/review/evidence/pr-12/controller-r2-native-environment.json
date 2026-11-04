@@ -1,0 +1,53 @@
+{
+  "root": "/Users/yeemio/AI/workspaces/cadenza-pr12-native16-20261104",
+  "bin": "/Users/yeemio/AI/workspaces/cadenza-pr12-native16-20261104/postgresql@16/16.15_1/bin",
+  "lib": "/Users/yeemio/AI/workspaces/cadenza-pr12-native16-20261104/postgresql@16/16.15_1/lib",
+  "bottle": "/Users/yeemio/Library/Caches/Homebrew/downloads/c5cb1aa2d6281603272feac68b391e5b302daf681e9111c43b2f6c1df2c9d3be--postgresql@16--16.15_1.arm64_golden_gate.bottle.tar.gz",
+  "bottleSha256": "d60d675afb25019c6fab16aac94d44b2410534123799d87dfbda6f1485ebbc8b",
+  "tools": {
+    "compatible16": {
+      "psql": {
+        "exitCode": 0,
+        "version": "psql (PostgreSQL) 16.15 (Homebrew)",
+        "error": ""
+      },
+      "pg_dump": {
+        "exitCode": 0,
+        "version": "pg_dump (PostgreSQL) 16.15 (Homebrew)",
+        "error": ""
+      },
+      "pg_restore": {
+        "exitCode": 0,
+        "version": "pg_restore (PostgreSQL) 16.15 (Homebrew)",
+        "error": ""
+      }
+    },
+    "incompatible18": {
+      "psql": {
+        "exitCode": 0,
+        "version": "psql (PostgreSQL) 18.6",
+        "error": ""
+      },
+      "pg_dump": {
+        "exitCode": 0,
+        "version": "pg_dump (PostgreSQL) 18.6",
+        "error": ""
+      },
+      "pg_restore": {
+        "exitCode": 0,
+        "version": "pg_restore (PostgreSQL) 18.6",
+        "error": ""
+      }
+    }
+  },
+  "childOnlyEnvironment": {
+    "PATH_PREFIX": "/Users/yeemio/AI/workspaces/cadenza-pr12-native16-20261104/postgresql@16/16.15_1/bin",
+    "DYLD_FALLBACK_LIBRARY_PATH": "/Users/yeemio/AI/workspaces/cadenza-pr12-native16-20261104/postgresql@16/16.15_1/lib:/opt/homebrew/opt/gettext/lib:/opt/homebrew/opt/zstd/lib:/opt/homebrew/opt/lz4/lib:/opt/homebrew/opt/openssl@4/lib:/opt/homebrew/opt/readline/lib:/opt/homebrew/opt/icu4c@78/lib:/opt/homebrew/opt/krb5/lib"
+  },
+  "globalInstallOrLink": false,
+  "serverOrClusterStarted": false,
+  "scope": "Extract verified actual PostgreSQL16.15 client binaries only into task-owned directory; no wrapper or version spoofing",
+  "previousEnvironmentAttempt": "PR12-NATIVE16-ENVIRONMENT-R1.json retained; use fallback-only search so the real installed18clients retain their own valid absolute dylib paths",
+  "librarySearchUsesOnlyTaskOwnedAndAlreadyInstalledDependencies": true,
+  "normalAndNegativeNativeLibrariesNotPreempted": true
+}

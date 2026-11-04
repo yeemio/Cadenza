@@ -1,0 +1,449 @@
+{
+  "pr": 12,
+  "originalParent": "f398f40ab1ef24574927441ab661c60c9ffa086d",
+  "sourceCommit": "72facaaff169486f8d80eb5bd91ce40a3a3c0ebb",
+  "fullPatchSha256": "81bce8eb0c0478cddbd7fa3a8953117c906d66774e299d612c36df182bbf87ed",
+  "fingerprint": "94b494190d806fe2a7785f902921a14a9706ec22a0e3181584d5c861d9094ea8",
+  "postimagesMatched": 28,
+  "requiresAdditionalInstanceAuthorization": true,
+  "plannedActualPg": 10,
+  "actualPgExecuted": 0,
+  "e02LegacySample": "UNVERIFIED",
+  "currentHead": "65cd956340adf40b6038b491c0b7dd222847571c",
+  "state": "BLOCKED_ADDITIONAL_INSTANCE_AUTHORITY",
+  "decision": "REWORK",
+  "authorRevision": "R0_UNCHANGED",
+  "controllerValidationRevision": "R1_AFTER_OWNER_EXTRA_INSTANCE_APPROVAL",
+  "sourceAndTestCommit": "72facaaff169486f8d80eb5bd91ce40a3a3c0ebb",
+  "ownerAuthorization": {
+    "source": "Direct Owner reply to scoped async question",
+    "answer": "允许新增这个隔离实例",
+    "at": "2026-11-04T03:53:50.623391+00:00",
+    "scope": "one named new PG B/new volume/loopback port and three fresh synthetic task DBs; recreate only newly-created restore target; preserve old DBs and evidence"
+  },
+  "actualPg": {
+    "passed": 9,
+    "failed": 1,
+    "runtimeSkipped": 0,
+    "declared": 10
+  },
+  "process": {
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr12/vitest.config.ts",
+      "tests/pr12/backup-upgrade.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "exitCode": 1,
+    "startedAt": "2026-11-04T03:55:21.426059+00:00",
+    "completedAt": "2026-11-04T03:55:26.784706+00:00",
+    "sourceCommit": "65cd956340adf40b6038b491c0b7dd222847571c",
+    "sourceAndTestCommit": "72facaaff169486f8d80eb5bd91ce40a3a3c0ebb",
+    "instances": {
+      "A": {
+        "container": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+        "port": "32768"
+      },
+      "B": {
+        "containerId": "78993c749fb4531ea7a03939c0b7f72618bc8c353192ca9c22490dea04dbc132",
+        "name": "cadenza-pr12-pg-b-20261104",
+        "volume": "cadenza-pr12-pg-b-data-20261104",
+        "port": "32771",
+        "host": "127.0.0.1",
+        "image": "sha256:f1c3376c26f2609ab9f29f71f824103fe2fcd8ee0346485cb6122a4f93df6f94",
+        "localCredentialFile": "/Users/yeemio/AI/workspaces/.cadenza-pr12-pg-b-20261104.env"
+      }
+    },
+    "databases": [
+      "A:cadenza_dops_pr12_source_20261104",
+      "B:cadenza_dops_pr12_source_20261104",
+      "A:cadenza_dops_pr12_restore_20261104"
+    ],
+    "nativeClientVersion": "18.6",
+    "ownerAuthorizedNewInstance": true,
+    "e02HistoricalSample": "UNVERIFIED",
+    "preservedBackupMedia": [
+      {
+        "source": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr12-real-B5O7GZ/media/2026-11-04T03-55-24-967Z-113df858-9ce2-4fa5-9831-31006b42714f",
+        "preserved": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR12-R1-NATIVE-MEDIA",
+        "hashes": [
+          "2bc4cfc2092376104e5d5cce98db5a6c4bcac6a276122d5f888c77bcdc4a1f2a  database.dump",
+          "80d8da50d41295ba1418ea055284c7a7004cd77909664821911951247a3fb5c5  object-store.readme",
+          "a5af886c05f97cef0b8b22fcba1c827062ff775ba3db85a2f2d25041b6dfda16  config.redacted.env",
+          "6d2498ba87d3bfcf9f7060bbd39210c2cfec9b00741139fedadcffbacc6af0be  BACKUP-MANIFEST.json"
+        ]
+      }
+    ],
+    "logSha256": "30d7267f1a40709e915f040d2c96c0387899557194854c9a1acd20c1dca614c3"
+  },
+  "observations": {
+    "PR12_TWO_INSTANCES": [
+      {
+        "a": {
+          "systemIdentifier": "7703921207614033957",
+          "instanceStartedAt": "2026-11-04T01:47:44.27717+00:00",
+          "database": "cadenza_dops_pr12_source_20261104",
+          "databaseOid": "178448"
+        },
+        "b": {
+          "systemIdentifier": "7704159568197472293",
+          "instanceStartedAt": "2026-11-04T03:53:53.639207+00:00",
+          "database": "cadenza_dops_pr12_source_20261104",
+          "databaseOid": "16388"
+        }
+      }
+    ],
+    "PR12_READ_ONLY_DIGEST": [
+      {
+        "before": "25e97f6591f764981fc18eda59f8d1467ed8c86e9aee3f93c609d454717d3bf1",
+        "after": "25e97f6591f764981fc18eda59f8d1467ed8c86e9aee3f93c609d454717d3bf1",
+        "result": {
+          "mode": "READ_ONLY",
+          "ok": true,
+          "current": "0031",
+          "target": "0031",
+          "applied": [
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+            "0009",
+            "0010",
+            "0011",
+            "0012",
+            "0013",
+            "0014",
+            "0015",
+            "0016",
+            "0017",
+            "0018",
+            "0019",
+            "0020",
+            "0021",
+            "0022",
+            "0023",
+            "0024",
+            "0025",
+            "0026",
+            "0027",
+            "0028",
+            "0029",
+            "0030",
+            "0031"
+          ],
+          "pending": [],
+          "failures": [],
+          "upgraded": false,
+          "reentrancy": "NOT_RUN",
+          "legacySampleEvidence": "E02_UNVERIFIED"
+        }
+      },
+      {
+        "before": "456e8891e613d71eb9e754c09c9a247425799daa71111135c14639807298c9ef",
+        "after": "456e8891e613d71eb9e754c09c9a247425799daa71111135c14639807298c9ef",
+        "result": {
+          "mode": "READ_ONLY",
+          "ok": false,
+          "current": "0030",
+          "target": "0031",
+          "applied": [
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+            "0009",
+            "0010",
+            "0011",
+            "0012",
+            "0013",
+            "0014",
+            "0015",
+            "0016",
+            "0017",
+            "0018",
+            "0019",
+            "0020",
+            "0021",
+            "0022",
+            "0023",
+            "0024",
+            "0025",
+            "0026",
+            "0027",
+            "0028",
+            "0029",
+            "0030"
+          ],
+          "pending": [
+            "0031"
+          ],
+          "failures": [
+            "UPGRADE_HOP_UNVERIFIED_0030_TO_0031"
+          ],
+          "upgraded": false,
+          "reentrancy": "NOT_RUN",
+          "legacySampleEvidence": "E02_UNVERIFIED"
+        }
+      },
+      {
+        "before": "a931cd6e98857cba1ddf3a28ce88ac988e2d4678378ee7323adbd33be968342e",
+        "after": "a931cd6e98857cba1ddf3a28ce88ac988e2d4678378ee7323adbd33be968342e",
+        "result": {
+          "mode": "READ_ONLY",
+          "ok": false,
+          "current": "0031",
+          "target": "0009",
+          "applied": [
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+            "0009",
+            "0010",
+            "0011",
+            "0012",
+            "0013",
+            "0014",
+            "0015",
+            "0016",
+            "0017",
+            "0018",
+            "0019",
+            "0020",
+            "0021",
+            "0022",
+            "0023",
+            "0024",
+            "0025",
+            "0026",
+            "0027",
+            "0028",
+            "0029",
+            "0030",
+            "0031"
+          ],
+          "pending": [],
+          "failures": [
+            "DOWNGRADE_FORBIDDEN"
+          ],
+          "upgraded": false,
+          "reentrancy": "NOT_RUN",
+          "legacySampleEvidence": "E02_UNVERIFIED"
+        }
+      },
+      {
+        "before": "53c8671b4b38b423051b73e69e665616f57e4f8306e1b6481c44dde8c039ef78",
+        "after": "53c8671b4b38b423051b73e69e665616f57e4f8306e1b6481c44dde8c039ef78",
+        "result": {
+          "mode": "READ_ONLY",
+          "ok": false,
+          "current": "9999",
+          "target": "0031",
+          "applied": [
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+            "0009",
+            "0010",
+            "0011",
+            "0012",
+            "0013",
+            "0014",
+            "0015",
+            "0016",
+            "0017",
+            "0018",
+            "0019",
+            "0020",
+            "0021",
+            "0022",
+            "0023",
+            "0024",
+            "0025",
+            "0026",
+            "0027",
+            "0028",
+            "0029",
+            "0030",
+            "0031",
+            "9999"
+          ],
+          "pending": [],
+          "failures": [
+            "UNKNOWN_APPLIED_MIGRATION",
+            "APPLIED_MIGRATIONS_NOT_CONTIGUOUS_PREFIX",
+            "DOWNGRADE_FORBIDDEN"
+          ],
+          "upgraded": false,
+          "reentrancy": "NOT_RUN",
+          "legacySampleEvidence": "E02_UNVERIFIED"
+        }
+      },
+      {
+        "before": "8d790370d216706d8186bf307c0adfd8a7227bb36e6e81cbbf09578728ee2970",
+        "after": "8d790370d216706d8186bf307c0adfd8a7227bb36e6e81cbbf09578728ee2970",
+        "result": {
+          "mode": "READ_ONLY",
+          "ok": false,
+          "current": "0031",
+          "target": "0031",
+          "applied": [
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+            "0009",
+            "0010",
+            "0011",
+            "0012",
+            "0013",
+            "0014",
+            "0015",
+            "0016",
+            "0017",
+            "0018",
+            "0019",
+            "0020",
+            "0021",
+            "0022",
+            "0023",
+            "0024",
+            "0025",
+            "0026",
+            "0027",
+            "0028",
+            "0029",
+            "0031"
+          ],
+          "pending": [
+            "0030"
+          ],
+          "failures": [
+            "APPLIED_MIGRATIONS_NOT_CONTIGUOUS_PREFIX"
+          ],
+          "upgraded": false,
+          "reentrancy": "NOT_RUN",
+          "legacySampleEvidence": "E02_UNVERIFIED"
+        }
+      },
+      {
+        "before": "ea1cc05be68d5e792e50a175a47889c79b1cc7e85958b7b51b0e6244d7b131fc",
+        "after": "ea1cc05be68d5e792e50a175a47889c79b1cc7e85958b7b51b0e6244d7b131fc",
+        "result": {
+          "mode": "READ_ONLY",
+          "ok": false,
+          "current": null,
+          "target": "0031",
+          "applied": [],
+          "pending": [
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+            "0009",
+            "0010",
+            "0011",
+            "0012",
+            "0013",
+            "0014",
+            "0015",
+            "0016",
+            "0017",
+            "0018",
+            "0019",
+            "0020",
+            "0021",
+            "0022",
+            "0023",
+            "0024",
+            "0025",
+            "0026",
+            "0027",
+            "0028",
+            "0029",
+            "0030",
+            "0031"
+          ],
+          "failures": [
+            "SCHEMA_MIGRATIONS_MISSING_NO_IMPLICIT_CREATE"
+          ],
+          "upgraded": false,
+          "reentrancy": "NOT_RUN",
+          "legacySampleEvidence": "E02_UNVERIFIED"
+        }
+      }
+    ]
+  },
+  "diagnosis": {
+    "status": "CAUSAL_READ_ONLY_DIAGNOSIS",
+    "archiveVersions": [
+      "-- Dumped from database version 16.15 (Debian 16.15-1.pgdg13+2)",
+      "-- Dumped by pg_dump version 18.6"
+    ],
+    "initialSetStatements": [
+      "SET statement_timeout = 0;",
+      "SET lock_timeout = 0;",
+      "SET idle_in_transaction_session_timeout = 0;",
+      "SET transaction_timeout = 0;",
+      "SET client_encoding = 'UTF8';",
+      "SET standard_conforming_strings = on;",
+      "SET check_function_bodies = false;",
+      "SET xmloption = content;",
+      "SET client_min_messages = warning;",
+      "SET row_security = off;",
+      "SET default_tablespace = '';",
+      "SET default_table_access_method = heap;"
+    ],
+    "offendingStatementProbe": {
+      "command": "BEGIN READ ONLY; SET transaction_timeout = 0; ROLLBACK;",
+      "exitCode": 1,
+      "stderr": "ERROR:  42704: unrecognized configuration parameter \"transaction_timeout\"\nLOCATION:  find_option, guc.c:1241\n"
+    },
+    "inference": "pg_restore18 emits SET transaction_timeout=0, unsupported by PG16.15. Exact statement reproduces SQL42704 on newly recreated restore target; full restore failure hides stderr by design. A/B source sentinels remain intact, target empty after single-transaction rollback.",
+    "nativeTools": "host18.6, source/target servers16.15",
+    "noRerestoreOrOldDbMutation": true
+  },
+  "nativeRestoreBoundary": "pg_restore --list validates archive readability but does not prove target-server compatibility. Here restore entered target recreation before unsupported SET failed. Supported native client/server pairing or a matching pre-recreation compatibility rejection is required; not unconditional cross-major support.",
+  "preservedState": {
+    "A_source": "INSTANCE_A",
+    "B_source": "INSTANCE_B",
+    "A_failedRestorePublicTableCount": 0,
+    "allThreeDatabasesRetained": true,
+    "backupMedia": "PR12-R1-NATIVE-MEDIA",
+    "rawArchiveOriginal": true
+  },
+  "validReused": {
+    "localSafety": 41,
+    "typesSyntax": "same source as controller-r0, not rerun"
+  },
+  "next": "Same sole author R1, product native compatibility preflight and focused actual-restore proof; preserve10 scenarios and all raw R0/controller-r1 failures. No repeated run on these nonempty DBs.",
+  "e02": "UNVERIFIED_NO_LEGACY_SAMPLE"
+}

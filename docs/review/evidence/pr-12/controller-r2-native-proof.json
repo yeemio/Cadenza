@@ -1,0 +1,476 @@
+{
+  "actualDifferentInstanceSameDb": {
+    "a": {
+      "systemIdentifier": "7703921207614033957",
+      "instanceStartedAt": "2026-11-04T01:47:44.27717+00:00",
+      "database": "cadenza_dops_pr12_source_r1_20261104",
+      "databaseOid": "207935"
+    },
+    "b": {
+      "systemIdentifier": "7704159568197472293",
+      "instanceStartedAt": "2026-11-04T03:53:53.639207+00:00",
+      "database": "cadenza_dops_pr12_source_r1_20261104",
+      "databaseOid": "16404"
+    }
+  },
+  "nativeIncompatibilityBeforeAfter": {
+    "archiveSha256": "0981d0d5a843b531d22c3faec74fa9d863db608ae5aadee17d49ce3620d642d8",
+    "archiveVersions": {
+      "sourceMajor": 16,
+      "dumpMajor": 18,
+      "restoreMajor": 18
+    },
+    "targetMajor": 16,
+    "exitCode": 1,
+    "error": "RESTORE_NATIVE_VERSION_MISMATCH",
+    "before": {
+      "identity": {
+        "systemIdentifier": "7703921207614033957",
+        "instanceStartedAt": "2026-11-04T01:47:44.27717+00:00",
+        "database": "cadenza_dops_pr12_restore_r1_20261104",
+        "databaseOid": "207956"
+      },
+      "markers": [
+        {
+          "marker": "INSTANCE_A",
+          "payload": "isolated synthetic source"
+        },
+        {
+          "marker": "KEEP_BEFORE_RECREATE",
+          "payload": "must survive native compatibility rejection"
+        }
+      ],
+      "versions": [
+        {
+          "version": "0001",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.985Z"
+        },
+        {
+          "version": "0002",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.987Z"
+        },
+        {
+          "version": "0003",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.989Z"
+        },
+        {
+          "version": "0004",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.991Z"
+        },
+        {
+          "version": "0005",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.993Z"
+        },
+        {
+          "version": "0006",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.995Z"
+        },
+        {
+          "version": "0007",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.996Z"
+        },
+        {
+          "version": "0008",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.998Z"
+        },
+        {
+          "version": "0009",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.999Z"
+        },
+        {
+          "version": "0010",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.001Z"
+        },
+        {
+          "version": "0011",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.003Z"
+        },
+        {
+          "version": "0012",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.004Z"
+        },
+        {
+          "version": "0013",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.006Z"
+        },
+        {
+          "version": "0014",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.008Z"
+        },
+        {
+          "version": "0015",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.009Z"
+        },
+        {
+          "version": "0016",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.011Z"
+        },
+        {
+          "version": "0017",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.012Z"
+        },
+        {
+          "version": "0018",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.014Z"
+        },
+        {
+          "version": "0019",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.016Z"
+        },
+        {
+          "version": "0020",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.018Z"
+        },
+        {
+          "version": "0021",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.019Z"
+        },
+        {
+          "version": "0022",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.021Z"
+        },
+        {
+          "version": "0023",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.023Z"
+        },
+        {
+          "version": "0024",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.024Z"
+        },
+        {
+          "version": "0025",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.025Z"
+        },
+        {
+          "version": "0026",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.027Z"
+        },
+        {
+          "version": "0027",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.029Z"
+        },
+        {
+          "version": "0028",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.031Z"
+        },
+        {
+          "version": "0029",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.033Z"
+        },
+        {
+          "version": "0030",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.034Z"
+        },
+        {
+          "version": "0031",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.036Z"
+        }
+      ]
+    },
+    "after": {
+      "identity": {
+        "systemIdentifier": "7703921207614033957",
+        "instanceStartedAt": "2026-11-04T01:47:44.27717+00:00",
+        "database": "cadenza_dops_pr12_restore_r1_20261104",
+        "databaseOid": "207956"
+      },
+      "markers": [
+        {
+          "marker": "INSTANCE_A",
+          "payload": "isolated synthetic source"
+        },
+        {
+          "marker": "KEEP_BEFORE_RECREATE",
+          "payload": "must survive native compatibility rejection"
+        }
+      ],
+      "versions": [
+        {
+          "version": "0001",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.985Z"
+        },
+        {
+          "version": "0002",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.987Z"
+        },
+        {
+          "version": "0003",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.989Z"
+        },
+        {
+          "version": "0004",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.991Z"
+        },
+        {
+          "version": "0005",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.993Z"
+        },
+        {
+          "version": "0006",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.995Z"
+        },
+        {
+          "version": "0007",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.996Z"
+        },
+        {
+          "version": "0008",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.998Z"
+        },
+        {
+          "version": "0009",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:12.999Z"
+        },
+        {
+          "version": "0010",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.001Z"
+        },
+        {
+          "version": "0011",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.003Z"
+        },
+        {
+          "version": "0012",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.004Z"
+        },
+        {
+          "version": "0013",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.006Z"
+        },
+        {
+          "version": "0014",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.008Z"
+        },
+        {
+          "version": "0015",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.009Z"
+        },
+        {
+          "version": "0016",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.011Z"
+        },
+        {
+          "version": "0017",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.012Z"
+        },
+        {
+          "version": "0018",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.014Z"
+        },
+        {
+          "version": "0019",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.016Z"
+        },
+        {
+          "version": "0020",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.018Z"
+        },
+        {
+          "version": "0021",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.019Z"
+        },
+        {
+          "version": "0022",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.021Z"
+        },
+        {
+          "version": "0023",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.023Z"
+        },
+        {
+          "version": "0024",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.024Z"
+        },
+        {
+          "version": "0025",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.025Z"
+        },
+        {
+          "version": "0026",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.027Z"
+        },
+        {
+          "version": "0027",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.029Z"
+        },
+        {
+          "version": "0028",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.031Z"
+        },
+        {
+          "version": "0029",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.033Z"
+        },
+        {
+          "version": "0030",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.034Z"
+        },
+        {
+          "version": "0031",
+          "name": "PR12 synthetic version fixture; not historical business data",
+          "applied_at": "2026-11-04T07:16:13.036Z"
+        }
+      ]
+    }
+  },
+  "beforeEqualsAfterIncludingOidSentinelRegistry": true,
+  "compatibleRestore": "actual existing case PASS recovers A sentinel, B remains B and registry matches",
+  "actualNewPgCasesPassed": 3,
+  "nameFilteredOtherCases": 8,
+  "runtimeSkippedSelectedCases": 0,
+  "effectiveNativeCases": 11,
+  "reusedR0OtherNative": 8,
+  "preservedOriginalMedia": [
+    {
+      "kind": "compatible16",
+      "path": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR12-AUTHOR-R1-NATIVE-MEDIA/2026-11-04T07-16-13-050Z-c72131a2-52ea-4529-a14d-7d94a4078261",
+      "archiveSha256": "5bf8451835ae48ff4e55fae7513ed2e8693b42d1d9fef4a0beac009a420660f1",
+      "headers": [
+        ";     Dumped from database version: 16.15 (Debian 16.15-1.pgdg13+2)",
+        ";     Dumped by pg_dump version: 16.15 (Homebrew)"
+      ],
+      "manifestKeys": [
+        "format",
+        "backup_id",
+        "source_database",
+        "sourceInstance",
+        "schema_migrations",
+        "server_now_at_backup",
+        "databaseSnapshot",
+        "started_at",
+        "finished_at",
+        "configPolicy",
+        "objectMedia"
+      ],
+      "copiedFiles": [
+        {
+          "file": "database.dump",
+          "sha256": "5bf8451835ae48ff4e55fae7513ed2e8693b42d1d9fef4a0beac009a420660f1"
+        },
+        {
+          "file": "BACKUP-MANIFEST.json",
+          "sha256": "19e1414b71105c3d1b6ba93fe39e03b6f44857f77b5e2b42dd03cfd23e0463ad"
+        },
+        {
+          "file": "config.redacted.env",
+          "sha256": "a5af886c05f97cef0b8b22fcba1c827062ff775ba3db85a2f2d25041b6dfda16"
+        },
+        {
+          "file": "SHA256SUMS",
+          "sha256": "b80f2b673780235dc18193dc81e6f4ec49f253b1993e7608f59c945ba73a070a"
+        },
+        {
+          "file": "object-store.readme",
+          "sha256": "80d8da50d41295ba1418ea055284c7a7004cd77909664821911951247a3fb5c5"
+        }
+      ]
+    },
+    {
+      "kind": "newer-incompatible18",
+      "path": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR12-AUTHOR-R1-NATIVE-MEDIA/2026-11-04T07-16-13-733Z-e706d389-6d18-4ea4-9534-48e098a00d6a",
+      "archiveSha256": "0981d0d5a843b531d22c3faec74fa9d863db608ae5aadee17d49ce3620d642d8",
+      "headers": [
+        ";     Dumped from database version: 16.15 (Debian 16.15-1.pgdg13+2)",
+        ";     Dumped by pg_dump version: 18.6"
+      ],
+      "manifestKeys": [
+        "format",
+        "backup_id",
+        "source_database",
+        "sourceInstance",
+        "schema_migrations",
+        "server_now_at_backup",
+        "databaseSnapshot",
+        "started_at",
+        "finished_at",
+        "configPolicy",
+        "objectMedia"
+      ],
+      "copiedFiles": [
+        {
+          "file": "database.dump",
+          "sha256": "0981d0d5a843b531d22c3faec74fa9d863db608ae5aadee17d49ce3620d642d8"
+        },
+        {
+          "file": "BACKUP-MANIFEST.json",
+          "sha256": "3a4be4216a16971383cb86efc60fcb29ccc91b01525dd2022a80657022bc933f"
+        },
+        {
+          "file": "config.redacted.env",
+          "sha256": "1604f3b88cd58847f3ae36dce92b239c09c93cc315c7a5199d363aac25b5e0aa"
+        },
+        {
+          "file": "SHA256SUMS",
+          "sha256": "8c645c194d0e47da30bd4d46d09a6e346c08f919e435a18b9c551a507f931275"
+        },
+        {
+          "file": "object-store.readme",
+          "sha256": "80d8da50d41295ba1418ea055284c7a7004cd77909664821911951247a3fb5c5"
+        }
+      ]
+    }
+  ],
+  "nativeTools": "actual16.15 standard binaries; actual18.6 negative pair, child-only PATH and fallback-library paths; no wrapper/SQL rewrite/global install/server creation",
+  "legacyE02": "UNVERIFIED"
+}
