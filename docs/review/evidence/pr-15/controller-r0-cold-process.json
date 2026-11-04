@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "scripts/delivery/build/cold-build.mjs",
+    "--offline"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T04:16:18.145584+00:00",
+  "completedAt": "2026-11-04T04:17:48.350843+00:00",
+  "sourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+  "logSha256": "c744a919241256872ba894fd803221626ae7d6e6ed5a71aaff23657b32fa1f0c",
+  "receiptFile": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/cold-build-receipt.json",
+  "receiptSha256": "853556c940851361acee11ee93752f59c8ebf7b2fe7c970bbc13e4d43af2767c"
+}
