@@ -1,0 +1,170 @@
+{
+  "pr": 11,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-11-equipment-oee",
+  "exactRecordedParentHead": "17328a1c06e9ec56f9babf556539703141a6dc6c",
+  "prerequisites": [
+    {
+      "pr": 1,
+      "head": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "status": "ACCEPTED_PRIOR_NOT_RETESTED"
+    },
+    {
+      "pr": 2,
+      "sourceAndTestSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+      "fullPatchSha256": "e91b61c9f9ef72d781f353ea11df320f471300a961f3ae0e5e84a57779120ccc",
+      "selectedExactPostimages": 31,
+      "status": "CANDIDATE_CONTROLLER_PENDING"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "d28425c9f88151e4c307ad4ecd419f615cb5e1c55a977e3d7c4144ce0cb08159",
+    "files": [
+      {
+        "path": "packages/application/src/cost-queries.ts",
+        "sha256": "2a846080107f56bd243c7d5c1ab657905e7bac41652fa664cdbabd8fdaefab32",
+        "parentSha256": "b29cce732eba09cb95dbbc93ba5f7f17f71e58f108946403f245ecfb2ef9027c"
+      },
+      {
+        "path": "packages/application/src/cost-repositories.ts",
+        "sha256": "e22b7187f18ad701b38f8fd342ab962cfb55846664397583816ad4dea77d5cd0",
+        "parentSha256": "515a34a77864068c3c4db47e79c9f1d1df873c9d969b027aade75210f01c547a"
+      },
+      {
+        "path": "packages/domain/src/cost/acquisition-rules.ts",
+        "sha256": "98eefafc821741109568118d8532eadd011451700082d2f4e49051136ee2f76e",
+        "parentSha256": "d73893aa66659884c72616bd1de5e8ca2b50c12099b768ce83c1273e83c62710"
+      },
+      {
+        "path": "packages/domain/src/cost/index.ts",
+        "sha256": "a6bbd3027ab8fc7b5d81f43054919861aca4f6b16d081cb60c5cef90c9dcef16",
+        "parentSha256": "f784a030e878275fc2dd9181e3f11ea3fe7f997f7f6050bc930e8a5329168396"
+      },
+      {
+        "path": "packages/domain/src/cost/oee-facts.ts",
+        "sha256": "7e1dc280af5793be881772da333805c251c8bf1b18a9941894a37c0edc98de2a",
+        "parentSha256": null
+      },
+      {
+        "path": "packages/persistence/src/cost-repositories.ts",
+        "sha256": "0ac8688e4fd996c8dd0f90646e12010e66da752e4836c7487fa7e4872dbdfcc8",
+        "parentSha256": "10dcf5ee90152d2aac22047af7dd3b92833adb1adecf89a7f429417712ffff3a"
+      },
+      {
+        "path": "tests/pr11/oee.pg.spec.ts",
+        "sha256": "bf3178c33d0b1181befddd0714052b472076092be9460cf49312fa57c6170e33",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr11/oee.unit.spec.ts",
+        "sha256": "98fe69832aa53f01fa81ec3c8202e367d31e2cff5b4206d8cba6a3406ca6af23",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr11/tsconfig.json",
+        "sha256": "2bee9518c53ac2921e1697b3642583be1ea1aefda8a5836bca47d900e6a4e77a",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr11/vitest.config.ts",
+        "sha256": "ecab37ee89f79ec8b5e6906673c30b89de1fd36f91adef43efbf574c42a49e3f",
+        "parentSha256": null
+      }
+    ]
+  },
+  "scopeExtensions": {},
+  "commands": [
+    {
+      "name": "domain-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/domain/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "domain-typecheck.log"
+    },
+    {
+      "name": "application-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck.log"
+    },
+    {
+      "name": "persistence-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "persistence-typecheck.log"
+    },
+    {
+      "name": "tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr11/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck.log"
+    },
+    {
+      "name": "oee-unit",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr11/vitest.config.ts tests/pr11/oee.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "oee-unit.log"
+    },
+    {
+      "name": "oee-pg-required",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr11/vitest.config.ts tests/pr11/oee.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "oee-pg-required.log"
+    },
+    {
+      "name": "domain-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/domain/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "domain-typecheck-final.log"
+    },
+    {
+      "name": "application-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck-final.log"
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "persistence-typecheck-final.log"
+    },
+    {
+      "name": "tests-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr11/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck-final.log"
+    },
+    {
+      "name": "oee-unit-final",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr11/vitest.config.ts tests/pr11/oee.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "oee-unit-final.log"
+    }
+  ],
+  "unit": {
+    "passed": 41,
+    "failed": 0,
+    "skipped": 0,
+    "kind": "pure calculation and fact-selection fixtures"
+  },
+  "realPG": {
+    "plannedCases": 14,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "reason": "No CADENZA_PR11_TEST_DB_URL or PostgreSQL runtime; explicit fail-fast precondition, no fallback/skip"
+  },
+  "limitations": [
+    "No production plan/rate/unit basis is inferred from a query window or untyped std_rate_text. CADENZA_OEE_BASES maps exact equipment UUID to basisId, outputUomId, outputUomCode, standardSpeedPerHour and explicit plannedIntervals. Missing/invalid configuration yields missing reasons and null metrics; no real factory basis installed.",
+    "Legacy code-only or inconsistent report/session equipment attribution yields explicit missing. No data backfill or guessed allocation performed.",
+    "Output basis remains submitted uncancelled report business-time facts, not a claim of independently verified physical output or final QA.",
+    "Downtime has recorded-event evidence only; absence of events remains downtime_missing, not certified zero downtime/telemetry completeness.",
+    "41 pure cases and 4 final typechecks PASS using cached dependencies, not cold install/build. Initial 39-case output retained before date/precision checks added.",
+    "14 real PG cases seed explicit source records in a new empty database and exercise actual queries; they do not claim maintenance/execution business-entry coverage (PR10 separately owns that boundary).",
+    "Prior all-factory OEE fixture expected values are invalid for equipment-specific metrics and not reused as passing evidence. Controller acceptance and publication pending; no remote writes/messages."
+  ],
+  "remoteWrite": false,
+  "controllerAccepted": false
+}

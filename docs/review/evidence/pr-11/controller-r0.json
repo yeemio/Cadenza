@@ -1,0 +1,125 @@
+{
+  "pr": 11,
+  "originalParent": "17328a1c06e9ec56f9babf556539703141a6dc6c",
+  "cumulativeParent": "e38c2437749b3774db161ee8e40d181d25f44ca8",
+  "acceptedPrerequisite": "0df991eac99a61132e50c10d8931d3532945dab2",
+  "incrementSha256": "1bc3d425850a487efca0bd7de357cd7e6dae3d226f9401f307bcc032de1a9302",
+  "sourceCommit": "32c9de770fa4a79b7313ee4d550cccf453da0cd4",
+  "fingerprint": "d28425c9f88151e4c307ad4ecd419f615cb5e1c55a977e3d7c4144ce0cb08159",
+  "ownPostimagesMatched": 23,
+  "combinedPostimagesMatched": 53,
+  "combinedCount": 54,
+  "expectedInheritedDifferences": [
+    {
+      "path": "tests/pr02/object-write-scope.pg.spec.ts",
+      "authorSha256": "448acab0cfda3cd8b646ba20851387b7729c78c317f60ce3ab9a50c081bd8631",
+      "actualSha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1"
+    }
+  ],
+  "scopeExtension": null,
+  "decision": "ACCEPT",
+  "ownCoverage": {
+    "freshActualPgQueryPassed": 14,
+    "freshFailed": 0,
+    "freshRuntimeSkipped": 0,
+    "reusedPureCases": 41,
+    "effectiveOwn": 55,
+    "notAllPg": true
+  },
+  "freshProcess": {
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr11/vitest.config.ts",
+      "tests/pr11/oee.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-04T03:47:54.029548+00:00",
+    "completedAt": "2026-11-04T03:48:01.568159+00:00",
+    "database": "cadenza_pr11_oee_r0_20261104",
+    "sourceCommit": "32c9de770fa4a79b7313ee4d550cccf453da0cd4",
+    "logSha256": "e50814c4b0f8276b3c00fc76a76d420f919308561b2397f2be3a52d8158b0a55"
+  },
+  "actualEquipmentOeeReadback": {
+    "equipmentId": "7a69874d-d35d-411d-8613-a13b80fcbf87",
+    "equipmentCode": "P11-93e9542b-6e9",
+    "windowStart": "2026-01-01T08:00:00.000Z",
+    "windowEnd": "2026-01-01T16:00:00.000Z",
+    "windowSemantics": "[start,end)",
+    "plannedTimeBasis": "EXPLICIT_EQUIPMENT_PLAN_INTERSECT_QUERY_WINDOW",
+    "outputTimeBasis": "SUBMITTED_UNCANCELLED_REPORT_BUSINESS_TIME",
+    "equipmentAttributionBasis": "CONSISTENT_REPORT_SESSION_UUID",
+    "basisId": "PR11-7a69874d-d35d-411d-8613-a13b80fcbf87",
+    "outputUomId": "33333333-3333-4333-8333-3333333333c1",
+    "outputUomCode": "M",
+    "plannedMinutes": "480.0000",
+    "downtimeMinutes": "60.0000",
+    "standardSpeedPerHour": "200",
+    "stdRateText": "200",
+    "actualOutputQty": "1400.0000",
+    "qualifiedQty": "1330.0000",
+    "sourceOutputIds": [
+      "583e3d5c-54c8-4549-be3e-c291ccabdd8f"
+    ],
+    "downtimeFactCount": 1,
+    "availability": "0.8750",
+    "performance": "1.0000",
+    "qualityRate": "0.9500",
+    "oee": "0.8313",
+    "missing": []
+  },
+  "reusedChecks": [
+    {
+      "name": "domain-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/domain/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "domain-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "application-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "persistence-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "tests-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr11/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "oee-unit-final",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr11/vitest.config.ts tests/pr11/oee.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "oee-unit-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "d1f179ca9a9a39f2b826c138c807c6d59121e1aaed91a6f424b464ff26fcc8d8"
+    }
+  ],
+  "originalAuthorOutputsRetained": true,
+  "acceptance": "Original I12 single-device query/measurement boundary, actual SQL over isolated source fixtures: B cannot change A, window intersection/attribution/unit/basis missing and readonly-source guarantees.",
+  "notClaimed": [
+    "Live equipment telemetry/physical production",
+    "Real report/maintenance lifecycle validation in this PR",
+    "Real site plan/rate/unit configuration or complete outage telemetry",
+    "Cold build/installation/deployment or main merge"
+  ],
+  "dependencyDecision": "No shared source overwritten; exact accepted PR2 products/R1 fixture retained. No unrelated C2 regression."
+}
