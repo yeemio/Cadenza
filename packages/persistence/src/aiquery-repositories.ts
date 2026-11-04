@@ -742,15 +742,21 @@ export class PgAiQueryReadRepository implements AiQueryReadRepository {
       conds.push(`sb.plant_id = ANY($${params.length}::uuid[])`)
     }
     const r = await this.client.query(
-      `SELECT sb.unit_id, iu.material_code, sb.quantity::text AS quantity, sb.uom_code,
-         sb.quality_status, sb.status, sb.plant_id, sb.updated_at
+      `SELECT sb.unit_id, sb.location_id, iu.material_code, sb.quantity::text AS quantity, sb.uom_code,
+         sb.quality_status, sb.status, sb.plant_id, sb.updated_at,
+         EXISTS (SELECT 1 FROM quality_hold qh WHERE qh.inventory_unit_id=sb.unit_id AND qh.status='active') AS quality_held,
+         EXISTS (SELECT 1 FROM inventory_business_hold bh WHERE bh.unit_id=sb.unit_id) AS business_held
        FROM stock_balance sb JOIN inventory_unit iu ON iu.id = sb.unit_id
+         AND iu.enterprise_id=sb.enterprise_id AND iu.plant_id=sb.plant_id
        WHERE ${conds.join(' AND ')}`,
       params,
     )
     return (
       r.rows as unknown as Array<{
         unit_id: string
+        location_id: string
+        quality_held: boolean
+        business_held: boolean
         material_code: string
         quantity: string
         uom_code: string
@@ -761,6 +767,9 @@ export class PgAiQueryReadRepository implements AiQueryReadRepository {
       }>
     ).map((row) => ({
       unitId: row.unit_id,
+      locationId: row.location_id,
+      qualityHeld: row.quality_held,
+      businessHeld: row.business_held,
       materialCode: row.material_code,
       quantity: row.quantity,
       uomCode: row.uom_code,
@@ -773,14 +782,15 @@ export class PgAiQueryReadRepository implements AiQueryReadRepository {
 
   async listActiveReservationsByUnitIds(unitIds: string[]) {
     const r = await this.client.query(
-      `SELECT unit_id, status, quantity::text AS quantity, valid_until
+      `SELECT unit_id, location_id, status, quantity::text AS quantity, valid_until
        FROM reservation WHERE unit_id = ANY($1::uuid[]) AND status = 'active'`,
       [unitIds],
     )
     return (
-      r.rows as unknown as Array<{ unit_id: string; status: string; quantity: string; valid_until: Date | string }>
+      r.rows as unknown as Array<{ unit_id: string; location_id: string | null; status: string; quantity: string; valid_until: Date | string }>
     ).map((row) => ({
       unitId: row.unit_id,
+      locationId: row.location_id,
       status: row.status,
       quantity: row.quantity,
       validUntil: iso(row.valid_until),
