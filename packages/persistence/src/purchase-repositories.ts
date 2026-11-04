@@ -94,9 +94,9 @@ function mapOrder(r: OrderRow): PurchaseOrderRecord {
 export class PgPurchaseOrderRepository implements PurchaseOrderRepository {
   constructor(private readonly client: SqlClient) {}
 
-  async findByKey(sourceSystem: string, orgCode: string, orderNo: string): Promise<PurchaseOrderRecord | null> {
+  async findByKey(sourceSystem: string, orgCode: string, orderNo: string, forUpdate = false): Promise<PurchaseOrderRecord | null> {
     const r = await this.client.query(
-      `SELECT * FROM purchase_order WHERE source_system = $1 AND org_code = $2 AND order_no = $3`,
+      `SELECT * FROM purchase_order WHERE source_system = $1 AND org_code = $2 AND order_no = $3${forUpdate ? ' FOR UPDATE' : ''}`,
       [sourceSystem, orgCode, orderNo],
     )
     return r.rows[0] ? mapOrder(r.rows[0] as OrderRow) : null
@@ -466,8 +466,8 @@ function mapBatch(r: BatchRow): PurchaseReceiptBatchRecord {
 export class PgPurchaseBatchRepository implements PurchaseBatchRepository {
   constructor(private readonly client: SqlClient) {}
 
-  async findById(id: string): Promise<PurchaseReceiptBatchRecord | null> {
-    const r = await this.client.query(`SELECT ${BATCH_COLUMNS} FROM purchase_receipt_batch WHERE id = $1`, [id])
+  async findById(id: string, forUpdate = false): Promise<PurchaseReceiptBatchRecord | null> {
+    const r = await this.client.query(`SELECT ${BATCH_COLUMNS} FROM purchase_receipt_batch WHERE id = $1${forUpdate ? ' FOR UPDATE' : ''}`, [id])
     return r.rows[0] ? mapBatch(r.rows[0] as BatchRow) : null
   }
 
