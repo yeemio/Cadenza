@@ -1,0 +1,147 @@
+{
+  "pr": 12,
+  "decision": "ACCEPT",
+  "at": "2026-11-04T07:22:43.955254+00:00",
+  "authorRevision": "R1",
+  "controllerValidationRevision": "R2",
+  "sourceAndTestCommit": "8d8ff50efdf5239b36ce023bd29127713a60c313",
+  "parentHead": "0c951347f834d82afb4d7d573222cedd91883ea7",
+  "authorPatchSha256": "e385e995eff27010081b32476f09913f326878b6c48d13654f385dff3ea10f33",
+  "sourceTestFingerprint": "d93d724b55bd43111a2ac4a3468d6848dff73c1a38fad60814977bb69e39d1b3",
+  "postimagesVerified": 16,
+  "newNativePg": {
+    "passed": 3,
+    "failed": 0,
+    "runtimeSkippedSelected": 0,
+    "otherEightNameFilterExclusions": 8,
+    "cases": [
+      "actual backup and six secret absence",
+      "actual16.15 compatible restore recovers A sentinel/registry; B remains B",
+      "actual18.6 archive/native pair rejects before recreation; targetOID/sentinel/registry unchanged"
+    ]
+  },
+  "validReusedR0Native": 8,
+  "effectiveUniqueNative": 11,
+  "validReusedAuthorR1Local": {
+    "existingSafety": 41,
+    "newNativeCoordinatorUnit": 14,
+    "total": 55,
+    "scope": "Pure/explicit port doubles, not native PG",
+    "finalLogHashesVerified": true
+  },
+  "ownEffectiveUnique": 66,
+  "typesAndSyntax": "Author R1 actual final PASS, exact fingerprint and final log hashes verified",
+  "nativeProof": "controller-r2-native-proof.json",
+  "process": "controller-r2-pg-process.json",
+  "nativeEnvironment": "Actual16.15 vendor executables extracted task-only; actual18.6 negative pair. Child-only PATH and fallback-library search. No global install/link/new server/cluster or wrapper/SQL stripping/version spoof.",
+  "priorFailurePreserved": "R0/source controllerR1 actual9PASS1FAIL SQL42704, original media/failedtarget/old threeDBs/logs unchanged; initial controllerR0 authorization blocker retained",
+  "newDatabasesPreserved": [
+    {
+      "instance": "A",
+      "name": "cadenza_dops_pr12_source_r1_20261104"
+    },
+    {
+      "instance": "B",
+      "name": "cadenza_dops_pr12_source_r1_20261104"
+    },
+    {
+      "instance": "A",
+      "name": "cadenza_dops_pr12_restore_r1_20261104"
+    }
+  ],
+  "backupArchiveCopies": [
+    {
+      "kind": "compatible16",
+      "path": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR12-AUTHOR-R1-NATIVE-MEDIA/2026-11-04T07-16-13-050Z-c72131a2-52ea-4529-a14d-7d94a4078261",
+      "archiveSha256": "5bf8451835ae48ff4e55fae7513ed2e8693b42d1d9fef4a0beac009a420660f1",
+      "headers": [
+        ";     Dumped from database version: 16.15 (Debian 16.15-1.pgdg13+2)",
+        ";     Dumped by pg_dump version: 16.15 (Homebrew)"
+      ],
+      "manifestKeys": [
+        "format",
+        "backup_id",
+        "source_database",
+        "sourceInstance",
+        "schema_migrations",
+        "server_now_at_backup",
+        "databaseSnapshot",
+        "started_at",
+        "finished_at",
+        "configPolicy",
+        "objectMedia"
+      ],
+      "copiedFiles": [
+        {
+          "file": "database.dump",
+          "sha256": "5bf8451835ae48ff4e55fae7513ed2e8693b42d1d9fef4a0beac009a420660f1"
+        },
+        {
+          "file": "BACKUP-MANIFEST.json",
+          "sha256": "19e1414b71105c3d1b6ba93fe39e03b6f44857f77b5e2b42dd03cfd23e0463ad"
+        },
+        {
+          "file": "config.redacted.env",
+          "sha256": "a5af886c05f97cef0b8b22fcba1c827062ff775ba3db85a2f2d25041b6dfda16"
+        },
+        {
+          "file": "SHA256SUMS",
+          "sha256": "b80f2b673780235dc18193dc81e6f4ec49f253b1993e7608f59c945ba73a070a"
+        },
+        {
+          "file": "object-store.readme",
+          "sha256": "80d8da50d41295ba1418ea055284c7a7004cd77909664821911951247a3fb5c5"
+        }
+      ]
+    },
+    {
+      "kind": "newer-incompatible18",
+      "path": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR12-AUTHOR-R1-NATIVE-MEDIA/2026-11-04T07-16-13-733Z-e706d389-6d18-4ea4-9534-48e098a00d6a",
+      "archiveSha256": "0981d0d5a843b531d22c3faec74fa9d863db608ae5aadee17d49ce3620d642d8",
+      "headers": [
+        ";     Dumped from database version: 16.15 (Debian 16.15-1.pgdg13+2)",
+        ";     Dumped by pg_dump version: 18.6"
+      ],
+      "manifestKeys": [
+        "format",
+        "backup_id",
+        "source_database",
+        "sourceInstance",
+        "schema_migrations",
+        "server_now_at_backup",
+        "databaseSnapshot",
+        "started_at",
+        "finished_at",
+        "configPolicy",
+        "objectMedia"
+      ],
+      "copiedFiles": [
+        {
+          "file": "database.dump",
+          "sha256": "0981d0d5a843b531d22c3faec74fa9d863db608ae5aadee17d49ce3620d642d8"
+        },
+        {
+          "file": "BACKUP-MANIFEST.json",
+          "sha256": "3a4be4216a16971383cb86efc60fcb29ccc91b01525dd2022a80657022bc933f"
+        },
+        {
+          "file": "config.redacted.env",
+          "sha256": "1604f3b88cd58847f3ae36dce92b239c09c93cc315c7a5199d363aac25b5e0aa"
+        },
+        {
+          "file": "SHA256SUMS",
+          "sha256": "8c645c194d0e47da30bd4d46d09a6e346c08f919e435a18b9c551a507f931275"
+        },
+        {
+          "file": "object-store.readme",
+          "sha256": "80d8da50d41295ba1418ea055284c7a7004cd77909664821911951247a3fb5c5"
+        }
+      ]
+    }
+  ],
+  "mediaIntegrity": "All copied SHA256SUMS entries matched; databaseSnapshot is original native snapshot id, not a hash object",
+  "E02": "UNVERIFIED_NO_HISTORICAL_HASH_OR_REAL0031_UPGRADE_SAMPLE",
+  "acceptedScope": "Original I13/I14/I15 synthetic dedicated two-instance backup/restore/redaction/read-only safety; not arbitrary cross-major or real historical upgrade",
+  "controllerDidNotEditAuthorCode": true,
+  "mergeReleaseDeploy": false
+}
