@@ -1,0 +1,28 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr09-20261104
+
+stdout | tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > computes actual shortage and retains exact requirement/available/shortage evidence
+PR09_QUERY {"requirementBasis":"FULL_ORDER_BOM","stockScope":"CURRENT_FACTORY_UNRESERVED","outcome":"SHORTAGE","checkStatus":"shortage","reason":null,"orderId":"e8c2e485-faa6-42f3-8a6d-1e9cf81dea3a","settingsVersion":1,"bomRevisionId":"cceec4b3-31d9-4ad2-9bce-ed3900ac66a3","bomVersion":3,"basis":{"outputQuantity":"100.0000","outputUom":"M"},"evaluatedAt":"2026-11-04T09:11:04.919Z","lines":[{"materialId":"ce75fbef-b67b-4b84-9b65-fc1e7a69b73a","materialCode":"C-d867a430-cc77-4a09-a053-3ea39fa168ca","uom":"M","required":"10.0000","available":"6.0000","shortage":"4.0000","eligibleUnitIds":["ae16cca5-7716-498a-bf8b-6831e8b9e3da"],"excludedUnitIds":[]}]}
+
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > missing authorized-factory order records ORDER_NOT_FOUND, never empty/ok 10ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > missing BOM information {"noBom":true} remains MISSING_DATA 16ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > missing BOM information {"empty":true} remains MISSING_DATA 16ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > missing BOM information {"basis":false} remains MISSING_DATA 16ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > computes actual shortage and retains exact requirement/available/shortage evidence 26ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > sufficient real stock is KIT_COMPLETE with nonempty component calculation 23ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > duplicate component demands share inventory once 23ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > business hold, quality hold and pending stock are independently unavailable 52ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > deducts active reservation once and stops deducting after actual expiry instant 26ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > material-specific conversion permits comparable stock quantity 21ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > uses frozen referenced stock conversion even when it is retired and current factor differs 28ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > unknown unit conversion returns UNCONVERTIBLE rather than a made-up shortage 41ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > other-factory stock does not satisfy this factory and read scope does not confer write 22ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > current settings reference conflict is not silently calculated from old BOM 13ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > enterprise-wide list remains bound to current enterprise 2ms
+ ✓ tests/pr09/kitting.pg.spec.ts > PR09 actual PG group calculation, measurement and isolation > same-key concurrent checks persist one result and change no inventory facts 24ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  17:11:01
+   Duration  3.25s (transform 755ms, setup 0ms, collect 1.11s, tests 2.04s, environment 0ms, prepare 24ms)
+
