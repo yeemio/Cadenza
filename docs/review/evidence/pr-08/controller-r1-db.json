@@ -1,0 +1,7 @@
+{
+  "containerId": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+  "database": "cadenza_pr08_intent_r1_20261104",
+  "host": "127.0.0.1",
+  "port": 32768,
+  "emptyTablesBeforeRun": 0
+}

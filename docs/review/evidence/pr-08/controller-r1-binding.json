@@ -1,0 +1,346 @@
+{
+  "parentHead": "63eb1d7d508ff3028be725e1bbcf7b1294881665",
+  "sourceCommit": "67b8674e3799b192e6df4255ae5e887dce0a5bd6",
+  "sourceAndTestFingerprint": "f10dab06df342ecfe8eb64778b2bfabe8245208f44ea0d4dc5b4edac621a98f3",
+  "sourceTestFiles": [
+    {
+      "path": "apps/pda/src/components/PdaLayout.tsx",
+      "bytes": 4737,
+      "sha256": "5f2c3a16772c8b5d038567ea4a4f91c56cf15a64f788049ca6e4fc0bc971adc6",
+      "parentSha256": "5f2c3a16772c8b5d038567ea4a4f91c56cf15a64f788049ca6e4fc0bc971adc6",
+      "parentGitBlobSha": "1862f3749369b9ef87840dcc6f78a24b4db78f9c",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/pages/FeedScanPage.tsx",
+      "bytes": 6546,
+      "sha256": "7f86d141d3d14d6a879afda7c3de919decc6907a055e9ae8c2acde30cb04f6ad",
+      "parentSha256": "7f86d141d3d14d6a879afda7c3de919decc6907a055e9ae8c2acde30cb04f6ad",
+      "parentGitBlobSha": "a41cbc69e23f1a79279a2e2f8d9810196838b3f5",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/pda/src/pages/PutawayScanPage.tsx",
+      "bytes": 7250,
+      "sha256": "3010f7ff4e645ed2c574eeb1fe2fbb69c2b43d0cc1d7460beb3aa82c5399da77",
+      "parentSha256": "3010f7ff4e645ed2c574eeb1fe2fbb69c2b43d0cc1d7460beb3aa82c5399da77",
+      "parentGitBlobSha": "67e828770faf3431dfa4b149860515600837283b",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/components/AppLayout.tsx",
+      "bytes": 13106,
+      "sha256": "a91073cdda95166e7d3d060cc51f0fd6bd540b998c8c10e7a3ac0e8a26ba3206",
+      "parentSha256": "a91073cdda95166e7d3d060cc51f0fd6bd540b998c8c10e7a3ac0e8a26ba3206",
+      "parentGitBlobSha": "19316465444100e76440196c61f8c3f215afde94",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "apps/web/src/pages/FeedingPage.tsx",
+      "bytes": 14723,
+      "sha256": "e4b0e078b5fdc9dec7cf293e33d737f9c401377dd156d4c83468567485973d99",
+      "parentSha256": "e4b0e078b5fdc9dec7cf293e33d737f9c401377dd156d4c83468567485973d99",
+      "parentGitBlobSha": "99f2e207e2db22795aa95d7456911f6afe0ec609",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/execution-handlers.ts",
+      "bytes": 79675,
+      "sha256": "59ce589601bbe157c81dbf326e5b017043bb2308ae4e7389ebb1c19a3dbb7dd6",
+      "parentSha256": "59ce589601bbe157c81dbf326e5b017043bb2308ae4e7389ebb1c19a3dbb7dd6",
+      "parentGitBlobSha": "b11b1c5ef5737bfff7a3421f535da0f184530a12",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "bytes": 65517,
+      "sha256": "4915d163bc25ca3cb9c7b14331d473c8d9f4ca072ae60c2664f61a638bf48a7b",
+      "parentSha256": "4915d163bc25ca3cb9c7b14331d473c8d9f4ca072ae60c2664f61a638bf48a7b",
+      "parentGitBlobSha": "840a83c43df2785cf967b2474c686da45fafd455",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/repositories.ts",
+      "bytes": 8336,
+      "sha256": "df9fec84b6bf6e063231f92bb070d3b97469b1f481869404f8ed1d1e7a719526",
+      "parentSha256": "df9fec84b6bf6e063231f92bb070d3b97469b1f481869404f8ed1d1e7a719526",
+      "parentGitBlobSha": "d456119601075f972af80f1047081f582011c761",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/scheduling-queries.ts",
+      "bytes": 16099,
+      "sha256": "46f649dca789f12e62e8dcde92c53d65be9b94fd44958833b8972df6a9215097",
+      "parentSha256": "46f649dca789f12e62e8dcde92c53d65be9b94fd44958833b8972df6a9215097",
+      "parentGitBlobSha": "5c4e5fb6ec319fdc9fb2923c3ddf2b071812abad",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/warehousing-handlers.ts",
+      "bytes": 50124,
+      "sha256": "bd71bf9f157da10822fe9e20eaba0e59b3fe7d2507e0433e15adbb45353e1e80",
+      "parentSha256": "bd71bf9f157da10822fe9e20eaba0e59b3fe7d2507e0433e15adbb45353e1e80",
+      "parentGitBlobSha": "07db87b1020cfba5883cd6f6673b3f4647ef6e1a",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/warehousing-repositories.ts",
+      "bytes": 10105,
+      "sha256": "53bb73f4b566d74a09b3c62ae9df141737a5edeb1129454b1defc2e3096669f8",
+      "parentSha256": "53bb73f4b566d74a09b3c62ae9df141737a5edeb1129454b1defc2e3096669f8",
+      "parentGitBlobSha": "aff776a845fa0e76ea10ee197a93c747e49a309c",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/domain/src/inventory/time.ts",
+      "bytes": 2572,
+      "sha256": "d9257b14ac62bb9eaf7bded2a1494dfbfd62c0f1928e1883de8984f250a15828",
+      "parentSha256": "d9257b14ac62bb9eaf7bded2a1494dfbfd62c0f1928e1883de8984f250a15828",
+      "parentGitBlobSha": "b828901bcb0c98d7cb2391b48935a0c14baebaa2",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/persistence/src/repositories.ts",
+      "bytes": 26868,
+      "sha256": "66465908449a4c2ea8563ec6f730751526eceab27760e81b528c7c96e4fb961b",
+      "parentSha256": "66465908449a4c2ea8563ec6f730751526eceab27760e81b528c7c96e4fb961b",
+      "parentGitBlobSha": "2520090ded36de842a59b5bdcba5bf783a4b5ac3",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/persistence/src/warehousing-repositories.ts",
+      "bytes": 28873,
+      "sha256": "ab129688d85b4b460157e1bc5b04e5f0cd7180c2a40697d1d74338400680a617",
+      "parentSha256": "ab129688d85b4b460157e1bc5b04e5f0cd7180c2a40697d1d74338400680a617",
+      "parentGitBlobSha": "8075ac62723b5b06713960c97ac46a4bfdc317f5",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/ui/src/api/client.ts",
+      "bytes": 53696,
+      "sha256": "74294f25a934cabcebf70e9739fc2d50c74c823619ee2e2da226f1eb375f94b6",
+      "parentSha256": "74294f25a934cabcebf70e9739fc2d50c74c823619ee2e2da226f1eb375f94b6",
+      "parentGitBlobSha": "d1ebc3f7e6bc98d3c8aa84acb67703f16e366990",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/ui/src/api/types.ts",
+      "bytes": 58983,
+      "sha256": "6b3327b3a03aac8bf620e19af4289bbc761f89ac7e9c3367618b7a46e340ae77",
+      "parentSha256": "6b3327b3a03aac8bf620e19af4289bbc761f89ac7e9c3367618b7a46e340ae77",
+      "parentGitBlobSha": "be587e807c69ebb88098088cd522c8593635e4bc",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/ui/src/i18n/time.tsx",
+      "bytes": 3526,
+      "sha256": "7c7d58d1440fa30361a575b455ef2d669549eb9b2299edb51a9b7c0219e6ff73",
+      "parentSha256": "7c7d58d1440fa30361a575b455ef2d669549eb9b2299edb51a9b7c0219e6ff73",
+      "parentGitBlobSha": "4c73f28ea8b16e85c8a20884d5230fe665c68913",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr08/calendar.unit.spec.ts",
+      "bytes": 2341,
+      "sha256": "90815515a1a96e67b34335179c42b4dd9d08ae41f1aa1148bf7cf1aacda5ae75",
+      "parentSha256": "90815515a1a96e67b34335179c42b4dd9d08ae41f1aa1148bf7cf1aacda5ae75",
+      "parentGitBlobSha": "06b03fed2a4a3c5d91ec6a6e0c4fe73f1bd5e775",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr08/intent-api.pg.spec.ts",
+      "bytes": 19496,
+      "sha256": "ec8b5fcb42042bb5e0fb74ed5a3e2c9cbbe45dd2cd1cfe3180c5994073d46e97",
+      "parentSha256": "4695274ad7dec3b5a0de5a6e15e1ec765180c2e3894bc38f65d2d07a53ea662d",
+      "parentGitBlobSha": "77f08dd176ecec4e12fa9ad89d98caab7e3d7a07",
+      "unchangedFromParent": false
+    },
+    {
+      "path": "tests/pr08/intent.unit.spec.ts",
+      "bytes": 6671,
+      "sha256": "efe7e601253ef92458a0074de194b34327846dfb8961eba41ca1544be04feffc",
+      "parentSha256": "efe7e601253ef92458a0074de194b34327846dfb8961eba41ca1544be04feffc",
+      "parentGitBlobSha": "4caea206c394a84e56f9a37ff21404d4de8c551e",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr08/operator-pages.browser.spec.tsx",
+      "bytes": 7179,
+      "sha256": "23bf628f3378a74dfde9753acdfd7f28327eb6381743ef09c3d8df847781bb08",
+      "parentSha256": "23bf628f3378a74dfde9753acdfd7f28327eb6381743ef09c3d8df847781bb08",
+      "parentGitBlobSha": "de929f200247963b0a15843222a169da386790ca",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr08/tsconfig.full.json",
+      "bytes": 397,
+      "sha256": "7ff94aebc187d33ea1c739fd71002842c476a46d1592600848f5d14509f7656f",
+      "parentSha256": "7ff94aebc187d33ea1c739fd71002842c476a46d1592600848f5d14509f7656f",
+      "parentGitBlobSha": "f2915a4f12bdf38942f858d793385a23a5888820",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr08/tsconfig.json",
+      "bytes": 224,
+      "sha256": "2a311c5437960b011ae76e62cfeb46e672c6618c01040e140fcdda958392972b",
+      "parentSha256": "2a311c5437960b011ae76e62cfeb46e672c6618c01040e140fcdda958392972b",
+      "parentGitBlobSha": "79d2f4d2feb44880305163b62e13ced9948ad18e",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr08/vitest.browser.config.ts",
+      "bytes": 262,
+      "sha256": "96c9ab83c967dd8ef7b29b6ea0ee3295782a7c8926dfb330c87ad9629045b46e",
+      "parentSha256": "96c9ab83c967dd8ef7b29b6ea0ee3295782a7c8926dfb330c87ad9629045b46e",
+      "parentGitBlobSha": "bd75a7da9ca55009dda6367783d3ab927e773a59",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr08/vitest.config.ts",
+      "bytes": 239,
+      "sha256": "fc6765c441144bed4e04a98efc803a4001568b6199ad8b4344f950b131c1210c",
+      "parentSha256": "fc6765c441144bed4e04a98efc803a4001568b6199ad8b4344f950b131c1210c",
+      "parentGitBlobSha": "a20ea01dc102e0cb979b5ebab164fcf76ee1765c",
+      "unchangedFromParent": true
+    }
+  ],
+  "patchSha256": "c07ce32ad9bf650f928d171376a810a000d27219e4476ba887b52edaed8c3f17",
+  "postimagesMatched": 17,
+  "allAssertionsByteIdentical": true,
+  "scenarioBodyOnlyLegalLocationReferenceChange": true,
+  "productsAndAcceptedPrerequisitesUnchanged": true,
+  "accountFixtureScope": "PR08-R1-ACCOUNT-FIXTURE-SCOPE-DECISION.json",
+  "reusedEvidence": {
+    "provenance": "https://github.com/yeemio/Cadenza/blob/63eb1d7d508ff3028be725e1bbcf7b1294881665/docs/review/evidence/pr-08/controller-r0.json",
+    "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+    "rulesAndCalendar": {
+      "passed": 26,
+      "process": {
+        "command": [
+          "node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "tests/pr08/vitest.config.ts",
+          "tests/pr08/calendar.unit.spec.ts",
+          "tests/pr08/intent.unit.spec.ts",
+          "--reporter=verbose"
+        ],
+        "exitCode": 0,
+        "startedAt": "2026-11-04T03:38:37.186341+00:00",
+        "completedAt": "2026-11-04T03:38:38.083025+00:00",
+        "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+        "reason": "Cumulative inventory-posting input differs from author fingerprint by accepted R2. Rebind calendar/intent evidence to current stable source once.",
+        "logSha256": "9236246b98b546007ca2f9fda6a1b2497a973e965d37b5677402d327a1b74e1c"
+      },
+      "log": "docs/review/evidence/pr-08/controller-r0-unit.log",
+      "rerunByAuthorR1": false
+    },
+    "jsdomComponentsWithApiDoubles": {
+      "passed": 8,
+      "process": {
+        "command": [
+          "node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "tests/pr08/vitest.browser.config.ts",
+          "--reporter=verbose"
+        ],
+        "exitCode": 0,
+        "startedAt": "2026-11-04T03:37:59.543388+00:00",
+        "completedAt": "2026-11-04T03:38:02.211987+00:00",
+        "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+        "environment": "jsdom with actual project React19 dependencies; no real browser or network",
+        "logSha256": "015d7650993f6ade5963b09755163221b9e264c505e19499c92206f391173c94"
+      },
+      "log": "docs/review/evidence/pr-08/controller-r0-dom-ui.log",
+      "rerunByAuthorR1": false
+    },
+    "productTypes": [
+      {
+        "name": "application",
+        "command": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "packages/application/tsconfig.json",
+          "--noEmit"
+        ],
+        "exitCode": 0,
+        "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+        "startedAt": "2026-11-04T03:37:59.565705+00:00",
+        "completedAt": "2026-11-04T03:38:00.892295+00:00",
+        "log": "docs/review/evidence/pr-08/controller-r0-application-types.log",
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "persistence",
+        "command": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "packages/persistence/tsconfig.json",
+          "--noEmit"
+        ],
+        "exitCode": 0,
+        "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+        "startedAt": "2026-11-04T03:37:59.565936+00:00",
+        "completedAt": "2026-11-04T03:38:01.187828+00:00",
+        "log": "docs/review/evidence/pr-08/controller-r0-persistence-types.log",
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "sharedRealPgRegressions": [
+      {
+        "pr": 2,
+        "passed": 129,
+        "failed": 0,
+        "runtimeSkipped": 0,
+        "process": {
+          "command": [
+            "node",
+            "node_modules/vitest/vitest.mjs",
+            "run",
+            "--config",
+            "tests/pr02/vitest.config.ts",
+            "tests/pr02/object-write-scope.pg.spec.ts",
+            "--reporter=verbose"
+          ],
+          "exitCode": 0,
+          "database": "cadenza_pr02_on_pr08_r0_20261104",
+          "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+          "startedAt": "2026-11-04T03:38:59.952064+00:00",
+          "completedAt": "2026-11-04T03:39:11.008682+00:00",
+          "reason": "PR8 changes common inventory calendar resolution/writeLine; bind affected C2/C7 stock/rollback/reference proof to current cumulative source.",
+          "logSha256": "1e4616b58f1cc0972d3242530f8e042672aac6497b5967a25a2c84f7453d5296"
+        }
+      },
+      {
+        "pr": 3,
+        "passed": 40,
+        "failed": 0,
+        "runtimeSkipped": 0,
+        "process": {
+          "command": [
+            "node",
+            "node_modules/vitest/vitest.mjs",
+            "run",
+            "--config",
+            "tests/pr03/vitest.config.ts",
+            "tests/pr03/quality-availability.pg.spec.ts",
+            "--reporter=verbose"
+          ],
+          "exitCode": 0,
+          "database": "cadenza_pr03_on_pr08_r0_20261104",
+          "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+          "startedAt": "2026-11-04T03:38:59.952235+00:00",
+          "completedAt": "2026-11-04T03:39:06.320413+00:00",
+          "reason": "PR8 changes common inventory calendar resolution/writeLine; bind affected C2/C7 stock/rollback/reference proof to current cumulative source.",
+          "logSha256": "0b253707a89f549cbf47021d6522b870d89c7af6aad6aba4c19432d21c5736e1"
+        }
+      }
+    ],
+    "boundary": "Unchanged34 local cases and169 separate cumulative PG cases retain their parent evidence. They are not new executions or PR08 own HTTP+PG7 proof. Changed full-test-source typecheck is NOT_RUN, not covered by the old full-test-source PASS."
+  }
+}

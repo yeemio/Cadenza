@@ -1,0 +1,53 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr08-20261104
+
+ × tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > factory 0: dropped committed feed response / reload / second operation / trusted sales / calendar 119ms
+   → expected '2026-11-02' to be '2026-11-03' // Object.is equality
+ ✓ tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > factory 0: dropped putaway response preserves actual task ownership 73ms
+ × tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > factory 1: dropped committed feed response / reload / second operation / trusted sales / calendar 84ms
+   → expected '2026-11-03' to be '2026-11-04' // Object.is equality
+ ✓ tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > factory 1: dropped putaway response preserves actual task ownership 63ms
+ ✓ tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > rejects forged sales and cross-factory second-operation intent without effects 76ms
+ ✓ tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > unknown real origin cannot be replaced with a client sales claim 27ms
+ ✓ tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > rejects wrong owner, foreign target and unconfigured warehouse purpose 47ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > factory 0: dropped committed feed response / reload / second operation / trusted sales / calendar
+AssertionError: expected '2026-11-02' to be '2026-11-03' // Object.is equality
+
+Expected: "2026-11-03"
+Received: "2026-11-02"
+
+ ❯ tests/pr08/intent-api.pg.spec.ts:139:99
+    137|       const reportReceipt=await reportResponse.json()
+    138|       const detailResponse=await realFetch(baseURL+`/execution/reports…
+    139|       expect(detailResponse.ok).toBe(true);expect((await detailRespons…
+       |                                                                                                   ^
+    140|       console.log('PR08_HTTP_PG',JSON.stringify({plant:f.plantId,opera…
+    141|     })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/pr08/intent-api.pg.spec.ts > PR08 actual API + actual isolated PG; no skips or business doubles > factory 1: dropped committed feed response / reload / second operation / trusted sales / calendar
+AssertionError: expected '2026-11-03' to be '2026-11-04' // Object.is equality
+
+Expected: "2026-11-04"
+Received: "2026-11-03"
+
+ ❯ tests/pr08/intent-api.pg.spec.ts:139:99
+    137|       const reportReceipt=await reportResponse.json()
+    138|       const detailResponse=await realFetch(baseURL+`/execution/reports…
+    139|       expect(detailResponse.ok).toBe(true);expect((await detailRespons…
+       |                                                                                                   ^
+    140|       console.log('PR08_HTTP_PG',JSON.stringify({plant:f.plantId,opera…
+    141|     })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 5 passed (7)
+   Start at  16:12:49
+   Duration  4.76s (transform 1.20s, setup 0ms, collect 1.69s, tests 2.93s, environment 0ms, prepare 38ms)
+
