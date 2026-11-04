@@ -1,3 +1,4 @@
+import { calibrationEffectAt } from '@cadenza/domain'
 import type { PageRequest, PageResult } from '@cadenza/contracts'
 import type { CommandTools } from './command-bus'
 import type { OutboxCollector, InventoryRepositories } from './inventory-repositories'
@@ -251,14 +252,24 @@ export interface CswOverrideAuditRepository {
 
 // ---------------- 校准状态投影（CS-05③/CS-10 等价服务，收编请求：T23 spc 校准记录） ----------------
 
-export interface CswCalibrationStateRecord extends CalibrationStateView {
+export interface CswCalibrationStateRecord extends Omit<CalibrationStateView, 'calibrationResult'> {
   id: string
   enterpriseId: string
   plantId: string
   equipmentId: string
-  calibrationResult: 'qualified' | 'limited' | 'invalid'
+  calibrationResult: 'qualified' | 'limited' | 'invalid' | 'unknown'
   validUntil: string | null
   certificateNo: string | null
+  source?: 'spc_calibration_record' | 'UNKNOWN'
+  sourceIssue?: string | null
+  gaugeId?: string | null
+  sourceRecordId?: string | null
+  sourceCalibratedAt?: string | null
+  sourceValidUntil?: string | null
+  knowledgeAt?: string
+  /** 新业务事实只提示复核，不自动重排或抹去历史槽位。 */
+  reviewSlotIds?: string[]
+  planReviewRequired?: boolean
   /** [CS-10] 校准失效时的已排槽位标记清单（不删除，仅提示；处置 → CA-11 待裁） */
   affectedSlotIds: string[]
   updatedBy: string | null
@@ -278,8 +289,8 @@ export interface CswCalibrationStateRepository {
     affectedSlotIds: string[]
     updatedBy: string | null
   }): Promise<CswCalibrationStateRecord>
-  findByEquipment(equipmentId: string): Promise<CswCalibrationStateRecord | null>
-  list(filter: { plantIds: string[] | null }): Promise<CswCalibrationStateRecord[]>
+  findByEquipment(equipmentId: string, productionDate?: string, knownAt?: string): Promise<CswCalibrationStateRecord | null>
+  list(filter: { plantIds: string[] | null; enterpriseId?: string; productionDate?: string; knownAt?: string }): Promise<CswCalibrationStateRecord[]>
 }
 
 // ---------------- 停机窗口（CS-09 等价服务，收编请求：T19 downtime_event） ----------------
@@ -292,7 +303,11 @@ export interface CswDowntimeRecord {
   kind: DowntimeWindow['kind']
   /** ISO 日期或日期时间串（date-only＝整日） */
   fromAt: string
-  toAt: string
+  toAt: string | null
+  source?: 'downtime_event'
+  sourceOrderId?: string | null
+  planReviewRequired?: boolean
+  reviewReason?: string | null
   status: 'active' | 'closed'
   note: string | null
   /** [CS-09] 关闭时的受影响槽位清单（提示计划员，不自动重排） */
@@ -319,8 +334,9 @@ export interface CswDowntimeRepository {
   findById(id: string): Promise<CswDowntimeRecord | null>
   lockById(id: string): Promise<CswDowntimeRecord | null>
   close(id: string, patch: { closedBy: string; closedAt: string; impactSlotIds: string[] }): Promise<CswDowntimeRecord>
-  listActiveByEquipment(equipmentId: string): Promise<CswDowntimeRecord[]>
-  list(filter: { plantIds: string[] | null; equipmentId?: string; status?: 'active' | 'closed' } & PageRequest): Promise<
+  /** Includes closed historical intervals: closing a repair never erases its capacity use. */
+  listActiveByEquipment(equipmentId: string, fromDate?: string, toDate?: string): Promise<CswDowntimeRecord[]>
+  list(filter: { plantIds: string[] | null; enterpriseId?: string; equipmentId?: string; status?: 'active' | 'closed' } & PageRequest): Promise<
     PageResult<CswDowntimeRecord>
   >
 }
@@ -564,4 +580,31 @@ export interface CswCommandTools extends CommandTools {
   scheduling: SchedulingRepositories
   csw: CswRepositories
   outbox: OutboxCollector
+}
+
+/** SPC timestamps are evaluated over a whole UTC scheduling date, not truncated to a later expiry date.
+ * UNKNOWN retains the frozen CSW policy; it is explicitly not evidence of valid qualification. */
+export function cswCalibrationEffectAt(state: CswCalibrationStateRecord | null, date: string): 'usable' | 'invalid' | 'expired' | 'unknown' {
+  if (!state || state.calibrationResult === 'unknown') return 'unknown'
+  if (state.calibrationResult === 'invalid') return 'invalid'
+  if (state.source === 'spc_calibration_record') {
+    const start = Date.parse(`${date}T00:00:00Z`), end = start + 86_400_000
+    const calibrated = Date.parse(state.sourceCalibratedAt ?? ''), until = Date.parse(state.sourceValidUntil ?? '')
+    if (![start, calibrated, until].every(Number.isFinite)) return 'unknown'
+    if (until < end) return 'expired'
+    if (calibrated > start) return 'unknown'
+    return 'usable'
+  }
+  return calibrationEffectAt({...state, calibrationResult: state.calibrationResult}, date)
+}
+
+/** Union of half-open maintenance intervals in a UTC production day. Open events have no invented end. */
+export function cswDowntimeFraction(events: readonly Pick<CswDowntimeRecord, 'fromAt' | 'toAt'>[], date: string): number {
+  const start = Date.parse(`${date}T00:00:00Z`), end = start + 86_400_000
+  if (!Number.isFinite(start)) return 0
+  const ranges = events.map(e => [Math.max(start, Date.parse(e.fromAt)), Math.min(end, e.toAt === null ? end : Date.parse(e.toAt))] as const)
+    .filter(([a,b]) => Number.isFinite(a) && Number.isFinite(b) && b > a).sort((a,b) => a[0] - b[0])
+  let used = 0, until = start
+  for (const [a,b] of ranges) { used += Math.max(0, b - Math.max(a, until)); until = Math.max(until,b) }
+  return used / 86_400_000
 }

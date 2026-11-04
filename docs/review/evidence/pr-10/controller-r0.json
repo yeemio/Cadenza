@@ -1,0 +1,115 @@
+{
+  "pr": 10,
+  "originalParent": "59ee963106d1ad731cce8b33923eb7774ca95c91",
+  "cumulativeParent": "ca54e749e417723980dee23374e6bbe2e4872fae",
+  "acceptedPrerequisite": "0df991eac99a61132e50c10d8931d3532945dab2",
+  "incrementSha256": "466cdef13a0956043f90ceb8d09f6d6ee5f7f50ac547d87d4ff51865589685e3",
+  "sourceCommit": "e3e6954cfd70c56c98b46c6ca390d4afad6abce2",
+  "fingerprint": "0ab5ae25496d5d43a005e40c3e0b0aa5a1dc5b1953e3d6172e2671a98279fc3a",
+  "ownPostimagesMatched": 19,
+  "combinedPostimagesMatched": 49,
+  "combinedCount": 50,
+  "expectedInheritedDifferences": [
+    {
+      "path": "tests/pr02/object-write-scope.pg.spec.ts",
+      "authorSha256": "448acab0cfda3cd8b646ba20851387b7729c78c317f60ce3ab9a50c081bd8631",
+      "actualSha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1"
+    }
+  ],
+  "scopeExtensionDecision": {
+    "path": "packages/application/src/csw-queries.ts",
+    "decision": "ALLOW",
+    "reason": "Read the same direct maintenance/SPC source for readiness/listing, authenticated enterprise/factory filters; no new role/schema/mutation paths."
+  },
+  "decision": "ACCEPT",
+  "status": "ACCEPTED_SOURCE_WITH_APPLICABLE_LOCAL_PG_PROOF",
+  "ownCoverage": {
+    "freshRealPgPassed": 12,
+    "freshFailed": 0,
+    "freshRuntimeSkipped": 0,
+    "reusedLocalRulesAndDoubles": 31,
+    "effectiveOwn": 43,
+    "notAllPg": true
+  },
+  "freshProcess": {
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr10/vitest.config.ts",
+      "tests/pr10/maintenance-scheduling.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "exitCode": 0,
+    "startedAt": "2026-11-04T03:45:18.935705+00:00",
+    "completedAt": "2026-11-04T03:45:23.531736+00:00",
+    "database": "cadenza_pr10_maintenance_r0_20261104",
+    "sourceCommit": "e3e6954cfd70c56c98b46c6ca390d4afad6abce2",
+    "logSha256": "521cb7f325696f19104f8ea22046a4b39ba62b9384ddd1ae75f11949c7b01932"
+  },
+  "actualMaintenanceIntervalReadback": {
+    "id": "4dceebcf-9577-4d2d-8a43-48de17bf1bd6",
+    "enterpriseId": "0abfd138-d65b-44c9-ac8f-85cb1a348e91",
+    "plantId": "2a3d1ff2-9d89-4e1c-928b-bdb1210f845e",
+    "equipmentId": "ee799d89-74a5-461e-96ae-ba69b17e2157",
+    "kind": "repair",
+    "fromAt": "2026-11-04T03:45:23.378Z",
+    "toAt": "2026-11-04T03:45:23.387Z",
+    "status": "closed",
+    "note": "PR10 real maintenance interval",
+    "impactSlotIds": [],
+    "closedBy": "maintenance",
+    "closedAt": "2026-11-04T03:45:23.387Z",
+    "createdAt": "2026-11-04T03:45:23.377Z",
+    "createdBy": "maintenance",
+    "source": "downtime_event",
+    "sourceOrderId": "43ad132a-77ea-4a59-a875-0589ed3f4ba1",
+    "planReviewRequired": true,
+    "reviewReason": "CAPACITY_CHANGED_REVIEW_REQUIRED_NO_AUTOMATIC_RESCHEDULE"
+  },
+  "reusedChecks": [
+    {
+      "name": "application-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "persistence-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "tests-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr10/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "maintenance-unit-final",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr10/vitest.config.ts tests/pr10/maintenance-scheduling.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "maintenance-unit-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "57b43c65edea888ab7bd40ce2a499f5ef9cbcf58456c77cdca23f366ab7a0ed8"
+    }
+  ],
+  "originalFailuresPreserved": true,
+  "prerequisiteRegression": "Unchanged accepted PR2 products and fixture retained; no unrelated shared product path changed, no repeat C2 regression.",
+  "acceptance": "Original I11 local integration scope: real maintenance/SPC business-entry facts feed proposals/readiness/commit, stale proposals rechecked, restored valid equipment can schedule, history/flags preserved; shadow writes refused.",
+  "boundaries": [
+    "Explicit gauge/equipment binding is configured only for test UUIDs; actual site mapping absent.",
+    "UNKNOWN preserves existing nonblocking policy and is never proof of valid qualification.",
+    "Scheduling capacity is a complete UTC day; no actual factory shift calendar or physical gauge proof.",
+    "Exact concurrent SPC insertion serialization and real device/site acceptance not proved.",
+    "No original PR merge, deployment, old DB or migration changes."
+  ]
+}

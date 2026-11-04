@@ -256,7 +256,7 @@ export interface MaterialQcLookup {
 // ---------------- 仓储端口 ----------------
 
 export interface PurchaseOrderRepository {
-  findByKey(sourceSystem: string, orgCode: string, orderNo: string): Promise<PurchaseOrderRecord | null>
+  findByKey(sourceSystem: string, orgCode: string, orderNo: string, forUpdate?: boolean): Promise<PurchaseOrderRecord | null>
   insert(input: {
     orderNo: string
     orgCode: string
@@ -315,7 +315,7 @@ export interface PurchaseOrderLineRepository {
 }
 
 export interface PurchaseBatchRepository {
-  findById(id: string): Promise<PurchaseReceiptBatchRecord | null>
+  findById(id: string, forUpdate?: boolean): Promise<PurchaseReceiptBatchRecord | null>
   findByNo(batchNo: string): Promise<PurchaseReceiptBatchRecord | null>
   insert(batch: NewPurchaseReceiptBatch): Promise<PurchaseReceiptBatchRecord>
   updateInspectionStatus(id: string, inspectionStatus: PurchaseReceiptBatchRecord['inspectionStatus'], actor: string | null): Promise<PurchaseReceiptBatchRecord | null>

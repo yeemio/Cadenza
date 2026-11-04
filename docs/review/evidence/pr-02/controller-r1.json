@@ -1,0 +1,84 @@
+{
+  "decision": "ACCEPT",
+  "acceptanceBoundary": "PR02 C2 local source and real isolated PostgreSQL behavior",
+  "testedSourceCommit": "05b5913688cf028dd09784eba7294284522d1a15",
+  "sourceAndTestSha256": "49c5649c415f8cdaa2f31aea1d9dbc3a05f146fa32d6c4a81963d558e637f021",
+  "r1Parent": "0925e19cb9542c425fe70b05b1d8eb7db7019ecc",
+  "r1PatchSha256": "0ddb22139f1f1f1c0719cd78ef90f5b38467227edd86d39d9854a333bdab83a9",
+  "postimagesVerified": 4,
+  "productAndOtherR0FilesUnchanged": true,
+  "factoryOnlyChangeVerified": true,
+  "authorChat": "6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "controllerThread": "01a190b9-6bd9-7500-bfa7-d1aca5fd6fe0",
+  "checks": {
+    "freshPg": {
+      "passed": 129,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/review/evidence/pr-02/controller-r1-pg.log",
+      "sha256": "f8e4b8d3623aa1322240b4f64d8dd39e3f90148eba64310d10fead844b923887"
+    },
+    "freshTestSourceTypes": "PASS",
+    "reusedUnit": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "sourceCommit": "0925e19cb9542c425fe70b05b1d8eb7db7019ecc",
+      "log": "docs/review/evidence/pr-02/controller-r0-pg-and-unit.log"
+    },
+    "reusedApplicationTypes": "PASS",
+    "reusedPersistenceTypes": "PASS",
+    "effectiveUniqueCases": 145,
+    "newExecutedCases": 129
+  },
+  "queryEvidence": {
+    "rawLog": "docs/review/evidence/pr-02/controller-r1-pg.log",
+    "rawLogBytes": 7035368,
+    "rawLogSha256": "f8e4b8d3623aa1322240b4f64d8dd39e3f90148eba64310d10fead844b923887",
+    "actualPgPassed": 129,
+    "failed": 0,
+    "skipped": 0,
+    "denialMatrix": {
+      "same-enterprise-other-plant": 29,
+      "other-enterprise": 29,
+      "group-read-only": 29,
+      "enterprise-read-plus-local-write": 29
+    },
+    "queryObservations": 123,
+    "uniqueOperationIds": 123,
+    "allObservedBusinessSnapshotsUnchanged": true,
+    "tablesPerObservation": [
+      177
+    ],
+    "onlyExcludedTable": "command_receipt",
+    "allReceiptRows": 1,
+    "commandsObserved": 22,
+    "actors": {
+      "szqc01": 64,
+      "admin": 29,
+      "szws01": 30
+    }
+  },
+  "preservedFailure": {
+    "r0Head": "0925e19cb9542c425fe70b05b1d8eb7db7019ecc",
+    "businessExecuted": 0,
+    "rawReportedSkipped": 129,
+    "sqlstate": "23502",
+    "r0Database": "cadenza_pr02_scope_r0_20261104"
+  },
+  "database": {
+    "name": "cadenza_pr02_scope_r1_20261104",
+    "host": "127.0.0.1:32768",
+    "instanceId": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+    "preserved": true
+  },
+  "notAccepted": [
+    "installed application",
+    "production or release/deployment",
+    "real network disconnect",
+    "old database upgrade",
+    "real SAP/model/enterprise channel/device/site",
+    "independent R6"
+  ],
+  "mergePerformed": false
+}

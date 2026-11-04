@@ -18,7 +18,8 @@ import {
 import type { CommandHandler, HandlerOutcome } from './command-bus'
 import { violationOutcome } from './inventory-handlers'
 import { NOT_FOUND_RULE, buildPostingContext, type PostingContext } from './inventory-posting'
-import type { QualityCommandTools } from './quality-repositories'
+import type { InspectionOrderRecord, QualityCommandTools } from './quality-repositories'
+import { assertObjectWriteScope, type ObjectScope } from './object-scope-repositories'
 
 /**
  * quality 域命令处理器（T12 质量放行；全部在命令总线事务内运行，命令事务即 UoW）。
@@ -70,12 +71,13 @@ function requireStr(p: Payload, key: string, command: string): string {
   return v
 }
 
-/** 组织范围二道防线（OA-24/26：目标工厂须在 actor 数据范围）。 */
-async function assertPlantScope(tools: QualityCommandTools, plantId: string): Promise<void> {
-  const scope = await tools.actorDataScope()
-  if (!scope.enterpriseWide && !scope.plantIds.includes(plantId)) {
-    throw new QualityRuleViolation('A-S1', `目标工厂不在授权数据范围内（plant=${plantId}）`)
-  }
+async function assertQualityObjectScope(pc: PostingContext, target: ObjectScope, claimedPlantId?: string): Promise<void> {
+  await assertObjectWriteScope(pc.tools, pc.ctx, target, 'quality.post',
+    (message) => new QualityRuleViolation('A-S1', message), claimedPlantId)
+}
+
+async function assertPlantScope(pc: PostingContext, plantId: string): Promise<void> {
+  await assertQualityObjectScope(pc, { enterpriseId: pc.ctx.enterpriseId, plantId })
 }
 
 function qualityTools(pc: PostingContext): QualityCommandTools {
@@ -84,19 +86,28 @@ function qualityTools(pc: PostingContext): QualityCommandTools {
 
 /** 检验单绑定单元的库存质量投影刷新（T12 闸门消费口径：IT-14 库存余额 quality_status）。 */
 async function syncUnitQualityByNo(
-  tools: QualityCommandTools,
-  plantId: string,
-  unitNo: string | null,
+  pc: PostingContext,
+  order: InspectionOrderRecord,
   target: 'qualified' | 'pending_inspection' | 'unqualified' | 'suspect',
 ): Promise<string | null> {
-  if (unitNo === null) return null
-  const unit = await tools.inv.units.findByUnitNo(plantId, unitNo)
-  if (unit === null) return null // 单元未入库（报工后、入库前）：仅记质量域事实，不动库存
+  const tools = qualityTools(pc)
+  if (order.unitNo === null && order.inventoryUnitId === null) return null
+  const found = order.inventoryUnitId !== null
+    ? await tools.inv.units.findById(order.inventoryUnitId)
+    : await tools.inv.units.findByUnitNo(order.plantId, order.unitNo!)
+  // A reported unit may not have been received yet. An explicit stale/foreign
+  // binding is different: never silently project a different physical unit.
+  if (found === null && order.inventoryUnitId === null) return null
+  const unit = found === null ? undefined : (await tools.inv.units.lockForUpdate([found.id]))[0]
+  if (unit === undefined) throw new QualityRuleViolation('A-S1', '检验单绑定的库存单元不存在')
+  await assertQualityObjectScope(pc, unit, order.plantId)
+  if (order.unitNo !== null && order.unitNo !== unit.unitNo) throw new QualityRuleViolation('A-S1', '检验单的库存身份不一致')
   const balances = await tools.inv.balances.listActiveByUnit(unit.id)
   for (const b of balances) {
-    if (b.qualityStatus !== target) {
-      await tools.inv.balances.adjust(b.id, { qualityStatus: target }, null)
+    if (b.unitId !== unit.id || b.enterpriseId !== unit.enterpriseId || b.plantId !== unit.plantId) {
+      throw new QualityRuleViolation('A-S1', '检验单绑定余额的企业/工厂不一致')
     }
+    if (b.qualityStatus !== target) await tools.inv.balances.adjust(b.id, { qualityStatus: target }, null)
   }
   return unit.id
 }
@@ -106,7 +117,7 @@ async function syncUnitQualityByNo(
 async function inspectionGenerate(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = qualityTools(pc)
   const plantId = requireStr(p, 'plantId', 'quality.inspection.generate')
-  await assertPlantScope(tools, plantId)
+  await assertPlantScope(pc, plantId)
 
   const eventTypesRaw = p['eventTypes']
   const eventTypes = Array.isArray(eventTypesRaw) && eventTypesRaw.every((t) => typeof t === 'string')
@@ -119,6 +130,7 @@ async function inspectionGenerate(pc: PostingContext, p: Payload): Promise<Recor
   let seq = 0
   for (const event of events) {
     if (event.eventType !== 'work_report_confirmed') continue // 检验任务仅消费报工确认事件
+    await assertQualityObjectScope(pc, { enterpriseId: pc.ctx.enterpriseId, plantId: event.plantId }, plantId)
     const stage = event.payload.inspectionStage === 'process' ? 'process' : 'finished'
     const specCode = event.payload.specCode ?? str(p, 'defaultSpecCode')
     const specVersion = event.payload.specVersion ?? (p['defaultSpecVersion'] as number | undefined)
@@ -133,6 +145,7 @@ async function inspectionGenerate(pc: PostingContext, p: Payload): Promise<Recor
     assertSpecReference({ specCode, specVersion })
     const existing = await tools.qa.inspectionOrders.findBySource('work_report', event.payload.sourceRef, stage)
     if (existing !== null) {
+      await assertQualityObjectScope(pc, existing, plantId)
       skipped += 1 // 事件重放幂等：来源唯一键查重跳过（不重复生成）
       continue
     }
@@ -188,8 +201,9 @@ async function inspectionGenerate(pc: PostingContext, p: Payload): Promise<Recor
 async function testResultSubmit(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = qualityTools(pc)
   const inspectionOrderId = requireStr(p, 'inspectionOrderId', 'quality.test-result.submit')
-  const order = await tools.qa.inspectionOrders.findById(inspectionOrderId)
+  const order = await tools.qa.inspectionOrders.findById(inspectionOrderId, true)
   if (order === null) throw new QualityRuleViolation(NOT_FOUND_RULE, '检验单不存在')
+  await assertQualityObjectScope(pc, order, str(p, 'plantId'))
 
   const conclusionRaw = str(p, 'conclusion')
   if (conclusionRaw !== 'qualified' && conclusionRaw !== 'unqualified') {
@@ -241,8 +255,8 @@ async function testResultSubmit(pc: PostingContext, p: Payload): Promise<Record<
   await tools.qa.inspectionOrders.updateStatus(order.id, 'concluded', pc.ctx.actorLoginName)
 
   // 库存质量投影：复检打开先置待检（复检中不可用）；结论即时投影（合格→可用，不合格→不可用）
-  if (order.unitNo !== null) {
-    await syncUnitQualityByNo(tools, order.plantId, order.unitNo, conclusionRaw === 'qualified' ? 'qualified' : 'unqualified')
+  if (order.unitNo !== null || order.inventoryUnitId !== null) {
+    await syncUnitQualityByNo(pc, order, conclusionRaw === 'qualified' ? 'qualified' : 'unqualified')
   }
 
   await pc.tools.audit.record({
@@ -268,8 +282,9 @@ async function testResultSubmit(pc: PostingContext, p: Payload): Promise<Record<
 async function dispositionRelease(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = qualityTools(pc)
   const inspectionOrderId = requireStr(p, 'inspectionOrderId', 'quality.disposition.release')
-  const order = await tools.qa.inspectionOrders.findById(inspectionOrderId)
+  const order = await tools.qa.inspectionOrders.findById(inspectionOrderId, true)
   if (order === null) throw new QualityRuleViolation(NOT_FOUND_RULE, '检验单不存在')
+  await assertQualityObjectScope(pc, order, str(p, 'plantId'))
   const effective = await tools.qa.testResults.findEffective(order.id)
   if (effective === null) throw new QualityRuleViolation(NOT_FOUND_RULE, '检验单无生效结论行（链起点缺失）')
   const dispositions = await tools.qa.dispositions.listByOrder(order.id)
@@ -288,7 +303,7 @@ async function dispositionRelease(pc: PostingContext, p: Payload): Promise<Recor
     commandReceiptId: pc.commandReceiptId,
   })
   // 库存质量投影：合格放行 → qualified（可用量闸门放开）
-  const unitId = await syncUnitQualityByNo(tools, order.plantId, order.unitNo, 'qualified')
+  const unitId = await syncUnitQualityByNo(pc, order, 'qualified')
 
   await pc.tools.audit.record({
     actor: pc.ctx.actorLoginName,
@@ -313,8 +328,9 @@ async function dispositionRelease(pc: PostingContext, p: Payload): Promise<Recor
 async function dispositionConcession(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = qualityTools(pc)
   const inspectionOrderId = requireStr(p, 'inspectionOrderId', 'quality.disposition.concession')
-  const order = await tools.qa.inspectionOrders.findById(inspectionOrderId)
+  const order = await tools.qa.inspectionOrders.findById(inspectionOrderId, true)
   if (order === null) throw new QualityRuleViolation(NOT_FOUND_RULE, '检验单不存在')
+  await assertQualityObjectScope(pc, order, str(p, 'plantId'))
   const effective = await tools.qa.testResults.findEffective(order.id)
   if (effective === null) throw new QualityRuleViolation(NOT_FOUND_RULE, '检验单无生效结论行（链起点缺失）')
   const dispositions = await tools.qa.dispositions.listByOrder(order.id)
@@ -344,7 +360,7 @@ async function dispositionConcession(pc: PostingContext, p: Payload): Promise<Re
     commandReceiptId: pc.commandReceiptId,
   })
   // 库存质量投影：让步后可用（qualified）；原不合格结论行保持生效（事实保留，断言见测试②）
-  const unitId = await syncUnitQualityByNo(tools, order.plantId, order.unitNo, 'qualified')
+  const unitId = await syncUnitQualityByNo(pc, order, 'qualified')
 
   await pc.tools.audit.record({
     actor: pc.ctx.actorLoginName,
@@ -369,7 +385,7 @@ async function dispositionConcession(pc: PostingContext, p: Payload): Promise<Re
 async function suspectRegister(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = qualityTools(pc)
   const plantId = requireStr(p, 'plantId', 'quality.suspect.register')
-  await assertPlantScope(tools, plantId)
+  await assertPlantScope(pc, plantId)
 
   // 单元定位：unitId 优先；barcodeValue 经活动绑定解析（IT-04）；unitNo 兜底
   let unitId = str(p, 'unitId') ?? null
@@ -383,18 +399,24 @@ async function suspectRegister(pc: PostingContext, p: Payload): Promise<Record<s
   if (unitId === null && unitNo === null) {
     throw new QualityRuleViolation('A-T12-3', '存疑登记须携带 unitId/unitNo/barcodeValue 之一定位单元')
   }
-  const unit = unitId !== null
+  const resolved = unitId !== null
     ? await tools.inv.units.findById(unitId)
     : unitNo !== null
       ? await tools.inv.units.findByUnitNo(plantId, unitNo)
       : null
-  if (unit === null) {
+  if (resolved === null) {
     throw new QualityRuleViolation(NOT_FOUND_RULE, '库存单元不存在（存疑登记须在库单元）')
   }
-  if (unit.plantId !== plantId) {
-    throw new QualityRuleViolation('A-S1', `单元不在目标工厂（plant=${plantId}）`)
-  }
+  const unit = (await tools.inv.units.lockForUpdate([resolved.id]))[0]
+  if (unit === undefined) throw new QualityRuleViolation(NOT_FOUND_RULE, '库存单元已不存在')
+  await assertQualityObjectScope(pc, unit, plantId)
+  if (unitNo !== null && unitNo !== unit.unitNo) throw new QualityRuleViolation('A-S1', '库存单元 ID 与自然键不一致')
   const balances = await tools.inv.balances.listActiveByUnit(unit.id)
+  for (const balance of balances) {
+    if (balance.enterpriseId !== unit.enterpriseId || balance.plantId !== unit.plantId) {
+      throw new QualityRuleViolation('A-S1', '库存余额与单元的企业/工厂不一致')
+    }
+  }
   const activeHold = await tools.qa.holds.findActiveByUnit(unit.id)
   // A-T12-3：在库+在库位+未存疑+托码拒（域断言）
   assertSuspectRegistratable({
@@ -447,18 +469,34 @@ async function suspectRegister(pc: PostingContext, p: Payload): Promise<Record<s
 // ---------------- 命令：存疑恢复（A-T12-3 + B-9 最小处置记录） ----------------
 
 async function suspectReview(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
-  const tools=qualityTools(pc)
-  if (!(await tools.actorPermissions()).includes('quality.post')) throw new QualityRuleViolation('A-S1','缺少质量决定许可')
-  if (str(p,'decision')!=='reject' || !str(p,'reason')) throw new QualityRuleViolation('A-T12-3','本入口仅记录有理由的拒绝恢复决定')
-  const hold=await tools.qa.holds.findById(str(p,'holdId') ?? '')
-  if (hold===null || hold.status!=='active') throw new QualityRuleViolation(NOT_FOUND_RULE,'没有对应活动隔离记录')
-  const unit=await tools.inv.units.findById(hold.inventoryUnitId)
-  if (unit===null || unit.enterpriseId!==pc.ctx.enterpriseId || hold.enterpriseId!==pc.ctx.enterpriseId || unit.plantId!==hold.plantId) throw new QualityRuleViolation('A-S1','隔离单元不在本企业/工厂')
-  await assertPlantScope(tools,unit.plantId)
-  const decidedAt=tools.now().toISOString()
-  await tools.audit.record({actor:pc.ctx.actorLoginName,action:'quality.suspect.review',subjectType:'quality_hold',subjectId:hold.id,
-    after:{decision:'reject',holdStatus:hold.status,unitId:unit.id,decidedAt,restoredQty:'0.0000'},reason:str(p,'reason')!})
-  return {holdId:hold.id,reviewDecision:'reject',holdStatus:hold.status,restoredQty:'0.0000',decidedAt}
+  const tools = qualityTools(pc)
+  if (str(p, 'decision') !== 'reject' || !str(p, 'reason')) {
+    throw new QualityRuleViolation('A-T12-3', '本入口仅记录有理由的拒绝恢复决定')
+  }
+  const hold = await lockScopedHold(pc, p)
+  if (hold.status !== 'active') throw new QualityRuleViolation(NOT_FOUND_RULE, '没有对应活动隔离记录')
+  const decidedAt = tools.now().toISOString()
+  await tools.audit.record({ actor: pc.ctx.actorLoginName, action: 'quality.suspect.review', subjectType: 'quality_hold', subjectId: hold.id,
+    after: { decision: 'reject', holdStatus: hold.status, unitId: hold.inventoryUnitId, decidedAt, restoredQty: '0.0000' }, reason: str(p, 'reason')! })
+  return { holdId: hold.id, reviewDecision: 'reject', holdStatus: hold.status, restoredQty: '0.0000', decidedAt }
+}
+
+async function lockScopedHold(pc: PostingContext, p: Payload) {
+  const tools = qualityTools(pc)
+  const holdId = str(p, 'holdId')
+  const unitId = str(p, 'unitId')
+  const found = holdId !== undefined ? await tools.qa.holds.findById(holdId)
+    : unitId !== undefined ? await tools.qa.holds.findActiveByUnit(unitId) : null
+  if (found === null) throw new QualityRuleViolation(NOT_FOUND_RULE, '未找到指定存疑记录（holdId/unitId 定位失败）')
+  // Same order as registration: physical unit first, then the hold record.
+  const unit = (await tools.inv.units.lockForUpdate([found.inventoryUnitId]))[0]
+  if (unit === undefined) throw new QualityRuleViolation('A-S1', '隔离单元不存在')
+  const hold = await tools.qa.holds.findById(found.id, true)
+  if (hold === null || hold.inventoryUnitId !== unit.id || hold.unitNo !== unit.unitNo ||
+      (unitId !== undefined && unitId !== unit.id)) throw new QualityRuleViolation('A-S1', '隔离记录与库存身份不一致')
+  await assertQualityObjectScope(pc, hold, str(p, 'plantId'))
+  await assertQualityObjectScope(pc, unit, hold.plantId)
+  return hold
 }
 
 async function suspectRestore(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
@@ -467,20 +505,7 @@ async function suspectRestore(pc: PostingContext, p: Payload): Promise<Record<st
   if (dispositionNote === undefined) {
     throw new QualityRuleViolation('A-T12-3', '存疑恢复必须填写处置依据（disposition_note，最小处置记录）')
   }
-  let hold = null
-  const holdId = str(p, 'holdId')
-  if (holdId !== undefined) {
-    hold = await tools.qa.holds.findById(holdId)
-  }
-  if (hold === null) {
-    const unitId = str(p, 'unitId')
-    if (unitId !== undefined) {
-      hold = await tools.qa.holds.findActiveByUnit(unitId)
-    }
-  }
-  if (hold === null) {
-    throw new QualityRuleViolation(NOT_FOUND_RULE, '未找到指定存疑记录（holdId/unitId 定位失败）')
-  }
+  const hold = await lockScopedHold(pc, p)
   // A-T12-3/B-9：恢复须留恢复人/处置依据；记录与码回正常（previous_quality_status）
   assertSuspectRestorable({ holdStatus: hold.status, releasedBy: pc.ctx.actorLoginName, dispositionNote, unitNo: hold.unitNo })
   const restored = (hold.previousQualityStatus as 'qualified' | 'pending_inspection' | 'unqualified' | 'suspect' | null) ?? 'qualified'
@@ -491,6 +516,9 @@ async function suspectRestore(pc: PostingContext, p: Payload): Promise<Record<st
   )
   const balances = await tools.inv.balances.listActiveByUnit(hold.inventoryUnitId)
   for (const b of balances) {
+    if (b.enterpriseId !== hold.enterpriseId || b.plantId !== hold.plantId || b.unitId !== hold.inventoryUnitId) {
+      throw new QualityRuleViolation('A-S1', '隔离余额与单元的企业/工厂不一致')
+    }
     if (b.qualityStatus !== restored) {
       await tools.inv.balances.adjust(b.id, { qualityStatus: restored }, null)
     }
