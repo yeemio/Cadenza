@@ -1,0 +1,28 @@
+{
+  "rawLog": "docs/review/evidence/pr-02/controller-r1-pg.log",
+  "rawLogBytes": 7035368,
+  "rawLogSha256": "f8e4b8d3623aa1322240b4f64d8dd39e3f90148eba64310d10fead844b923887",
+  "actualPgPassed": 129,
+  "failed": 0,
+  "skipped": 0,
+  "denialMatrix": {
+    "same-enterprise-other-plant": 29,
+    "other-enterprise": 29,
+    "group-read-only": 29,
+    "enterprise-read-plus-local-write": 29
+  },
+  "queryObservations": 123,
+  "uniqueOperationIds": 123,
+  "allObservedBusinessSnapshotsUnchanged": true,
+  "tablesPerObservation": [
+    177
+  ],
+  "onlyExcludedTable": "command_receipt",
+  "allReceiptRows": 1,
+  "commandsObserved": 22,
+  "actors": {
+    "szqc01": 64,
+    "admin": 29,
+    "szws01": 30
+  }
+}

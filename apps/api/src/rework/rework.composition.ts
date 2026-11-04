@@ -46,6 +46,7 @@ export function buildReworkCommandBus(pool: pg.Pool): CommandBus {
     const org = new PgOrgNodeRepository(client)
     const users = new PgUserAccountRepository(client)
     const grants = new PgScopeGrantRepository(client)
+    const pendingOutbox: OutboxIntent[] = []
     const tools: ReworkCommandTools = {
       org,
       users,
@@ -54,6 +55,10 @@ export function buildReworkCommandBus(pool: pg.Pool): CommandBus {
       sessions: new PgAuthSessionRepository(client),
       audit: new PgAuditWriter(client),
       now,
+      flushEffects: async () => {
+        for (const intent of pendingOutbox) await insertOutbox(client, intent)
+        pendingOutbox.length = 0
+      },
       actorPermissions: async () =>
         (await computeActorAuthorization({ users, grants, org }, _context.actorUserId)).permissions,
       actorDataScope: async () =>
@@ -72,9 +77,7 @@ export function buildReworkCommandBus(pool: pg.Pool): CommandBus {
       },
       outbox: {
         collect(intent: OutboxIntent): void {
-          // 同事务写 outbox（SA §4.2 / DM §6）：异步部分（统计投影、标签作废提示）经
-          // 事件不阻塞主事务（RS-37）。
-          void insertOutbox(client, intent).catch(() => undefined)
+          pendingOutbox.push(structuredClone(intent))
         },
       },
       rework: createPgReworkRepositories(client),

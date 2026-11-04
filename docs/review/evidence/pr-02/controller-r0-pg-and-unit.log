@@ -1,0 +1,173 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr02-20261103
+
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory issue UUID / omitted plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory issue UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory return UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory move UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory transfer out UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory transfer in UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory split UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory reserve UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory release reservation UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'inventory business hold UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality submit UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality release UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality concession UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality register UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality register barcode / forged pla…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality register natural unitNo' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality restore hold UUID / omitted p…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality restore unit UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'quality review hold UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase receive UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase receive natural order+line' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase code inspection batch+barcode' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase Web batch inspection UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase judge batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase revoke detail UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase reinspection batch+barcode' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase return batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase price review batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: same-enterprise-other-plant > 'purchase sync natural key / forged pl…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory issue UUID / omitted plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory issue UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory return UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory move UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory transfer out UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory transfer in UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory split UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory reserve UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory release reservation UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'inventory business hold UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality submit UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality release UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality concession UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality register UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality register barcode / forged pla…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality register natural unitNo' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality restore hold UUID / omitted p…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality restore unit UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'quality review hold UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase receive UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase receive natural order+line' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase code inspection batch+barcode' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase Web batch inspection UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase judge batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase revoke detail UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase reinspection batch+barcode' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase return batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase price review batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: other-enterprise > 'purchase sync natural key / forged pl…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory issue UUID / omitted plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory issue UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory return UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory move UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory transfer out UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory transfer in UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory split UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory reserve UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory release reservation UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'inventory business hold UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality submit UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality release UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality concession UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality register UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality register barcode / forged pla…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality register natural unitNo' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality restore hold UUID / omitted p…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality restore unit UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'quality review hold UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase receive UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase receive natural order+line' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase code inspection batch+barcode' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase Web batch inspection UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase judge batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase revoke detail UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase reinspection batch+barcode' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase return batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase price review batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: group-read-only > 'purchase sync natural key / forged pl…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory issue UUID / omitted plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory issue UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory return UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory move UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory transfer out UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory transfer in UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory split UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory reserve UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory release reservation UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'inventory business hold UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality submit UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality release UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality concession UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality register UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality register barcode / forged pla…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality register natural unitNo' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality restore hold UUID / omitted p…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality restore unit UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'quality review hold UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase receive UUID / forged plantId' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase receive natural order+line' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase code inspection batch+barcode' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase Web batch inspection UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase judge batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase revoke detail UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase reinspection batch+barcode' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase return batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase price review batch UUID' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 actual PostgreSQL denial: enterprise-read-plus-local-write > 'purchase sync natural key / forged pl…' leaves every business table unchanged and replays one denial
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > an omitted mandatory receive plantId is a rejection with no write
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > an omitted mandatory natural-key factory never selects a foreign object
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > a claimed current factory does not substitute for a foreign natural purchase key
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > the mixed reader can still issue from its explicitly writable local factory
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > ordinary local quality release and concession commit actual dispositions
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > local hold review/restore retains the hold and restores the same real unit
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > local purchase inspection, revoke, reinspection, return and price review use the original parent
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > local natural-key receipt still resolves and locks the actual order line
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > foreign unit linked from an otherwise local inspection is refused and fully rolled back
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > a local purchase batch with a foreign parent line is refused before price review
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > a local inventory balance with foreign organization metadata cannot be posted
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > a revoked local grant is re-read for the next operation (no grant cache)
+ ↓ tests/pr02/object-write-scope.pg.spec.ts > PR02 valid local commands, malformed associations and actual row locks > production inspection and hold repository reads take FOR UPDATE row locks
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > allows the explicit local write grant 1ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects another factory in the same enterprise 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > does not turn group read into a write grant 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > does not combine enterprise read scope with a local write permission 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > keeps an existing explicit enterprise write grant inside its enterprise 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > does not trust a forged factory field on the object 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects a payload factory that disagrees with the actual object 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects disabled actors even if grants remain 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects an actor from a different enterprise 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects a retired factory 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > ignores a foreign-enterprise grant 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > ignores a foreign-principal grant 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > ignores a retired grant 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > preserves the documented workshop-to-factory permission scope 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > fails closed on cyclic workshop ancestry 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > does not retain write access after grant revocation 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr02/object-write-scope.pg.spec.ts [ tests/pr02/object-write-scope.pg.spec.ts ]
+error: null value in column "dept_id" of relation "warehouse" violates not-null constraint
+ ❯ node_modules/pg-pool/index.js:45:11
+ ❯ factory tests/pr02/object-write-scope.pg.spec.ts:126:24
+    124|      VALUES ($1,$2,$2,1,'KG',1,'PR02','pr02-fixture') RETURNING id`, […
+    125|   )).rows[0]!.id
+    126|   const warehouseId = (await pool.query<{ id: string }>(
+       |                        ^
+    127|     `INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_…
+    128|      VALUES ($1,$2,$3,$3,'WAREHOUSE','pr02-fixture') RETURNING id`, [w…
+ ❯ tests/pr02/object-write-scope.pg.spec.ts:170:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 474, severity: 'ERROR', code: '23502', detail: 'Failing row contains (12862676-e388-4a71-b757-9751492aa265, e2b2d596-7555-4be0-bf42-8294f6406c5c, 01bd4f3e-acb0-4397-b8b2-40f5f633e2c0, null, PR02-WH-A, PR02-WH-A, WAREHOUSE, null, null, null, null, f, active, null, 2026-11-04 01:48:43.262669+00, pr02-fixture, 2026-11-04 01:48:43.262669+00, null).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'warehouse', dataType: undefined, constraint: undefined, file: 'execMain.c', routine: 'ExecConstraints' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  16 passed | 129 skipped (145)
+   Start at  09:48:40
+   Duration  3.31s (transform 796ms, setup 0ms, collect 1.17s, tests 1.95s, environment 0ms, prepare 43ms)
+
