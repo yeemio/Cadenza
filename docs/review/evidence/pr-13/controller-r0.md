@@ -1,0 +1,9 @@
+# PR13 controller R0: ACCEPT
+
+Exact source `f282104534f6373423dd42ef6d6b9449613ba96c` / fingerprint `faee16d466852b2c968a2c08040f281d896fbb27c0599a3d650f46acd360e632`, authentic full patch `9e319407e1fba558b2ee6c4a21d44d6f487a9a31d00c9777591d49b170a77e43`;55postimages match. Clean committed root copied to a newly absent source directory with every dist/node_modules excluded. Pinnedpnpm11.28.5 complete frozen install with supply-chain policies, full15-project graph build and12entry packages PASS. Actual aggregate `02eb89192efc162fb63f6ea698181b59e82d957ffd1a3371037d2436d3048dfa`. Initial offline metadata failure and all author failed/partial evidence preserved.
+
+Same cold snapshot: strict required idempotency gate6PASS/0fail/0skip/0todo/0unknown, individual JSON results agree;3built runtimes PASS (API real authenticated core read with AI offline, scoped worker empty batch, AI mock health without real model credentials). Recon type gap now PASS after complete dependencies.28exact author Node gate cases and kernel/engine types reused. Own37=6PG+3runtime+28local, not37PG. All new UUID test DBs and cold snapshot/artifacts retained.
+
+Controller current anchor binds source-anchor/config/lock/current dist manifest,29T/14A source-presence matrix and actual proof without altering historical planning states or original authored config bytes. Old anchor remains author-as-of input; controller-r0-current-anchor.json is the verified local candidate output, not release authority. No other independent PR products silently merged.
+
+E01 accepted original R3 run/candidate/controller identity and9artifact hashes indexed locally, no historical65rerun or raw log upload. E02historical upgrade sample and E04independentR6/recipient gaps retained. No installation/deployment/production/site acceptance.

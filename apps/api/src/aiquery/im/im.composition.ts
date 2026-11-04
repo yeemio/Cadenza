@@ -28,7 +28,7 @@ import {
   MockChannelSender,
   MockImChannelAdapter,
   WecomImChannelAdapter,
-} from '../../../../../packages/integrations/im/dist/index.js'
+} from '@cadenza/im'
 
 /** 挂载用 im 模块（app.module imports 直接引用；五接缝 DB 承载）。 */
 export function buildImModule(): ReturnType<typeof ImModule.registerDbBacked> {

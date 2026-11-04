@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/pr13/runtime.pg.test.mjs"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T04:05:39.066327+00:00",
+  "completedAt": "2026-11-04T04:05:41.917585+00:00",
+  "sourceCommit": "f282104534f6373423dd42ef6d6b9449613ba96c",
+  "coldSnapshot": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source",
+  "logSha256": "63c2be6c903ff436e6055cd18876e029f89eba47b63553b6621e4a9e993c4734",
+  "databaseInstance": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+  "databaseCreation": "fresh cadenza_pr13_ UUID DBs only, preserve all"
+}

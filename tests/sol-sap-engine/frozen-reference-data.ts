@@ -1,3 +1,5 @@
+import { simCsvDirectory } from '../../scripts/delivery/build/fixture-path.mjs'
+export const frozenCsvDirectory = simCsvDirectory
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'

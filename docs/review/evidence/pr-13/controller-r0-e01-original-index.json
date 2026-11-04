@@ -1,0 +1,108 @@
+{
+  "issue": "E01",
+  "status": "EXISTING_ACCEPTED_ORIGINAL_INDEXED_WITH_HASHES_NOT_RERUN",
+  "latestAcceptedOriginalId": "r3-main-cadenza_sol_recon_1031_1793438554466_5017",
+  "latestAcceptedOriginalCandidate": "80a70202ffa95a768c07682f497dfb6ce476ac9f03332e69ceefc8d1ca7c21d3",
+  "executedSourceSha256": "fd370c5c78dcb2a842ea26579e8ec9bcad977cad64efa019672d2ef13fce5819",
+  "originalLedgerSha256": "b66fbedbf8f5a22dd05678ddb660514affa8f1230cec5f360a1ffb885701728c",
+  "logicalHistoricalSameRunPath": "delivery/sol-rework-20261031/sap-recon/r3-main-cadenza_sol_recon_1031_1793438554466_5017",
+  "actualPreservedArchivePath": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017",
+  "controllerReceipt": {
+    "path": "architecture/control/sol-rework-20261031/RECON-R3-ACCEPTANCE.json",
+    "sha256": "d75c260f8d408cad8e73773bca474fa503e2348fd403c3a25d41e49c763361c0",
+    "verdict": "ACCEPT",
+    "at": "2026-10-31T09:29:44.467046+00:00",
+    "controller": "cadenza-controller-20261031",
+    "boundary": "S1/S4/S5 named source and local SIM business-chain gaps, not external DS/deployment/site"
+  },
+  "originalReadback": {
+    "path": "architecture/control/sol-rework-20261031/RECON-R3-READBACK.json",
+    "sha256": "56762b339800c8d887593647ca960627e0b305c9a3392e6b52afa25bc5172823",
+    "attemptCounts": {
+      "EXACT": 62,
+      "SEMANTIC_EQUIVALENT": 3
+    }
+  },
+  "coverageFromPreservedOriginal": {
+    "actual_connection": false,
+    "denominators": {
+      "prd": 45,
+      "negative": 18,
+      "branches": 12,
+      "messages": 56,
+      "attempts": 65,
+      "objects": 21
+    },
+    "observed": {
+      "referencePreconditions": 4,
+      "businessCommands": 265,
+      "messages": 56,
+      "attempts": 65,
+      "derivedObjects": 21
+    },
+    "interpretation": "Execution counts only; business acceptance requires individual outcomes and both-end readback."
+  },
+  "files": [
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/executed-source-and-inputs.json",
+      "bytes": 9929,
+      "sha256": "3e8f94c60c2f49a3fe33bfd3e9a9e60a3b4bfdee58c2ec9858a105c82b647e91",
+      "uploadedRaw": false
+    },
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/same-run.jsonl",
+      "bytes": 1287401,
+      "sha256": "474e00d819812c34c5484db9981b8296e54b7f9120e73c3f71e0773e26defaa9",
+      "uploadedRaw": false
+    },
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/original-attempts.jsonl",
+      "bytes": 321916,
+      "sha256": "0ecce148d380117b2a123a4202ae655a2db28065549ce18fd3d3776f9236c15f",
+      "uploadedRaw": false
+    },
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/original-65-attempts.json",
+      "bytes": 445069,
+      "sha256": "b66fbedbf8f5a22dd05678ddb660514affa8f1230cec5f360a1ffb885701728c",
+      "uploadedRaw": false
+    },
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/original-65-business-semantics.json",
+      "bytes": 16619,
+      "sha256": "ef3b97767384757712f6aa3be4ffb6208aae2a3a889651fc0d53c1a28c8f4cc8",
+      "uploadedRaw": false
+    },
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/reconciliation-21.json",
+      "bytes": 989988,
+      "sha256": "84ab5b86786c2185c503c12a823a2d6cedfe65d59751490d0687af81e7e94c19",
+      "uploadedRaw": false
+    },
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/coverage.json",
+      "bytes": 436,
+      "sha256": "59cb43ba8590f913a2a1a0fb71789f28a29fdf87be77ad21c0f7c225dddb64d6",
+      "uploadedRaw": false
+    },
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/main-final-facts.json",
+      "bytes": 26714,
+      "sha256": "90526e527ff294cf60cf52407fcac99bdb7744b4603dbadba666a6427e2626a1",
+      "uploadedRaw": false
+    },
+    {
+      "path": "delivery/sol-rework-20261031/sap-recon/r3-frozen/r3-main-cadenza_sol_recon_1031_1793438554466_5017/business-hold-proof.json",
+      "bytes": 41812,
+      "sha256": "eb61621460ac3a770ca9d4e30a4471ad31e51ca3eaf882372721d8de828232f5",
+      "uploadedRaw": false
+    }
+  ],
+  "method": "Only existing acceptance/run-start/index references and selected original artifact hashes; no semantic re-review, regeneration, database call, full SIM rerun or raw-log upload.",
+  "notClaimed": [
+    "New business coverage",
+    "External independent R6 evidence",
+    "Live SAP/site/device acceptance",
+    "All current independent PR changes integrated into this historical run"
+  ]
+}

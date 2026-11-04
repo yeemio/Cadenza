@@ -1,0 +1,9 @@
+apps/api/src/db/db.module.ts(2,31): error TS2307: Cannot find module '@nestjs/config' or its corresponding type declarations.
+apps/api/src/execution/execution.controller.ts(16,30): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+apps/api/src/integrations/integrations.controller.ts(14,30): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+apps/api/src/masterdata/masterdata.controller.ts(16,30): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+apps/api/src/org/org.composition.ts(1,31): error TS2307: Cannot find module '@nestjs/config' or its corresponding type declarations.
+apps/api/src/process/process.controller.ts(16,30): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+apps/api/src/scheduling/scheduling.controller.ts(17,30): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+scripts/sol-sap-recon/main-run.ts(4,31): error TS2307: Cannot find module '@nestjs/config' or its corresponding type declarations.
+tests/sol-sap-recon/cross-plant-receipt.spec.ts(4,31): error TS2307: Cannot find module '@nestjs/config' or its corresponding type declarations.

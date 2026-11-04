@@ -1,0 +1,12 @@
+{
+  "name": "@cadenza/ai",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cadenza AI runtime; dsh sources co-emitted without external paid calls during build.",
+  "main": "./dist/apps/ai/src/main.js",
+  "scripts": {
+    "build": "sh build.sh",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/apps/ai/src/main.js"
+  }
+}
