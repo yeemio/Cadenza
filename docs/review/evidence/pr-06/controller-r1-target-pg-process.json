@@ -1,0 +1,25 @@
+{
+  "command": [
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "tests/pr06/vitest.config.ts",
+    "tests/pr06/lifecycle.pg.spec.ts",
+    "-t",
+    "final reservation-expired mismatch leaves every business table unchanged",
+    "--reporter=verbose"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T06:53:01.998691+00:00",
+  "completedAt": "2026-11-04T06:53:05.783304+00:00",
+  "sourceCommit": "43f066f205bb8b4b02efd9f574c760084514faaa",
+  "database": "cadenza_pr06_expiry_r1_20261104",
+  "containerId": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+  "host": "127.0.0.1",
+  "port": 32768,
+  "logSha256": "176c1430c3851827a79afafc2d21781bd10f96d369ff8e5fe8226b1a17775e0c",
+  "nameFilteredOtherRegistrations": 14,
+  "nameFilterExclusionsAreNotRuntimeSkipEvidence": true,
+  "oldNonemptyDatabasesUntouched": true
+}

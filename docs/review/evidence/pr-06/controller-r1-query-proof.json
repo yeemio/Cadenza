@@ -1,0 +1,38 @@
+{
+  "operationId": "bd2d201f-4e21-4d73-933b-3ca600bfbc7b",
+  "actualQueryRecords": 1,
+  "businessTablesCompared": 177,
+  "beforeEqualsAfter": true,
+  "helperActuallyReplayed": true,
+  "helperAssertedThirdSnapshotBeforeEqualsReplay": true,
+  "uniqueTerminalReceipt": [
+    {
+      "status": "BUSINESS_REJECTION",
+      "command_type": "reverse.transfer-inbound.complete"
+    }
+  ],
+  "actualReservationTimes": [
+    {
+      "id": "9b97a243-cd26-444d-b323-e14045dfa227",
+      "status": "active",
+      "unit_no": "P06-d8f50608-5d17-4b96-a026-b368a9bf0155",
+      "acquired_at": "2026-11-04T06:53:03.602244+00:00",
+      "valid_until": "2026-11-04T06:53:04.602244+00:00",
+      "canonical_valid": true,
+      "actually_expired": true
+    },
+    {
+      "id": "a6618859-0521-43e0-9f4e-8bda0510c005",
+      "status": "active",
+      "unit_no": "P06-70b50e0e-e682-44ea-98c9-8320b6cebf15",
+      "acquired_at": "2026-11-04T06:53:05.580105+00:00",
+      "valid_until": "2026-11-04T10:53:05.586+00:00",
+      "canonical_valid": true,
+      "actually_expired": false
+    }
+  ],
+  "allReservationCount": 4,
+  "diagnosticQualification": "Initial extra read-only sanity assumed the whole reservation table had only2 rows; seeded fixtures add other reservations. Final time check scopes actual PR06 inbound-line reservations by P06 unit number; no test rerun or database write.",
+  "probeMode": "BEGIN READ ONLY ... ROLLBACK",
+  "scope": "New dedicated task DB only; old nonempty databases untouched"
+}
