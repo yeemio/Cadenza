@@ -1,3 +1,4 @@
+import type { OeeOutputRow, OeeInterval } from '@cadenza/domain'
 import type { OutboxIntent } from './unit-of-work'
 import type { CommandTools } from './command-bus'
 
@@ -562,8 +563,10 @@ export interface CostFactReaders {
   listPlantOutputByOrder(plantId: string, fromIso: string, toIso: string): Promise<Array<{ orderId: string; quantity: string }>>
   /** 全厂窗口内产出合计与合格量合计（OEE 质量率/性能率分子；无产出 → null=缺项）。 */
   plantOutputTotals(plantId: string, fromIso: string, toIso: string): Promise<{ totalQty: string | null; qualifiedQty: string | null }>
+  /** Same-enterprise/factory equipment attribution candidates, exact [start,end) report time. */
+  equipmentOeeFacts(equipmentId:string,fromIso:string,toIso:string):Promise<{outputs:OeeOutputRow[];downtime:OeeInterval[];downtimeFactCount:number}>
   /** 0003 设备（按 code）。 */
-  findEquipmentByCode(plantId: string, code: string): Promise<{ id: string; code: string; name: string; stdRateText: string | null } | null>
+  findEquipmentByCode(plantId: string, code: string): Promise<{ id: string; code: string; name: string; stdRateText: string | null; enterpriseId:string; plantId:string } | null>
   /** 0002 班次日历（归集锚引用）。 */
   findShiftCalendar(plantId: string): Promise<{ id: string; code: string; name: string } | null>
   /** 0016 班次快照统计（CE-19 时点锚；无行 → null）。 */

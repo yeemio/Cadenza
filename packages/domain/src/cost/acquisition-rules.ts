@@ -1,5 +1,5 @@
 import { CostRuleViolation } from './errors'
-import { add4, amountOf, cmp4, mul4, sub4 } from './decimals'
+import { add4, amountOf, cmp4, mul4, sub4, parseScaled, format4 } from './decimals'
 // 包内上级目录相对导入（domain/src/cost → domain/src/inventory）：未逃逸出 domain 包，
 // 边界规则对包内子目录场景过宽（同 reporting/metric-rules.ts、trace/genealogy.ts 先例）；单行豁免留痕。
 // eslint-disable-next-line no-restricted-imports
@@ -170,6 +170,11 @@ export type OeeMissingReason =
   | 'standard_speed_not_numeric'
   | 'output_missing'
   | 'qualified_missing'
+  | 'runtime_missing'
+  | 'output_denominator_missing'
+  | 'numeric_fact_invalid'
+  | 'output_inconsistent'
+  | 'downtime_exceeds_plan'
 
 export interface OeeResult {
   /** 可用率 =（计划时间−停机时间）/计划时间；任一分母缺项 → null（CE-10 不出假百分比） */
@@ -193,29 +198,25 @@ export function computeOee(input: {
   qualifiedQty: string | null
 }): OeeResult {
   const missing: OeeMissingReason[] = []
-  if (input.plannedMinutes === null || cmp4(input.plannedMinutes, '0.0000', 'CE-10') <= 0) missing.push('planned_time_missing')
-  if (input.downtimeMinutes === null) missing.push('downtime_missing')
-  if (input.standardSpeedPerHour === null || cmp4(input.standardSpeedPerHour, '0.0000', 'CE-10') <= 0) {
-    missing.push('standard_speed_not_numeric')
-  }
-  if (input.actualOutputQty === null) missing.push('output_missing')
-  if (input.qualifiedQty === null) missing.push('qualified_missing')
+  const empty = (): OeeResult => ({availability:null,performance:null,qualityRate:null,oee:null,missing})
+  const parse = (value:string|null):bigint|null => {if(value===null)return null;try{return parseScaled(value,'CE-10')}catch{missing.push('numeric_fact_invalid');return null}}
+  const planned=parse(input.plannedMinutes),down=parse(input.downtimeMinutes),speed=parse(input.standardSpeedPerHour),output=parse(input.actualOutputQty),good=parse(input.qualifiedQty)
+  if(planned===null||planned<=0n)missing.push('planned_time_missing')
+  if(down===null)missing.push('downtime_missing')
+  if(speed===null||speed<=0n)missing.push('standard_speed_not_numeric')
+  if(output===null)missing.push('output_missing')
+  else if(output<=0n)missing.push('output_denominator_missing')
+  if(good===null)missing.push('qualified_missing')
+  if((down!==null&&down<0n)||(output!==null&&output<0n)||(good!==null&&good<0n))missing.push('numeric_fact_invalid')
+  if(good!==null&&output!==null&&good>output)missing.push('output_inconsistent')
+  if(planned!==null&&down!==null&&down>planned)missing.push('downtime_exceeds_plan')
+  if(planned!==null&&down!==null&&planned-down<=0n)missing.push('runtime_missing')
+  if(missing.length)return empty()
+  const runtime=planned!-down!
+  const ratio=(a:bigint,b:bigint)=>format4((a*10000n+b/2n)/b)
+  // Round each displayed ratio once; do not divide by an already rounded runtime-in-hours.
+  return {availability:ratio(runtime,planned!),performance:ratio(output!*60n*10000n,runtime*speed!),qualityRate:ratio(good!,output!),oee:ratio(good!*60n*10000n,planned!*speed!),missing:[]}
 
-  if (missing.length > 0) {
-    return { availability: null, performance: null, qualityRate: null, oee: null, missing }
-  }
-  const runtime = sub4(input.plannedMinutes!, input.downtimeMinutes!, 'CE-10')
-  if (cmp4(runtime, '0.0000', 'CE-10') < 0) {
-    throw new CostRuleViolation('CE-10', '停机时间超过计划时间（运行时间为负），拒绝计算')
-  }
-  const availability = div4Safe(runtime, input.plannedMinutes!)
-  // 性能率：实际产出速度=产出量/运行小时；与标准速度（每小时）对比
-  const runtimeHours = div4Safe(runtime, '60.0000')
-  const actualRate = cmp4(runtimeHours, '0.0000', 'CE-10') > 0 ? div4Safe(input.actualOutputQty!, runtimeHours) : '0.0000'
-  const performance = div4Safe(actualRate, input.standardSpeedPerHour!)
-  const qualityRate = cmp4(input.actualOutputQty!, '0.0000', 'CE-10') > 0 ? div4Safe(input.qualifiedQty!, input.actualOutputQty!) : '0.0000'
-  const oee = mul4(mul4(availability, performance, 'CE-10'), qualityRate, 'CE-10')
-  return { availability, performance, qualityRate, oee, missing: [] }
 }
 
 /** 安全除法（b=0 → '0.0000'；域内查询/OEE 复用，half-up）。 */

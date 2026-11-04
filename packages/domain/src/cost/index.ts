@@ -6,3 +6,5 @@ export * from './allocation-rules'
 export * from './price-rules'
 export * from './acquisition-rules'
 export * from './recon-rules'
+
+export * from './oee-facts'

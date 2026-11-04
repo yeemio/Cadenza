@@ -1309,13 +1309,37 @@ class PgCostFactReaders implements CostFactReaders {
     return { totalQty: num2(row.total_qty ?? '0'), qualifiedQty: num2(row.qualified_qty ?? '0') }
   }
 
+  async equipmentOeeFacts(equipmentId:string,fromIso:string,toIso:string) {
+    const r=await this.client.query(
+      `SELECT
+        COALESCE((SELECT jsonb_agg(jsonb_build_object(
+          'id',o.id,'reportId',p.id,'equipmentId',NULLIF(p.equipment_id,''),'equipmentCode',NULLIF(p.equipment_code,''),
+          'sessionEquipmentId',NULLIF(s.equipment_id,''),'sessionEquipmentCode',NULLIF(s.equipment_code,''),
+          'sessionConsistent',COALESCE(s.enterprise_id=p.enterprise_id AND s.plant_id=p.plant_id AND s.order_id=p.order_id
+             AND (s.order_operation_id IS NULL OR s.order_operation_id=p.order_operation_id) AND s.status<>'cancelled'
+             AND o.enterprise_id=p.enterprise_id AND o.plant_id=p.plant_id,false),
+          'quantity',o.quantity::text,'qualifiedQty',o.qualified_qty::text,'uomId',o.uom_id,'uomCode',o.uom_code,'businessTime',p.business_time
+        ) ORDER BY p.business_time,p.id,o.line_no)
+        FROM production_report p JOIN report_output o ON o.report_id=p.id LEFT JOIN execution_session s ON s.id=p.session_id
+        WHERE p.enterprise_id=e.enterprise_id AND p.plant_id=e.plant_id AND p.status='submitted' AND p.review_cancelled_at IS NULL
+          AND p.business_time >= $2::timestamptz AND p.business_time < $3::timestamptz
+          AND (p.equipment_id=e.id::text OR s.equipment_id=e.id::text OR p.equipment_code=e.code OR s.equipment_code=e.code
+            OR (COALESCE(p.equipment_id,'')='' AND COALESCE(s.equipment_id,'')='' AND COALESCE(p.equipment_code,'')='' AND COALESCE(s.equipment_code,'')=''))),'[]'::jsonb) AS outputs,
+        COALESCE((SELECT jsonb_agg(jsonb_build_object('fromAt',d.start_at,'toAt',d.end_at) ORDER BY d.start_at,d.id)
+          FROM downtime_event d WHERE d.equipment_id=e.id AND d.enterprise_id=e.enterprise_id AND d.plant_id=e.plant_id
+            AND d.start_at < $3::timestamptz AND (d.end_at IS NULL OR d.end_at > $2::timestamptz)),'[]'::jsonb) AS downtime
+       FROM equipment e WHERE e.id=$1`,[equipmentId,fromIso,toIso])
+    const row=r.rows[0],outputs=(row?.outputs??[]) as import('@cadenza/domain').OeeOutputRow[],downtime=(row?.downtime??[]) as import('@cadenza/domain').OeeInterval[]
+    return {outputs,downtime,downtimeFactCount:downtime.length}
+  }
+
   async findEquipmentByCode(plantId: string, code: string) {
     const r = await this.client.query(
-      `SELECT id, code, name, std_rate_text FROM equipment WHERE plant_id = $1 AND code = $2 AND status = 'active'`,
+      `SELECT id, code, name, std_rate_text,enterprise_id,plant_id FROM equipment WHERE plant_id = $1 AND code = $2 AND status = 'active'`,
       [plantId, code],
     )
     const row = r.rows[0]
-    return row === undefined ? null : { id: row.id, code: row.code, name: row.name, stdRateText: row.std_rate_text }
+    return row === undefined ? null : { id: row.id, code: row.code, name: row.name, stdRateText: row.std_rate_text,enterpriseId:row.enterprise_id,plantId:row.plant_id }
   }
 
   async findShiftCalendar(plantId: string) {
@@ -1340,8 +1364,8 @@ class PgCostFactReaders implements CostFactReaders {
 
   async downtimeMinutesByEquipment(equipmentId: string, fromIso: string, toIso: string) {
     const r = await this.client.query(
-      `SELECT sum(EXTRACT(EPOCH FROM (COALESCE(end_at, $3::timestamptz) - start_at)) / 60) AS total_minutes, count(*) AS row_count
-       FROM downtime_event WHERE equipment_id = $1 AND start_at >= $2 AND start_at <= $3`,
+      `SELECT sum(EXTRACT(EPOCH FROM (LEAST(COALESCE(end_at,$3::timestamptz),$3::timestamptz) - GREATEST(start_at,$2::timestamptz))) / 60) AS total_minutes, count(*) AS row_count
+       FROM downtime_event WHERE equipment_id = $1 AND start_at < $3::timestamptz AND (end_at IS NULL OR end_at > $2::timestamptz)`,
       [equipmentId, fromIso, toIso],
     )
     const row = r.rows[0]

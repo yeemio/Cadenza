@@ -1,0 +1,48 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr11-work
+
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > computes independently reproducible 480/60/200/1400/1330 values 2ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > rounds final OEE once rather than multiplying rounded displayed rates 1ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > missing plannedMinutes produces no percentage 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > missing downtimeMinutes produces no percentage 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > missing standardSpeedPerHour produces no percentage 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > missing actualOutputQty produces no percentage 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > missing qualifiedQty produces no percentage 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > zero running time is missing denominator, never zero performance 1ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > zero output is missing quality denominator, never synthetic zero quality 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > qualified output above total is inconsistent 1ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > negative downtime is invalid 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > downtime greater than plan is explicit missing/invalid, not a negative ratio 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > nonnumeric rate produces explicit missing status rather than throwing 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > unrelated device B output cannot change device A 1ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > same code with no durable equipment UUID is missing attribution 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > conflicting report/session equipment cannot be assigned silently 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > unassigned output is disclosed, not allocated across devices 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > wrong session enterprise/factory association remains missing 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > different output unit {"uomCode":"KG"} is not summed 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > different output unit {"uomId":"22222222-2222-4222-8222-222222222222"} is not summed 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > outputs outside planned intervals do not enter the planned-time numerator 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > clips interval {"fromAt":"2026-11-03T07:00:00Z","toAt":"2026-11-03T09:00:00Z"} to exactly 60.0000 minutes 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > clips interval {"fromAt":"2026-11-03T15:00:00Z","toAt":"2026-11-03T18:00:00Z"} to exactly 60.0000 minutes 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > clips interval {"fromAt":"2026-11-02T10:00:00Z","toAt":"2026-11-04T10:00:00Z"} to exactly 480.0000 minutes 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > clips interval {"fromAt":"2026-11-03T15:00:00Z","toAt":null} to exactly 60.0000 minutes 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > clips interval {"fromAt":"2026-11-03T07:00:00Z","toAt":"2026-11-03T08:00:00Z"} to exactly 0.0000 minutes 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > clips interval {"fromAt":"2026-11-03T16:00:00Z","toAt":null} to exactly 0.0000 minutes 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > unions overlapping intervals 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > clips downtime to planned production intervals as well as query window 1ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > invalid or timezone-free window "2026-11-03T16:00:00Z" is not a denominator 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > invalid or timezone-free window "2026-11-03T08:00:00Z" is not a denominator 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > invalid or timezone-free window "bad" is not a denominator 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > invalid or timezone-free window "2026-11-03" is not a denominator 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > missing explicit device plan/rate/unit basis is not inferred from display text 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > accepts a complete explicit device basis 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > invalid basis {"outputUomId":"M"} remains unknown 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > invalid basis {"standardSpeedPerHour":"200 m/min"} remains unknown 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > invalid basis {"plannedIntervals":[]} remains unknown 0ms
+ ✓ tests/pr11/oee.unit.spec.ts > PR11 exact OEE arithmetic and fact selection > invalid basis {"basisId":""} remains unknown 0ms
+
+ Test Files  1 passed (1)
+      Tests  39 passed (39)
+   Start at  00:39:11
+   Duration  2.48s (transform 1.37s, setup 0ms, collect 2.13s, tests 14ms, environment 0ms, prepare 102ms)
+
