@@ -14,7 +14,7 @@ const realFetch = globalThis.fetch
 const uom = randomUUID(), time = '2026-11-03T15:30:00.000Z'
 const oldOffsets = process.env['CADENZA_PLANT_UTC_OFFSETS'], oldKinds = process.env['CADENZA_PUTAWAY_WAREHOUSE_KINDS']
 let app: INestApplication, baseURL: string, inventory: CommandBus
-interface Factory { enterpriseId: string; plantId: string; deptId: string; userId: string; login: string; token: string; ctx: CommandContext; materialId: string; wc: string; defs: string[]; location: string; rackLocation: string; warehouse: string; offset: number }
+interface Factory { enterpriseId: string; plantId: string; deptId: string; userId: string; login: string; token: string; ctx: CommandContext; materialId: string; wc: string; defs: string[]; location: string; locationCode: string; rackLocation: string; warehouse: string; offset: number }
 const factories: Factory[] = []
 const one = async (sql: string, args: unknown[] = []): Promise<string> => String((await pool.query(sql, args)).rows[0]!.id)
 const command = async (bus: CommandBus, ctx: CommandContext, type: string, payload: Record<string, unknown>) => {
@@ -32,7 +32,7 @@ async function fixture(f: Factory, finished = false, withOrigin = true) {
   if (finished) materialId = await one(`INSERT INTO material(org_scope_id,code,name,material_type,base_uom,qc_flag,source_system) VALUES ($1,$2,$2,3,'M',1,'PR08') RETURNING id`, [f.enterpriseId,`FG-${randomUUID()}`])
   // A separate finished order is needed so the report source and actual material agree.
   if (finished) await pool.query('UPDATE production_order SET material_id=$2 WHERE id=$1', [orderId,materialId])
-  const received = await command(inventory,f.ctx,'inventory.receive-goods',{ plantId:f.plantId,unitNo:`U-${randomUUID()}`,lotNo:`L-${randomUUID()}`,materialId,materialCode:'PR08',quantity:'20.0000',uomId:uom,uomCode:'M',locationId:f.location,locationCode:'P08-LINE',ownerId:f.userId,ownerName:f.login,qualityStatus:'qualified',businessTime:time })
+  const received = await command(inventory,f.ctx,'inventory.receive-goods',{ plantId:f.plantId,unitNo:`U-${randomUUID()}`,lotNo:`L-${randomUUID()}`,materialId,materialCode:'PR08',quantity:'20.0000',uomId:uom,uomCode:'M',locationId:f.location,locationCode:f.locationCode,ownerId:f.userId,ownerName:f.login,qualityStatus:'qualified',businessTime:time })
   const unitId=String(received.unitId), unitNo=String((await pool.query('SELECT unit_no FROM inventory_unit WHERE id=$1',[unitId])).rows[0]!.unit_no)
   let reportId='', outputId=''
   if (withOrigin) {
@@ -41,7 +41,7 @@ async function fixture(f: Factory, finished = false, withOrigin = true) {
     reportId=await one(`INSERT INTO production_report(enterprise_id,plant_id,session_id,order_id,order_operation_id,operation_seq,source,status,review_status,operator_user_id,operator_login,business_time,shift_date)
       VALUES($1,$2,$3,$4,$5,1,'order','submitted','manual_approved',$6,$7,$8,'2026-11-03') RETURNING id`,[f.enterpriseId,f.plantId,session,orderId,ops[0],f.userId,f.login,time])
     outputId=await one(`INSERT INTO report_output(enterprise_id,plant_id,report_id,line_no,quantity,qualified_qty,uom_id,uom_code,target_location_id,target_location_code,owner_id,owner_name,stock_unit_id)
-      VALUES($1,$2,$3,1,20,20,$4,'M',$5,'P08-LINE',$6,$7,$8) RETURNING id`,[f.enterpriseId,f.plantId,reportId,uom,f.location,f.userId,f.login,unitId])
+      VALUES($1,$2,$3,1,20,20,$4,'M',$5,$6,$7,$8,$9) RETURNING id`,[f.enterpriseId,f.plantId,reportId,uom,f.location,f.locationCode,f.userId,f.login,unitId])
   }
   const sales=(await pool.query('SELECT sales_order_no,line_no FROM production_order WHERE id=$1',[orderId])).rows[0]!
   return { orderId, ops, unitId, unitNo, reportId, outputId, materialId, sales }
@@ -80,8 +80,9 @@ beforeAll(async () => {
   const enterpriseId=await one("SELECT id FROM org_node WHERE code='ENT-HD'")
   const role=await one("SELECT id FROM role WHERE enterprise_id=$1 AND alias='qc'",[enterpriseId])
   for (const [i,code] of ['SZ','HF'].entries()) {
-    const plantId=await one('SELECT id FROM org_node WHERE code=$1',[`PLNT-${code}`]), deptId=await one('SELECT id FROM org_node WHERE code=$1',[`DEPT-${code}-JZ`])
-    const login=`pr08-${code.toLowerCase()}`
+    const plantId=await one('SELECT id FROM org_node WHERE code=$1',[`PLNT-${code}`])
+    const deptId=await one("SELECT id FROM org_node WHERE code=$1 AND kind='department' AND parent_kind='plant' AND parent_id=$2 AND enterprise_id=$3",[`DEPT-${code}-JZ`,plantId,enterpriseId])
+    const login=`pr08${code.toLowerCase()}`
     const userId=await one(`INSERT INTO user_account(enterprise_id,login_name,password_hash,display_name,dept_id,role_id,login_platform,account_status,plant_id,status)
       VALUES($1,$2,$3,$2,$4,$5,'WEB','enabled',$6,'active') RETURNING id`,[enterpriseId,login,await createScryptPasswordHasher().hash('Pr08TestOnly1'),deptId,role,plantId])
     await pool.query(`INSERT INTO scope_grant(enterprise_id,principal_type,principal_id,permissions,scope_type,scope_object_id,status,created_by)
@@ -91,12 +92,13 @@ beforeAll(async () => {
     for (let n=1;n<=2;n++) defs.push(await one(`INSERT INTO operation_definition(enterprise_id,plant_id,dept_id,work_center_id,company_org_code,code,name)
       VALUES($1,$2,$3,$4,$5,$6,$6) RETURNING id`,[enterpriseId,plantId,deptId,wc,`P08-${i}`,`P08-${i}-${n}`]))
     const materialId=await one(`INSERT INTO material(org_scope_id,code,name,material_type,base_uom,qc_flag,source_system) VALUES($1,$2,$2,2,'M',1,'PR08') RETURNING id`,[enterpriseId,`P08-M-${i}`])
-    const line=await one(`INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type) VALUES($1,$2,$3,$3,'LINE_SIDE') RETURNING id`,[enterpriseId,plantId,`P08-LINE-${i}`])
-    const warehouse=await one(`INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type) VALUES($1,$2,$3,$3,'WAREHOUSE') RETURNING id`,[enterpriseId,plantId,`P08-FG-${i}`])
-    const location=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL','P08-LINE') RETURNING id`,[enterpriseId,plantId,line])
+    const lineCode=String(8100+i*2), warehouseCode=String(8101+i*2), locationCode=`${lineCode}0001`
+    const line=await one(`INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types) VALUES($1,$2,$3,$4,$5,'LINE_SIDE',ARRAY[2,3]) RETURNING id`,[enterpriseId,plantId,deptId,lineCode,`P08-LINE-${i}`])
+    const warehouse=await one(`INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types) VALUES($1,$2,$3,$4,$5,'WAREHOUSE',ARRAY[3]) RETURNING id`,[enterpriseId,plantId,deptId,warehouseCode,`P08-FG-${i}`])
+    const location=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL',$4) RETURNING id`,[enterpriseId,plantId,line,locationCode])
     const rackLocation=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'RACK','010101') RETURNING id`,[enterpriseId,plantId,warehouse])
     await pool.query(`INSERT INTO shift_parameter(enterprise_id,plant_id,day_shift_start) VALUES($1,$2,'00:00')`,[enterpriseId,plantId])
-    factories.push({enterpriseId,plantId,deptId,userId,login,token:'',ctx:{actorUserId:userId,actorLoginName:login,enterpriseId},materialId,wc,defs,location,rackLocation,warehouse,offset:8+i})
+    factories.push({enterpriseId,plantId,deptId,userId,login,token:'',ctx:{actorUserId:userId,actorLoginName:login,enterpriseId},materialId,wc,defs,location,locationCode,rackLocation,warehouse,offset:8+i})
   }
   process.env['CADENZA_PLANT_UTC_OFFSETS']=JSON.stringify(Object.fromEntries(factories.map(f=>[f.plantId,f.offset])))
   process.env['CADENZA_PUTAWAY_WAREHOUSE_KINDS']=JSON.stringify(Object.fromEntries(factories.map(f=>[f.warehouse,'FINISHED'])))
@@ -130,7 +132,7 @@ describe('PR08 actual API + actual isolated PG; no skips or business doubles',()
       const info=await c.schedulingShiftInfo({plantId:f.plantId,at:time}), date=index===0?'2026-11-03':'2026-11-04'
       expect(info.shiftDate).toBe(date);expect(computeBusinessShiftDate(new Date(time),info.calendar!)).toBe(date)
       expect((await pool.query('SELECT DISTINCT shift_date::text FROM stock_transaction WHERE unit_id=$1',[s.unitId])).rows).toEqual([{shift_date:date}])
-      const reportResponse=await realFetch(baseURL+`/execution/orders/${s.orderId}/reports`,{method:'POST',headers:{'content-type':'application/json',authorization:`Bearer ${f.token}`,'x-operation-id':randomUUID()},body:JSON.stringify({action:'draft',orderOperationId:s.ops[1],businessTime:time,outputs:[{quantity:'1.0000',qualifiedQty:'1.0000',uomId:uom,uomCode:'M',targetLocationId:f.location,targetLocationCode:'P08-LINE',ownerId:f.userId,ownerName:f.login}]})})
+      const reportResponse=await realFetch(baseURL+`/execution/orders/${s.orderId}/reports`,{method:'POST',headers:{'content-type':'application/json',authorization:`Bearer ${f.token}`,'x-operation-id':randomUUID()},body:JSON.stringify({action:'draft',orderOperationId:s.ops[1],businessTime:time,outputs:[{quantity:'1.0000',qualifiedQty:'1.0000',uomId:uom,uomCode:'M',targetLocationId:f.location,targetLocationCode:f.locationCode,ownerId:f.userId,ownerName:f.login}]})})
       expect(reportResponse.ok,await reportResponse.clone().text()).toBe(true)
       const reportReceipt=await reportResponse.json()
       const detailResponse=await realFetch(baseURL+`/execution/reports/${reportReceipt.data.reportId}`,{headers:{authorization:`Bearer ${f.token}`}})
