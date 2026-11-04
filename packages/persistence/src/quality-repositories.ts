@@ -96,9 +96,9 @@ function mapOrder(r: OrderRow): InspectionOrderRecord {
 export class PgInspectionOrderRepository implements InspectionOrderRepository {
   constructor(private readonly client: SqlClient) {}
 
-  async findById(id: string): Promise<InspectionOrderRecord | null> {
+  async findById(id: string, forUpdate = false): Promise<InspectionOrderRecord | null> {
     const r = await this.client.query(
-      `SELECT ${ORDER_COLUMNS} FROM quality_inspection_order WHERE id = $1`,
+      `SELECT ${ORDER_COLUMNS} FROM quality_inspection_order WHERE id = $1${forUpdate ? ' FOR UPDATE' : ''}`,
       [id],
     )
     return r.rows[0] === undefined ? null : mapOrder(r.rows[0] as OrderRow)
@@ -438,8 +438,8 @@ export class PgQualityHoldRepository implements QualityHoldRepository {
     return mapHold(r.rows[0] as HoldRow)
   }
 
-  async findById(id: string): Promise<QualityHoldRecord | null> {
-    const r = await this.client.query(`SELECT ${HOLD_COLUMNS} FROM quality_hold WHERE id = $1`, [id])
+  async findById(id: string, forUpdate = false): Promise<QualityHoldRecord | null> {
+    const r = await this.client.query(`SELECT ${HOLD_COLUMNS} FROM quality_hold WHERE id = $1${forUpdate ? ' FOR UPDATE' : ''}`, [id])
     return r.rows[0] === undefined ? null : mapHold(r.rows[0] as HoldRow)
   }
 

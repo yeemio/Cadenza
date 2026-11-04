@@ -1,0 +1,179 @@
+{
+  "pr": 7,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-07-outbox-confirmation",
+  "exactRecordedParentHead": "fe1f8bb4acc253747e6e95ddfd55f421e62b49d6",
+  "prerequisites": [
+    {
+      "pr": 1,
+      "head": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "status": "ACCEPTED_PRIOR_NOT_RETESTED"
+    },
+    {
+      "pr": 2,
+      "sourceAndTestSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+      "fullPatchSha256": "e91b61c9f9ef72d781f353ea11df320f471300a961f3ae0e5e84a57779120ccc",
+      "selectedExactPostimages": 31,
+      "status": "CANDIDATE_CONTROLLER_PENDING"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "2b867a6e60fa7d98bbe76b0f7152e736856254ee991d48114b3361e1e9d8eb9c",
+    "files": [
+      {
+        "path": "apps/worker/src/handlers.ts",
+        "sha256": "1f2516d3e5b23dfc4ae17169472489ec860f6ea759536800923e429e7c4f8afe",
+        "parentSha256": "66aae304e99ecb94ab1a64b4f7c26f96ba4f3f9cb09000ab9b2847af14721577"
+      },
+      {
+        "path": "apps/worker/src/main.ts",
+        "sha256": "1b94737d109dc9fea887672da72e47b8accf350c061d8ebf881bca997803ee0a",
+        "parentSha256": "d91971533474412dbca094532d87b095e032748490f7531e72224ff940bea022"
+      },
+      {
+        "path": "apps/worker/src/outbox-claim.ts",
+        "sha256": "2debd319d562f6c228b84f75a8c4e9d80577c2cb7893dec320468386b0f18382",
+        "parentSha256": "f79e12f9482b2d8e09678ab56ae0630409dbc2ebbe8a55995e5b8569da85d027"
+      },
+      {
+        "path": "apps/worker/src/task-scope.ts",
+        "sha256": "c4bffb370a9c7e321a98ec7de6e0d13402e8471bfd302e37011fcc8fe4bb67e1",
+        "parentSha256": null
+      },
+      {
+        "path": "packages/application/src/conversion-handlers.ts",
+        "sha256": "665e9b0d5ef3dff950422a8366dcb593a6dfa566278198af170e4193fee2e5ee",
+        "parentSha256": "065f81d4dc507535898e609c438e028e717df2ec8f0a4e1f93f91494d49c533b"
+      },
+      {
+        "path": "packages/application/src/conversion-repositories.ts",
+        "sha256": "b16e065d6778941665c488b2ef961ced735cff90ef9ad5c65de46afd635b2e36",
+        "parentSha256": "8fd2e9305ab6d5c09dfe0d1d9255254cdccfb40c6db9714a6c6f3a1450052e9c"
+      },
+      {
+        "path": "packages/persistence/src/conversion-repositories.ts",
+        "sha256": "a12a87d1d6ccff74f1dd6518c2b676457ccf43e928b0eb35a93313763478d3cd",
+        "parentSha256": "119ed53e84e47954a95f797451a283eb59007cdb6693c314b99b0615e32066c5"
+      },
+      {
+        "path": "tests/pr07/confirmation.pg.spec.ts",
+        "sha256": "505e729c5f783fbb61783138b11df158d29608c8ff8791321df9da888e5d1aa5",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr07/confirmation.unit.spec.ts",
+        "sha256": "d5c3907a49e96b92f470ca19c95774348c73a648cb31c4a36bda755f4667c40e",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr07/tsconfig.json",
+        "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr07/vitest.config.ts",
+        "sha256": "b2ad9abd3144ba836cb0c463910877f2fc01f0a7585d08550cdad557b37b8b94",
+        "parentSha256": null
+      }
+    ],
+    "sourceFiles": 7,
+    "testFiles": 4
+  },
+  "scopeExtension": [],
+  "validation": [
+    {
+      "name": "worker-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p apps/worker/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/worker-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "application-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/application-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "persistence-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/persistence-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "pr07-tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr07/tsconfig.json --noEmit",
+      "exitCode": 2,
+      "status": "FAIL_RETAINED",
+      "log": "docs/review/evidence/pr-07/pr07-tests-typecheck-initial-failure.log",
+      "logSha256": "b0ed22c65514700ef9db9f8d989f2bc429d61144d5642983ac4b313caed9dde1"
+    },
+    {
+      "name": "confirmation-unit",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr07/vitest.config.ts tests/pr07/confirmation.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/confirmation-unit.log",
+      "logSha256": "4d1bdf7641088cc143019fc65724032f725c6459a27d3f51f76dcc03e0872274",
+      "executed": 20,
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "externalCalls": 0,
+      "businessPgPass": false
+    },
+    {
+      "name": "confirmation-pg-not-run",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr07/vitest.config.ts tests/pr07/confirmation.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "status": "NOT_RUN",
+      "log": "docs/review/evidence/pr-07/confirmation-pg-not-run.log",
+      "logSha256": "35f3d21c00d1fe42369b944f59697b5de78de4ec1d3bea3f170f601661f00195",
+      "reason": "CADENZA_PR07_TEST_DB_URL absent",
+      "businessTestsExecuted": 0,
+      "plannedSourceCases": 20,
+      "failedSuites": 1,
+      "skipped": 0
+    },
+    {
+      "name": "pr07-tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr07/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-07/pr07-tests-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "repair": "Explicit string type for mutable fixture aggregateId; retain initial TS2322 log; no product change for this repair"
+    }
+  ],
+  "environment": {
+    "node": "24.22.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "dependencies": "Existing local cache links, no cold install/build"
+  },
+  "controllerAccepted": false,
+  "remoteWrite": false,
+  "remaining": [
+    "20 mandatory real PG scenarios on a fresh cadenza_pr07_* database",
+    "Controller acceptance and publication on original PR7",
+    "Real U9/SAP external adapter and receipts remain SITE_PENDING; no external calls made"
+  ],
+  "boundaries": [
+    "Nonempty explicit WORKER_SCOPE_PLANTS required; no implicit enterprise/unbounded scope",
+    "Known aggregates resolve persisted plant; unknown types use stored plant snapshot; missing or contradictory scope remains pending untouched",
+    "Historical unknown ownership is not reconstructed; held tasks need an authorized mapping resolution, no queue mutation by foreign workers",
+    "NOOP_NEEDED is a local placeholder terminal state, never external success",
+    "Unknown conversion uses existing sync_failed order projection plus exact EXTERNAL_UNKNOWN task status; no historical migration changed",
+    "New trusted-success tests use explicitly labelled local persisted receipt fixtures, not real U9 receipts",
+    "Legacy worker tests expecting foreign FAILED/NULL and noop DISPATCHED, and legacy conversion tests with payload-only success, are not claimed passing for this candidate",
+    "Protocol-B stock result/local resync now rejects missing/invalid outcomes and requires persisted external acknowledgement before external success; no live external workflow claim"
+  ]
+}

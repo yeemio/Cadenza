@@ -1094,16 +1094,16 @@ export class PgConversionOutboxTaskAccess implements ConversionOutboxTaskAccess 
 
   async findLatestByTask(aggregateType: string, aggregateId: string, taskKind: string) {
     const r = await this.client.query(
-      `SELECT event_id, status, payload, attempt_count
+      `SELECT event_id, status, payload, attempt_count, external_ref, request_digest
        FROM outbox WHERE aggregate_type = $1 AND aggregate_id = $2 AND task_kind = $3
-       ORDER BY created_at DESC, event_id LIMIT 1`,
+       ORDER BY created_at DESC, event_id LIMIT 1 FOR UPDATE`,
       [aggregateType, aggregateId, taskKind],
     )
     const row = r.rows[0] as
-      | { event_id: string; status: string; payload: Record<string, unknown>; attempt_count: number }
+      | { event_id: string; status: string; payload: Record<string, unknown>; attempt_count: number; external_ref: string | null; request_digest: string | null }
       | undefined
     if (row === undefined) return null
-    return { eventId: row.event_id, status: row.status, payload: row.payload ?? {}, attemptCount: Number(row.attempt_count) }
+    return { eventId: row.event_id, status: row.status, payload: row.payload ?? {}, attemptCount: Number(row.attempt_count), externalRef: row.external_ref, requestDigest: row.request_digest }
   }
 
   async countByTask(aggregateType: string, aggregateId: string, taskKind: string): Promise<number> {
@@ -1116,10 +1116,13 @@ export class PgConversionOutboxTaskAccess implements ConversionOutboxTaskAccess 
 
   async markStatus(
     eventId: string,
-    patch: { status: 'DISPATCHED' | 'SYNC_FAILED' | 'NOOP_NEEDED'; lastError?: string | null },
+    patch: { status: 'DISPATCHED' | 'SYNC_FAILED' | 'NOOP_NEEDED' | 'EXTERNAL_UNKNOWN'; lastError?: string | null },
   ): Promise<void> {
     await this.client.query(
-      `UPDATE outbox SET status = $2, last_error = COALESCE($3, last_error), updated_at = now() WHERE event_id = $1`,
+      `UPDATE outbox SET status = $2, last_error = $3, next_retry_at = NULL,
+       external_ref=CASE WHEN $2='DISPATCHED' THEN external_ref ELSE NULL END,
+       request_digest=CASE WHEN $2='DISPATCHED' THEN request_digest ELSE NULL END,
+       updated_at = now() WHERE event_id = $1`,
       [eventId, patch.status, patch.lastError ?? null],
     )
   }
