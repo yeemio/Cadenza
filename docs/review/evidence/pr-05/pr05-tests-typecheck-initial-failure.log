@@ -1,0 +1,9 @@
+apps/api/src/aiquery/aiquery.turns.controller.ts(1,97): error TS2307: Cannot find module '@nestjs/common' or its corresponding type declarations.
+apps/api/src/aiquery/aiquery.turns.controller.ts(38,5): error TS1206: Decorators are not valid here.
+apps/api/src/aiquery/aiquery.turns.controller.ts(39,5): error TS1206: Decorators are not valid here.
+apps/api/src/aiquery/aiquery.turns.controller.ts(40,5): error TS1206: Decorators are not valid here.
+apps/api/src/aiquery/aiquery.turns.controller.ts(65,17): error TS1206: Decorators are not valid here.
+apps/api/src/aiquery/aiquery.turns.controller.ts(65,59): error TS1206: Decorators are not valid here.
+apps/api/src/aiquery/aiquery.turns.controller.ts(257,20): error TS1206: Decorators are not valid here.
+apps/api/src/aiquery/aiquery.turns.controller.ts(257,62): error TS1206: Decorators are not valid here.
+apps/api/src/auth/decorators.ts(1,74): error TS2307: Cannot find module '@nestjs/common' or its corresponding type declarations.

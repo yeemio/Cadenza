@@ -1,0 +1,2 @@
+apps/api/src/aiquery/aiquery.turns.controller.ts(1,97): error TS2307: Cannot find module '@nestjs/common' or its corresponding type declarations.
+apps/api/src/auth/decorators.ts(1,74): error TS2307: Cannot find module '@nestjs/common' or its corresponding type declarations.
