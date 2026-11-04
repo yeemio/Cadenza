@@ -1,0 +1,73 @@
+{
+  "status": "LOCAL_COLD_CANDIDATE_AND_NAMED_RUNTIME_VERIFIED_NOT_RELEASED",
+  "sourceCommit": "f282104534f6373423dd42ef6d6b9449613ba96c",
+  "sourceFingerprint": "faee16d466852b2c968a2c08040f281d896fbb27c0599a3d650f46acd360e632",
+  "sourceAnchorInput": {
+    "path": "deploy/release/RELEASE-ANCHOR.json",
+    "sha256": "a623ada7491fcd54600f33df97e573b6cb351cff4baaaa19727ad761aa7bbc14",
+    "authorAsOfStatePreserved": true
+  },
+  "actualEnvironment": {
+    "node": "v24.18.0",
+    "pnpm": "11.28.5",
+    "PG": "16.15 on approved task A; source anchor dev example17-alpine is not the tested instance"
+  },
+  "coldBuild": {
+    "receipt": "controller-r0-cold.json",
+    "oldDistUsed": false,
+    "lockedInstall": "PASS_WITH_SUPPLY_CHAIN_POLICIES",
+    "entries": "controller-r0-built-entries.json",
+    "requiredEntryPackages": 12,
+    "aggregateDigest": "02eb89192efc162fb63f6ea698181b59e82d957ffd1a3371037d2436d3048dfa",
+    "lockSha256": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7"
+  },
+  "configExampleSha256": "9d0f86fad283140e82c8ea41970369c91e1bf6c15886cb732051ed5ea777a220",
+  "mandatoryPg": {
+    "status": "PASS",
+    "suite": "idempotency",
+    "counts": {
+      "declared": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "unknown": 0
+    },
+    "runnerStarted": true,
+    "databaseCleanup": "PRESERVED",
+    "e01Claim": "No historical SIM evidence is replaced by this gate.",
+    "database": "cadenza_pr13_required_d7a1f2349c3c4fcebe626ff194f7e486",
+    "exitCode": 0,
+    "failures": [],
+    "counterMeaning": "Individual Vitest result statuses; a failed beforeAll is a runner failure, not proof that business assertions ran."
+  },
+  "builtRuntime": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "scope": [
+      "built API authenticated core read with AI offline",
+      "built scoped worker empty batch",
+      "built AI mock health without model/DB credentials"
+    ]
+  },
+  "TAMatrix": {
+    "path": "CANDIDATE-T-A-MATRIX.json",
+    "sha256": "fb2568d1024f108b92ff2e04d4984b59cdf964ed08f9448d287585599227bd52",
+    "tasks": 29,
+    "scenarios": 14,
+    "historicalStatesPreserved": true,
+    "sourcePresenceIsNotAcceptance": true,
+    "noAutoCompletion": true
+  },
+  "E01": {
+    "index": "controller-r0-e01-original-index.json",
+    "noMain65Rerun": true,
+    "noRawHistoricLogUpload": true
+  },
+  "E02": "UNVERIFIED_LEGACY_DATA_SAMPLE",
+  "E04": "MISSING_INDEPENDENT_R6_AND_RECIPIENT",
+  "appImageDigest": null,
+  "releaseOrDeployAuthorized": false,
+  "otherPRsNotSilentlyIntegrated": true
+}

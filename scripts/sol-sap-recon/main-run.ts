@@ -1,3 +1,4 @@
+import { frozenCsvDirectory } from '../../tests/sol-sap-engine/frozen-reference-data'
 import { randomUUID, createHash } from 'node:crypto'
 import { appendFile, writeFile } from 'node:fs/promises'
 import { ConfigService } from '@nestjs/config'
@@ -14,7 +15,7 @@ import { buildQualityCommandBus } from '../../apps/api/src/quality/quality.compo
 import { readFrozenCsv, loadFrozenReferenceData } from '../../tests/sol-sap-engine/frozen-reference-data'
 import { newSameRun } from './same-run'
 
-const csv='/Users/yeemio/AI/gitrep/Cadenza/delivery/company-simulation/group-sap-cn-kr-20261029/CBL01G_SAP_CN_KR_20261029/data/csv'
+const csv=frozenCsvDirectory()
 type Row=Record<string,string>
 const rows=(name:string)=>readFrozenCsv(csv,name) as Row[]
 const record=(v:unknown)=>v as Record<string,unknown>

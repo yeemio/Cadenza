@@ -1,0 +1,4 @@
+Scope: all 15 workspace projects
+? Verifying lockfile against supply-chain policies (572 entries)...
+✗ Lockfile failed supply-chain policy check (572 entries in 909ms)
+[ERR_PNPM_NO_OFFLINE_META] Failed to resolve @adobe/css-tools in package mirror /root/.cache/pnpm/v11/metadata-full/registry.npmjs.org/@adobe/css-tools.jsonl

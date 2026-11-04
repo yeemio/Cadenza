@@ -1,0 +1,57 @@
+{
+  "release_id": "cadenza-dev-20261029-final",
+  "release_date": "2026-10-29",
+  "note": "发行版本锚（DO-05 环境版本锚；R3 更新 2026-10-29，绑定 FINAL 累计候选 0001–0021）。安装/升级脚本按本文件与目标环境比对，规格与版本不匹配时拒绝执行。当前为开发里程碑锚（单机 dev 形态）；现场发行打镜像时补齐 app_image_digest，并以镜像内构建产物与 APP-DELIVERABLE-DIGEST.json 清单核对一致为准。",
+  "target_environment": {
+    "os_family": "darwin/linux",
+    "container_runtime": "docker",
+    "database": {
+      "engine": "postgresql",
+      "major_version": 17,
+      "dev_image": "postgres:17-alpine"
+    },
+    "node_runtime": ">=24"
+  },
+  "image_identity": {
+    "database_dev_image": "postgres:17-alpine",
+    "app_runtime": "node>=24 (pnpm workspace 11.x)；无独立应用容器镜像——应用交付物身份以 dist 清单 digest 承载（见 app_deliverable），现场发行补 app_image_digest",
+    "app_image_digest": null
+  },
+  "app_deliverable": {
+    "form": "pnpm build 产物逐包 sha256 清单（11 包：packages/{application,contracts,domain,edge,persistence,ui} + apps/{ai,api,pda,web,worker}）",
+    "manifest": "deploy/release/APP-DELIVERABLE-DIGEST.json",
+    "aggregate_digest": "c0e379c5d1f9c66b356477c51a6fd30351c3fc1215408292334ef61cd3261f64",
+    "dependency_lock": { "path": "pnpm-lock.yaml", "sha256": "a20efc31e2b91a36e2bd09abe8782601775d07a98aaa109a973e09278ad0c407" },
+    "verify_command": "node deploy/release/app-deliverable-digest.mjs --check deploy/release/APP-DELIVERABLE-DIGEST.json"
+  },
+  "config_anchor": {
+    "env_example": ".env.example",
+    "env_example_sha256": "9d0f86fad283140e82c8ea41970369c91e1bf6c15886cb732051ed5ea777a220",
+    "critical_keys": ["DATABASE_URL", "PORT", "WORKER_INTERVAL_MS", "WORKER_BATCH_LIMIT", "VITE_API_BASE_URL", "AUTH_SESSION_TTL_MINUTES", "AUTH_MAX_LOGIN_FAILURES", "AUTH_LOCK_MINUTES"],
+    "note": "关键项以 .env.example 为配置锚（凭据不入库；生产值按 deploy/config/CONFIG-CHECKLIST.md 第 2 节与密钥管理注入）；备份件内 config.redacted.env 与本锚脱敏口径一致（restore.sh 第 4 步）"
+  },
+  "migration_versions": ["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021"],
+  "migration_groups": {
+    "P1": {
+      "versions": ["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010"],
+      "scope": "平台底座/组织权限/主数据/库存追溯/工艺订单/采购/排程/执行/质量仓储/装箱发运（原 P1 三包接收范围）"
+    },
+    "P2": {
+      "versions": ["0011","0012","0013","0014","0015","0016"],
+      "scope": "返工/形态转换/逆向/处置/维护/报表指标投影（0016=reporting：shift_snapshot、stock_stat_projection、metric_definition_revision）"
+    },
+    "P3": {
+      "versions": ["0017","0018","0019","0020"],
+      "scope": "OT 采集/约束排程/工艺变更与 SPC/成本能源"
+    },
+    "P4": {
+      "versions": ["0021"],
+      "scope": "AI 问数（aiquery：能力注册表等，内部五接缝仍单列，见 KNOWN-LIMITATIONS.md）"
+    }
+  },
+  "recovery_reconcile": {
+    "three_way_command": "node scripts/delivery/reconcile-three-way.mjs --database-url URL --out DIR",
+    "projection_rebuild_commands": ["reporting.stock-stat.rebuild", "reporting.shift-snapshot.rebuild", "reporting.metric-definition.register"],
+    "note": "恢复后三分对账（业务账/接口账/投影）全 PASS 方可恢复对外业务；③投影缺表=ABSENT、缺覆盖或数值差异=FAIL，均阻断（R2，2026-10-29）"
+  }
+}

@@ -1,6 +1,7 @@
 packages:
   - apps/*
   - packages/*
+  - packages/integrations/im
 
 # npm 同构布局：恢复 PM 以 npm 安装的 node_modules 形态（真实目录），
 # 满足 architecture/control 的 startup-binding 校验（.bin/owlrunkit realpath 必须落在

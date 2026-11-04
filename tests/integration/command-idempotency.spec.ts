@@ -1,7 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import type pg from 'pg'
 import {
-  createPool,
   migrateUp,
   migrations,
   PgCommandBus,
@@ -29,21 +28,15 @@ import { CommandResultStatus, ERROR_CODES, type CommandEnvelope } from '@cadenza
  */
 
 let pool: pg.Pool
-let dbAvailable = true
 let adminCtx: CommandContext
 let szPlantId: string
 let enterpriseId: string
 const suffix = process.env['VITEST_POOL_ID'] ?? '0'
 
 beforeAll(async () => {
-  pool = createPool(undefined, { max: 2 })
-  try {
-    await pool.query('SELECT 1')
-  } catch {
-    dbAvailable = false
-    console.warn('SKIP command-idempotency: 数据库不可达。请先 docker compose up -d 再重跑。')
-    return
-  }
+  const { createExclusiveDatabase } = await import('../../scripts/delivery/build/exclusive-pg.mjs')
+  const fresh = await createExclusiveDatabase('idempotency')
+  pool = fresh.pool
   await migrateUp(pool, migrations)
   await seedOrgAuth(pool, { passwordHasher: createScryptPasswordHasher() })
   const admin = await pool.query<{ id: string; enterprise_id: string }>(
@@ -94,8 +87,7 @@ function buildBus(): PgCommandBus {
 }
 
 describe('CommandBus 幂等（真实容器）', () => {
-  it('同 operationId 同载荷：返原结果且不重复入账；异载荷：拒绝', async (ctx) => {
-    if (!dbAvailable) return ctx.skip()
+  it('同 operationId 同载荷：返原结果且不重复入账；异载荷：拒绝', async () => {
     const bus = buildBus()
     const code = `TIDEMO${suffix}${Date.now() % 100000}`
     const operationId = `itest-${code}-op1`
@@ -155,8 +147,7 @@ describe('CommandBus 幂等（真实容器）', () => {
     )
   })
 
-  it('业务拒绝也持久化回执：重放返回同一拒绝结果', async (ctx) => {
-    if (!dbAvailable) return ctx.skip()
+  it('业务拒绝也持久化回执：重放返回同一拒绝结果', async () => {
     const bus = buildBus()
     const operationId = `itest-reject-${Date.now() % 100000}`
     const envelope: CommandEnvelope = {

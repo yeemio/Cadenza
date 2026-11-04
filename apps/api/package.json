@@ -13,6 +13,7 @@
     "@cadenza/application": "workspace:*",
     "@cadenza/contracts": "workspace:*",
     "@cadenza/domain": "workspace:*",
+    "@cadenza/im": "workspace:*",
     "@cadenza/persistence": "workspace:*",
     "@nestjs/common": "^11.1.0",
     "@nestjs/config": "^4.0.0",
