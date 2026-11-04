@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tests/pr13/tsconfig.recon.json",
+    "--noEmit"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T04:08:35.349500+00:00",
+  "completedAt": "2026-11-04T04:08:36.817015+00:00",
+  "sourceCommit": "f282104534f6373423dd42ef6d6b9449613ba96c",
+  "coldSnapshot": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source",
+  "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "Close author NOT_RUN/missing dependency recon type gap after successful complete frozen install/build; no business SIM rerun"
+}

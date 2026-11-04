@@ -1,0 +1,95 @@
+{
+  "pr": 13,
+  "originalParent": "7b6d3ed98d48e87c6b83cad51b7d57eaee4c617e",
+  "sourceCommit": "f282104534f6373423dd42ef6d6b9449613ba96c",
+  "fullPatchSha256": "9e319407e1fba558b2ee6c4a21d44d6f487a9a31d00c9777591d49b170a77e43",
+  "fingerprint": "faee16d466852b2c968a2c08040f281d896fbb27c0599a3d650f46acd360e632",
+  "postimagesMatched": 55,
+  "acceptedPrerequisiteFile": "exact accepted PR1 tests/integration/command-idempotency.spec.ts preimage only, no PR1 product re-review",
+  "scopeExtensionDecision": "ALLOW named apps/api package edge + scripts/delivery/build/** + tests/pr13/**; necessary original cold graph and required-test gate, no new business scope",
+  "coldBuild": {
+    "status": "COLD_BUILD_PASS",
+    "receipt": "controller-r0-cold.json",
+    "entryPackages": 12,
+    "aggregateDigest": "02eb89192efc162fb63f6ea698181b59e82d957ffd1a3371037d2436d3048dfa",
+    "sourceFileCount": 1383,
+    "sourceManifestSha256": "d3e1243d3a5a8faf412270b0201c72d054609db7b3ca4acee1e2aaf6af73035b",
+    "fullLockedInstallAndWorkspaceBuild": true
+  },
+  "coldSnapshot": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source",
+  "coldReceipt": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/cold-build-receipt.json",
+  "coldReceiptSha256": "d2457ade00bb63469c552b7a08188853ca06c839a711ac2fbbca29834e6370c4",
+  "buildAggregate": "02eb89192efc162fb63f6ea698181b59e82d957ffd1a3371037d2436d3048dfa",
+  "requiredEntryPackages": 12,
+  "decision": "ACCEPT",
+  "mandatoryPg": {
+    "status": "PASS",
+    "suite": "idempotency",
+    "counts": {
+      "declared": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "unknown": 0
+    },
+    "runnerStarted": true,
+    "databaseCleanup": "PRESERVED",
+    "e01Claim": "No historical SIM evidence is replaced by this gate.",
+    "database": "cadenza_pr13_required_d7a1f2349c3c4fcebe626ff194f7e486",
+    "exitCode": 0,
+    "failures": [],
+    "counterMeaning": "Individual Vitest result statuses; a failed beforeAll is a runner failure, not proof that business assertions ran."
+  },
+  "builtRuntime": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "process": "controller-runtime-r0-process.json"
+  },
+  "newReconTypes": "PASS",
+  "reusedChecks": [
+    {
+      "name": "unit",
+      "command": [
+        "node",
+        "--test",
+        "tests/pr13/delivery.test.mjs"
+      ],
+      "exitCode": 0,
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0,
+      "log": "unit.log"
+    },
+    {
+      "name": "types-kernel-engine",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr13/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "exitCode": 0,
+      "log": "types-kernel-engine.log"
+    }
+  ],
+  "effectiveCoverage": {
+    "freshPg": 6,
+    "freshBuiltRuntime": 3,
+    "reusedNodeLocal": 28,
+    "ownEffective": 37,
+    "notAllPg": true
+  },
+  "metadataDecision": "Controller actual anchor binds preserved authored source-anchor/T-A matrix to observed build/entry/runtime evidence; author source/config bytes remain unchanged, no entire planning table completed.",
+  "e01": "Original accepted R3 main ledger/candidate/controller identities and selected artifact digests indexed, not rerun or semantically re-reviewed.",
+  "originalOfflineAndAuthorFailuresPreserved": true,
+  "notClaimed": [
+    "Full historical65 SIM rerun",
+    "All PR products cumulatively integrated/built",
+    "Actual installation/upgrade/production/release or site/device performance",
+    "Independent external R6 acceptance"
+  ]
+}
