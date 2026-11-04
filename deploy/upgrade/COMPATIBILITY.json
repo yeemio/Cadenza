@@ -1,8 +1,8 @@
 {
-  "format": 1,
+  "format": 2,
   "updated": "2026-10-28",
-  "note": "升级兼容矩阵（DO-20）：起点版本集合→终点版本、逐跳数据后果、不可跳转路径。随发行版本更新。",
-  "current_registry_top": "0010",
+  "note": "Read-only compatibility evidence. Registry membership is not proof that an old business-data snapshot upgrades safely.",
+  "current_registry_top": "0031",
   "known_upgrade_paths": [
     {
       "from_prefix": "0001–0009",
@@ -35,6 +35,21 @@
       "rule": "旧备份不得直接恢复到更高发行版本的应用上冒充升级",
       "reason": "restore.sh 迁移一致性检查（§3.1 第 4 步）拒绝版本不一致；必须恢复到备份版本后再按 DO-20 升级路径执行",
       "data_consequence": "跳步将造成迁移漂移（drift），migrateDown 会显式拒绝"
+    }
+  ],
+  "legacy_sample_evidence": "E02_UNVERIFIED_NO_AUTHORIZED_OLD_HASH_SAMPLE",
+  "hops": [
+    {
+      "from": "0009",
+      "to": "0010",
+      "status": "VERIFIED",
+      "basis": "Existing SHIPPED matrix entry retained; no new runtime claim."
+    },
+    {
+      "from": "0030",
+      "to": "0031",
+      "status": "UNVERIFIED",
+      "basis": "E02: old persisted hash/receipt/inventory/outbox/UNKNOWN sample upgrade has not been demonstrated. Only an authorized isolated clone can supply this evidence."
     }
   ]
 }

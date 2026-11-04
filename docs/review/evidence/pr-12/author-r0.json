@@ -1,0 +1,244 @@
+{
+  "pr": 12,
+  "revision": "R0",
+  "status": "SOURCE_READY_RUNTIME_NOT_RUN_E02_BLOCKED_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-12-backup-upgrade-safety",
+  "exactRecordedParentHead": "f398f40ab1ef24574927441ab661c60c9ffa086d",
+  "prerequisites": [],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "94b494190d806fe2a7785f902921a14a9706ec22a0e3181584d5c861d9094ea8",
+    "files": [
+      {
+        "path": "deploy/backup/MANUAL-备份恢复手册.md",
+        "sha256": "79a826ea2eb0e4e8f653f7007596b6eb1559392aebf749b348cf46bf2ba82125",
+        "gitMode": "100644",
+        "parentSha256": "88e2f69cf9b899c436825a948a45cbb62b7634f5a118c311f04d063b2c54b011"
+      },
+      {
+        "path": "deploy/backup/backup.sh",
+        "sha256": "8a0154a36e9b3213f1546e6aa6fc98ca6ba23281ded22bff261268ce8efe0ea9",
+        "gitMode": "100755",
+        "parentSha256": "fffa695f31f5e40d8eabc891662a7e80c2fde01f7f455f5aaade2e818165d26e"
+      },
+      {
+        "path": "deploy/backup/restore.sh",
+        "sha256": "ccac2c28baa02cd9d071f579083293e32f79c9ded4fd76206e3d7c51c3c9a8c3",
+        "gitMode": "100755",
+        "parentSha256": "1f4fb06665808375fb6a844e9893d869a84aa8fe7e3f9e553be61ed928f50c21"
+      },
+      {
+        "path": "deploy/upgrade/COMPATIBILITY.json",
+        "sha256": "4e417d3cc63c34776918f701a9500b5d551abbe64a7d99f0fbc41a5f27af0220",
+        "gitMode": "100644",
+        "parentSha256": "b4f049902c09c2e3cc88a324214344d83d72231dc5bea0448bfcf3afa271cd7b"
+      },
+      {
+        "path": "deploy/upgrade/MANUAL-升级手册.md",
+        "sha256": "199bd6b2fcc57546f550bee2dee8025f418619c21c517055c7e9ab9145e230a2",
+        "gitMode": "100644",
+        "parentSha256": "be14b89b7c1ac6601ec90e28ec33bf26c9680752e3c6fe6492db2201d9566fd1"
+      },
+      {
+        "path": "deploy/upgrade/upgrade.sh",
+        "sha256": "1cc68be832d3d52999ae6ab5c9270ecbb297bd5ca161babd224b4bfaf2700803",
+        "gitMode": "100755",
+        "parentSha256": "e01b03864f1e6c38521441f0b190c821cf731562b1d5fedd0db67c382f553ddc"
+      },
+      {
+        "path": "scripts/delivery/backup/backup.mjs",
+        "sha256": "b187ddc8c13aa2748a6c8f54ca8937eb345d6122dad03a242cc9d068ed88134b",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/backup/config.mjs",
+        "sha256": "51f0fca5403a1e91374e5fccb53cb10bdba2ee3a06182a9f21da0c4d9e2e4f11",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/backup/connection.mjs",
+        "sha256": "f0537242a8b1d66267e31f07b0db058c9d5959096fad76b97a0a2cf51af3d6b5",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/backup/media.mjs",
+        "sha256": "a14fd6862e33dd0668bdfe5a701d9303ebb41700cad42947ca8d2b47b4dd3f4f",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/backup/pg-ops.mjs",
+        "sha256": "ddaeb64b3be5540b180d83f19399e167e707103404cfe114012b6cb5952f3c12",
+        "gitMode": "100644",
+        "parentSha256": "b69fa348fa31fe8e5e886f352c3e08be975616c72fc94e0d361c2bc52bac5038"
+      },
+      {
+        "path": "scripts/delivery/backup/restore.mjs",
+        "sha256": "d544f82ffbc15ec818d95f3df91317050e77ef511f8ca165deb6951db6fc6719",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/lib/db.mjs",
+        "sha256": "ac50cc37b4c3da20bfa520317f3fe71a0d264c2d3f87ac7130506a0374ab9c1b",
+        "gitMode": "100644",
+        "parentSha256": "c50e342c7abe8c6507fbf4ada2a76c5ea6913b601ba514cae130193681f215b3"
+      },
+      {
+        "path": "scripts/delivery/upgrade-compat-check.mjs",
+        "sha256": "a467fa1224a000cff9f9df28672f38618e4aa4d516e77d0a6f597c4cad74b50c",
+        "gitMode": "100644",
+        "parentSha256": "54c59b4010fa03535806458b6ba5ae5b0c627559db7c5163c6a2dcc9f00b87f1"
+      },
+      {
+        "path": "tests/pr12/backup-upgrade.pg.spec.ts",
+        "sha256": "9e7a97fa5af1cc2016dad1a77b331d8b7b38ad0c850ddb32aa0928132ec6a6e2",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr12/safety.unit.test.mjs",
+        "sha256": "c2bb741ea8e112cc2e10daa3122a24c3235e100aa35ada7178fbf3d8d6efecd2",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr12/tsconfig.json",
+        "sha256": "3a0270d8e3df8b916b24d1a0cdb1a92008b060c2ce3dc817fd3479f0e2998a53",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr12/vitest.config.ts",
+        "sha256": "9ea4ca409212cace78cde00e455ad6c62570b181d31c84f1de95dd4343f88022",
+        "gitMode": "100644",
+        "parentSha256": null
+      }
+    ]
+  },
+  "scopeExtensions": {},
+  "commands": [
+    {
+      "name": "safety-unit",
+      "command": "node --test tests/pr12/safety.unit.test.mjs",
+      "exitCode": 0,
+      "log": "safety-unit.log"
+    },
+    {
+      "name": "shell-syntax",
+      "command": "bash -n deploy/backup/backup.sh deploy/backup/restore.sh deploy/upgrade/upgrade.sh",
+      "exitCode": 0,
+      "log": "shell-syntax.log"
+    },
+    {
+      "name": "syntax-connection",
+      "command": "node --check scripts/delivery/backup/connection.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json"
+    },
+    {
+      "name": "syntax-config",
+      "command": "node --check scripts/delivery/backup/config.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json"
+    },
+    {
+      "name": "syntax-media",
+      "command": "node --check scripts/delivery/backup/media.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json"
+    },
+    {
+      "name": "syntax-backup",
+      "command": "node --check scripts/delivery/backup/backup.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json"
+    },
+    {
+      "name": "syntax-restore",
+      "command": "node --check scripts/delivery/backup/restore.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json"
+    },
+    {
+      "name": "syntax-pg-ops",
+      "command": "node --check scripts/delivery/backup/pg-ops.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json"
+    },
+    {
+      "name": "syntax-upgrade-compat-check",
+      "command": "node --check scripts/delivery/upgrade-compat-check.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json"
+    },
+    {
+      "name": "syntax-db",
+      "command": "node --check scripts/delivery/lib/db.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json"
+    },
+    {
+      "name": "tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr12/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck.log"
+    },
+    {
+      "name": "two-instance-pg-required",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr12/vitest.config.ts tests/pr12/backup-upgrade.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "two-instance-pg-required.log"
+    },
+    {
+      "name": "safety-unit-final",
+      "command": "node --test tests/pr12/safety.unit.test.mjs",
+      "exitCode": 1,
+      "log": "safety-unit-final.log"
+    },
+    {
+      "name": "tests-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr12/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck-final.log"
+    },
+    {
+      "name": "safety-unit-final-root-normalized",
+      "command": "node --test tests/pr12/safety.unit.test.mjs",
+      "exitCode": 0,
+      "log": "safety-unit-final-root-normalized.log"
+    }
+  ],
+  "local": {
+    "passed": 41,
+    "failed": 0,
+    "skipped": 0,
+    "kind": "Node guard/config/media/compatibility tests, including actual CLI early rejection; no DB/native dump claim"
+  },
+  "realPG": {
+    "plannedCases": 10,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "reason": "No two distinct PG instances with same-name fresh DBs, separate fresh restore target or native PG clients in this environment"
+  },
+  "legacyUpgrade": {
+    "id": "E02",
+    "status": "BLOCKED_MISSING_AUTHORIZED_LEGACY_SAMPLE",
+    "claim": "Synthetic schema/version fixtures are not old-hash/business-chain upgrade evidence"
+  },
+  "limitations": [
+    "Requires native psql/pg_dump/pg_restore in the same execution environment. PG_CONTAINER or --pg-container is deliberately rejected before dump/recreation; container users must run the whole script with one reachable canonical URL.",
+    "Instance identity uses pg_control_system system_identifier, instance start time and database/OID; missing read privileges block only the operation without granting privileges. No native-client/real-PG run performed.",
+    "Configuration allowlist and sanitized failure output do not purport to scrub legitimate business data inside a database dump or arbitrary pre-existing object attachments. Synthetic env secret values are tested against actual generated backup artifacts only in the pending PG suite.",
+    "Object capture is separate from the exported database snapshot; SHA256 proves integrity, not trusted origin. Only approved trustworthy media should be restored.",
+    "Read-only preflight rejects undocumented/unverified hops, including 0030->0031 E02. Registered source migration is not old-data compatibility proof. Legacy --no-reentrancy is non-mutating compatibility syntax only.",
+    "Runtime release registry is loaded from built persistence dist. Its cold-build availability belongs to PR13 and is not claimed here.",
+    "No production/old database/real credential/container/upgrade/restore was accessed. Original controller acceptance and publication pending."
+  ],
+  "remoteWrite": false,
+  "controllerAccepted": false
+}

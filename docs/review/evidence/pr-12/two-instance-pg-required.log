@@ -1,0 +1,19 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-work
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:55:25
+   Duration  4.44s (transform 2.86s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 82ms)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr12/backup-upgrade.pg.spec.ts [ tests/pr12/backup-upgrade.pg.spec.ts ]
+Error: NOT_RUN: PR12 requires two distinct authorized PostgreSQL instances with same-name NEW EMPTY cadenza_dops_pr12_* databases and a separate NEW EMPTY restore target
+ ❯ tests/pr12/backup-upgrade.pg.spec.ts:14:127
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

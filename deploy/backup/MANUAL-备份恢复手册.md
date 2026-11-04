@@ -45,7 +45,7 @@
 | 1 | 取最近一次成功备份，记录介质与版本指纹 | backup.sh → BACKUP-MANIFEST.json（含 SHA256SUMS） |
 | 2 | 隔离环境按 DO-02 干净安装目标版本，停应用写入 | install.sh --skip-selfcheck（隔离库）；演练源库同样干净安装+种子+模拟业务数据 |
 | 3 | 按手册恢复 数据库→对象存储→配置 | restore.sh |
-| 4 | 迁移一致性检查（=备份版本或按 DO-20 升级路径） | restore.sh 第 5 步 + upgrade-compat-check.mjs（重入验证） |
+| 4 | 迁移一致性检查（=备份版本或按 DO-20 升级路径） | restore.sh 第 5 步 + upgrade-compat-check.mjs（只读路径检查；重入另在获准克隆库验证） |
 | 5 | 启动应用与 worker，跑安装后重启自检（DO-04） | api/worker 启动 + selfcheck（含 /health） |
 | 6 | 三分对账（DO-18）：①业务账 ②接口账 ③投影 | scripts/delivery/reconcile-three-way.mjs（三份具名输出） |
 | 7 | 记录 RTO 实测与差异清单（DO-19），演练记录归档（DO-16） | drill 记录 JSON（DO-S4：介质/版本/耗时/对账输出引用） |
@@ -61,3 +61,16 @@
 ## 5. 监控接入（DO-21）
 
 备份失败必告警：`backup-status.json` 的 `result=failed` 为触发条件；告警须附恢复入口（本手册 §3）与关联介质（备份目录）。完整最低监项见 `deploy/monitoring/MONITORING-CHECKLIST.md`。
+
+
+## PR12：实例绑定和配置导出边界
+
+备份/恢复现在要求同一执行环境中的 `psql`、`pg_dump`、`pg_restore` 原生客户端。只有显式 `DATABASE_URL` 定位；旧 `PG_CONTAINER` 环境变量或 `--pg-container` 参数在 dump/重建前拒绝。需要容器运行时，应在该运行环境内执行整个脚本并提供可达的唯一 URL；不得再把容器内同名库与宿主 URL 混用。客户端缺失或无法读取 `pg_control_system()` 实例标识时只阻塞该操作，不自动授予额外权限。
+
+Node 驱动与原生 psql 在操作前核对 system_identifier、实例启动时间、当前库名和数据库 OID。dump 和迁移指纹共享只读重复读事务导出的 snapshot；恢复在介质校验和原生 pg_restore 列表预检后，使用同一规范目标连接重建并导入。主库和并行测试库仍被拒绝，目标必须是 cadenza_dops_* 且 --target-confirm 与目标库名完全一致。身份错误、旧格式清单或未校验介质不会触发重建。
+
+format=2 清单不保存连接 URL/用户名/密码；配置使用小型非秘密值白名单（NODE_ENV、LOG_LEVEL、合法端口、WORKER_ENABLED），其余变量只输出待从获准配置/密钥存储恢复的标记。TOKEN、PASSWORD、SECRET、KEY 及多行/注释值均不原样导出，错误日志不保存数据库驱动/原生工具原始 stderr。对象根若包含本次环境文件、.env 文件、符号链接或特殊文件则拒绝；对象归档与数据库 snapshot 是分开的捕获，不宣称跨资源原子一致。
+
+含对象归档的恢复必须显式给出 --object-store-root。恢复配置仅生成参考文件，不执行或自动注入密钥。介质 SHA256 是完整性校验，不是独立真实性认证；仅恢复获准可信介质。完成迁移指纹校验也不等于三分对账、现场恢复/RPO/RTO 已通过。
+
+升级兼容预检永远只读。旧 hash/0031 的真实历史样本证据 E02 仍未取得，禁止将新建夹具的通过当成旧库已验证。

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "syntax-connection",
+    "command": "node --check scripts/delivery/backup/connection.mjs",
+    "exitCode": 0,
+    "tail": ""
+  },
+  {
+    "name": "syntax-config",
+    "command": "node --check scripts/delivery/backup/config.mjs",
+    "exitCode": 0,
+    "tail": ""
+  },
+  {
+    "name": "syntax-media",
+    "command": "node --check scripts/delivery/backup/media.mjs",
+    "exitCode": 0,
+    "tail": ""
+  },
+  {
+    "name": "syntax-backup",
+    "command": "node --check scripts/delivery/backup/backup.mjs",
+    "exitCode": 0,
+    "tail": ""
+  },
+  {
+    "name": "syntax-restore",
+    "command": "node --check scripts/delivery/backup/restore.mjs",
+    "exitCode": 0,
+    "tail": ""
+  },
+  {
+    "name": "syntax-pg-ops",
+    "command": "node --check scripts/delivery/backup/pg-ops.mjs",
+    "exitCode": 0,
+    "tail": ""
+  },
+  {
+    "name": "syntax-upgrade-compat-check",
+    "command": "node --check scripts/delivery/upgrade-compat-check.mjs",
+    "exitCode": 0,
+    "tail": ""
+  },
+  {
+    "name": "syntax-db",
+    "command": "node --check scripts/delivery/lib/db.mjs",
+    "exitCode": 0,
+    "tail": ""
+  }
+]

@@ -48,7 +48,10 @@ export async function withPool(url, fn) {
 
 /** 同主机维护库连接（CREATE/DROP DATABASE 须连 postgres 库）。 */
 export function adminUrlOf(url) {
-  return url.replace(/\/([^/?]+)(\?|$)/, '/postgres$1')
+  const parsed = new URL(url)
+  if (!['postgres:', 'postgresql:'].includes(parsed.protocol)) throw new Error('Invalid PostgreSQL URL')
+  parsed.pathname = '/postgres'
+  return parsed.toString()
 }
 
 export async function createDatabase(adminUrl, name) {
@@ -109,5 +112,20 @@ export async function targetHasSchema(url) {
     )
     const count = Number(result.rows[0]?.count ?? '0')
     return { hasSchema: count > 0, tableCount: count }
+  })
+}
+
+/** A server-enforced read-only snapshot; never call migrateStatus (it creates the registry table). */
+export async function withReadOnlyConnection(url, fn) {
+  return withPool(url, async pool => {
+    const client = await pool.connect()
+    try {
+      await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY')
+      await client.query("SET LOCAL statement_timeout = '30s'")
+      return await fn(client)
+    } finally {
+      await client.query('ROLLBACK').catch(() => {})
+      client.release()
+    }
   })
 }
