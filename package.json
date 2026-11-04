@@ -15,8 +15,8 @@
     "dev:worker": "pnpm --filter @cadenza/worker... build && node --env-file-if-exists=.env apps/worker/dist/main.js",
     "dev:web": "pnpm --filter @cadenza/web dev",
     "dev:pda": "pnpm --filter @cadenza/pda dev",
-    "build": "pnpm -r --if-present build",
-    "test": "vitest run",
+    "build": "pnpm -r --if-present build && node scripts/delivery/build/verify-built.mjs",
+    "test": "node scripts/delivery/build/required-tests.mjs --suite all",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "eslint .",
     "db:migrate:up": "pnpm --filter @cadenza/persistence build && node --env-file-if-exists=.env packages/persistence/dist/cli.js up",
@@ -26,7 +26,11 @@
     "typecheck:tests": "tsc -p scripts/tests.tsconfig.json",
     "test:ui": "vitest run --config tests/ui/vitest.config.ts",
     "typecheck:ui": "tsc -p tests/ui/tsconfig.json --noEmit",
-    "ui:live-check": "node scripts/ui-live-check.mjs"
+    "ui:live-check": "node scripts/ui-live-check.mjs",
+    "build:cold": "node scripts/delivery/build/cold-build.mjs",
+    "test:required": "node scripts/delivery/build/required-tests.mjs --suite idempotency",
+    "test:delivery": "node --test tests/pr13/delivery.test.mjs",
+    "test:delivery-runtime": "node --test tests/pr13/runtime.pg.test.mjs"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.1",

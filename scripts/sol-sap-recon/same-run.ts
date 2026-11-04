@@ -2,7 +2,7 @@ import { createHash, randomUUID } from 'node:crypto'
 import { appendFile, writeFile, readFile } from 'node:fs/promises'
 import type { CommandBus, CommandContext, SapReconDeriveInput, VerifiedAuthContext } from '@cadenza/application'
 import { SapReconDerivationQueryService, SapSimEngineService, SapSimService } from '@cadenza/application'
-import { createPool, PgSapReconDerivationRepository, createPgSapSimFactsRepositories, createPgSapSimRepositories, PgSapSimOutboxReceiptAdapter } from '@cadenza/persistence'
+import { PgSapReconDerivationRepository, createPgSapSimFactsRepositories, createPgSapSimRepositories, PgSapSimOutboxReceiptAdapter } from '@cadenza/persistence'
 import path from 'node:path'
 import { prepareExclusiveEnvironment } from './environment'
 
@@ -27,13 +27,12 @@ export async function newSameRun(label: string) {
 export async function resumeSameRun(directory: string) {
   const evidence=path.resolve(directory)
   const root=path.resolve('delivery/sol-rework-20261031/sap-recon')
-  if (!evidence.startsWith(root+'/r2-main-cadenza_sol_recon_1031')) throw new Error('Not an assignment-owned R2 run')
-  const meta=JSON.parse(await readFile(path.join(evidence,'environment.json'),'utf8')) as {database:string}
-  if (!/^cadenza_sol_recon_1031(?:_\d+_\d+)?$/.test(meta.database)) throw new Error('Unsafe resume database')
-  const url=new URL('postgres://postgres:cadenza_dev@127.0.0.1:55433/postgres');url.pathname='/'+meta.database
-  const pool=createPool(url.toString(),{max:4})
-  await pool.query('SELECT current_database()')
-  return createSameRun({pool,database:meta.database,evidence,url:url.toString()},true)
+  const relative = path.relative(root, evidence)
+  if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) throw new Error('Not an assignment-owned run directory')
+  const meta=JSON.parse(await readFile(path.join(evidence,'environment.json'),'utf8')) as {database:string;runId:string;host:string;port:string}
+  const { resumeExclusiveDatabase } = await import('../delivery/build/exclusive-pg.mjs')
+  const fresh = await resumeExclusiveDatabase(meta)
+  return createSameRun({...fresh,evidence},true)
 }
 
 async function createSameRun(env: Awaited<ReturnType<typeof prepareExclusiveEnvironment>>, resume=false) {

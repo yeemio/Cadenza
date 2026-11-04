@@ -1,0 +1,89 @@
+[
+  {
+    "command": [
+      "node",
+      "--check",
+      "scripts/delivery/build/cold-build.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "scripts/delivery/build/exclusive-pg.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "scripts/delivery/build/fixture-path.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "scripts/delivery/build/required-tests.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "scripts/delivery/build/verify-built.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "tests/pr13/delivery.test.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "tests/pr13/runtime.pg.test.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "-n",
+      "apps/ai/build.sh"
+    ],
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "ast.parse",
+      "scripts/sol-sap-recon/prepare-input-plan.py"
+    ],
+    "exitCode": 0
+  }
+]

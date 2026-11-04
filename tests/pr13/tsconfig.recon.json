@@ -1,0 +1,5 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "types": ["node"], "noEmit": true, "module": "ESNext", "moduleResolution": "Bundler", "experimentalDecorators": true, "emitDecoratorMetadata": true },
+  "include": ["../sol-sap-recon/**/*.ts", "../../scripts/sol-sap-recon/**/*.ts"]
+}
