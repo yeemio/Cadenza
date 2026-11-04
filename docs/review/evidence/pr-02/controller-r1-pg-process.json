@@ -1,0 +1,17 @@
+{
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    "tests/pr02/vitest.config.ts",
+    "tests/pr02/object-write-scope.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "exitCode": 0,
+  "database": "cadenza_pr02_scope_r1_20261104",
+  "instance": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+  "host": "127.0.0.1:32768",
+  "rawLog": "docs/review/evidence/pr-02/controller-r1-pg.log"
+}
