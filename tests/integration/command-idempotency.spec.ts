@@ -39,7 +39,8 @@ beforeAll(async () => {
   pool = createPool(undefined, { max: 2 })
   try {
     await pool.query('SELECT 1')
-  } catch {
+  } catch (error) {
+    if (process.env['CADENZA_REQUIRE_PG'] === '1') throw error
     dbAvailable = false
     console.warn('SKIP command-idempotency: 数据库不可达。请先 docker compose up -d 再重跑。')
     return

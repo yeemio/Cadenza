@@ -34,7 +34,8 @@ const run = `apshp${Date.now().toString(36)}`
 beforeAll(async () => {
   try {
     pool = await prepareShpTestDatabase()
-  } catch {
+  } catch (error) {
+    if (process.env['CADENZA_REQUIRE_PG'] === '1') throw error
     dbAvailable = false
     console.warn(`SKIP shipping api: 数据库不可达。请先 docker compose up -d 再重跑（独立库 ${SHP_TEST_DB_NAME}）。`)
     return

@@ -1,0 +1,12 @@
+{
+  "command": [
+    "pnpm",
+    "exec",
+    "tsc",
+    "-p",
+    "tests/pr02/tsconfig.json",
+    "--noEmit"
+  ],
+  "exitCode": 0,
+  "log": "docs/review/evidence/pr-02/controller-r1-test-source-types.log"
+}

@@ -5,7 +5,7 @@ import {
   subQty,
   BATCH_INSPECTION_STATUS_LABELS,
   ORDER_LINE_STATUS_LABELS,
-  computeAvailability,
+  evaluateAvailability,
   computeDataScope,
   computeFiveQuantities,
   computeOperationReadiness,
@@ -1129,21 +1129,23 @@ export class AiQueryService {
       reservationsByUnit.set(r.unitId, list)
     }
     const nowIso = startedAt.toISOString()
+    const availabilityNotes = new Set<string>()
     const availabilityByMaterial = new Map<
       string,
       { grossQty: DecimalString; reservedQty: DecimalString; availableQty: DecimalString; uoms: Set<string> }
     >()
     for (const b of balances) {
-      const availability = computeAvailability({
+      const availability = evaluateAvailability({
         grossQty: b.quantity,
         qualityStatus: b.qualityStatus as 'qualified' | 'pending_inspection' | 'unqualified' | 'suspect',
-        activeReservations: (reservationsByUnit.get(b.unitId) ?? []).map((r) => ({
-          status: r.status,
-          quantity: r.quantity,
-          validUntil: r.validUntil,
-        })),
+        qualityHeld: b.qualityHeld,
+        businessHeld: b.businessHeld,
+        activeReservations: (reservationsByUnit.get(b.unitId) ?? []).filter((r) => r.locationId === null || r.locationId === b.locationId),
         now: nowIso,
       })
+      if (availability.reasons.length > 0) {
+        availabilityNotes.add(`库存单元 ${b.unitId} 可用量限制：${availability.reasons.join(',')}`)
+      }
       const current = availabilityByMaterial.get(b.materialCode) ?? {
         grossQty: '0.0000',
         reservedQty: '0.0000',
@@ -1247,7 +1249,7 @@ export class AiQueryService {
       })
     }
 
-    const outcomeNotes: string[] = []
+    const outcomeNotes: string[] = [...availabilityNotes]
     if (requirementBase === null) {
       outcomeNotes.push('缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）')
     }

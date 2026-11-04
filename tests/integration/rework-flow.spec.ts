@@ -1,5 +1,6 @@
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import type pg from 'pg'
+import { PgReworkFactsLookup } from '@cadenza/persistence'
 import { CommandResultStatus, ERROR_CODES, type CommandEnvelope, type CommandResult } from '@cadenza/contracts'
 import type { CommandContext, VerifiedAuthContext } from '@cadenza/application'
 import { buildInventoryCommandBus } from '../../apps/api/src/inventory/inventory.composition'
@@ -42,7 +43,8 @@ const run = `rwk${Date.now().toString(36)}${Math.floor(Math.random() * 1000)}`
 beforeAll(async () => {
   try {
     pool = await prepareRwkTestDatabase()
-  } catch {
+  } catch (error) {
+    if (process.env['CADENZA_REQUIRE_PG'] === '1') throw error
     dbAvailable = false
     console.warn(`SKIP rework-flow: 数据库不可达。请先 docker compose up -d 再重跑（独立库 ${RWK_TEST_DB_NAME}）。`)
     return
@@ -857,4 +859,137 @@ describe('④ 轴码退役主链（RS-34/35/36/37 + RS-S6）', () => {
     const r = await exec(reworkBus, nextOp('ret3'), 'rework.axis-retire.execute', { unitNos: [`${run}-R2`] })
     expectRejection(r, 'RS-34')
   })
+})
+
+it('PR01 倒轴冲销：合法消费源留存后晚拒绝，子轴扣回及全部写集回滚且拒绝可重放', async () => {
+  if (skipIfNoDb()) throw new Error('PR01 mandatory real PG scenario cannot skip')
+  const sourceNo = `AE${run}-PR01SRC`; const childNo = `AE${run}-PR01CHILD`
+  const sourceId = await receiveUnit(sourceNo, fx.szLineSideLocationId, '92980101')
+  const split = await exec(reworkBus, nextOp('pr01-split'), 'rework.reel-split.execute', {
+    sourceUnitNo: sourceNo, pourLines: [{ unitNo: childNo, quantity: '500.0000' }], lossQty: '0.0000',
+  })
+  expect(split.status).toBe('COMMITTED')
+  const orderId = (split.data as { orderId: string }).orderId; const childId = (await unitRow(childNo)).id
+  expect(await activeBalanceQty(sourceId)).toBe('500.0000')
+  expect(await activeBalanceQty(childId)).toBe('500.0000')
+
+  // Actual application command: source-only consumption creates its own receipt,
+  // stock transaction, entry, audit and outbox. No balance corruption fixture.
+  const consumeOp = nextOp('pr01-consume-source')
+  const consumed = await exec(inventoryBus, consumeOp, 'inventory.issue-material', {
+    unitId: sourceId, quantity: '1.0000', locationId: fx.szLineSideLocationId,
+    ownerId: RWK_OWNER_ID, reason: 'PR01 合法消耗源轴留存',
+  })
+  console.log('PR01_R1_EVIDENCE ' + JSON.stringify({
+    scenario: 'rework-legal-source-consumption', phase: 'source-consumption-result',
+    operationId: consumeOp, commandType: 'inventory.issue-material', sourceId, childId,
+    result: { operationId: consumed.operationId, status: consumed.status, errorCode: consumed.errorCode, errorMessage: consumed.errorMessage, occurredAt: consumed.occurredAt },
+  }))
+  expect(consumed.status).toBe('COMMITTED')
+  expect(consumed.data).toMatchObject({ unitId: sourceId, beforeQty: '500.0000', afterQty: '499.0000', balanceClosed: false })
+  const consumptionTransactions = (await pool.query(
+    `SELECT st.id,st.command_receipt_id,cr.operation_id,cr.status AS command_status,
+       st.unit_id,st.balance_id,st.movement_kind,st.quantity::text,st.before_qty::text,st.after_qty::text
+     FROM stock_transaction st JOIN command_receipt cr ON cr.id=st.command_receipt_id
+     WHERE cr.operation_id=$1 AND cr.command_type='inventory.issue-material' ORDER BY st.id`, [consumeOp],
+  )).rows
+  expect(consumptionTransactions).toHaveLength(1)
+  expect(consumptionTransactions[0]).toMatchObject({ operation_id: consumeOp, command_status: 'COMMITTED', unit_id: sourceId, movement_kind: 'issue', quantity: '-1.0000', before_qty: '500.0000', after_qty: '499.0000' })
+  const consumptionEntries = (await pool.query(
+    'SELECT id,transaction_id,unit_id,quantity_delta::text,before_qty::text,after_qty::text FROM stock_entry WHERE transaction_id=$1 ORDER BY id',
+    [consumptionTransactions[0]!.id],
+  )).rows
+  expect(consumptionEntries).toHaveLength(1)
+  expect(consumptionEntries[0]).toMatchObject({ unit_id: sourceId, quantity_delta: '-1.0000', before_qty: '500.0000', after_qty: '499.0000' })
+  const downstream = await new PgReworkFactsLookup(pool).reelSplitReversalDownstream([childId], sourceId)
+  expect(downstream).toEqual({ anyChildStocked: false, anyChildConsumed: false, anyChildConverted: false, anyChildShipped: false, anyChildQualityEffective: false })
+  expect(await activeBalanceQty(sourceId)).toBe('499.0000')
+  expect(await activeBalanceQty(childId)).toBe('500.0000')
+
+  const snapshot = async () => ({
+    units: (await pool.query('SELECT * FROM inventory_unit WHERE id=ANY($1::uuid[]) ORDER BY id', [[sourceId, childId]])).rows,
+    balances: (await pool.query('SELECT * FROM stock_balance WHERE unit_id=ANY($1::uuid[]) ORDER BY id', [[sourceId, childId]])).rows,
+    order: (await pool.query('SELECT * FROM reel_split_order WHERE id=$1', [orderId])).rows,
+    lines: (await pool.query('SELECT * FROM reel_split_line WHERE order_id=$1 ORDER BY id', [orderId])).rows,
+    transactions: (await pool.query('SELECT * FROM stock_transaction WHERE unit_id=ANY($1::uuid[]) ORDER BY id', [[sourceId, childId]])).rows,
+    entries: (await pool.query('SELECT * FROM stock_entry WHERE unit_id=ANY($1::uuid[]) ORDER BY id', [[sourceId, childId]])).rows,
+    reversals: (await pool.query('SELECT * FROM reel_split_reversal WHERE source_order_id=$1 ORDER BY id', [orderId])).rows,
+    audits: (await pool.query('SELECT * FROM audit_entry WHERE subject_id=ANY($1::text[]) ORDER BY id', [[sourceId, childId, orderId]])).rows,
+    outbox: (await pool.query('SELECT * FROM outbox WHERE aggregate_id=ANY($1::text[]) ORDER BY event_id', [[sourceId, childId, orderId]])).rows,
+    counts: (await pool.query('SELECT (SELECT count(*) FROM stock_transaction)::int AS tx,(SELECT count(*) FROM stock_entry)::int AS entries,(SELECT count(*) FROM reel_split_reversal)::int AS reversals,(SELECT count(*) FROM audit_entry)::int AS audit,(SELECT count(*) FROM outbox)::int AS outbox')).rows,
+  })
+  const before = await snapshot(); const op = nextOp('pr01-reverse'); const payload = { sourceOrderId: orderId, reason: '合法源轴消费后的晚拒绝原子性验证' }
+  const readReceipt = async () => (await pool.query('SELECT id,operation_id,command_type,payload_digest,status,result FROM command_receipt WHERE operation_id=$1', [op])).rows
+  const select = (rows: readonly Record<string, unknown>[], keys: readonly string[]) =>
+    rows.map((row) => Object.fromEntries(keys.map((key) => [key, row[key]])))
+  const resultView = (result: CommandResult) => ({ operationId: result.operationId, status: result.status, errorCode: result.errorCode, errorMessage: result.errorMessage, occurredAt: result.occurredAt })
+  const emit = (phase: string, observed: Awaited<ReturnType<typeof snapshot>>, receipts: Awaited<ReturnType<typeof readReceipt>>, result?: CommandResult) => {
+    // Whitelist only test identifiers, quantities, statuses and counters. No
+    // owner/actor names, free-form payloads, credentials or connection strings.
+    console.log('PR01_R1_EVIDENCE ' + JSON.stringify({
+      scenario: 'rework-legal-source-consumption', phase, incrementParent: '39f7d1212bbbcd7d3a1f1d3ebf4781b8f636380a',
+      operationId: op, sourceId, childId, orderId, sourceConsumptionOperationId: consumeOp,
+      sourceConsumption: { transactions: consumptionTransactions, entries: consumptionEntries }, childDownstream: downstream,
+      snapshot: {
+        units: select(observed.units, ['id', 'unit_no', 'status', 'balance_open', 'balance_closed_at']),
+        balances: select(observed.balances, ['id', 'unit_id', 'location_id', 'quantity', 'uom_code', 'quality_status', 'status', 'closed_at']),
+        order: select(observed.order, ['id', 'source_unit_id', 'original_qty', 'retained_qty', 'loss_qty', 'status', 'command_receipt_id']),
+        lines: select(observed.lines, ['id', 'order_id', 'target_unit_id', 'quantity', 'created_new_unit']),
+        transactions: select(observed.transactions, ['id', 'command_receipt_id', 'unit_id', 'movement_kind', 'quantity', 'before_qty', 'after_qty', 'ref_type', 'ref_id']),
+        entries: select(observed.entries, ['id', 'transaction_id', 'unit_id', 'quantity_delta', 'before_qty', 'after_qty']),
+        reversals: select(observed.reversals, ['id', 'source_order_id', 'command_receipt_id']),
+        audits: select(observed.audits, ['id', 'action', 'subject_type', 'subject_id']),
+        outbox: select(observed.outbox, ['event_id', 'aggregate_type', 'aggregate_id', 'task_kind', 'status']), counts: observed.counts,
+      },
+      receipts: receipts.map((row) => ({ id: row.id, operationId: row.operation_id, commandType: row.command_type, payloadDigest: row.payload_digest, status: row.status, result: resultView(row.result as CommandResult) })),
+      result: result === undefined ? undefined : resultView(result),
+    }))
+  }
+  emit('before', before, await readReceipt())
+
+  // Call through to the real PG method. The extra child SELECT runs on that
+  // same transaction client, after the child write and before the source guard.
+  // No domain fact, SQL return value or business write is replaced by this spy.
+  const originalRead = PgReworkFactsLookup.prototype.unitBalancesIncludingClosed
+  type BalanceRows = Awaited<ReturnType<typeof originalRead>>
+  const during: Array<{ source: BalanceRows; child: BalanceRows }> = []
+  const observation = vi.spyOn(PgReworkFactsLookup.prototype, 'unitBalancesIncludingClosed')
+    .mockImplementation(async function (this: PgReworkFactsLookup, unitId: string) {
+      const source = await originalRead.call(this, unitId)
+      if (unitId === sourceId) {
+        const child = await originalRead.call(this, childId)
+        during.push({ source, child })
+        console.log('PR01_R1_EVIDENCE ' + JSON.stringify({
+          scenario: 'rework-legal-source-consumption', phase: 'inside-before-source-guard', operationId: op, sourceId, childId,
+          source: select(source, ['id', 'quantity', 'status']), child: select(child, ['id', 'quantity', 'status']),
+        }))
+      }
+      return source
+    })
+  try {
+    const refused = await exec(reworkBus, op, 'rework.reel-split.reverse', payload)
+    const after = await snapshot(); const receipt = await readReceipt()
+    emit('after-first', after, receipt, refused)
+    expect(refused.status).toBe('BUSINESS_REJECTION'); expect(refused.errorMessage).toContain('留存')
+    expect(refused.errorCode).toBe(ERROR_CODES.BUSINESS_RULE)
+    expect(refused.errorMessage).toContain('当前余额 499.0000 与倒轴后留存 500.0000')
+    expect(during).toHaveLength(1)
+    expect(during[0]!.source).toHaveLength(1)
+    expect(during[0]!.source[0]).toMatchObject({ quantity: '499.0000', status: 'active' })
+    expect(during[0]!.child).toHaveLength(1)
+    expect(during[0]!.child[0]).toMatchObject({ quantity: '0.0000', status: 'closed' })
+    expect(after).toEqual(before)
+    expect(receipt).toHaveLength(1)
+    expect(receipt[0]!.status).toBe('BUSINESS_REJECTION')
+    expect(receipt[0]!.result).toEqual(JSON.parse(JSON.stringify(refused)))
+    const replay = await exec(reworkBus, op, 'rework.reel-split.reverse', payload)
+    const afterReplay = await snapshot(); const replayReceipt = await readReceipt()
+    emit('after-replay', afterReplay, replayReceipt, replay)
+    expect(replay).toEqual(refused)
+    expect(afterReplay).toEqual(before)
+    expect(replayReceipt).toEqual(receipt)
+    expect(observation).toHaveBeenCalledTimes(1)
+  } finally {
+    observation.mockRestore()
+  }
 })

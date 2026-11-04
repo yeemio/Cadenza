@@ -1,0 +1,63 @@
+{
+  "patchSha256": "70cf88efe178b6b75057fb236059d4ad85b8d4fde93c1d63f9fec1c8f1c8ffe2",
+  "postimages": [
+    {
+      "path": "docs/review/evidence/pr-03/author-r2-application-typecheck.log",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "actualGitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "actualSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-03/author-r2-issue-reference-unit-attempt1.log",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "6ba303902cc5e6495b30ae21995deeb2acdd7bfb",
+      "actualGitBlob": "6ba303902cc5e6495b30ae21995deeb2acdd7bfb",
+      "actualSha256": "1e61c3ca58b192096b4583555fbf2324e06168b7adb3b06dea2a7203febad776"
+    },
+    {
+      "path": "docs/review/evidence/pr-03/author-r2-issue-reference-unit.log",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "67e0ae833bc9205fd1eec915bb55e874a03098f4",
+      "actualGitBlob": "67e0ae833bc9205fd1eec915bb55e874a03098f4",
+      "actualSha256": "b21e7fa76f3a475b2cf11a90adb8a9ca1eb1848a54de8eeab2e2224dc8c5a9a3"
+    },
+    {
+      "path": "docs/review/evidence/pr-03/author-r2-tests-typecheck.log",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "actualGitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "actualSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-03/author-r2.json",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "515d2c7172fb6c42c2fdb9112fafe919f0827781",
+      "actualGitBlob": "515d2c7172fb6c42c2fdb9112fafe919f0827781",
+      "actualSha256": "6adbf4e06d47ef1dbf57c3ea76004fd333116efcaf6cf224d37def7186b7b935"
+    },
+    {
+      "path": "docs/review/evidence/pr-03/author-r2.md",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "9efbb6603436aa4360a7c8ea5dd03f201213c635",
+      "actualGitBlob": "9efbb6603436aa4360a7c8ea5dd03f201213c635",
+      "actualSha256": "c0d0d1fb6955bbdcd65825cee138c1ead3cda748395e1e59f43c80a67d843f76"
+    },
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "a45745fce1e0a07c8280c62f275ec5c696e0f3b1",
+      "actualGitBlob": "a45745fce1e0a07c8280c62f275ec5c696e0f3b1",
+      "actualSha256": "97d6fb28cf3e204c53d27671ef8e5fe0410ff3c9e3058b6464f4256dd21bb200"
+    },
+    {
+      "path": "tests/pr03/issue-reference.unit.spec.ts",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "d3eec5c6b0841bbefb162cdcc376e937a2eccc82",
+      "actualGitBlob": "d3eec5c6b0841bbefb162cdcc376e937a2eccc82",
+      "actualSha256": "5a72fad1b0825ca6159357edbd283962895322978578ac7305a3e8b67090c20f"
+    },
+    {
+      "path": "tests/pr03/quality-availability.pg.spec.ts",
+      "expectedPostimageGitBlobFromAuthenticatedPatch": "35eea8c347e9b657500228a153e0797a2f64edf8",
+      "actualGitBlob": "35eea8c347e9b657500228a153e0797a2f64edf8",
+      "actualSha256": "e73ebd0dc1d5b2ffd26cb3e98e0f9eead8c80f7eb612fb3c74b720a7b38fb0e0"
+    }
+  ],
+  "sourceAndTestFingerprint": "7648c3cd9ec5c549e74544ecc9d330bb232f0b4d04295df65f1efcac2400a5df",
+  "original32FullFilePrefixPreserved": true,
+  "allR1FailuresAndPr02FixturePreserved": true,
+  "authorSidecarStatus": "POSTIMAGES download timed out, manifest preview unable to load and download timed out. Stopped UI retrieval after two equivalent failures. Derived-list format guess was attempted once, hash did not match, not accepted as author sidecar. Identity remains fully bound through externally declared exact full patch SHA, nine full Git postimage SHAs embedded in that authenticated patch, and external17-file source/test SHA. No sidecar download or9SHA256-sidecar match claim."
+}
