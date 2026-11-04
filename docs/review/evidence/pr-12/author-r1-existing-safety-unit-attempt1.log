@@ -1,0 +1,85 @@
+✔ default backup root resolves to this repository, not its parent directory (1.227984ms)
+✔ canonical connection preserves endpoint/user/database and decodes password without printing it (0.575655ms)
+✔ admin URL preserves host/port and SSL query without appending the old database name (0.164237ms)
+✔ ambiguous connection option host is rejected (0.333021ms)
+✔ ambiguous connection option port is rejected (0.27296ms)
+✔ ambiguous connection option dbname is rejected (0.130686ms)
+✔ ambiguous connection option user is rejected (0.159569ms)
+✔ ambiguous connection option sslmode is rejected (0.174251ms)
+✔ ambiguous connection option options is rejected (4.051527ms)
+✔ invalid or implicit endpoint is rejected postgres (0.288683ms)
+✔ invalid or implicit endpoint is rejected http (0.143926ms)
+✔ invalid or implicit endpoint is rejected postgres (0.137286ms)
+✔ native client environment cannot inherit another endpoint, service or password file (0.629335ms)
+✔ same instance and database identities match (0.176576ms)
+✔ instance or database mismatch is rejected: systemIdentifier (0.244497ms)
+✔ instance or database mismatch is rejected: instanceStartedAt (0.068403ms)
+✔ instance or database mismatch is rejected: database (0.050285ms)
+✔ instance or database mismatch is rejected: databaseOid (0.043816ms)
+✔ real binding coordinator rejects different identity before any mutation callback exists (0.318628ms)
+✔ recreate whitelist rejects cadenza (0.136304ms)
+✔ recreate whitelist rejects postgres (0.125108ms)
+✔ recreate whitelist rejects cadenza_exe (0.101813ms)
+✔ recreate whitelist rejects cadenza_dops_ (0.108453ms)
+✔ recreate whitelist rejects other (0.121072ms)
+✔ recreate whitelist retains isolated dops databases (0.114542ms)
+✔ legacy container locator is rejected before connection or media work (0.181603ms)
+✖ actual backup and restore CLI reject dual-locator configuration without leaking synthetic password (173.858027ms)
+✔ configuration value allowlist removes synthetic TOKEN/PASSWORD/SECRET/KEY, URL, comments and multiline values (1.256277ms)
+✔ non-whitelisted or malformed values under apparently safe keys are also omitted (0.250356ms)
+✔ media checks every required file and its exact binary hash (27.161421ms)
+✔ a malicious hash-list traversal is refused before reading outside the media directory (6.79585ms)
+✔ an extra un-hashed object archive is refused (9.530987ms)
+✔ object root cannot capture the selected env file or symlink to credentials (4.281892ms)
+✔ latest continuous prefix preflight is a read-only success with no reentrancy claim (1.062446ms)
+✔ registered migration without sample evidence is not automatically an approved upgrade (0.122214ms)
+✔ explicit verified target stops at that target (0.166911ms)
+✔ preflight rejects DOWNGRADE_FORBIDDEN (0.134632ms)
+✔ preflight rejects UNKNOWN_APPLIED_MIGRATION (0.135454ms)
+✔ preflight rejects APPLIED_MIGRATIONS_NOT_CONTIGUOUS_PREFIX (0.062634ms)
+✔ preflight rejects UNKNOWN_TARGET_MIGRATION (0.083315ms)
+✔ missing migration registry is reported without suggesting implicit creation (0.169886ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 40
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 362.062104
+
+✖ failing tests:
+
+test at tests/pr12/safety.unit.test.mjs:29:1
+✖ actual backup and restore CLI reject dual-locator configuration without leaking synthetic password (173.858027ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /DUAL_LOCATOR/. Input:
+  
+  'file:///workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work/scripts/delivery/backup/native-compatibility.mjs:35\n' +
+    'export function assertRestoreCompatibility(versions,serverVersionNum){\n' +
+    '^^^^^^\n' +
+    '\n' +
+    "SyntaxError: Unexpected token 'export'\n" +
+    '    at compileSourceTextModule (node:internal/modules/esm/utils:319:16)\n' +
+    '    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:89:18)\n' +
+    '    at #translate (node:internal/modules/esm/loader:438:20)\n' +
+    '    at afterLoad (node:internal/modules/esm/loader:506:29)\n' +
+    '    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:511:12)\n' +
+    '    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)\n' +
+    '    at afterResolve (node:internal/modules/esm/loader:611:52)\n' +
+    '    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12)\n' +
+    '    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33)\n' +
+    '    at ModuleJob.link (node:internal/modules/esm/module_job:381:17)\n' +
+    '\n' +
+    'Node.js v24.22.1\n'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work/tests/pr12/safety.unit.test.mjs:29:456)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "file:///workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work/scripts/delivery/backup/native-compatibility.mjs:35\nexport function assertRestoreCompatibility(versions,serverVersionNum){\n^^^^^^\n\nSyntaxError: Unexpected token 'export'\n    at compileSourceTextModule (node:internal/modules/esm/utils:319:16)\n    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:89:18)\n    at #translate (node:internal/modules/esm/loader:438:20)\n    at afterLoad (node:internal/modules/esm/loader:506:29)\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:511:12)\n    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)\n    at afterResolve (node:internal/modules/esm/loader:611:52)\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33)\n    at ModuleJob.link (node:internal/modules/esm/module_job:381:17)\n\nNode.js v24.22.1\n",
+    expected: /DUAL_LOCATOR/,
+    operator: 'match',
+    diff: 'simple'
+  }

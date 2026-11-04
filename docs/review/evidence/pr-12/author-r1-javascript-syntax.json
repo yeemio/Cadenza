@@ -1,0 +1,24 @@
+[
+  {
+    "command": [
+      "node",
+      "--check",
+      "scripts/delivery/backup/native-compatibility.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "fileSha256": "047cfa3ee783049df022cfc67448209a5d1aeffce7f4a55d36204b27256c0b69"
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "scripts/delivery/backup/restore.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "fileSha256": "757f5fd3edafb67ac300f88761da16218dc677d18fc8f53d80f8abd78e4f8118"
+  }
+]

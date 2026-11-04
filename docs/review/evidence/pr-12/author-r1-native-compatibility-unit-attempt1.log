@@ -1,0 +1,37 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr12/native-compatibility.unit.spec.ts [ tests/pr12/native-compatibility.unit.spec.ts ]
+Error: [vitest] There was an error when mocking a module. If you are using "vi.mock" factory, make sure there are no top level variables inside, since this call is hoisted to top of the file. Read more: https://vitest.dev/api/vi.html#vi-mock
+ ❯ tests/pr12/native-compatibility.unit.spec.ts:3:1
+      1| import {beforeEach,describe,expect,it,vi} from 'vitest'
+      2| import {canonicalConnection,connectCanonical,verifyClientBinding,readI…
+      3| import {parseRestoreVersions,assertRestoreCompatibility,readRestoreVer…
+       | ^
+      4| import {recreateBoundDatabase,runRestore} from '../../scripts/delivery…
+      5| 
+
+Caused by: Error: Failed to parse source for import analysis because the content contains invalid JS syntax. If you are using JSX, make sure to name the file with the .jsx or .tsx extension.
+  Plugin: vite:import-analysis
+  File: /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work/scripts/delivery/backup/native-compatibility.mjs:1:0
+  1  |  import {execFile} from 'node:child_process'
+     |  ^
+  2  |  import {promisify} from 'node:util'
+  3  |  import {BackupSafetyError,nativePgEnvironment} from './connection.mjs'
+ ❯ TransformPluginContext._formatLog ../../../feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/dist/node/chunks/config.js:29250:43
+ ❯ TransformPluginContext.error ../../../feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/dist/node/chunks/config.js:29247:14
+ ❯ TransformPluginContext.transform ../../../feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/dist/node/chunks/config.js:27333:10
+ ❯ EnvironmentPluginContainer.transform ../../../feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/dist/node/chunks/config.js:29048:14
+ ❯ loadAndTransform ../../../feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/dist/node/chunks/config.js:22914:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  13:23:15
+   Duration  331ms (transform 73ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 63ms)
+

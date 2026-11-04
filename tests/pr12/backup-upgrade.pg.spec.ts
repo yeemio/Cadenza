@@ -44,3 +44,54 @@ describe.sequential('PR12 actual PostgreSQL/native clients; synthetic isolated f
   it('wrong dual locator refuses restore before target recreation',async()=>{expect(backupDir).toBeTruthy();await expect(runRestore({'backup-dir':backupDir,'database-url':restoreUrl,'target-confirm':target.database}, {...cleanEnv,PG_CONTAINER:'INSTANCE_B'})).rejects.toThrow(/DUAL_LOCATOR/);const c=await connectCanonical(target);try{expect((await c.query("SELECT 1 FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'")).rowCount).toBe(0)}finally{await c.end()}})
   it('restore binds the intended target and recovers A sentinel while B remains B',async()=>{const restored=await runRestore({'backup-dir':backupDir,'database-url':restoreUrl,'target-confirm':target.database},cleanEnv);expect(restored.schema_migrations).toEqual(registry);const c=await connectCanonical(target);try{expect((await c.query('SELECT marker FROM pr12_sentinel')).rows[0]!.marker).toBe('INSTANCE_A')}finally{await c.end()}expect((await poolB.query('SELECT marker FROM pr12_sentinel')).rows[0]!.marker).toBe('INSTANCE_B')})
 })
+
+describe.sequential('PR12 R1 actual incompatible native pairing preserves the existing task target',()=>{
+  it('newer pg_dump/pg_restore archive refuses before target recreation',async()=>{
+    const badBin=process.env['CADENZA_PR12_INCOMPATIBLE_CLIENT_BIN']
+    if(!badBin||!path.isAbsolute(badBin))throw new Error('NOT_RUN: provide an absolute directory containing newer native pg_dump/pg_restore for the dedicated incompatible-client proof')
+    const {parseRestoreVersions}=await import('../../scripts/delivery/backup/native-compatibility.mjs')
+    const dumpVersion=(await promisify(execFile)(path.join(badBin,'pg_dump'),['--version'])).stdout
+    const restoreVersion=(await promisify(execFile)(path.join(badBin,'pg_restore'),['--version'])).stdout
+    const dumpMajor=Number(/^pg_dump \(PostgreSQL\) (\d+)\./.exec(dumpVersion)?.[1])
+    const restoreMajor=Number(/^pg_restore \(PostgreSQL\) (\d+)\./.exec(restoreVersion)?.[1])
+    const c=await connectCanonical(target)
+    let serverMajor:number
+    try{
+      serverMajor=Math.floor(Number((await c.query('SHOW server_version_num')).rows[0]!.server_version_num)/10000)
+      if(!Number.isInteger(dumpMajor)||dumpMajor!==restoreMajor||dumpMajor<=serverMajor)throw new Error('NOT_RUN: incompatible proof requires a matched native pair newer than the target server')
+      // Only the newly authorized target from this suite is used; never an old failed database.
+      await c.query('INSERT INTO pr12_sentinel(marker,payload) VALUES($1,$2)',['KEEP_BEFORE_RECREATE','must survive native compatibility rejection'])
+    }finally{await c.end()}
+    const observe=async()=>{
+      const client=await connectCanonical(target)
+      try{
+        const identity=await readIdentity(client)
+        const exists=(await client.query("SELECT to_regclass('public.pr12_sentinel') AS sentinel,to_regclass('public.schema_migrations') AS registry")).rows[0]!
+        const markers=exists.sentinel?(await client.query('SELECT * FROM pr12_sentinel ORDER BY marker')).rows:null
+        const versions=exists.registry?(await client.query('SELECT * FROM schema_migrations ORDER BY version')).rows:null
+        return {identity,markers,versions}
+      }finally{await client.end()}
+    }
+    const before=await observe()
+    const nativeEnv={...cleanEnv,PATH:`${badBin}${path.delimiter}${process.env['PATH']??''}`,LC_ALL:'C'}
+    const cli=async(script:string,args:string[])=>{
+      try{const result=await promisify(execFile)(process.execPath,[path.resolve(`scripts/delivery/backup/${script}.mjs`),...args],{env:nativeEnv,maxBuffer:1024*1024,timeout:120_000});return {exitCode:0,stdout:result.stdout,stderr:result.stderr}}
+      catch(error){const failed=error as {code?:number|string;stdout?:string;stderr?:string};return {exitCode:failed.code,stdout:failed.stdout??'',stderr:failed.stderr??''}}
+    }
+    const backup=await cli('backup',['--database-url',aUrl!,'--out',path.join(temporary,'newer-native-media')])
+    expect(backup.exitCode,backup.stderr).toBe(0)
+    const badBackupDir=String(JSON.parse(backup.stdout).backup_dir)
+    const list=(await promisify(execFile)(path.join(badBin,'pg_restore'),['--list',path.join(badBackupDir,'database.dump')],{env:nativeEnv,maxBuffer:16*1024*1024})).stdout
+    const archiveVersions=parseRestoreVersions(list,restoreVersion)
+    expect(archiveVersions).toEqual({sourceMajor:serverMajor,dumpMajor,restoreMajor})
+    const archiveSha256=createHash('sha256').update(await readFile(path.join(badBackupDir,'database.dump'))).digest('hex')
+    const refusal=await cli('restore',['--backup-dir',badBackupDir,'--database-url',restoreUrl!,'--target-confirm',target.database!])
+    const after=await observe()
+    console.log('PR12_NATIVE_PREFLIGHT',JSON.stringify({archiveSha256,archiveVersions,targetMajor:serverMajor,exitCode:refusal.exitCode,error:refusal.stderr.trim(),before,after}))
+    expect(refusal.exitCode).not.toBe(0)
+    expect(refusal.stderr.trim()).toBe('RESTORE_NATIVE_VERSION_MISMATCH')
+    expect(after).toEqual(before) // Database OID, sentinel and registry survive; no recreate.
+    expect((await poolA.query('SELECT marker FROM pr12_sentinel')).rows).toEqual([{marker:'INSTANCE_A'}])
+    expect((await poolB.query('SELECT marker FROM pr12_sentinel')).rows).toEqual([{marker:'INSTANCE_B'}])
+  })
+})

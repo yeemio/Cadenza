@@ -1,0 +1,23 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work
+
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > accepts same-major stable client/source/archive/target with different minor releases 2ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > rejects unverifiable metadata: missing archive producer 1ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > rejects unverifiable metadata: duplicate archive producer 0ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > rejects unverifiable metadata: unrecognized client 1ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > rejects unverifiable metadata: prerelease client 0ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > rejects unverifiable metadata: legacy version scheme 0ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > unknown target version undefined cannot reach mutation 2ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > unknown target version 16.15 cannot reach mutation 1ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > unknown target version unknown cannot reach mutation 0ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > actual runRestore refuses 16/18/18 on target16 before terminate/DROP/CREATE 2ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > actual runRestore refuses 16/18/16 on target16 before terminate/DROP/CREATE 1ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > actual runRestore refuses 18/16/16 on target16 before terminate/DROP/CREATE 1ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > actual runRestore refuses 16/16/18 on target16 before terminate/DROP/CREATE 1ms
+ ✓ tests/pr12/native-compatibility.unit.spec.ts > PR12 native restore compatibility preflight (local boundary evidence) > checks compatibility on the bound admin connection before the existing recreation sequence 1ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  13:23:50
+   Duration  346ms (transform 91ms, setup 0ms, collect 112ms, tests 14ms, environment 0ms, prepare 68ms)
+

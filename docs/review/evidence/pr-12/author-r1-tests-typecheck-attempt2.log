@@ -1,0 +1,2 @@
+tests/pr12/backup-upgrade.pg.spec.ts(88,116): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.

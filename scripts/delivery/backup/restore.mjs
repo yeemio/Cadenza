@@ -5,16 +5,22 @@ import {pathToFileURL} from 'node:url'
 import {execFile} from 'node:child_process'
 import {promisify} from 'node:util'
 import {assertDrillSafeDbName} from '../lib/db.mjs'
-import {canonicalConnection,connectionForDatabase,rejectDualLocator,connectCanonical,verifyClientBinding,assertSameInstance,readIdentity,runPgFile,nativePgEnvironment,parseArgs,safeFailure,BackupSafetyError} from './connection.mjs'
+import {canonicalConnection,connectionForDatabase,rejectDualLocator,connectCanonical,verifyClientBinding,assertSameInstance,readIdentity,runPgFile,parseArgs,safeFailure,BackupSafetyError} from './connection.mjs'
 import {verifyMedia,inspectObjectRoot} from './media.mjs'
+import {readRestoreVersions,assertRestoreCompatibility} from './native-compatibility.mjs'
 
-export async function recreateBoundDatabase(connection,targetConfirm){
+export async function recreateBoundDatabase(connection,targetConfirm,restoreVersions){
   assertDrillSafeDbName(connection.database)
   if(targetConfirm!==connection.database)throw new BackupSafetyError('EXACT_TARGET_DATABASE_CONFIRMATION_REQUIRED')
   const admin=connectionForDatabase(connection,'postgres'),client=await connectCanonical(admin)
   try{
     const identity=await verifyClientBinding(client,admin) // Node and native target instance must match before DROP
     assertSameInstance(identity,await readIdentity(client))
+    if(restoreVersions!==undefined){
+      // Same bound admin connection; reject before terminating sessions or recreating the target.
+      const version=(await client.query('SHOW server_version_num')).rows[0]?.server_version_num
+      assertRestoreCompatibility(restoreVersions,version)
+    }
     await client.query('SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname=$1 AND pid<>pg_backend_pid()',[connection.database])
     await client.query(`DROP DATABASE IF EXISTS "${connection.database}"`)
     await client.query(`CREATE DATABASE "${connection.database}" ENCODING 'UTF8'`)
@@ -31,8 +37,8 @@ export async function runRestore(args,env=process.env){
   if(args['target-confirm']!==connection.database)throw new BackupSafetyError('EXACT_TARGET_DATABASE_CONFIRMATION_REQUIRED')
   if(typeof args['backup-dir']!=='string')throw new BackupSafetyError('BACKUP_DIRECTORY_REQUIRED')
   const dir=path.resolve(args['backup-dir']),manifest=await verifyMedia(dir)
-  // Missing/incompatible pg_restore or corrupt custom archive must fail before DROP/CREATE.
-  try{await promisify(execFile)('pg_restore',['--list',path.join(dir,'database.dump')],{env:nativePgEnvironment(connection),maxBuffer:16*1024*1024,timeout:30_000})}catch{throw new BackupSafetyError('RESTORE_ARCHIVE_OR_NATIVE_CLIENT_PREFLIGHT_FAILED')}
+  // Archive readability alone does not establish target compatibility.
+  const restoreVersions=await readRestoreVersions(connection,path.join(dir,'database.dump'))
   let archive=false
   try{archive=(await lstat(path.join(dir,'object-store.tar.gz'))).isFile()}catch(error){if(error.code!=='ENOENT')throw error}
   let destination
@@ -43,7 +49,7 @@ export async function runRestore(args,env=process.env){
     if(stdout.split('\n').filter(Boolean).some(name=>name.startsWith('/')||name.split('/').includes('..')))throw new BackupSafetyError('UNSAFE_OBJECT_ARCHIVE_PATH')
     try{await inspectObjectRoot(destination)}catch(error){if(error.code!=='ENOENT')throw error}
   }
-  const boundInstance=await recreateBoundDatabase(connection,args['target-confirm'])
+  const boundInstance=await recreateBoundDatabase(connection,args['target-confirm'],restoreVersions)
   let client=await connectCanonical(connection)
   try{
     const target=await verifyClientBinding(client,connection);assertSameInstance(boundInstance,target,{database:false})

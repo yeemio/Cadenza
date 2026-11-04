@@ -74,3 +74,15 @@ format=2 清单不保存连接 URL/用户名/密码；配置使用小型非秘�
 含对象归档的恢复必须显式给出 --object-store-root。恢复配置仅生成参考文件，不执行或自动注入密钥。介质 SHA256 是完整性校验，不是独立真实性认证；仅恢复获准可信介质。完成迁移指纹校验也不等于三分对账、现场恢复/RPO/RTO 已通过。
 
 升级兼容预检永远只读。旧 hash/0031 的真实历史样本证据 E02 仍未取得，禁止将新建夹具的通过当成旧库已验证。
+
+## PR12 R1：原生客户端与目标版本预检
+
+本自动重建恢复入口支持 PostgreSQL 10 及以上稳定发行版的同主版本组合：归档中记录的源服务器主版本、生成归档的 pg_dump 主版本、执行恢复的 pg_restore 主版本、目标服务器主版本必须一致。小版本可以不同。例如本次 PG16.15 源/目标应使用 pg_dump16.x 生成归档并由 pg_restore16.x 恢复；在同一执行环境中配置该套客户端，保留原有唯一 DATABASE_URL、目标库确认与 Node/psql 实例核对。
+
+`pg_restore --list` 成功仅表示归档可读取。恢复现在从其原生归档头读取源库/pg_dump 版本，另读取实际 pg_restore 版本；随后在已经完成实例绑定的同一管理连接读取 `server_version_num`。未知/缺失/重复/非稳定版本元数据以 `RESTORE_VERSION_METADATA_UNVERIFIED` 拒绝，跨主版本组合以 `RESTORE_NATIVE_VERSION_MISMATCH` 拒绝；这些检查位于终止目标连接、DROP 和 CREATE 之前。缺少客户端或不可读归档仍在重建前拒绝。不会从可手改的 manifest 版本字段推断兼容，也不会过滤归档 SQL 来伪造兼容。
+
+pg_dump18 可以读取 PG16，但这不保证其归档能安全恢复到 PG16；pg_restore18 可能输出该目标不支持的 SET。本入口不承诺任意跨主版本恢复。若归档由18生成且目标是16，保留原介质与失败证据，在获准的源/目标和兼容16客户端环境重新生成并验证所需备份；不能把已保留的18归档改名成16或仅更改manifest。版本预检通过也不代替真实恢复、迁移指纹、三分对账或现场验证。
+
+版本兼容边界参考 PostgreSQL 官方 [pg_dump 文档](https://www.postgresql.org/docs/16/app-pgdump.html)；`--list` 语义参考 [pg_restore 文档](https://www.postgresql.org/docs/18/app-pgrestore.html)。本入口采用上述更窄的同主版本自动恢复政策，不将文档中的一般兼容描述当作本候选已完成的真实恢复证明。
+
+PR12原10个真实场景/断言保留。新增拒绝证明使用当前任务的新源库和已恢复的新目标：通过 `CADENZA_PR12_INCOMPATIBLE_CLIENT_BIN` 指定一套比目标新的原生 pg_dump/pg_restore 目录（本次为18.x对16.x），仅给子进程设置 PATH，生成真实新版本归档，再确认实际restore拒绝且目标数据库OID、哨兵、迁移记录及A/B源均不变。正常成功恢复仍使用同主版本客户端；缺少第二套工具时新增证明为NOT_RUN，不用替身或skip充数。不得在原失败非空库重复初始化。
