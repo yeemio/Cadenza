@@ -268,3 +268,52 @@ describe('PR03 same physical stock in inventory and AI deterministic queries', (
     console.log('PR03_AVAILABILITY', JSON.stringify({ unitId: s.unitId, kind, inventory: row, ai: line.availability, notes: response.contextEcho.notes }))
   })
 })
+
+describe('PR03 R2 reservation text identity and ledger UUID on real PostgreSQL', () => {
+  const taskId = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'
+  const alternateId = `{${taskId.toUpperCase()}}`
+  const cases: Array<{ name: string; holderRef: string | null; payload: Payload; refType: string; refId: string | null }> = [
+    { name: 'non-UUID holder without an explicit reference', holderRef: 'PR03-task', payload: {}, refType: 'reservation', refId: null },
+    { name: 'matching non-UUID holder and reference aliases', holderRef: 'PR03-task',
+      payload: { holderType: 'task', holderRef: 'PR03-task', refType: 'task', refId: 'PR03-task' }, refType: 'reservation', refId: null },
+    { name: 'type-only echo cannot mislabel the reservation UUID', holderRef: 'PR03-task', payload: { refType: 'task' }, refType: 'reservation', refId: null },
+    { name: 'UUID holder without an explicit ledger reference', holderRef: taskId, payload: {}, refType: 'reservation', refId: null },
+    { name: 'explicit UUID type and id are preserved', holderRef: taskId, payload: { refType: 'task', refId: taskId }, refType: 'task', refId: taskId },
+    { name: 'explicit UUID id retains the existing holder type', holderRef: taskId, payload: { refId: taskId }, refType: 'task', refId: taskId },
+    { name: 'PostgreSQL alternative UUID input is preserved', holderRef: alternateId,
+      payload: { refType: 'task', refId: alternateId }, refType: 'task', refId: taskId },
+    { name: 'unreserved explicit UUID behavior is unchanged', holderRef: null,
+      payload: { refType: 'task', refId: taskId }, refType: 'task', refId: taskId },
+  ]
+  it.each(cases)('$name', async ({ holderRef, payload, refType, refId }) => {
+    const s = await stock()
+    const reservationId = holderRef === null ? null : String((await committed(inventory, 'inventory.reservation.acquire', {
+      unitId: s.unitId, quantity: '10.0000', holderType: 'task', holderRef, validUntil: future(),
+    })).reservationId)
+    const issued = await committed(inventory, 'inventory.issue-material', {
+      unitId: s.unitId, quantity: '5.0000', ...(reservationId === null ? {} : { reservationId }), ...payload,
+    })
+    expect(issued).toMatchObject({ beforeQty: '20.0000', afterQty: '15.0000', balanceClosed: false })
+    expect((await balance(s)).quantity).toBe('15.0000')
+    const ledger = (await pool.query(`SELECT id::text,ref_type,ref_id::text,quantity::text,before_qty::text,after_qty::text
+      FROM stock_transaction WHERE unit_id=$1 AND movement_kind='issue'`, [s.unitId])).rows
+    expect(ledger).toEqual([{ id: issued.transactionId, ref_type: refType, ref_id: refId ?? reservationId,
+      quantity: '-5.0000', before_qty: '20.0000', after_qty: '15.0000' }])
+    const reservations = (await pool.query(`SELECT id::text,holder_type,holder_ref,quantity::text,status
+      FROM reservation WHERE unit_id=$1`, [s.unitId])).rows
+    expect(reservations).toEqual(reservationId === null ? [] : [{ id: reservationId, holder_type: 'task', holder_ref: holderRef,
+      quantity: '5.0000', status: 'active' }])
+    const audit = (await pool.query(`SELECT actor,before,after FROM audit_entry
+      WHERE action='inventory.issue-material' AND subject_type='inventory_unit' AND subject_id=$1`, [s.unitId])).rows
+    expect(audit).toEqual([{ actor: actor.actorLoginName, before: { quantity: '20.0000' }, after: {
+      quantity: '15.0000', ...(reservationId === null ? {} : {
+        reservation: { id: reservationId, holderType: 'task', holderRef },
+        ledgerReference: { refType, refId: refId === null ? reservationId : payload.refId },
+      }),
+    } }])
+    // committed() has already replayed the same operation. These actual queries
+    // prove one issue line/audit and one consumption, including text traceability.
+    console.log('PR03_REFERENCE', JSON.stringify({ case: holderRef === null ? 'unreserved' : holderRef,
+      unitId: s.unitId, reservationId, ledger, reservations, audit, replayUnchanged: true }))
+  })
+})

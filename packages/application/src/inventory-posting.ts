@@ -591,6 +591,19 @@ export async function issueMaterial(pc: PostingContext, p: Payload): Promise<Rec
   if (cmpQty(afterQty, '0.0000') < 0) {
     throw new InventoryRuleViolation('IT-30', `并发余量不足导致负库存（扣前 ${balance.quantity}、本次 ${quantity}），拒绝`)
   }
+  // holder_ref is a text identity, whereas stock_transaction.ref_id is UUID.
+  // Preserve an explicitly supplied UUID reference; otherwise link the actual
+  // reservation row, keeping its full holder identity in the audit below.
+  const requestedRefId = str(p, 'refId')
+  const uuidBody = requestedRefId?.startsWith('{') && requestedRefId.endsWith('}')
+    ? requestedRefId.slice(1, -1) : requestedRefId
+  // PostgreSQL accepts mixed case, optional braces and hyphens after four hex
+  // digits. Match the whole input, including any trailing newline in holder text.
+  const explicitUuidRef = uuidBody !== undefined &&
+    /^(?:[0-9a-f]{4}-?){7}[0-9a-f]{4}$/i.exec(uuidBody)?.[0] === uuidBody
+  const ledgerReference = reservation === null || explicitUuidRef
+    ? { refType: str(p, 'refType') ?? reservation?.holderType ?? null, refId: requestedRefId ?? null }
+    : { refType: 'reservation', refId: reservation.id }
   const written = await writeLine(pc, {
     lineNo: issueLineNo,
     movementKind: 'issue',
@@ -599,8 +612,7 @@ export async function issueMaterial(pc: PostingContext, p: Payload): Promise<Rec
     afterQty,
     unit,
     reason: str(p, 'reason') ?? null,
-    refType: str(p, 'refType') ?? reservation?.holderType ?? null,
-    refId: str(p, 'refId') ?? reservation?.holderRef ?? null,
+    ...ledgerReference,
   })
   await closeUnitIfZero(pc, unit, written.closed) // IT-29
 
@@ -637,7 +649,13 @@ export async function issueMaterial(pc: PostingContext, p: Payload): Promise<Rec
     subjectType: 'inventory_unit',
     subjectId: unitId,
     before: { quantity: balance.quantity },
-    after: { quantity: afterQty },
+    after: {
+      quantity: afterQty,
+      ...(reservation === null ? {} : {
+        reservation: { id: reservation.id, holderType: reservation.holderType, holderRef: reservation.holderRef },
+        ledgerReference,
+      }),
+    },
     reason: str(p, 'reason') ?? null,
   })
   pc.tools.outbox.collect({

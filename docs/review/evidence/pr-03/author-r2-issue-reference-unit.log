@@ -1,0 +1,25 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr3-r2-work
+
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'text holder without an explicit refer…' 9ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'matching text aliases' 2ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'a type-only echo stays paired with th…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'a UUID-shaped holder is not an implic…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'an explicit UUID type and id' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'an explicit UUID id with its existing…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling A0EEBC99-9C0…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling {a0eebc99-9c…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling a0eebc999c0b…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling a0ee-bc99-9c…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'PostgreSQL UUID spelling {a0eebc99-9c…' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'UUID-looking text with a trailing new…' 0ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'unreserved issue without a reference' 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > 'unreserved explicit UUID and genealogy' 2ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > still rejects other actor before any write 1ms
+ ✓ tests/pr03/issue-reference.unit.spec.ts > PR03 R2 issue reference semantics at the application boundary > still rejects wrong business reference before any write 0ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  11:52:46
+   Duration  1.82s (transform 1.09s, setup 0ms, collect 1.54s, tests 24ms, environment 0ms, prepare 88ms)
+
