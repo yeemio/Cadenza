@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "tests/pr07/vitest.config.ts",
+    "tests/pr07/confirmation.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "startedAt": "2026-11-04T03:32:41.817989+00:00",
+  "completedAt": "2026-11-04T03:32:46.379870+00:00",
+  "exitCode": 1,
+  "database": "cadenza_pr07_confirmation_r1_20261104",
+  "sourceCommit": "fa0aa1df78e9d1aa8d369f6be182ebb25300ce77",
+  "logSha256": "d03867eba8ca3711829fe42b18d80689edca82b27e97bfbafb151ffba23aa45a"
+}
