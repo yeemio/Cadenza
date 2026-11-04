@@ -1,0 +1,76 @@
+{
+  "fixturePreservationAndCodeExpressionEvaluation": {
+    "status": "PASS_STATIC_PRESERVATION_ONLY",
+    "command": [
+      "python3",
+      "docs/review/evidence/pr-09/author-r1-fixture-check.py",
+      "--parent",
+      "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-r1-base",
+      "--candidate",
+      "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-r1-work"
+    ],
+    "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-r1-work",
+    "startedAtUtc": "2026-11-04T08:52:53.969831+00:00",
+    "finishedAtUtc": "2026-11-04T08:52:54.248389+00:00",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-09/author-r1-fixture-check.log",
+    "logSha256": "2351477a6fc7abd0e12624d638eca0afce12db14cbe246c99d385066e7cefd4f",
+    "stdoutBytes": 5714,
+    "stderrBytes": 0
+  },
+  "syntaxOnly": {
+    "status": "PASS_SYNTAX_ONLY",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "--input-type=module",
+      "-e",
+      "import fs from 'node:fs';\nimport {stripTypeScriptTypes} from 'node:module';\nimport {spawnSync} from 'node:child_process';\nimport {createHash} from 'node:crypto';\nconst path=process.argv[1];\nconst source=fs.readFileSync(path,'utf8');\nconst output=stripTypeScriptTypes(source,{mode:'transform',sourceUrl:path});\nconst parsed=spawnSync(process.execPath,['--input-type=module','--check'],{input:output,encoding:'utf8'});\nconsole.log(JSON.stringify({status:parsed.status===0?'PASS_SYNTAX_ONLY':'FAIL',node:process.version,sourcePath:path,sourceSha256:createHash('sha256').update(source).digest('hex'),transformedBytes:Buffer.byteLength(output),parserCommand:[process.execPath,'--input-type=module','--check'],parserExitCode:parsed.status,parserStdout:parsed.stdout,parserStderr:parsed.stderr,importResolutionRun:false,typeCheckerInvoked:false,businessRunnerInvoked:false,pgInvoked:false},null,2));\nprocess.exitCode=parsed.status??1;\n",
+      "tests/pr09/kitting.pg.spec.ts"
+    ],
+    "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-r1-work",
+    "startedAtUtc": "2026-11-04T08:52:53.982970+00:00",
+    "finishedAtUtc": "2026-11-04T08:52:54.245182+00:00",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-09/author-r1-syntax-only.log",
+    "logSha256": "be3ccd69701db5ad0339f819df835dac995af709d35802a71402f8e945c0310a",
+    "stdout": "{\n  \"status\": \"PASS_SYNTAX_ONLY\",\n  \"node\": \"v24.22.1\",\n  \"sourcePath\": \"tests/pr09/kitting.pg.spec.ts\",\n  \"sourceSha256\": \"a304980932f96cd0acff1d65592111de8a21a2ae0eb643d0236477d8c1abd622\",\n  \"transformedBytes\": 16804,\n  \"parserCommand\": [\n    \"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\",\n    \"--input-type=module\",\n    \"--check\"\n  ],\n  \"parserExitCode\": 0,\n  \"parserStdout\": \"\",\n  \"parserStderr\": \"\",\n  \"importResolutionRun\": false,\n  \"typeCheckerInvoked\": false,\n  \"businessRunnerInvoked\": false,\n  \"pgInvoked\": false\n}\n",
+    "stderr": "(node:7) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+  },
+  "changedTestSourceTypecheck": {
+    "status": "NOT_RUN",
+    "compilerInvoked": false,
+    "compilerExitCode": null,
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tests/pr09/tsconfig.json",
+      "--noEmit"
+    ],
+    "reason": "Missing project TypeScript/Vitest dependencies. Syntax-only validation is not a semantic typecheck.",
+    "environmentEvidence": "docs/review/evidence/pr-09/author-r1-environment.json"
+  },
+  "businessPg": {
+    "status": "NOT_RUN",
+    "plannedRegisteredScenarios": 16,
+    "executed": 0,
+    "runtimeSkipped": 0,
+    "runnerInvoked": false,
+    "databaseCreated": false,
+    "taskDatabaseEnvironment": "CADENZA_PR09_TEST_DB_URL",
+    "newEmptyDatabasePattern": "cadenza_pr09_*",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr09/vitest.config.ts",
+      "tests/pr09/kitting.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "reason": "No dedicated PR09 PostgreSQL database or complete project runtime dependencies in the author environment.",
+    "oldOrProductionDatabaseAccessed": false,
+    "r0WasStaticFixtureBlock": true,
+    "r0WasNotAnExecutedPgFailure": true
+  }
+}

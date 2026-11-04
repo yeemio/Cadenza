@@ -1,0 +1,28 @@
+{
+  "checkedAtUtc": "2026-11-04T08:52:53.982365+00:00",
+  "node": "v24.22.1",
+  "nodeExecutable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+  "projectTypeScriptEntryPresent": false,
+  "projectVitestEntryPresent": false,
+  "tscOnPath": null,
+  "vitestOnPath": null,
+  "psqlOnPath": null,
+  "postgresOnPath": null,
+  "dockerOnPath": null,
+  "dedicatedPr09DbVariablePresent": false,
+  "typecheckStatus": "NOT_RUN_MISSING_PROJECT_DEPENDENCIES",
+  "intendedTypecheckCommand": [
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tests/pr09/tsconfig.json",
+    "--noEmit"
+  ],
+  "typecheckInvoked": false,
+  "typecheckExitCode": null,
+  "vitestInvoked": false,
+  "pgInvoked": false,
+  "databaseCreated": false,
+  "databaseConnectionValuePrinted": false,
+  "databaseConnectionAttempted": false
+}

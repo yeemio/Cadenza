@@ -11,6 +11,7 @@ if(!url||!/^cadenza_pr09_[a-z0-9_]+$/.test(new URL(url).pathname.slice(1)))throw
 const pool=createPool(url,{max:8}),oldBasis=process.env['CADENZA_KITTING_BOM_BASES']
 let fx:ExecutionFixtureIds,actor:CommandContext,other:CommandContext,group:CommandBus,inventory:CommandBus,quality:CommandBus,plantB:string,locB:string,family:string
 const bases:Record<string,{outputQuantity:string;outputUom:string}>={}
+const WH_B_CODE='9309',LOC_B_CODE=`${WH_B_CODE}0001`
 const one=async(sql:string,args:unknown[]=[])=>String((await pool.query(sql,args)).rows[0]!.id)
 async function committed(bus:CommandBus,type:string,payload:Record<string,unknown>,who=actor){const e={commandType:type,operationId:randomUUID(),targetId:'pr09',expectedRevision:0,payload};const r=await bus.execute(e,who);expect(r.status,JSON.stringify(r)).toBe('COMMITTED');expect(await bus.execute(e,who)).toEqual(r);return r.data as Record<string,unknown>}
 async function fixture(options:{basis?:boolean;empty?:boolean;noBom?:boolean;qty?:string;duplicate?:boolean}={}){
@@ -28,7 +29,7 @@ async function fixture(options:{basis?:boolean;empty?:boolean;noBom?:boolean;qty
 }
 type Fixture=Awaited<ReturnType<typeof fixture>>
 async function stock(s:Fixture,qty:string,options:{uom?:string;quality?:string;foreign?:boolean;conversion?:string}={}){
-  const data=await committed(inventory,'inventory.receive-goods',{plantId:options.foreign?plantB:fx.szPlantId,unitNo:`U-${randomUUID()}`,lotNo:`L-${randomUUID()}`,materialId:s.materialId,materialCode:s.materialCode,quantity:qty,uomId:options.uom?randomUUID():UOM_M_ID,uomCode:options.uom??'M',locationId:options.foreign?locB:LOC_LINE_SEMI,locationCode:options.foreign?'P09-B':LOC_LINE_SEMI_CODE,ownerId:fx.enterpriseId,ownerName:'PR09 fixture owner',qualityStatus:options.quality??'qualified',...(options.conversion?{conversionRevisionId:options.conversion}:{})},options.foreign?other:actor)
+  const data=await committed(inventory,'inventory.receive-goods',{plantId:options.foreign?plantB:fx.szPlantId,unitNo:`U-${randomUUID()}`,lotNo:`L-${randomUUID()}`,materialId:s.materialId,materialCode:s.materialCode,quantity:qty,uomId:options.uom?randomUUID():UOM_M_ID,uomCode:options.uom??'M',locationId:options.foreign?locB:LOC_LINE_SEMI,locationCode:options.foreign?LOC_B_CODE:LOC_LINE_SEMI_CODE,ownerId:fx.enterpriseId,ownerName:'PR09 fixture owner',qualityStatus:options.quality??'qualified',...(options.conversion?{conversionRevisionId:options.conversion}:{})},options.foreign?other:actor)
   return String(data.unitId)
 }
 async function check(s:Fixture,bus=group){const data=await committed(bus,'group.shortage-kitting.check',{plantId:fx.szPlantId,orderNo:s.orderNo});const result=data.calculation as GroupKittingCalculation;expect(data.checkStatus).not.toBe('empty');expect((await pool.query('SELECT order_id,check_status,shortage_lines FROM group_shortage_kitting_result WHERE id=$1',[data.id])).rows[0]).toMatchObject({order_id:s.orderId,check_status:result.checkStatus,shortage_lines:[{kind:'calculation',...result}]});return result}
@@ -41,8 +42,9 @@ beforeAll(async()=>{
   plantB=await one("SELECT id FROM org_node WHERE code='PLNT-HF'")
   for(const [who,plant] of [[actor,fx.szPlantId],[other,plantB]] as const)await pool.query(`INSERT INTO scope_grant(enterprise_id,principal_type,principal_id,permissions,scope_type,scope_object_id,status,created_by) VALUES($1,'user',$2,$3,'plant',$4,'active','pr09-fixture')`,[fx.enterpriseId,who.actorUserId,['inventory.post','inventory.reserve','quality.post','group.read','group.post'],plant])
   await pool.query(`INSERT INTO scope_grant(enterprise_id,principal_type,principal_id,permissions,scope_type,scope_object_id,status,created_by) VALUES($1,'user',$2,ARRAY['group.read'],'plant',$3,'active','pr09-fixture')`,[fx.enterpriseId,actor.actorUserId,plantB])
-  const whB=await one(`INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type) VALUES($1,$2,'P09-B','P09-B','WAREHOUSE') RETURNING id`,[fx.enterpriseId,plantB])
-  locB=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL','P09-B') RETURNING id`,[fx.enterpriseId,plantB,whB])
+  const deptB=await one("SELECT id FROM org_node WHERE code='DEPT-HF-JZ' AND kind='department' AND parent_kind='plant' AND parent_id=$1 AND enterprise_id=$2",[plantB,fx.enterpriseId])
+  const whB=await one(`INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types) VALUES($1,$2,$3,$4,'P09-B','WAREHOUSE',ARRAY[1]) RETURNING id`,[fx.enterpriseId,plantB,deptB,WH_B_CODE])
+  locB=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL',$4) RETURNING id`,[fx.enterpriseId,plantB,whB,LOC_B_CODE])
   family=await one(`INSERT INTO product_family(enterprise_id,plant_id,code,name) VALUES($1,$2,'P09-F','P09-F') RETURNING id`,[fx.enterpriseId,fx.szPlantId])
   group=buildGroupCommandBus(pool);inventory=buildInventoryCommandBus(pool);quality=buildQualityCommandBus(pool)
 },120_000)
