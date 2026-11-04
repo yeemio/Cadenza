@@ -1,0 +1,18 @@
+{
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    "tests/pr02/vitest.config.ts",
+    "tests/pr02/object-write-scope.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "database": "cadenza_pr02_on_pr03_r1_20261104",
+  "startedUtc": "2026-11-04T02:37:26.190585+00:00",
+  "finishedUtc": "2026-11-04T02:37:37.689798+00:00",
+  "exitCode": 0,
+  "log": "docs/review/evidence/pr-03/controller-r1-pr02-regression.log",
+  "logSha256": "81335e9427888eae660027b137397a1a5a22315672c4a79465ccedbf842db103"
+}

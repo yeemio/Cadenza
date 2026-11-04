@@ -238,6 +238,9 @@ export interface AiBomRevisionRow {
 
 export interface AiStockBalanceRow {
   unitId: string
+  locationId: string
+  qualityHeld: boolean
+  businessHeld: boolean
   materialCode: string
   quantity: string
   uomCode: string
@@ -249,6 +252,7 @@ export interface AiStockBalanceRow {
 
 export interface AiReservationRow {
   unitId: string
+  locationId: string | null
   status: string
   quantity: string
   validUntil: string

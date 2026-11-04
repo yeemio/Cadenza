@@ -75,6 +75,26 @@ export class PgCommandBus implements CommandBus {
     const digest = commandPayloadDigest(envelope)
     const client = await this.pool.connect()
     let txOpen = true
+    let acceptQueries = true
+    const pending = new Set<Promise<unknown>>()
+    let queryFailure: { error: unknown } | undefined
+    const transactionClient: SqlClient = {
+      query: (text, values) => {
+        if (!acceptQueries) return Promise.reject(new Error('Command transaction is closed'))
+        const query = client.query(text, values as unknown[] | undefined)
+        pending.add(query)
+        // Observe even a repository/collector that catches its own query error.
+        void query.then(
+          () => { pending.delete(query) },
+          (error: unknown) => { queryFailure ??= { error }; pending.delete(query) },
+        )
+        return query
+      },
+    }
+    const settleQueries = async (): Promise<void> => {
+      while (pending.size > 0) await Promise.allSettled([...pending])
+      if (queryFailure !== undefined) throw queryFailure.error
+    }
     try {
       await client.query('BEGIN')
 
@@ -120,8 +140,36 @@ export class PgCommandBus implements CommandBus {
         throw new Error(`未注册的命令种类：${envelope.commandType}`)
       }
 
-      const tools = this.toolsFactory(client, context, this.now)
+      // The key claim stays outside the business savepoint. Concurrent callers
+      // therefore serialize on the receipt even when business writes are refused.
+      await client.query('SAVEPOINT command_business')
+      const tools = this.toolsFactory(transactionClient, context, this.now)
       const outcome = await handler.handle(envelope, context, tools)
+      const rejected = outcome.status === CommandResultStatus.BUSINESS_REJECTION ||
+        outcome.status === CommandResultStatus.VERSION_CONFLICT
+      if (!rejected && outcome.status !== CommandResultStatus.COMMITTED &&
+          outcome.status !== CommandResultStatus.DRAFT_SAVED) {
+        throw new Error(`Unsupported command outcome: ${String(outcome.status)}`)
+      }
+      await settleQueries()
+      if (rejected) {
+        await client.query('ROLLBACK TO SAVEPOINT command_business')
+        if (outcome.persistRejectionDiagnostics !== undefined) {
+          if (outcome.status !== CommandResultStatus.BUSINESS_REJECTION) {
+            throw new Error('Only business rejection may persist quarantine diagnostics')
+          }
+          await outcome.persistRejectionDiagnostics()
+        }
+      } else {
+        if (outcome.persistRejectionDiagnostics !== undefined) {
+          throw new Error('Rejection diagnostics attached to a successful command')
+        }
+        await tools.flushEffects?.()
+      }
+      await settleQueries()
+      // No repository may use this pooled client after it is released/reused.
+      acceptQueries = false
+      await client.query('RELEASE SAVEPOINT command_business')
       const result: CommandResult = {
         operationId: envelope.operationId,
         status: outcome.status,
@@ -138,9 +186,11 @@ export class PgCommandBus implements CommandBus {
       txOpen = false
       return result
     } catch (error) {
+      acceptQueries = false
       if (txOpen) await client.query('ROLLBACK').catch(() => undefined)
       throw error
     } finally {
+      acceptQueries = false
       client.release()
     }
   }

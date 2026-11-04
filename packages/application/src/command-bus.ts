@@ -37,6 +37,8 @@ export interface CommandTools {
   actorPermissions(): Promise<string[]>
   /** actor 的数据范围（企业/工厂/车间，服务端计算，OA-25）。 */
   actorDataScope(): Promise<{ enterpriseWide: boolean; plantIds: string[] }>
+  /** Await queued audit/outbox effects before the enclosing transaction can commit. */
+  flushEffects?(): Promise<void>
 }
 
 /** 处理器结果：业务拒绝也以结果返回（与回执一并持久化，重放返回原结果）。 */
@@ -45,6 +47,13 @@ export interface HandlerOutcome {
   errorCode?: string
   errorMessage?: string
   data?: unknown
+  /**
+   * Explicit diagnostic-only writes (e.g. unmapped inbound QUARANTINED Inbox).
+   * The bus first rolls back ALL handler writes, then invokes this callback in
+   * the receipt transaction. Never use it to retain partial business postings.
+   * Internal only: not serialized into the receipt or returned to the caller.
+   */
+  persistRejectionDiagnostics?(): Promise<void>
 }
 
 /** 命令处理器：一个 commandType 一个实现，运行于命令总线事务内。 */

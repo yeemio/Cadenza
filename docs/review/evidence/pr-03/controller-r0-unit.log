@@ -1,0 +1,55 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr03-20261104
+
+ ✓ tests/domain/inventory-rules.spec.ts > IT-07/08/11/12 数量口径 > IT-07：十进制定点校验与定点算术（4 位小数、无浮点误差） 1ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-07/08/11/12 数量口径 > IT-08：数量四元组缺 uom/measurement_basis 拒绝 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-07/08/11/12 数量口径 > IT-09：同量纲精确换算表命中；米↔千克无全局因子（须物料维度） 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-07/08/11/12 数量口径 > IT-10：英尺展示列 = 米 ÷ 0.3048 截断 4 位（仅展示不入账） 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-07/08/11/12 数量口径 > IT-11：不同单位不得直接汇总 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-07/08/11/12 数量口径 > IT-12：超产上限服务端按同单位校验 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-13/14/15 可用量与并发消费 > IT-14：待检/不合格/存疑余额可用量为 0（不得发运） 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-13/14/15 可用量与并发消费 > IT-14：可用量 = 合格毛量 − 有效预留；过期预留不占量 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-13/14/15 可用量与并发消费 > IT-14/IT-30：发料申请超可用量 → 可解释拒绝 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-13/14/15 可用量与并发消费 > IT-15：同一码被其它任务占用 → 拒绝（行锁/唯一约束语义断言位） 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-04/05/06 条码解析链 > IT-05：已知散点判定（载具第 2 位 E/F/M/P、R 类原料、8 位货架、E/F 成品）；未知不冒充 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-04/05/06 条码解析链 > IT-04：载具装载展开多候选显式拒绝；单候选直取；空码空集 1ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-04/05/06 条码解析链 > IT-06：同码值已有活动绑定 → 拒绝新绑定 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-19/20/25/27/29/30 流水与并发 > IT-19/IT-30-①：流水行含扣前/扣后；负余额拒绝；零变动拒绝 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-19/20/25/27/29/30 流水与并发 > IT-29：零余额关闭活动余额、不删除档案 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-19/20/25/27/29/30 流水与并发 > IT-25/27：稳定次序锁（排序去重防死锁） 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-28/29/30/31 守恒与不可逆 > IT-28：分盘守恒式 原量=子段+留存+损耗；不满足拒绝 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-28/29/30/31 守恒与不可逆 > IT-30-②：子轴已发运 → 回撤原倒轴受阻 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-28/29/30/31 守恒与不可逆 > IT-31：已入库/被消耗/已发运/生效质量结果 → 不可直接取消原审核 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-23 作业预留 > IT-23：四要素齐全方可签发；有效期必须晚于当前时间 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-23 作业预留 > IT-23：过期后旧终端提交必须重校验（不得凭过期预留入账） 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-34/36 谱系与轴号修正 > IT-34：边类型端点配对非法拒绝；同订单一轴号一绑 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-34/36 谱系与轴号修正 > IT-36：不自动解绑他人占用客户轴号；核权确认后显式重分配 0ms
+ ✓ tests/domain/inventory-rules.spec.ts > IT-37 时间双轨 > IT-37：班次日期按工厂日历＋时区＋白班起点折算（白班起点前归前一班次日） 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > qualified, quality hold=false, business hold=false 1ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > qualified, quality hold=true, business hold=false 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > qualified, quality hold=false, business hold=true 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > qualified, quality hold=true, business hold=true 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > unqualified, quality hold=false, business hold=false 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > unqualified, quality hold=true, business hold=false 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > unqualified, quality hold=false, business hold=true 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > unqualified, quality hold=true, business hold=true 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > pending_inspection, quality hold=false, business hold=false 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > pending_inspection, quality hold=true, business hold=false 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > pending_inspection, quality hold=false, business hold=true 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > pending_inspection, quality hold=true, business hold=true 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > suspect, quality hold=false, business hold=false 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > suspect, quality hold=true, business hold=false 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > suspect, quality hold=false, business hold=true 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > suspect, quality hold=true, business hold=true 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > expired/released/consumed reservations do not allocate current stock 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > overallocated historical stock is clamped to zero 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > allocation keeps four-place decimal precision 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > removing quality custody cannot remove independent business custody 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > a valid own allocation cannot restore quality eligibility 0ms
+ ✓ tests/pr03/availability.unit.spec.ts > PR03 pure availability rules (not PostgreSQL evidence) > no-stock and reservation causes remain distinguishable 0ms
+
+ Test Files  2 passed (2)
+      Tests  46 passed (46)
+   Start at  10:16:18
+   Duration  659ms (transform 270ms, setup 0ms, collect 474ms, tests 7ms, environment 0ms, prepare 40ms)
+
