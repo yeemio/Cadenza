@@ -1,0 +1,87 @@
+{
+  "decision": "ACCEPT",
+  "acceptanceScope": "C5 local exact source plus real isolated PostgreSQL ownership/replay/concurrency and process-local cache/controller tests with explicit doubles",
+  "exactParent": "f5c286b10ff0ae43082ef1a4bf65e38ef1d0faef",
+  "testedSourceCommit": "ae6e072037cd68e0979295380188fc3e784d40e7",
+  "sourceAndTestFingerprint": "b68b2c968844fe3a5153a902f3c6103fd19dd9a455ba9a88cda9bb52417092bf",
+  "fullPatchSha256": "7fa4f10edb89bb9a2557b9c5e1a25e900eee015796c6320b85db5ee3998f97ba",
+  "postimagesMatched": 23,
+  "authorProductAndTestsAppliedUnchanged": true,
+  "selectedPrerequisite": [
+    {
+      "pr": 3,
+      "sourceAndTestSha256": "5cd5ded5590fa2e08726850278dcb29b56113562a088bbd43029f48081cdaf90",
+      "selectedExactPostimages": [
+        {
+          "path": "packages/application/src/aiquery-repositories.ts",
+          "sha256": "05e5f6c3bb3ceef90c7af875e346ebe45da2f7621a9cf3b19ebf4fa2fd67f797"
+        },
+        {
+          "path": "packages/application/src/aiquery-service.ts",
+          "sha256": "a11c27eb29e781c1dd6b97e9ffb59472eb15f318baa43cbbe1a9910d4d58fc16"
+        },
+        {
+          "path": "packages/domain/src/inventory/availability.ts",
+          "sha256": "5e9ecae2acf29451173777ea65029492d7d4584bda796581821b1f5aeeb81eb7"
+        },
+        {
+          "path": "packages/persistence/src/aiquery-repositories.ts",
+          "sha256": "22f931f07ca0c25a3e89c5f4f5b6004533848b23c8741dc6d2ff8efb87d4e817"
+        }
+      ],
+      "reason": "PR05 contract requires rebinding shared AI paths; carry PR03 exact AI availability edits and their domain evaluator only, not unrelated changes.",
+      "status": "CANDIDATE_CONTROLLER_PENDING_NOT_ACCEPTED"
+    }
+  ],
+  "prerequisiteBoundary": "Four exact shared AI/availability source postimages carried by the frozen patch; PR03 entire product is not carried or accepted, and its failing inventory-posting path is absent from this PR05 delta. Later shared-path integration must bind the resulting source.",
+  "checks": {
+    "freshRealPg": {
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "database": "cadenza_pr05_owner_r0_20261104",
+      "process": "controller-r0-pg.process.json"
+    },
+    "reusedExactAuthorEvidence": {
+      "newContextControllerAndLocalRuntime": {
+        "passed": 19,
+        "failed": 0,
+        "skipped": 0,
+        "log": "ownership-unit.log",
+        "externalModel": "MOCK_ONLY"
+      },
+      "existingRuntimeLimitsCancel": {
+        "passed": 17,
+        "failed": 0,
+        "skipped": 0,
+        "log": "ownership-unit-and-runtime-regression-initial-failure.log",
+        "note": "17 actually passed, new suite collection failure separately retained and later resolved by19 narrow passing run"
+      },
+      "applicationTypes": "PASS application-typecheck.log",
+      "persistenceTypes": "PASS persistence-typecheck.log",
+      "testSourceTypes": "PASS pr05-tests-typecheck.log",
+      "candidateHashMatchedAllFilesAndRawLogs": true
+    },
+    "effectiveUniqueCases": 50,
+    "effectiveBoundary": "14 fresh real PG +36 reused local/doubles, not50PG or50fresh"
+  },
+  "runtimeObservations": {
+    "denialAuditRecords": 9,
+    "concurrentFirstOwnerRecords": 1,
+    "sameOwnerExactFirstAuditSingleRow": "PASS",
+    "moduleAndBusinessPermissionRevocation": "PASS",
+    "closedOrMismatchedSession": "PASS"
+  },
+  "retainedBoundaries": [
+    "Known request ID collision and process-local cache preconditions remain explicit",
+    "Zero-tool cache ownership is process-local; no restart durable clarification or multiple instance runtime proof",
+    "Bare SQL client audit path requires caller-owned UoW transaction; real pool path tested",
+    "Internal ownership error HTTP mapping remains generic server error; no foreign data/audit write",
+    "No real model/channel, installed deployment, old DB/site/production or independent R6 acceptance",
+    "PR03 C7 root cause remains REWORK on originalPR3"
+  ],
+  "sourceAuthor": "same ordinary Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "controllerCodeEdits": false,
+  "originalFailureEvidencePreserved": true,
+  "mergeReleaseDeploy": false
+}
