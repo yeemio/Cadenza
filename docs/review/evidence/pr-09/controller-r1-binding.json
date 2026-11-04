@@ -1,0 +1,143 @@
+{
+  "parentHead": "9d261c274291e4aa17c31200e84572f81acf2e63",
+  "sourceCommit": "a5779edb4dbec8c73edff6f30e9f3ec3e1d44c2f",
+  "sourceAndTestFingerprint": "30533aac3558acea38fda9c862e574334c7c1c53e594f28c1a64b37aa4812c7a",
+  "sourceTestFiles": [
+    {
+      "path": "packages/application/src/group-handlers.ts",
+      "bytes": 23056,
+      "sha256": "4364ae9c4ba84539a158925f27f733a8b7697b75cc6ddabcf2f613313288da8b",
+      "parentSha256": "4364ae9c4ba84539a158925f27f733a8b7697b75cc6ddabcf2f613313288da8b",
+      "parentGitBlobSha": "f8f059099a25bc3d5dd76b5bb5cdf0aea94f09e8",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/group-queries.ts",
+      "bytes": 5114,
+      "sha256": "0f88a0b6b2c1cefc6439df3e77780c6e2d7a6c3689a8db483e1bb80e020d9f8d",
+      "parentSha256": "0f88a0b6b2c1cefc6439df3e77780c6e2d7a6c3689a8db483e1bb80e020d9f8d",
+      "parentGitBlobSha": "e627d6f540cc29a89f3b344fde8200679d96a681",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/group-repositories.ts",
+      "bytes": 9000,
+      "sha256": "4ebc13e626db51128daadcaa2f3f9667a3099cb34f0fd75143d0f57f1e902046",
+      "parentSha256": "4ebc13e626db51128daadcaa2f3f9667a3099cb34f0fd75143d0f57f1e902046",
+      "parentGitBlobSha": "a13cf116fa2e0f2a7d8365cedbb75ca970671706",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/persistence/src/group-repositories.ts",
+      "bytes": 22419,
+      "sha256": "1e84b6ddf4f7adaf7f9f32a72da5bf78a471a4058691d549ff3d34c276ba870d",
+      "parentSha256": "1e84b6ddf4f7adaf7f9f32a72da5bf78a471a4058691d549ff3d34c276ba870d",
+      "parentGitBlobSha": "d0c429e392e67d5b5bddbcb92d960f8c1a136e54",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr09/kitting.pg.spec.ts",
+      "bytes": 13319,
+      "sha256": "a304980932f96cd0acff1d65592111de8a21a2ae0eb643d0236477d8c1abd622",
+      "parentSha256": "11645af5ca7de0c0db4baa98183a9310aca8915d22c3fccd8a45a20151c8976c",
+      "parentGitBlobSha": "498b6847cde0b2a58115142e72017b30d3b0c671",
+      "unchangedFromParent": false
+    },
+    {
+      "path": "tests/pr09/kitting.unit.spec.ts",
+      "bytes": 6272,
+      "sha256": "b90316a9060f9a5b4f7c103e938e0664091c69813f52c00700cdeacee644d5f5",
+      "parentSha256": "b90316a9060f9a5b4f7c103e938e0664091c69813f52c00700cdeacee644d5f5",
+      "parentGitBlobSha": "ec32435930efdd4bca10497dddcc61b44a3931ef",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr09/tsconfig.json",
+      "bytes": 161,
+      "sha256": "2bee9518c53ac2921e1697b3642583be1ea1aefda8a5836bca47d900e6a4e77a",
+      "parentSha256": "2bee9518c53ac2921e1697b3642583be1ea1aefda8a5836bca47d900e6a4e77a",
+      "parentGitBlobSha": "6927cdc33f769b1e975e0dbd19653fceec8049d4",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr09/vitest.config.ts",
+      "bytes": 225,
+      "sha256": "015261ef40c2d3baf9ae48eb7403ceb8543aba5fb5c9ec17e489d5fdd7ea7420",
+      "parentSha256": "015261ef40c2d3baf9ae48eb7403ceb8543aba5fb5c9ec17e489d5fdd7ea7420",
+      "parentGitBlobSha": "24660f96c33472d893abc4aa41545742b9b1d4c9",
+      "unchangedFromParent": true
+    }
+  ],
+  "patchSha256": "2fac73cc01b5a6c9ace3f6defbe735df810a610a84ed2c48eefb93eaed2958ef",
+  "postimagesMatched": 8,
+  "all16ScenarioAssertionBytesUnchanged": true,
+  "afterAllAndFullDescribeByteIdentical": true,
+  "productsAndPrerequisitesUnchanged": true,
+  "preservation": {
+    "registeredScenarios": 16,
+    "plainIt": 13,
+    "itEachRows": 3,
+    "fullDescribeBytes": 5864,
+    "fullDescribeSha256": "6717a9b2a1e60364092a42b647af641832c7b85fc35e5c10c7b0d2444f511335",
+    "fullDescribeAndAfterAllByteIdentical": true,
+    "allAssertionLinesByteIdentical": true,
+    "otherSourceTestPathsUnchanged": 7,
+    "unchangedMaterializedParentFiles": 1091,
+    "allParentMaterializedGitBlobsVerified": true,
+    "notAFullRepositoryCheckout": true,
+    "protectedInputs": [
+      {
+        "path": "packages/application/src/inventory-posting.ts",
+        "sha256": "97d6fb28cf3e204c53d27671ef8e5fe0410ff3c9e3058b6464f4256dd21bb200"
+      },
+      {
+        "path": "tests/pr02/object-write-scope.pg.spec.ts",
+        "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1"
+      },
+      {
+        "path": "tests/pr03/quality-availability.pg.spec.ts",
+        "sha256": "e73ebd0dc1d5b2ffd26cb3e98e0f9eead8c80f7eb612fb3c74b720a7b38fb0e0"
+      },
+      {
+        "path": "packages/persistence/src/seed.ts",
+        "sha256": "edddf0117127c209ba25f71c414b02871c1223f0b819ccc57c571673da6292a0"
+      },
+      {
+        "path": "packages/persistence/src/migrations/0003-master-data.ts",
+        "sha256": "ff06a17e0a4483323ed57088a1fa9781bcc41207f8cc14fcf5165c920b5a36da"
+      }
+    ],
+    "productsMigrationsContractsRolesAndMathUnchanged": true,
+    "realCommandBusesAndNoFinalStateBypass": true,
+    "sourceProof": "docs/review/evidence/pr-09/author-r1-fixture-check.log"
+  },
+  "reusedEvidence": [
+    {
+      "name": "application-typecheck-final-measurement",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-09/application-typecheck-final-measurement.log",
+      "status": "REUSE_EXACT_PARENT_INPUTS_NOT_NEW_EXECUTION",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executedInR1": false
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-09/persistence-typecheck-final.log",
+      "status": "REUSE_EXACT_PARENT_INPUTS_NOT_NEW_EXECUTION",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executedInR1": false
+    },
+    {
+      "name": "kitting-unit-final-measurement",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr09/vitest.config.ts tests/pr09/kitting.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-09/kitting-unit-final-measurement.log",
+      "status": "REUSE_EXACT_PARENT_INPUTS_NOT_NEW_EXECUTION",
+      "logSha256": "315bf692a35ae2cf73db18f420a66ccb75c9856663fa3818e5fe1a50acf2da2f",
+      "executedInR1": false
+    }
+  ]
+}

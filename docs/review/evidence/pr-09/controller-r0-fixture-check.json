@@ -1,0 +1,11 @@
+{
+  "status": "NOT_RUN_STATIC_FIXTURE_BLOCK",
+  "planned": 16,
+  "executed": 0,
+  "runtimeSkipped": 0,
+  "newDatabaseCreated": false,
+  "path": "tests/pr09/kitting.pg.spec.ts",
+  "root": "beforeAll foreign warehouse omits dept_id/material_types, uses P09-B rather than canonical four numeric digits; foreign location P09-B also invalid six/eight-digit code",
+  "canonicalSource": "packages/persistence/src/migrations/0003-master-data.ts",
+  "reason": "Same already proven deterministic canonical initialization defect; no repeat failed PG start."
+}

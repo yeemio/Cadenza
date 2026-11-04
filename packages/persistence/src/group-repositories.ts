@@ -3,6 +3,7 @@ import type {
   GroupAllocationRevisionRecord,
   GroupAllocationRevisionRepository,
   GroupShortageKittingFilter,
+  GroupKittingFacts,
   GroupShortageKittingRecord,
   GroupShortageKittingRepository,
   GroupProductRecallFilter,
@@ -109,12 +110,60 @@ export class PgGroupAllocationRevisionRepository implements GroupAllocationRevis
 export class PgGroupShortageKittingRepository implements GroupShortageKittingRepository {
   constructor(private readonly client: SqlClient) {}
 
+  async readFacts(enterpriseId: string, plantId: string, orderNo: string): Promise<GroupKittingFacts> {
+    // All JSON subqueries share a PostgreSQL statement snapshot; this is a check,
+    // not a reservation or a promise that stock remains available afterwards.
+    const result = await this.client.query(`WITH selected_order AS (
+      SELECT o.*, (SELECT count(*)::int FROM order_operation op WHERE op.order_id=o.id AND op.settings_version=o.current_settings_version
+        AND op.enterprise_id=o.enterprise_id AND op.plant_id=o.plant_id) AS operation_count,
+        (SELECT coalesce(jsonb_agg(DISTINCT op.bom_revision_id) FILTER (WHERE op.bom_revision_id IS NOT NULL),'[]'::jsonb)
+         FROM order_operation op WHERE op.order_id=o.id AND op.settings_version=o.current_settings_version
+           AND op.enterprise_id=o.enterprise_id AND op.plant_id=o.plant_id) AS operation_bom_ids
+      FROM production_order o WHERE o.enterprise_id=$1 AND o.plant_id=$2 AND o.order_no=$3
+    ), selected_bom AS (
+      SELECT b.* FROM manufacturing_bom_revision b JOIN selected_order o ON b.id=o.bom_revision_id
+      WHERE b.enterprise_id=o.enterprise_id AND b.plant_id=o.plant_id
+    ), needed_material AS (
+      SELECT material_id::text AS id FROM selected_order
+      UNION SELECT line->>'materialId' FROM selected_bom b CROSS JOIN LATERAL jsonb_array_elements(b.lines) line
+    ), material_facts AS (
+      SELECT m.* FROM material m WHERE m.org_scope_id=$1 AND m.id::text IN (SELECT id FROM needed_material)
+    )
+    SELECT
+      (SELECT jsonb_build_object('id',o.id,'enterpriseId',o.enterprise_id,'plantId',o.plant_id,'orderNo',o.order_no,'materialId',o.material_id,
+        'quantity',o.production_qty::text,'uom',o.uom,'settingsVersion',o.current_settings_version,'bomRevisionId',o.bom_revision_id,'status',o.order_status,
+        'operationCount',o.operation_count,'operationBomIds',o.operation_bom_ids) FROM selected_order o) AS "order",
+      (SELECT jsonb_build_object('id',b.id,'enterpriseId',b.enterprise_id,'plantId',b.plant_id,'materialId',b.material_id,'version',b.version,'status',b.status,
+        'publishedAt',b.published_at,'lines',b.lines) FROM selected_bom b) AS bom,
+      (SELECT coalesce(jsonb_agg(jsonb_build_object('id',m.id,'code',m.code,'baseUom',m.base_uom,'status',m.status,
+        'conversions',(SELECT coalesce(jsonb_agg(jsonb_build_object('id',c.id,'version',c.version,'unitName',c.unit_name,'factor',c.factor::text)),'[]'::jsonb)
+          FROM conversion_revision c WHERE c.material_id=m.id AND c.status='active'))),'[]'::jsonb) FROM material_facts m) AS materials,
+      (SELECT coalesce(jsonb_agg(jsonb_build_object('unitId',u.id,'materialId',u.material_id,'uom',u.uom_code,'quantity',coalesce(b.quantity,0)::text,
+        'qualityStatus',coalesce(b.quality_status,'pending_inspection'),'unitStatus',u.status,
+        'measurementKnown',coalesce(b.measurement_known,false),
+        'conversionRevisionId',b.conversion_revision_id,
+        'conversionFactor',(SELECT c.factor::text FROM conversion_revision c WHERE c.id::text=b.conversion_revision_id AND c.material_id=u.material_id AND c.unit_name=u.uom_code AND c.referenced),
+        'qualityHeld',EXISTS(SELECT 1 FROM quality_hold h WHERE h.inventory_unit_id=u.id AND h.status='active'),
+        'businessHeld',EXISTS(SELECT 1 FROM inventory_business_hold h WHERE h.unit_id=u.id),
+        'reservations',(SELECT coalesce(jsonb_agg(jsonb_build_object('status',r.status,'quantity',r.quantity::text,'validUntil',r.valid_until)),'[]'::jsonb)
+          FROM reservation r WHERE r.unit_id=u.id AND r.status='active'))),'[]'::jsonb)
+       FROM inventory_unit u
+       JOIN LATERAL (SELECT sum(sb.quantity) AS quantity,
+          CASE WHEN bool_and(sb.quality_status='qualified') THEN 'qualified' ELSE 'pending_inspection' END AS quality_status,
+          min(sb.conversion_revision_id::text) AS conversion_revision_id,
+          bool_and(sb.uom_id=u.uom_id AND sb.uom_code=u.uom_code AND sb.enterprise_id=u.enterprise_id AND sb.plant_id=u.plant_id)
+            AND count(DISTINCT coalesce(sb.conversion_revision_id::text,'NONE'))=1 AND count(DISTINCT sb.measurement_basis)=1 AS measurement_known
+          FROM stock_balance sb WHERE sb.unit_id=u.id AND sb.status='active') b ON true
+       WHERE u.enterprise_id=$1 AND u.plant_id=$2 AND u.material_id IN (SELECT id FROM material_facts)) AS stocks`, [enterpriseId, plantId, orderNo])
+    return result.rows[0] as unknown as GroupKittingFacts
+  }
+
   async listPaged(
     filter: GroupShortageKittingFilter,
   ): Promise<{ total: number; items: GroupShortageKittingRecord[] }> {
-    const where: string[] = []
-    const params: unknown[] = []
-    let i = 1
+    const where: string[] = ['enterprise_id = $1::uuid']
+    const params: unknown[] = [filter.enterpriseId]
+    let i = 2
     if (filter.plantIds !== null) {
       if (filter.plantIds.length === 0) return { total: 0, items: [] }
       where.push(`plant_id = ANY($${i++}::uuid[])`)

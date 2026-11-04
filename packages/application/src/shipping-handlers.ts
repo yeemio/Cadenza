@@ -58,6 +58,13 @@ import type { ShippingCommandTools } from './shipping-repositories'
 
 type Payload = Record<string, unknown>
 
+/** Diagnostic exception: replay only this Inbox fact after business rollback. */
+class QuarantinedShippingInbound extends ShippingRuleViolation {
+  constructor(message: string, readonly persistRejectionDiagnostics: () => Promise<void>) {
+    super('IF-00.8', message)
+  }
+}
+
 function shippingViolationOutcome(error: ShippingRuleViolation): HandlerOutcome {
   let errorCode: string = ERROR_CODES.BUSINESS_RULE
   if (error.rule === 'A-S1') errorCode = ERROR_CODES.FORBIDDEN_SCOPE
@@ -70,6 +77,13 @@ async function run(body: () => Promise<Record<string, unknown>>): Promise<Handle
     const data = await body()
     return { status: 'COMMITTED', data }
   } catch (error) {
+    if (error instanceof QuarantinedShippingInbound) {
+      // Object.assign is compatible with the original HandlerOutcome type. The
+      // new bus consumes this internal callback; the old bus keeps its old behavior.
+      return Object.assign(shippingViolationOutcome(error), {
+        persistRejectionDiagnostics: error.persistRejectionDiagnostics,
+      })
+    }
     if (error instanceof ShippingRuleViolation) return shippingViolationOutcome(error)
     if (error instanceof InventoryRuleViolation) return violationOutcome(error)
     throw error
@@ -119,15 +133,18 @@ async function dcCompositionInbound(pc: PostingContext, p: Payload): Promise<Rec
 
   // IF-00.8：缺组织映射 → 隔离队列（非普通失败重试）
   if (plantId === undefined) {
-    await tools.sp.quarantinedInbox.insertQuarantinedInbox({
-      sourceSystem,
-      organizationCode: orgCode ?? '',
-      externalKey: `${dcId}+${salesOrderNo}+${lineNo}`,
-      entityType: 'segment_composition',
-      quarantineReason: '缺组织映射（route_key=segment_composition）：DC 分段/组成入隔离队列待人工补绑',
-      payload: p,
-    })
-    throw new ShippingRuleViolation('IF-00.8', `DC 组成 ${dcId} 缺组织映射（plantId），已写入隔离队列（QUARANTINED），不重复应用`)
+    const persistQuarantine = async (): Promise<void> => {
+      await tools.sp.quarantinedInbox.insertQuarantinedInbox({
+        sourceSystem,
+        organizationCode: orgCode ?? '',
+        externalKey: `${dcId}+${salesOrderNo}+${lineNo}`,
+        entityType: 'segment_composition',
+        quarantineReason: '缺组织映射（route_key=segment_composition）：DC 分段/组成入隔离队列待人工补绑',
+        payload: p,
+      })
+    }
+    await persistQuarantine()
+    throw new QuarantinedShippingInbound(`DC 组成 ${dcId} 缺组织映射（plantId），已写入隔离队列（QUARANTINED），不重复应用`, persistQuarantine)
   }
   await assertPlantScope(tools, plantId)
 
@@ -183,15 +200,18 @@ async function plInbound(pc: PostingContext, p: Payload): Promise<Record<string,
   const orgCode = str(p, 'orgCode')
 
   if (plantId === undefined) {
-    await tools.sp.quarantinedInbox.insertQuarantinedInbox({
-      sourceSystem: str(p, 'sourceSystem') ?? 'PL',
-      organizationCode: orgCode ?? '',
-      externalKey: plNo,
-      entityType: 'shipping_pl',
-      quarantineReason: '缺组织映射（route_key=shipping_pl）：PL 入隔离队列待人工补绑（IF-00.8）',
-      payload: p,
-    })
-    throw new ShippingRuleViolation('IF-00.8', `发货单 ${plNo} 缺组织映射（plantId），已写入隔离队列（QUARANTINED），不重复应用`)
+    const persistQuarantine = async (): Promise<void> => {
+      await tools.sp.quarantinedInbox.insertQuarantinedInbox({
+        sourceSystem: str(p, 'sourceSystem') ?? 'PL',
+        organizationCode: orgCode ?? '',
+        externalKey: plNo,
+        entityType: 'shipping_pl',
+        quarantineReason: '缺组织映射（route_key=shipping_pl）：PL 入隔离队列待人工补绑（IF-00.8）',
+        payload: p,
+      })
+    }
+    await persistQuarantine()
+    throw new QuarantinedShippingInbound(`发货单 ${plNo} 缺组织映射（plantId），已写入隔离队列（QUARANTINED），不重复应用`, persistQuarantine)
   }
   await assertPlantScope(tools, plantId)
 
@@ -426,7 +446,7 @@ async function collectUnitFacts(
   return {
     unitId: unit.id,
     unitStatus: unit.status,
-    qualityStatus: balance.qualityStatus,
+    qualityStatus: await tools.inv.units.hasActiveQualityHold(unit.id) ? 'suspect' : balance.qualityStatus,
     lockedByOtherTask: effective.length > 0,
     actualSegmentLength,
   }
@@ -796,6 +816,9 @@ async function shipConfirm(pc: PostingContext, p: Payload): Promise<Record<strin
   for (const scan of scans) {
     if (scan.inventoryUnitId === null) continue // 补码登记（无库存单元绑定）不参与库存记账
     const unit = unitById.get(scan.inventoryUnitId)!
+    if (await tools.inv.units.hasActiveQualityHold(unit.id)) {
+      throw new ShippingRuleViolation('A-T12-2', `库存单元 ${unit.unitNo} 有活动质量隔离，拒绝出库`)
+    }
     if((await tools.inv.units.businessHolds(unit.id)).length>0)throw new ShippingRuleViolation('IT-BUSINESS-HOLD',`库存单元 ${unit.unitNo} 处于业务留置，拒绝出库`)
     const balances = await tools.inv.balances.listActiveByUnit(unit.id)
     const active = balances.filter((b) => b.status === 'active')

@@ -13,7 +13,9 @@ import {
 } from '@cadenza/domain'
 import type { CommandEnvelope } from '@cadenza/contracts'
 import type { CommandHandler, CommandContext, HandlerOutcome } from './command-bus'
-import type { GroupCommandTools } from './group-repositories'
+import type { GroupCommandTools, GroupKittingFacts, GroupKittingBasis, GroupKittingCalculation } from './group-repositories'
+import { evaluateAvailability } from '@cadenza/domain'
+import { assertObjectWriteScope } from './object-scope-repositories'
 
 type Payload = Record<string, unknown>
 
@@ -59,10 +61,97 @@ async function assertPlantInScope(
   }
 }
 
+const SCALE = 10_000n
+function scaled(value: string): bigint {
+  if (!/^\d+(?:\.\d{1,4})?$/.test(value)) throw new Error('INVALID_DECIMAL')
+  const [whole, fraction = ''] = value.split('.')
+  return BigInt(whole!) * SCALE + BigInt(fraction.padEnd(4, '0'))
+}
+function decimal(value: bigint): string { return `${value / SCALE}.${String(value % SCALE).padStart(4, '0')}` }
+function unitFactor(material: GroupKittingFacts['materials'][number], uom: string): bigint {
+  if (uom === material.baseUom) return SCALE
+  const rows = material.conversions.filter(c => c.unitName === uom)
+  if (rows.length !== 1) throw new Error('UOM_MISSING_OR_AMBIGUOUS')
+  const factor = scaled(rows[0]!.factor)
+  if (factor <= 0n) throw new Error('UOM_FACTOR_NOT_POSITIVE')
+  return factor
+}
+/** Fixed-point, conservative rounding. Basis is a trusted explicit BOM-version fact. */
+export function calculateGroupKitting(facts: GroupKittingFacts, basis: GroupKittingBasis | null, at: string): GroupKittingCalculation {
+  const { order, bom } = facts
+  const result: GroupKittingCalculation = { requirementBasis:'FULL_ORDER_BOM',stockScope:'CURRENT_FACTORY_UNRESERVED',outcome:'MISSING_DATA',checkStatus:'error',reason:null,orderId:order?.id ?? null,
+    settingsVersion:order?.settingsVersion ?? null,bomRevisionId:order?.bomRevisionId ?? null,bomVersion:bom?.version ?? null,basis,evaluatedAt:at,lines:[] }
+  const fail = (outcome: GroupKittingCalculation['outcome'], reason: string) => ({...result,outcome,reason})
+  if (!order) return fail('ORDER_NOT_FOUND','ORDER_NOT_FOUND_IN_AUTHORIZED_FACTORY')
+  if (!Number.isFinite(Date.parse(at))) return fail('MISSING_DATA','INVALID_SNAPSHOT_TIME')
+  if (['closed','voided'].includes(order.status)) return fail('MISSING_DATA','ORDER_NOT_OPEN_FOR_KITTING')
+  if (!bom || bom.id !== order.bomRevisionId || !bom.publishedAt || !['published','retired'].includes(bom.status) || bom.materialId !== order.materialId ||
+      bom.enterpriseId !== order.enterpriseId || bom.plantId !== order.plantId) return fail('MISSING_DATA','ORDER_FROZEN_BOM_UNAVAILABLE')
+  if (!order.operationCount || order.operationBomIds.some(id => id !== bom.id)) return fail('MISSING_DATA','CURRENT_SETTINGS_BOM_CONFLICT_OR_MISSING')
+  if (!basis) return fail('MISSING_DATA','BOM_OUTPUT_BASIS_NOT_CONFIGURED')
+  if (!bom.lines.length) return fail('MISSING_DATA','BOM_COMPONENTS_MISSING')
+  const output = facts.materials.find(m => m.id === order.materialId && m.status === 'active')
+  if (!output) return fail('MISSING_DATA','OUTPUT_MATERIAL_MISSING')
+  const requirements = new Map<string,bigint>()
+  try {
+    const orderQty = scaled(order.quantity), basisQty = scaled(basis.outputQuantity)
+    if (orderQty <= 0n || basisQty <= 0n || !basis.outputUom) return fail('MISSING_DATA','INVALID_BOM_OUTPUT_BASIS')
+    const orderFactor = unitFactor(output,order.uom), basisFactor = unitFactor(output,basis.outputUom)
+    for (const raw of bom.lines) {
+      if (!raw || typeof raw !== 'object') return fail('MISSING_DATA','BOM_LINE_INVALID')
+      const line = raw as Record<string,unknown>
+      if (typeof line.materialId !== 'string' || typeof line.materialCode !== 'string' || typeof line.quantity !== 'string' || typeof line.uom !== 'string') return fail('MISSING_DATA','BOM_LINE_INCOMPLETE')
+      const material = facts.materials.find(m => m.id === line.materialId && m.status === 'active')
+      if (!material || material.code !== line.materialCode) return fail('MISSING_DATA','BOM_COMPONENT_IDENTITY_UNAVAILABLE')
+      const qty = scaled(line.quantity)
+      if (qty <= 0n) return fail('MISSING_DATA','BOM_COMPONENT_QUANTITY_INVALID')
+      const numerator = qty * orderQty * orderFactor * unitFactor(material,line.uom)
+      const denominator = basisQty * basisFactor * SCALE
+      const required = (numerator + denominator - 1n) / denominator // round demand up
+      requirements.set(material.id,(requirements.get(material.id) ?? 0n)+required)
+    }
+    for (const [materialId,required] of requirements) {
+      const material = facts.materials.find(m => m.id===materialId)!
+      let available = 0n
+      const eligibleUnitIds: string[] = [], excludedUnitIds: string[] = []
+      for (const stock of facts.stocks.filter(s => s.materialId===materialId)) {
+        if (stock.unitStatus!=='in_stock' || stock.qualityHeld || stock.businessHeld || stock.qualityStatus!=='qualified') { excludedUnitIds.push(stock.unitId); continue }
+        if (!stock.measurementKnown) return fail('UNCONVERTIBLE','STOCK_MEASUREMENT_INCONSISTENT')
+        const projection = evaluateAvailability({grossQty:stock.quantity,qualityStatus:stock.qualityStatus,activeReservations:stock.reservations,now:at})
+        // A stored base-unit quantity is already converted; its provenance must not multiply it again.
+        let factor = stock.uom === material.baseUom || stock.conversionRevisionId ? SCALE : unitFactor(material,stock.uom)
+        if (stock.uom !== material.baseUom && stock.conversionRevisionId) {
+          if (!stock.conversionFactor || scaled(stock.conversionFactor)<=0n) return fail('UNCONVERTIBLE','FROZEN_STOCK_CONVERSION_UNAVAILABLE')
+          factor = scaled(stock.conversionFactor)
+        }
+        const amount = scaled(projection.available)*factor/SCALE // round available down
+        available += amount
+        if(amount>0n)eligibleUnitIds.push(stock.unitId);else excludedUnitIds.push(stock.unitId)
+      }
+      result.lines.push({materialId,materialCode:material.code,uom:material.baseUom,required:decimal(required),available:decimal(available),shortage:decimal(required>available?required-available:0n),eligibleUnitIds,excludedUnitIds})
+    }
+  } catch (error) { return fail('UNCONVERTIBLE',error instanceof Error?error.message:'MEASUREMENT_UNAVAILABLE') }
+  const shortage=result.lines.some(line=>scaled(line.shortage)>0n)
+  return {...result,outcome:shortage?'SHORTAGE':'KIT_COMPLETE',checkStatus:shortage?'shortage':'ok'}
+}
+function configuredKittingBasis(bomRevisionId: string | null): GroupKittingBasis | null {
+  if (!bomRevisionId) return null
+  const raw = process.env['CADENZA_KITTING_BOM_BASES']
+  if (!raw) return null
+  try {
+    const parsed: unknown = JSON.parse(raw)
+    if (!parsed || typeof parsed!=='object' || Array.isArray(parsed)) throw new Error('object required')
+    const basis = (parsed as Record<string,unknown>)[bomRevisionId]
+    if (basis === undefined) return null
+    if (!basis || typeof basis!=='object' || typeof (basis as GroupKittingBasis).outputQuantity!=='string' || typeof (basis as GroupKittingBasis).outputUom!=='string') throw new Error('basis required')
+    return basis as GroupKittingBasis
+  } catch { throw new GroupRuleViolation('G-01','CADENZA_KITTING_BOM_BASES 配置无效；不能假定每 1 单位 BOM 用量') }
+}
+
 /**
  * group 域命令：
  * - group.allocation-revision.create：创建分配修订草稿（缺字段 422）
- * - group.shortage-kitting.check：触发缺料/齐套检查（空库可落 empty 结果；缺字段 422）
+ * - group.shortage-kitting.check：基于授权订单冻结版本、显式用量基数及库存快照检查缺料/齐套
  * - group.product-recall.create：成品/批次召回（≠ CSW 外协 recall；缺字段 422）
  * - group.vendor-risk.create：供应商风险（≠ 外协任务；缺字段 422）
  * - group.rework.create / group.scrap.create：返工/报废写入口（≠ disposition 库存联动；≠ 召回）
@@ -117,23 +206,21 @@ export function createGroupCommandHandlers(): CommandHandler[] {
           await assertPermission(tools, GROUP_PERMISSIONS.GROUP_POST)
           const p = (envelope.payload ?? {}) as Payload
           const fields = assertShortageKittingCheckPayload(p)
-          await assertPlantInScope(tools, fields.plantId, context.enterpriseId)
-          // 空库 / 无订单匹配：落 empty 结果结构（专用面；不借道投料/排程）
+          await assertObjectWriteScope(tools, context, {enterpriseId:context.enterpriseId,plantId:fields.plantId}, GROUP_PERMISSIONS.GROUP_POST,
+            message=>new GroupRuleViolation('A-S1',message),fields.plantId)
+          const facts = await tools.shortageKitting.readFacts(context.enterpriseId,fields.plantId,fields.orderNo)
+          const calculation = calculateGroupKitting(facts,configuredKittingBasis(facts.order?.bomRevisionId ?? null),tools.now().toISOString())
           const id = randomUUID()
           const row = await tools.shortageKitting.insert({
-            id,
-            orderNo: fields.orderNo,
-            orderId: null,
-            checkStatus: 'empty',
-            shortageLines: [],
-            enterpriseId: context.enterpriseId,
-            plantId: fields.plantId,
-            createdBy: context.actorLoginName,
+            id,orderNo:fields.orderNo,orderId:calculation.orderId,checkStatus:calculation.checkStatus,
+            shortageLines:[{kind:'calculation',...calculation}],enterpriseId:context.enterpriseId,plantId:fields.plantId,createdBy:context.actorLoginName,
           })
           return {
             id: row.id,
             orderNo: row.orderNo,
             checkStatus: row.checkStatus,
+            outcome: calculation.outcome,
+            calculation,
             shortageLines: row.shortageLines,
             plantId: row.plantId,
             checkedAt: row.checkedAt.toISOString(),

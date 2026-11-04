@@ -1,0 +1,267 @@
+{
+  "delivery": "Cadenza-PR03-R1",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalPr": 3,
+  "originalBranch": "codex/fix-03-quality-availability",
+  "exactParentHead": "62b95cab58c249e88d52481605fa293686cae87d",
+  "originalPr03Parent": "ca1392c721cf071826badb648a4dba15f2c7d866",
+  "controllerCumulativeParent": "c5f1ca6a85e866bd3aa9e974897ae8d7fca6fc3b",
+  "acceptedPr02PrerequisiteAlreadyInParent": {
+    "head": "0df991eac99a61132e50c10d8931d3532945dab2",
+    "testedSourceCommit": "05b5913688cf028dd09784eba7294284522d1a15",
+    "testPath": "tests/pr02/object-write-scope.pg.spec.ts",
+    "testSha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1",
+    "testUnchangedInPr03R1": true,
+    "reapplyPrerequisite": false,
+    "ownHeadAcceptanceRemainsValid": true,
+    "ownHeadAcceptanceDoesNotReplacePr03CumulativeCandidateRegression": true
+  },
+  "r0OwnedSourceAndTestSha256": "5cd5ded5590fa2e08726850278dcb29b56113562a088bbd43029f48081cdaf90",
+  "r1OwnedSourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "13326aea32477a1f100eff2180f541879e3fc3bee0ae757076736b080d035848",
+    "gitCommit": "NOT_CREATED",
+    "sourceFiles": 12,
+    "testFiles": 4
+  },
+  "changedPaths": [
+    "docs/review/evidence/pr-03/author-r1-tests-typecheck.log",
+    "docs/review/evidence/pr-03/author-r1.json",
+    "docs/review/evidence/pr-03/author-r1.md",
+    "tests/pr03/quality-availability.pg.spec.ts"
+  ],
+  "newScopeExpansion": [],
+  "pgTestPreimageSha256": "701a421a03853afb8799e3ad6dfe934445a083e1d9f14cdc745eb2be2bf7a549",
+  "pgTestPostimageSha256": "a725cf13f9bae612a7a3cee2ba618b5ad4ce9cd637550eb1824ba1dc5b2e5184",
+  "fixtureReferenceChanges": [
+    {
+      "site": "module fixture constants",
+      "before": "PR03-W / PR03-L1 / PR03-L2 literals at their use sites",
+      "after": "warehouseCode='0301'; locationCode=`${warehouseCode}0001`; location2Code=`${warehouseCode}0002`",
+      "meaning": "One legal warehouse and two distinct legal NORMAL locations; identity/role of each location is retained."
+    },
+    {
+      "site": "beforeAll user/department selection",
+      "before": "user_account selection without dept_id or organization ancestry validation",
+      "after": "Select each seeded user dept_id through active department and plant org_node rows, same enterprise and department path under its own plant; require both users in the same enterprise and factory.",
+      "meaning": "Real seeded ownership; no invented department IDs, altered roles, permission grants or auth construction."
+    },
+    {
+      "site": "beforeAll warehouse INSERT",
+      "before": "Missing dept_id/material_types; code PR03-W",
+      "after": "dept_id=first.dept_id (szqc01 / DEPT-SZ-QC); material_types=ARRAY[3]::integer[]; code=warehouseCode",
+      "meaning": "Matches unchanged material_type=3 and the current mandatory/check constraints."
+    },
+    {
+      "site": "beforeAll storage_location INSERT",
+      "before": "PR03-L1 and PR03-L2",
+      "after": "Parameterized locationCode=03010001 and location2Code=03010002",
+      "meaning": "Both remain NORMAL locations under the same actual warehouse."
+    },
+    {
+      "site": "beforeAll location ID lookup",
+      "before": "find by 'PR03-L1' / 'PR03-L2'",
+      "after": "find by the shared locationCode / location2Code constants",
+      "meaning": "locationId and location2Id continue to refer to distinct actual inserted rows; the foreign-location reservation counterexample is unchanged."
+    },
+    {
+      "site": "stock() inventory.receive-goods payload",
+      "before": "locationCode: 'PR03-L1'",
+      "after": "locationCode (03010001)",
+      "meaning": "Exactly one payload fixture-code reference changes; locationId and code now match the actual first location. Payload bytes are not claimed unchanged."
+    },
+    {
+      "site": "beforeAll production department reference",
+      "before": "org_node lookup by code='DEPT-SZ-JZ' only",
+      "after": "deptId=second.dept_id (szws01 / the same seeded DEPT-SZ-JZ), validated in the user/department query",
+      "meaning": "Keeps the original production department used by the inventory/AI consistency fixtures, with explicit own-factory ancestry."
+    }
+  ],
+  "canonicalSourcesReadAtExactParent": [
+    {
+      "path": "packages/persistence/src/migrations/0002-org-auth.ts",
+      "sha256": "016d25ecc426545ba7e35964c7c6229f65215e05c861907b02b04beec0dcb793",
+      "gitBlobSha": "8b080ca021d947915627b90c9818de3256ab4196",
+      "unchanged": true
+    },
+    {
+      "path": "packages/persistence/src/migrations/0003-master-data.ts",
+      "sha256": "ff06a17e0a4483323ed57088a1fa9781bcc41207f8cc14fcf5165c920b5a36da",
+      "gitBlobSha": "0118be9fe642ac5dbe39c6b75e5fc31e828ca01a",
+      "unchanged": true
+    },
+    {
+      "path": "packages/persistence/src/seed.ts",
+      "sha256": "edddf0117127c209ba25f71c414b02871c1223f0b819ccc57c571673da6292a0",
+      "gitBlobSha": "fba92e5419a7a73bb2554428f9e27556fdfb92e4",
+      "unchanged": true
+    }
+  ],
+  "controllerR0Preserved": {
+    "decision": "REWORK",
+    "reason": "Canonical-schema-invalid PG initialization, statically confirmed; no PR3 PG case executed",
+    "pgStatus": "NOT_RUN_STATIC_FIXTURE_BLOCKED",
+    "pgInvoked": false,
+    "pgBusinessExecuted": 0,
+    "pgRuntimeSkipped": 0,
+    "notAnExecutedPr03PgFailure": true,
+    "evidence": [
+      {
+        "path": "docs/review/evidence/pr-03/controller-r0-fixture-check.json",
+        "sha256": "62a664afa99033e022b500cbec9cd3af7102eeab2a8b251928b731cc635ecfef",
+        "gitBlobSha": "0f9581753364fe76e1aecdb65a3de12e1c2d34b4",
+        "unchanged": true
+      },
+      {
+        "path": "docs/review/evidence/pr-03/controller-r0.json",
+        "sha256": "fd57e46f020235a69b032246d9ff5dd1341ba29be4dcb5855a35a41ccc105814",
+        "gitBlobSha": "885a2673e787b68622b93d590728a9772403e533",
+        "unchanged": true
+      },
+      {
+        "path": "docs/review/evidence/pr-03/controller-r0.md",
+        "sha256": "b048fb4998913c1af6e191c43117aad0e697b3f3856b3a7aca9f9150678b5777",
+        "gitBlobSha": "eb4abc09108261e39ac9e4ea2f14396e037614d1",
+        "unchanged": true
+      }
+    ],
+    "scopeExtensionAlreadyAllowed": {
+      "decision": "ALLOW_MINIMUM_SCOPE_EXTENSION",
+      "path": "packages/persistence/src/inventory-repositories.ts",
+      "reason": "Required C3/C7/I09 actual active-quality-hold lookup in existing shared inventory repository and existing reservation.created_by mapping; reviewed actual nine-line source delta. No schema, roles, composition replacement, historical writes or additional business-release policy.",
+      "authority": "same project controller scope/integration under existing 15PR authorization",
+      "productAcceptance": "PENDING"
+    },
+    "r1DoesNotChangePreviouslyAllowedProductExtension": true
+  },
+  "verification": {
+    "freshTestSourceTypecheck": {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr03/tsconfig.json",
+        "--noEmit"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr3-r1-work",
+      "startedUtc": "2026-11-04T02:23:56.697730+00:00",
+      "finishedUtc": "2026-11-04T02:24:03.535106+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-03/author-r1-tests-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "outputBytes": 0,
+      "status": "PASS"
+    },
+    "staticPreservationAndSyntax": {
+      "kind": "Static syntax, scope and preservation; no PostgreSQL execution",
+      "preimageSha256": "701a421a03853afb8799e3ad6dfe934445a083e1d9f14cdc745eb2be2bf7a549",
+      "postimageSha256": "a725cf13f9bae612a7a3cee2ba618b5ad4ce9cd637550eb1824ba1dc5b2e5184",
+      "parseDiagnostics": 0,
+      "plannedCasesStaticOnly": 32,
+      "testRegistration": {
+        "expandedBusinessCases": 32,
+        "itSites": 21,
+        "literalLoopSizes": [
+          3,
+          2,
+          2,
+          4
+        ]
+      },
+      "businessDescribeBodiesByteIdentical": true,
+      "businessDescribeBodiesSha256": "42d86b55dc25cd23878e88e5fca161ff5158b5dd55d436a1e16f8d4989642bd6",
+      "unchangedHelpers": [
+        "committed",
+        "snapshot",
+        "denied",
+        "inspection",
+        "result",
+        "hold",
+        "restore",
+        "reserve",
+        "balance",
+        "businessHold",
+        "readyShipment"
+      ],
+      "stockChange": "Only locationCode: 'PR03-L1' -> shared locationCode constant (03010001)",
+      "changedRegions": [
+        "three fixture code constants",
+        "stock() receive-goods locationCode reference",
+        "beforeAll() users/department ancestry and warehouse/location setup"
+      ],
+      "allOtherBytesIdenticalAfterExplicitRegionNormalization": true,
+      "permissionsGrantsAndAuthConstructionByteIdentical": true,
+      "emptyDatabaseGateByteIdentical": true,
+      "commandBusSetupAndFullTableSnapshotBuilderByteIdentical": true,
+      "obsoleteFixtureCodesRemaining": 0,
+      "candidateChangedForInventoryToolCorrection": false,
+      "initialInventoryToolFailure": {
+        "check": "Local static test-registration inventory",
+        "exitCode": 1,
+        "error": "AssertionError [ERR_ASSERTION]: Unexpected nonliteral test loop",
+        "cause": "The first inventory walker traversed all module functions and reached readyShipment()'s runtime stocks.entries() loop. It must inventory only top-level describe() registration callbacks.",
+        "candidateChangedToResolve": false,
+        "pgInvoked": false,
+        "businessTestFailure": false,
+        "correction": "Restrict the static case-count walker to the existing describe() registration bodies; preserve the original candidate bytes."
+      }
+    },
+    "parentBinding": {
+      "combinedPostimagesMatchedExactParent": 50,
+      "originalFrozenCombinedManifestMatches": 49,
+      "oneInheritedDifference": "The accepted PR02 R1 PG fixture, retained exactly in this parent and candidate.",
+      "otherCombinedParentPostimagesUnchangedByR1": 49,
+      "otherOwnedSourceAndTestFilesUnchangedByR1": 15,
+      "controllerAndAuthorR0EvidenceUnchanged": true
+    },
+    "reusedControllerPr03R0Evidence": {
+      "head": "62b95cab58c249e88d52481605fa293686cae87d",
+      "unitAndDomainRegression": {
+        "passed": 46,
+        "failed": 0,
+        "skipped": 0,
+        "rerunInR1": false
+      },
+      "applicationTypes": "PASS, unchanged product source; not rerun in R1",
+      "persistenceTypes": "PASS, unchanged product source; not rerun in R1",
+      "boundary": "Rules/domain and type evidence only; no actual PG acceptance."
+    },
+    "pr03RealPg": {
+      "status": "NOT_RUN_MISSING_TASK_OWNED_PG",
+      "suiteInvoked": false,
+      "plannedCasesStaticOnly": 32,
+      "businessExecuted": 0,
+      "runtimeSummary": null,
+      "requiredDatabase": "A NEW empty exclusive cadenza_pr03_* database supplied through CADENZA_PR03_TEST_DB_URL.",
+      "command": "pnpm exec vitest run --config tests/pr03/vitest.config.ts tests/pr03/quality-availability.pg.spec.ts --reporter=verbose"
+    },
+    "pr02RegressionOnThisCumulativeCandidate": {
+      "status": "NOT_RUN_MISSING_SEPARATE_TASK_OWNED_PG",
+      "suiteInvoked": false,
+      "plannedCasesFromAcceptedSuite": 129,
+      "businessExecuted": 0,
+      "runtimeSummary": null,
+      "requiredDatabase": "A separate NEW empty exclusive cadenza_pr02_* database supplied through CADENZA_PR02_TEST_DB_URL; never reuse PR03, PR02 R0 or PR02 R1 databases.",
+      "command": "pnpm exec vitest run --config tests/pr02/vitest.config.ts tests/pr02/object-write-scope.pg.spec.ts --reporter=verbose",
+      "reason": "PR03 changes shared product paths, so accepted PR02 evidence at its own head is not automatically regression acceptance of this cumulative candidate."
+    },
+    "environment": {
+      "explicitPr03UrlPresent": false,
+      "explicitPr02UrlPresent": false,
+      "postgres": null,
+      "psql": null,
+      "docker": null,
+      "dependencySource": "Existing local cache; no install or PG runtime added for this revision"
+    }
+  },
+  "remainingBoundaries": [
+    "Only this PG fixture test and three new author evidence files change; no product, permission policy, migration, frozen contract, PR02 or other PR change.",
+    "All 32 business describe bodies and assertions are byte-identical. The stock() payload location-code reference and beforeAll setup are explicitly changed and enumerated.",
+    "No business case removed, skipped, substituted with a double or newly claimed as a pass.",
+    "Existing R0 author/controller originals, including NOT_RUN/static-blocker evidence, remain unchanged.",
+    "No old/production DB, external paid/model/channel/SAP/device/site operation, GitHub write, merge, release or deployment.",
+    "Installation/cold-build/old-database/real-external/independent-R6 boundaries remain unaccepted here.",
+    "PR03 engineering acceptance remains with the controller after real isolated PG and cumulative PR02 regression."
+  ]
+}

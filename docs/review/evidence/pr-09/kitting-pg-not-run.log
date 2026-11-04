@@ -1,0 +1,24 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-work
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:16:51
+   Duration  3.52s (transform 2.33s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 66ms)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr09/kitting.pg.spec.ts [ tests/pr09/kitting.pg.spec.ts ]
+Error: NOT_RUN: CADENZA_PR09_TEST_DB_URL must name a NEW empty cadenza_pr09_* PostgreSQL database
+ ❯ tests/pr09/kitting.pg.spec.ts:10:82
+      8| import { seedExecutionFixtures,seedOrder,type ExecutionFixtureIds,LOC_…
+      9| const url=process.env['CADENZA_PR09_TEST_DB_URL']
+     10| if(!url||!/^cadenza_pr09_[a-z0-9_]+$/.test(new URL(url).pathname.slice…
+       |                                                                                  ^
+     11| const pool=createPool(url,{max:8}),oldBasis=process.env['CADENZA_KITTI…
+     12| let fx:ExecutionFixtureIds,actor:CommandContext,other:CommandContext,g…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

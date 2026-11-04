@@ -1,0 +1,49 @@
+{
+  "status": "SOURCE_APPLIED_CONTROLLER_PENDING",
+  "originalParent": "ca1392c721cf071826badb648a4dba15f2c7d866",
+  "acceptedPr02Head": "0df991eac99a61132e50c10d8931d3532945dab2",
+  "cumulativeParent": "c5f1ca6a85e866bd3aa9e974897ae8d7fca6fc3b",
+  "mergeLog": "PR03-ACCEPTED-PR02-MERGE.log",
+  "pr03IncrementSha256": "e5b66e32d71244ba938ac95a22d695f3b2b386936585aa184800a916de53c143",
+  "ownedPostimagesMatched": 24,
+  "originalManifestPostimagesMatched": 49,
+  "originalManifestPostimagesTotal": 50,
+  "intentionalAcceptedPrerequisiteDelta": {
+    "path": "tests/pr02/object-write-scope.pg.spec.ts",
+    "acceptedSourceCommit": "05b5913688cf028dd09784eba7294284522d1a15",
+    "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1",
+    "reason": "PR2 R1 fixture accepted after frozen PR3 package; retained exact accepted bytes by actual Git ancestor merge, no internal test rewriting"
+  },
+  "ownedSourceAndTestSha256": "5cd5ded5590fa2e08726850278dcb29b56113562a088bbd43029f48081cdaf90",
+  "scopeDecision": "PR03-SCOPE-DECISION.json",
+  "worktree": "/Users/yeemio/AI/workspaces/Cadenza-pr03-20261104",
+  "decision": "REWORK",
+  "reason": "Canonical-schema-invalid PG initialization, statically confirmed; no PR3 PG case executed",
+  "checks": {
+    "unitAndDomainRegression": {
+      "passed": 46,
+      "failed": 0,
+      "skipped": 0
+    },
+    "applicationTypes": "PASS",
+    "persistenceTypes": "PASS",
+    "testSourceTypes": "PASS",
+    "pg": {
+      "status": "NOT_RUN_STATIC_FIXTURE_BLOCKED",
+      "planned": 32,
+      "executed": 0,
+      "skipped": 0
+    }
+  },
+  "scopeExtensionDecision": {
+    "decision": "ALLOW_MINIMUM_SCOPE_EXTENSION",
+    "path": "packages/persistence/src/inventory-repositories.ts",
+    "reason": "Required C3/C7/I09 actual active-quality-hold lookup in existing shared inventory repository and existing reservation.created_by mapping; reviewed actual nine-line source delta. No schema, roles, composition replacement, historical writes or additional business-release policy.",
+    "authority": "same project controller scope/integration under existing 15PR authorization",
+    "productAcceptance": "PENDING"
+  },
+  "fixtureEvidence": "docs/review/evidence/pr-03/controller-r0-fixture-check.json",
+  "repairOwner": "same ordinary Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "controllerDidNotModifyAuthorProductOrTests": true,
+  "nextVerification": "Real PR03 PG suite after narrow fixture repair; PR02 real PG regression on this changed shared-product candidate must bind separate new database, without invalidating accepted PR02 own head."
+}

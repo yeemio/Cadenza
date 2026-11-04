@@ -1,0 +1,389 @@
+{
+  "delivery": "Cadenza-PR09-R1",
+  "revision": "AUTHOR_R1_FIXTURE_ONLY",
+  "status": "FIXTURE_SOURCE_READY_TEST_TYPES_NOT_RUN_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalPr": 9,
+  "originalBranch": "codex/fix-09-group-kitting",
+  "exactParentHead": "9d261c274291e4aa17c31200e84572f81acf2e63",
+  "parentTestedSourceCommit": "a198d13b3aab72e32bd78f0a11760803c5134c14",
+  "parentSourceTestFingerprint": "3669c18adb85a2b62ab714474f3de9fc1cf809640d6c34add62d683973d00eba",
+  "acceptedPrerequisiteAlreadyInParent": "2b78fc41c4bb71a1da9f4c418f52500a323684da",
+  "prerequisiteApplication": "Accepted PR3 and its accepted PR2 prerequisite are already in the exact parent; do not reapply or substitute PR8 product paths.",
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "30533aac3558acea38fda9c862e574334c7c1c53e594f28c1a64b37aa4812c7a",
+    "pathCount": 8,
+    "samePathSetAsParent": true,
+    "files": [
+      {
+        "path": "packages/application/src/group-handlers.ts",
+        "bytes": 23056,
+        "sha256": "4364ae9c4ba84539a158925f27f733a8b7697b75cc6ddabcf2f613313288da8b",
+        "parentSha256": "4364ae9c4ba84539a158925f27f733a8b7697b75cc6ddabcf2f613313288da8b",
+        "parentGitBlobSha": "f8f059099a25bc3d5dd76b5bb5cdf0aea94f09e8",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "packages/application/src/group-queries.ts",
+        "bytes": 5114,
+        "sha256": "0f88a0b6b2c1cefc6439df3e77780c6e2d7a6c3689a8db483e1bb80e020d9f8d",
+        "parentSha256": "0f88a0b6b2c1cefc6439df3e77780c6e2d7a6c3689a8db483e1bb80e020d9f8d",
+        "parentGitBlobSha": "e627d6f540cc29a89f3b344fde8200679d96a681",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "packages/application/src/group-repositories.ts",
+        "bytes": 9000,
+        "sha256": "4ebc13e626db51128daadcaa2f3f9667a3099cb34f0fd75143d0f57f1e902046",
+        "parentSha256": "4ebc13e626db51128daadcaa2f3f9667a3099cb34f0fd75143d0f57f1e902046",
+        "parentGitBlobSha": "a13cf116fa2e0f2a7d8365cedbb75ca970671706",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "packages/persistence/src/group-repositories.ts",
+        "bytes": 22419,
+        "sha256": "1e84b6ddf4f7adaf7f9f32a72da5bf78a471a4058691d549ff3d34c276ba870d",
+        "parentSha256": "1e84b6ddf4f7adaf7f9f32a72da5bf78a471a4058691d549ff3d34c276ba870d",
+        "parentGitBlobSha": "d0c429e392e67d5b5bddbcb92d960f8c1a136e54",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr09/kitting.pg.spec.ts",
+        "bytes": 13319,
+        "sha256": "a304980932f96cd0acff1d65592111de8a21a2ae0eb643d0236477d8c1abd622",
+        "parentSha256": "11645af5ca7de0c0db4baa98183a9310aca8915d22c3fccd8a45a20151c8976c",
+        "parentGitBlobSha": "498b6847cde0b2a58115142e72017b30d3b0c671",
+        "unchangedFromParent": false
+      },
+      {
+        "path": "tests/pr09/kitting.unit.spec.ts",
+        "bytes": 6272,
+        "sha256": "b90316a9060f9a5b4f7c103e938e0664091c69813f52c00700cdeacee644d5f5",
+        "parentSha256": "b90316a9060f9a5b4f7c103e938e0664091c69813f52c00700cdeacee644d5f5",
+        "parentGitBlobSha": "ec32435930efdd4bca10497dddcc61b44a3931ef",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr09/tsconfig.json",
+        "bytes": 161,
+        "sha256": "2bee9518c53ac2921e1697b3642583be1ea1aefda8a5836bca47d900e6a4e77a",
+        "parentSha256": "2bee9518c53ac2921e1697b3642583be1ea1aefda8a5836bca47d900e6a4e77a",
+        "parentGitBlobSha": "6927cdc33f769b1e975e0dbd19653fceec8049d4",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr09/vitest.config.ts",
+        "bytes": 225,
+        "sha256": "015261ef40c2d3baf9ae48eb7403ceb8543aba5fb5c9ec17e489d5fdd7ea7420",
+        "parentSha256": "015261ef40c2d3baf9ae48eb7403ceb8543aba5fb5c9ec17e489d5fdd7ea7420",
+        "parentGitBlobSha": "24660f96c33472d893abc4aa41545742b9b1d4c9",
+        "unchangedFromParent": true
+      }
+    ]
+  },
+  "changedPaths": [
+    "docs/review/evidence/pr-09/author-r1-checks.json",
+    "docs/review/evidence/pr-09/author-r1-environment.json",
+    "docs/review/evidence/pr-09/author-r1-fixture-check.log",
+    "docs/review/evidence/pr-09/author-r1-fixture-check.py",
+    "docs/review/evidence/pr-09/author-r1-syntax-only.log",
+    "docs/review/evidence/pr-09/author-r1.json",
+    "docs/review/evidence/pr-09/author-r1.md",
+    "tests/pr09/kitting.pg.spec.ts"
+  ],
+  "onlyChangedSourcePath": "tests/pr09/kitting.pg.spec.ts",
+  "repair": {
+    "foreignPlant": "PLNT-HF",
+    "foreignDepartment": "DEPT-HF-JZ",
+    "departmentLookup": "Same plant parent_id/parent_kind and fx.enterpriseId predicates; existing seed department only.",
+    "warehouseCode": "9309",
+    "warehouseNameUnchanged": "P09-B",
+    "warehouseMaterialTypes": [
+      1
+    ],
+    "stockMaterialType": 1,
+    "locationKind": "NORMAL",
+    "locationCode": "93090001",
+    "stockReference": "Only the foreign branch uses LOC_B_CODE; the local branch and command bus flow are unchanged.",
+    "exactTextEdits": [
+      {
+        "name": "legal foreign warehouse and derived NORMAL location constants",
+        "before": "const bases:Record<string,{outputQuantity:string;outputUom:string}>={}\n",
+        "after": "const bases:Record<string,{outputQuantity:string;outputUom:string}>={}\nconst WH_B_CODE='9309',LOC_B_CODE=`${WH_B_CODE}0001`\n"
+      },
+      {
+        "name": "stock helper references the actual foreign NORMAL location code",
+        "before": "locationCode:options.foreign?'P09-B':LOC_LINE_SEMI_CODE",
+        "after": "locationCode:options.foreign?LOC_B_CODE:LOC_LINE_SEMI_CODE"
+      },
+      {
+        "name": "same-factory seed department and required warehouse columns",
+        "before": "  const whB=await one(`INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type) VALUES($1,$2,'P09-B','P09-B','WAREHOUSE') RETURNING id`,[fx.enterpriseId,plantB])\n",
+        "after": "  const deptB=await one(\"SELECT id FROM org_node WHERE code='DEPT-HF-JZ' AND kind='department' AND parent_kind='plant' AND parent_id=$1 AND enterprise_id=$2\",[plantB,fx.enterpriseId])\n  const whB=await one(`INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types) VALUES($1,$2,$3,$4,'P09-B','WAREHOUSE',ARRAY[1]) RETURNING id`,[fx.enterpriseId,plantB,deptB,WH_B_CODE])\n"
+      },
+      {
+        "name": "NORMAL location INSERT uses the same derived code",
+        "before": "  locB=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL','P09-B') RETURNING id`,[fx.enterpriseId,plantB,whB])\n",
+        "after": "  locB=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL',$4) RETURNING id`,[fx.enterpriseId,plantB,whB,LOC_B_CODE])\n"
+      }
+    ]
+  },
+  "preservation": {
+    "registeredScenarios": 16,
+    "plainIt": 13,
+    "itEachRows": 3,
+    "fullDescribeBytes": 5864,
+    "fullDescribeSha256": "6717a9b2a1e60364092a42b647af641832c7b85fc35e5c10c7b0d2444f511335",
+    "fullDescribeAndAfterAllByteIdentical": true,
+    "allAssertionLinesByteIdentical": true,
+    "otherSourceTestPathsUnchanged": 7,
+    "unchangedMaterializedParentFiles": 1091,
+    "allParentMaterializedGitBlobsVerified": true,
+    "notAFullRepositoryCheckout": true,
+    "protectedInputs": [
+      {
+        "path": "packages/application/src/inventory-posting.ts",
+        "sha256": "97d6fb28cf3e204c53d27671ef8e5fe0410ff3c9e3058b6464f4256dd21bb200"
+      },
+      {
+        "path": "tests/pr02/object-write-scope.pg.spec.ts",
+        "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1"
+      },
+      {
+        "path": "tests/pr03/quality-availability.pg.spec.ts",
+        "sha256": "e73ebd0dc1d5b2ffd26cb3e98e0f9eead8c80f7eb612fb3c74b720a7b38fb0e0"
+      },
+      {
+        "path": "packages/persistence/src/seed.ts",
+        "sha256": "edddf0117127c209ba25f71c414b02871c1223f0b819ccc57c571673da6292a0"
+      },
+      {
+        "path": "packages/persistence/src/migrations/0003-master-data.ts",
+        "sha256": "ff06a17e0a4483323ed57088a1fa9781bcc41207f8cc14fcf5165c920b5a36da"
+      }
+    ],
+    "productsMigrationsContractsRolesAndMathUnchanged": true,
+    "realCommandBusesAndNoFinalStateBypass": true,
+    "sourceProof": "docs/review/evidence/pr-09/author-r1-fixture-check.log"
+  },
+  "checks": {
+    "fixturePreservationAndCodeExpressionEvaluation": {
+      "status": "PASS_STATIC_PRESERVATION_ONLY",
+      "command": [
+        "python3",
+        "docs/review/evidence/pr-09/author-r1-fixture-check.py",
+        "--parent",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-r1-base",
+        "--candidate",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-r1-work"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-r1-work",
+      "startedAtUtc": "2026-11-04T08:52:53.969831+00:00",
+      "finishedAtUtc": "2026-11-04T08:52:54.248389+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-09/author-r1-fixture-check.log",
+      "logSha256": "2351477a6fc7abd0e12624d638eca0afce12db14cbe246c99d385066e7cefd4f",
+      "stdoutBytes": 5714,
+      "stderrBytes": 0
+    },
+    "syntaxOnly": {
+      "status": "PASS_SYNTAX_ONLY",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--input-type=module",
+        "-e",
+        "import fs from 'node:fs';\nimport {stripTypeScriptTypes} from 'node:module';\nimport {spawnSync} from 'node:child_process';\nimport {createHash} from 'node:crypto';\nconst path=process.argv[1];\nconst source=fs.readFileSync(path,'utf8');\nconst output=stripTypeScriptTypes(source,{mode:'transform',sourceUrl:path});\nconst parsed=spawnSync(process.execPath,['--input-type=module','--check'],{input:output,encoding:'utf8'});\nconsole.log(JSON.stringify({status:parsed.status===0?'PASS_SYNTAX_ONLY':'FAIL',node:process.version,sourcePath:path,sourceSha256:createHash('sha256').update(source).digest('hex'),transformedBytes:Buffer.byteLength(output),parserCommand:[process.execPath,'--input-type=module','--check'],parserExitCode:parsed.status,parserStdout:parsed.stdout,parserStderr:parsed.stderr,importResolutionRun:false,typeCheckerInvoked:false,businessRunnerInvoked:false,pgInvoked:false},null,2));\nprocess.exitCode=parsed.status??1;\n",
+        "tests/pr09/kitting.pg.spec.ts"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-r1-work",
+      "startedAtUtc": "2026-11-04T08:52:53.982970+00:00",
+      "finishedAtUtc": "2026-11-04T08:52:54.245182+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-09/author-r1-syntax-only.log",
+      "logSha256": "be3ccd69701db5ad0339f819df835dac995af709d35802a71402f8e945c0310a",
+      "stdout": "{\n  \"status\": \"PASS_SYNTAX_ONLY\",\n  \"node\": \"v24.22.1\",\n  \"sourcePath\": \"tests/pr09/kitting.pg.spec.ts\",\n  \"sourceSha256\": \"a304980932f96cd0acff1d65592111de8a21a2ae0eb643d0236477d8c1abd622\",\n  \"transformedBytes\": 16804,\n  \"parserCommand\": [\n    \"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node\",\n    \"--input-type=module\",\n    \"--check\"\n  ],\n  \"parserExitCode\": 0,\n  \"parserStdout\": \"\",\n  \"parserStderr\": \"\",\n  \"importResolutionRun\": false,\n  \"typeCheckerInvoked\": false,\n  \"businessRunnerInvoked\": false,\n  \"pgInvoked\": false\n}\n",
+      "stderr": "(node:7) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    "changedTestSourceTypecheck": {
+      "status": "NOT_RUN",
+      "compilerInvoked": false,
+      "compilerExitCode": null,
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr09/tsconfig.json",
+        "--noEmit"
+      ],
+      "reason": "Missing project TypeScript/Vitest dependencies. Syntax-only validation is not a semantic typecheck.",
+      "environmentEvidence": "docs/review/evidence/pr-09/author-r1-environment.json"
+    },
+    "businessPg": {
+      "status": "NOT_RUN",
+      "plannedRegisteredScenarios": 16,
+      "executed": 0,
+      "runtimeSkipped": 0,
+      "runnerInvoked": false,
+      "databaseCreated": false,
+      "taskDatabaseEnvironment": "CADENZA_PR09_TEST_DB_URL",
+      "newEmptyDatabasePattern": "cadenza_pr09_*",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/pr09/vitest.config.ts",
+        "tests/pr09/kitting.pg.spec.ts",
+        "--reporter=verbose"
+      ],
+      "reason": "No dedicated PR09 PostgreSQL database or complete project runtime dependencies in the author environment.",
+      "oldOrProductionDatabaseAccessed": false,
+      "r0WasStaticFixtureBlock": true,
+      "r0WasNotAnExecutedPgFailure": true
+    }
+  },
+  "reusedLocalCases": 28,
+  "reusedEvidence": [
+    {
+      "name": "application-typecheck-final-measurement",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-09/application-typecheck-final-measurement.log",
+      "status": "REUSE_EXACT_PARENT_INPUTS_NOT_NEW_EXECUTION",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executedInR1": false
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-09/persistence-typecheck-final.log",
+      "status": "REUSE_EXACT_PARENT_INPUTS_NOT_NEW_EXECUTION",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executedInR1": false
+    },
+    {
+      "name": "kitting-unit-final-measurement",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr09/vitest.config.ts tests/pr09/kitting.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-09/kitting-unit-final-measurement.log",
+      "status": "REUSE_EXACT_PARENT_INPUTS_NOT_NEW_EXECUTION",
+      "logSha256": "315bf692a35ae2cf73db18f420a66ccb75c9856663fa3818e5fe1a50acf2da2f",
+      "executedInR1": false
+    }
+  ],
+  "historicalTestTypeEvidence": {
+    "name": "tests-typecheck-final-measurement",
+    "command": "node node_modules/typescript/bin/tsc -p tests/pr09/tsconfig.json --noEmit",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-09/tests-typecheck-final-measurement.log",
+    "status": "PRESERVED_HISTORICAL_NOT_COVERING_CHANGED_R1_PG_TEST",
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "executedInR1": false
+  },
+  "protectedPriorPr09Evidence": [
+    {
+      "path": "docs/review/evidence/pr-09/application-typecheck-final-measurement.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/application-typecheck-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/application-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/author-r0.json",
+      "bytes": 6201,
+      "sha256": "84c4687483ec58ac467c095517556b627319b6d11ca4614bd1ee818030a35728"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/author-r0.md",
+      "bytes": 4302,
+      "sha256": "0747f7662a20e15147a91a0065f20d816edf2ca40e1b075c39e7caaf40919aa6"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/controller-r0-fixture-check.json",
+      "bytes": 549,
+      "sha256": "0c9d994ad22cf2cb7ab36e5ee670c66e543e94c328965c199130963588cf9b09"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/controller-r0.json",
+      "bytes": 4611,
+      "sha256": "03fa268161254178d55bac558bdf2c93e423e1813f70cc01755c5db1dff4b4b1"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/controller-r0.md",
+      "bytes": 1254,
+      "sha256": "e158652e3bece089b95a5225c6c3f979b52890ec05b9c8be6609582790fe878e"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/kitting-pg-not-run.log",
+      "bytes": 1087,
+      "sha256": "01601c3b1e1489e67c49b18ef7824048df33187fbb5e88b2c3c342b13de9a86c"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/kitting-unit-final-measurement.log",
+      "bytes": 5190,
+      "sha256": "315bf692a35ae2cf73db18f420a66ccb75c9856663fa3818e5fe1a50acf2da2f"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/kitting-unit-final.log",
+      "bytes": 4580,
+      "sha256": "18fd3c18a15aa3279a83a15e252bdf05e19af34e32b6141537efdbb4eb0e5864"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/kitting-unit.log",
+      "bytes": 4581,
+      "sha256": "dbd689c62e9aa266d17cc646a5f480f168f6c8d053c72332c013c4aa17ffc375"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/persistence-typecheck-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/persistence-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/tests-typecheck-final-measurement.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/review/evidence/pr-09/tests-typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "parentKnownFixtureBlock": {
+    "status": "NOT_RUN_STATIC_FIXTURE_BLOCK",
+    "planned": 16,
+    "executed": 0,
+    "runtimeSkipped": 0,
+    "newDatabaseCreated": false,
+    "path": "tests/pr09/kitting.pg.spec.ts",
+    "root": "beforeAll foreign warehouse omits dept_id/material_types, uses P09-B rather than canonical four numeric digits; foreign location P09-B also invalid six/eight-digit code",
+    "canonicalSource": "packages/persistence/src/migrations/0003-master-data.ts",
+    "reason": "Same already proven deterministic canonical initialization defect; no repeat failed PG start."
+  },
+  "authoritativeCurrentReceipt": "docs/review/evidence/pr-09/author-r1.json",
+  "controllerAccepted": false,
+  "remoteWrite": "NOT_ATTEMPTED",
+  "sourceCommitCreated": false,
+  "next": "Controller applies this increment at the exact parent, verifies all postimages and the 8-path fingerprint, runs changed test-source types and all 16 missing PG cases in a new empty cadenza_pr09_* database. Reuse unchanged 28 calculation cases and app/persistence types.",
+  "limits": [
+    "Static preservation and syntax are not PostgreSQL, business, concurrency, or full TypeScript passes.",
+    "PR8 R2 remains separately frozen and pending controller verification; it is not included in this PR9 increment.",
+    "No new source author, no subtask, no original13 bundle rebuild, no accepted PR rework.",
+    "No release, deployment, installed-site behavior, E02 history or independent R6 evidence claim."
+  ]
+}

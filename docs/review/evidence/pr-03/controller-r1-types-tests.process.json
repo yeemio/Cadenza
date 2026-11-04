@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tests/pr03/tsconfig.json",
+    "--noEmit"
+  ],
+  "startedUtc": "2026-11-04T02:36:57.115634+00:00",
+  "finishedUtc": "2026-11-04T02:36:58.735652+00:00",
+  "exitCode": 0,
+  "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

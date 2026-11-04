@@ -1,0 +1,88 @@
+{
+  "pr": 9,
+  "originalParent": "b30eba3e364d32fb26f97f458c61eb3d464d5943",
+  "acceptedPrerequisite": "2b78fc41c4bb71a1da9f4c418f52500a323684da",
+  "cumulativeParent": "ea8b67abfd4cc827766ec96b7d28a6e74edac9d4",
+  "incrementSha256": "a76b0ff3aab694be12b0adb9d7ff9d7690a77a4c843853f8c3bb49b8f4160489",
+  "sourceCommit": "a198d13b3aab72e32bd78f0a11760803c5134c14",
+  "sourceAndTestFingerprint": "3669c18adb85a2b62ab714474f3de9fc1cf809640d6c34add62d683973d00eba",
+  "ownPostimagesMatched": 21,
+  "combinedPostimagesMatched": 68,
+  "combinedCount": 71,
+  "expectedInheritedDifferences": [
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "actualSha256": "97d6fb28cf3e204c53d27671ef8e5fe0410ff3c9e3058b6464f4256dd21bb200",
+      "authorSha256": "8604250f9b7a744dda451b7519032bdc7facd0b2ac26ec2df55ca9edb3df8d5f"
+    },
+    {
+      "path": "tests/pr02/object-write-scope.pg.spec.ts",
+      "actualSha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1",
+      "authorSha256": "448acab0cfda3cd8b646ba20851387b7729c78c317f60ce3ab9a50c081bd8631"
+    },
+    {
+      "path": "tests/pr03/quality-availability.pg.spec.ts",
+      "actualSha256": "e73ebd0dc1d5b2ffd26cb3e98e0f9eead8c80f7eb612fb3c74b720a7b38fb0e0",
+      "authorSha256": "701a421a03853afb8799e3ad6dfe934445a083e1d9f14cdc745eb2be2bf7a549"
+    }
+  ],
+  "scopeExtension": {
+    "path": "packages/application/src/group-queries.ts",
+    "decision": "ALLOW",
+    "reason": "One authenticated enterpriseId passed into the existing list filter; necessary same original factory/enterprise isolation guarantee; no other group behavior or role/schema change."
+  },
+  "status": "REWORK",
+  "localEffectiveReused": 28,
+  "reusedChecks": [
+    {
+      "name": "application-typecheck-final-measurement",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "application-typecheck-final-measurement.log",
+      "status": "PASS_REUSED_EXACT_COVERED_INPUTS",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "persistence-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "persistence-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_COVERED_INPUTS",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "tests-typecheck-final-measurement",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr09/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck-final-measurement.log",
+      "status": "PASS_REUSED_EXACT_COVERED_INPUTS",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "kitting-unit-final-measurement",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr09/vitest.config.ts tests/pr09/kitting.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "kitting-unit-final-measurement.log",
+      "status": "PASS_REUSED_EXACT_COVERED_INPUTS",
+      "logSha256": "315bf692a35ae2cf73db18f420a66ccb75c9856663fa3818e5fe1a50acf2da2f"
+    }
+  ],
+  "realPg": {
+    "status": "NOT_RUN_STATIC_FIXTURE_BLOCK",
+    "planned": 16,
+    "executed": 0,
+    "runtimeSkipped": 0,
+    "newDatabaseCreated": false,
+    "path": "tests/pr09/kitting.pg.spec.ts",
+    "root": "beforeAll foreign warehouse omits dept_id/material_types, uses P09-B rather than canonical four numeric digits; foreign location P09-B also invalid six/eight-digit code",
+    "canonicalSource": "packages/persistence/src/migrations/0003-master-data.ts",
+    "reason": "Same already proven deterministic canonical initialization defect; no repeat failed PG start."
+  },
+  "regressionDecision": "No shared product overwritten. Exact accepted PR2/PR3 prerequisite retained; own group-only source has unchanged covered inputs. Do not repeat unrelated PG regression.",
+  "next": "Same author narrow R1 fixture-only against published evidence head; preserve16 scenarios/assertions and all product/BOM/measurement/enterprise isolation. After stable patch run16 missing actual PG in new empty PR09 task DB.",
+  "limits": [
+    "Point-in-time FULL_ORDER_BOM vs CURRENT_FACTORY_UNRESERVED; not remaining-order calculation or a reservation",
+    "Real BOM output basis remains explicit server configuration; no assumption or installed-site configuration",
+    "No PR9 business PG pass, no external calls or old DB changes"
+  ]
+}
