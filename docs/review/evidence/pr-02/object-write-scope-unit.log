@@ -1,0 +1,25 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr2-work
+
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > allows the explicit local write grant 2ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects another factory in the same enterprise 1ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > does not turn group read into a write grant 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > does not combine enterprise read scope with a local write permission 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > keeps an existing explicit enterprise write grant inside its enterprise 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > does not trust a forged factory field on the object 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects a payload factory that disagrees with the actual object 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects disabled actors even if grants remain 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects an actor from a different enterprise 1ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > rejects a retired factory 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > ignores a foreign-enterprise grant 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > ignores a foreign-principal grant 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > ignores a retired grant 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > preserves the documented workshop-to-factory permission scope 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > fails closed on cyclic workshop ancestry 0ms
+ ✓ tests/pr02/object-write-scope.unit.spec.ts > PR02 repository-backed permission and actual object scope (unit evidence only) > does not retain write access after grant revocation 0ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  22:17:00
+   Duration  253ms (transform 49ms, setup 0ms, collect 47ms, tests 8ms, environment 0ms, prepare 70ms)
+
