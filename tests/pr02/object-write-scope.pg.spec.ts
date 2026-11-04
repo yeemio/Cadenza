@@ -115,19 +115,31 @@ function receiptPayload(f: ReceiptFactory, line: Payload = { orderLineId: f.line
     details: [{ barcodeValue: `R${String(++barcodeSeq).padStart(9, '0')}`, quantity: '5.0000', supplierLotNo: 'PR02', grade: 'A' }] }
 }
 
-async function factory(login: string, tag: string): Promise<Factory> {
+async function factory(login: string, tag: 'A' | 'B' | 'C'): Promise<Factory> {
   const who = await actor(login)
+  // Use the seeded user's real department, with the same enterprise and plant ancestry.
+  const department = (await pool.query<{ id: string }>(
+    `SELECT d.id FROM user_account u
+     JOIN org_node d ON d.id=u.dept_id AND d.kind='department' AND d.status='active'
+     JOIN org_node p ON p.id=u.plant_id AND p.kind='plant' AND p.status='active'
+     WHERE u.id=$1 AND u.enterprise_id=$2 AND u.plant_id=$3
+       AND d.enterprise_id=u.enterprise_id AND p.enterprise_id=u.enterprise_id
+       AND d.path LIKE p.path || '%'`, [who.actorUserId, who.enterpriseId, who.plantId],
+  )).rows[0]
+  if (!department) throw new Error(`PR02 fixture actor ${login} has no active department in its own factory`)
   await grant(who, who.plantId, writes)
   const materialCode = `PR02-CU-${tag}`
   const materialId = (await pool.query<{ id: string }>(
     `INSERT INTO material(org_scope_id,code,name,material_type,base_uom,qc_flag,source_system,created_by)
      VALUES ($1,$2,$2,1,'KG',1,'PR02','pr02-fixture') RETURNING id`, [who.enterpriseId, materialCode],
   )).rows[0]!.id
+  const warehouseCode = ({ A: '0201', B: '0202', C: '0203' } as const)[tag]
   const warehouseId = (await pool.query<{ id: string }>(
-    `INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type,created_by)
-     VALUES ($1,$2,$3,$3,'WAREHOUSE','pr02-fixture') RETURNING id`, [who.enterpriseId, who.plantId, `PR02-WH-${tag}`],
+    `INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types,created_by)
+     VALUES ($1,$2,$3,$4,$5,'WAREHOUSE',ARRAY[1]::integer[],'pr02-fixture') RETURNING id`,
+    [who.enterpriseId, who.plantId, department.id, warehouseCode, `PR02-WH-${tag}`],
   )).rows[0]!.id
-  const locationCode = `PR02-LOC-${tag}`
+  const locationCode = `${warehouseCode}0001`
   const locationId = (await pool.query<{ id: string }>(
     `INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code,created_by)
      VALUES ($1,$2,$3,'NORMAL',$4,'pr02-fixture') RETURNING id`, [who.enterpriseId, who.plantId, warehouseId, locationCode],
