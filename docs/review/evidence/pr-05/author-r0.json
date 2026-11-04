@@ -1,0 +1,218 @@
+{
+  "pr": 5,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-05-ai-turn-ownership",
+  "exactRecordedParentHead": "f5c286b10ff0ae43082ef1a4bf65e38ef1d0faef",
+  "prerequisites": [
+    {
+      "pr": 3,
+      "sourceAndTestSha256": "5cd5ded5590fa2e08726850278dcb29b56113562a088bbd43029f48081cdaf90",
+      "selectedExactPostimages": [
+        {
+          "path": "packages/application/src/aiquery-repositories.ts",
+          "sha256": "05e5f6c3bb3ceef90c7af875e346ebe45da2f7621a9cf3b19ebf4fa2fd67f797"
+        },
+        {
+          "path": "packages/application/src/aiquery-service.ts",
+          "sha256": "a11c27eb29e781c1dd6b97e9ffb59472eb15f318baa43cbbe1a9910d4d58fc16"
+        },
+        {
+          "path": "packages/domain/src/inventory/availability.ts",
+          "sha256": "5e9ecae2acf29451173777ea65029492d7d4584bda796581821b1f5aeeb81eb7"
+        },
+        {
+          "path": "packages/persistence/src/aiquery-repositories.ts",
+          "sha256": "22f931f07ca0c25a3e89c5f4f5b6004533848b23c8741dc6d2ff8efb87d4e817"
+        }
+      ],
+      "reason": "PR05 contract requires rebinding shared AI paths; carry PR03 exact AI availability edits and their domain evaluator only, not unrelated changes.",
+      "status": "CANDIDATE_CONTROLLER_PENDING_NOT_ACCEPTED"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "b68b2c968844fe3a5153a902f3c6103fd19dd9a455ba9a88cda9bb52417092bf",
+    "files": [
+      {
+        "path": "apps/ai/src/orchestrator.ts",
+        "sha256": "a453fa4c61df3bc60cec0d5371817fad64a1e931c278be4c3a7d5a89f35ed9d1",
+        "parentSha256": "c86ec59d88b0a8fece95f41107766e6528e8db8f55b3467a4f9dc7b19e521241"
+      },
+      {
+        "path": "apps/api/src/aiquery/aiquery.turn-context.ts",
+        "sha256": "51782db0e6e82ccc7b3b5e1ce7c6fcb9fc3ecc6a49ad32b9777464498261c7b9",
+        "parentSha256": "85bbdea225c0b3cf458aa7280120879bfb22fb17d9b3b324b1261aa4c8a9c562"
+      },
+      {
+        "path": "apps/api/src/aiquery/aiquery.turns.controller.ts",
+        "sha256": "e085cf06ee661206f7e5f5298690755a2ac3a71350843d200df8fbea026d34fd",
+        "parentSha256": "ec243cbf764e3a9978b41361b391f205d9b72e5a25a3d1dc197920b43292031f"
+      },
+      {
+        "path": "packages/application/src/aiquery-service.ts",
+        "sha256": "6b828493b807e946f1ebaf0328b399403fae83061c7a4f79b6e5254abaeada37",
+        "parentSha256": "a11c27eb29e781c1dd6b97e9ffb59472eb15f318baa43cbbe1a9910d4d58fc16"
+      },
+      {
+        "path": "packages/persistence/src/aiquery-repositories.ts",
+        "sha256": "069549ce32b84c007560a38c7d27e2e082358e53188af6fe6e28356ce274c29e",
+        "parentSha256": "22f931f07ca0c25a3e89c5f4f5b6004533848b23c8741dc6d2ff8efb87d4e817"
+      },
+      {
+        "path": "tests/pr05/tsconfig.json",
+        "sha256": "12f0774c53cbe354716dd91ce94b10fe554f0113ef49cf22c7df9b0362ad8dc5",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr05/turn-ownership.pg.spec.ts",
+        "sha256": "8636a9ce11020595c78e1921046deed46d2abe4e84b71b2330e1ad5bc5150824",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr05/turn-ownership.unit.spec.ts",
+        "sha256": "2186b436645102574a614ca901969fc9948dd19171527cf453aeaecd4cdc85c5",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr05/vitest.config.ts",
+        "sha256": "d734d26fe62622a8167d2299e95e98cd6ba28fb5bb1f65800f54730754db4a29",
+        "parentSha256": null
+      }
+    ],
+    "sourceFiles": 5,
+    "testFiles": 4
+  },
+  "scopeExtension": [],
+  "validation": [
+    {
+      "name": "application-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-05/application-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "persistence-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-05/persistence-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "pr05-tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr05/tsconfig.json --noEmit",
+      "exitCode": 2,
+      "status": "FAIL_RETAINED",
+      "log": "docs/review/evidence/pr-05/pr05-tests-typecheck-initial-failure.log",
+      "logSha256": "c7f7418545d7c201bc69e6a90e9c96762838b0ea8724798469a3eeeae144e28d"
+    },
+    {
+      "name": "ownership-unit-and-runtime-regression",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr05/vitest.config.ts tests/pr05/turn-ownership.unit.spec.ts tests/ai-service/runtime-turns.spec.ts tests/ai-service/limits-cancel.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "status": "FAIL_RETAINED",
+      "log": "docs/review/evidence/pr-05/ownership-unit-and-runtime-regression-initial-failure.log",
+      "logSha256": "881b8251e6fb7afa1da20cb04351e5e11a04e0eb8d7caff22d5b6e166492200a",
+      "executed": 17,
+      "passed": 17,
+      "failedSuites": 1,
+      "failedTests": 0,
+      "skipped": 0,
+      "reusedTests": 17,
+      "reuseBoundary": "17 unchanged existing runtime cases passed; new suite collection failed solely for missing Nest dependency; reuse these valid cases with final 19-case narrow run, no duplicate counting"
+    },
+    {
+      "name": "ownership-pg-not-run",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr05/vitest.config.ts tests/pr05/turn-ownership.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "status": "NOT_RUN",
+      "log": "docs/review/evidence/pr-05/ownership-pg-not-run.log",
+      "logSha256": "86fc524ea8d7195610e542594575ae7021071353f270cd7525c15bbce11f2759",
+      "reason": "CADENZA_PR05_TEST_DB_URL absent",
+      "businessTestsExecuted": 0,
+      "plannedSourceCases": 14,
+      "failedSuites": 1,
+      "skipped": 0
+    },
+    {
+      "name": "pr05-tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr05/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-05/pr05-tests-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ownership-unit",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr05/vitest.config.ts tests/pr05/turn-ownership.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "docs/review/evidence/pr-05/ownership-unit.log",
+      "logSha256": "a6aba0d591b7fee8be6d24eb272ac628ad86285fcc01d0c95e3c9b8b9eed0181",
+      "executed": 19,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "businessPgPass": false,
+      "externalModel": "MOCK_ONLY"
+    },
+    {
+      "name": "pr05-tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr05/tsconfig.json --noEmit",
+      "exitCode": 2,
+      "status": "FAIL_RETAINED",
+      "log": "docs/review/evidence/pr-05/pr05-tests-typecheck-dependency-link-failure.log",
+      "logSha256": "d14e7cccb4c233b139c7af1e74ee60bb48d56be75755588007bbb294104de150",
+      "reason": "First repair set decorator compiler flags but did not create missing Nest symlink; repeated dependency failure retained, no product bypass."
+    },
+    {
+      "name": "ownership-unit-and-runtime-regression",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr05/vitest.config.ts tests/pr05/turn-ownership.unit.spec.ts tests/ai-service/runtime-turns.spec.ts tests/ai-service/limits-cancel.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "status": "FAIL_RETAINED",
+      "log": "docs/review/evidence/pr-05/ownership-unit-and-runtime-regression-dependency-link-failure.log",
+      "logSha256": "019563ee9596699756aa6bc406bf8c9b9dfe1f4cb90b878dda6adff336b76338",
+      "reason": "First repair set decorator compiler flags but did not create missing Nest symlink; repeated dependency failure retained, no product bypass."
+    }
+  ],
+  "distinctEffectiveTests": 36,
+  "distinctBreakdown": {
+    "newContextControllerRuntime": 19,
+    "existingRuntimeReused": 17,
+    "postgres": 0
+  },
+  "environment": {
+    "node": "24.22.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "vite": "7.3.7",
+    "pg": "8.23.1",
+    "dependencies": "existing locally cached dependencies; no frozen install claimed",
+    "nestCommon": "11.2.8",
+    "reflectMetadata": "0.2.2",
+    "rxjs": "7.8.2"
+  },
+  "notRun": [
+    "real PostgreSQL ownership/concurrent audit behavior",
+    "full API/build or cold install",
+    "real model/enterprise channel",
+    "independent R6"
+  ],
+  "boundaries": [
+    "No owner overwrite across enterprise/user/AI session/login session; unit tests use explicit service doubles and real process-local cache",
+    "No fallback to last request envelope; all referenced audit IDs must belong to current request and exact capability/version",
+    "Permission and persisted session ownership rechecked before turn acceptance/cancel and before reply/clarification delivery",
+    "Audit query fingerprint binds capability/version/parameters without storing full chat; legacy filter-only replay requires complete evidenced filter shape",
+    "Persistent audit insert serializes first owner and all sequences by PostgreSQL transaction advisory lock; pool path owns a dedicated transaction; a bare SqlClient is the existing command-UoW transaction contract, not a standalone untransactioned client",
+    "Zero-tool ownership/clarification cache remains process-local; eviction clears the entire record, restart loses in-flight context and unknown clarification is denied; no durable zero-tool owner ledger/multiprocess runtime acceptance claimed",
+    "Internal execute ownership errors remain generic server errors at its unchanged controller mapper; no data is returned and no foreign audit changes",
+    "No frozen contracts/migrations, new Git commit, GitHub write, merge or deployment",
+    "PR03 shared availability source carried exactly, unrelated PR03/PR01 changes omitted"
+  ],
+  "controllerAccepted": false,
+  "remoteWrite": false
+}

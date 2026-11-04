@@ -1,0 +1,44 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr5-work
+
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-06 会话生命周期与归档 > open → active（轮次进行）→ closed → 过期清理；事件按 requestId 归档于独立数据目录 41ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-06 会话生命周期与归档 > closed/expired 会话新轮拒绝；未登记会话拒绝（可理解状态+错误码） 2ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-07 单轮工具调用上限 > 上限（本例 2）触发即停止调工具，以已获结果收口作答；不虚构未取数据 8ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-08 澄清交互（选项来自能力结果）+ AQ-AMB-04 同 requestId 延续 > 有效澄清：选项解析自信封候选（data.candidates 投影），模型编造的选项被丢弃 6ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-08 澄清交互（选项来自能力结果）+ AQ-AMB-04 同 requestId 延续 > 澄清延续：用户答复后同一 requestId 继续，上一轮待选选项仍可解析 6ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-08 澄清交互（选项来自能力结果）+ AQ-AMB-04 同 requestId 延续 > 全部选项不在能力结果中→拒绝呈现澄清（可理解失败） 3ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-09 超时合同（单次查询超时与单轮总预算分别可判） > 单次查询等待超时：停止继续调工具，timeout/single_query 可判，部分数据带完整性标注 155ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-09 超时合同（单次查询超时与单轮总预算分别可判） > 单轮总预算超时：与单次查询超时独立可判（scope=turn_budget） 403ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > DS-12 回答组织与时间基准 > answer：数字与来源以 answerRefs（信封段）呈现；解释文字由模型生成并标注非事实 8ms
+ ✓ tests/ai-service/runtime-turns.spec.ts > 受控查询层不可达（capabilities 阶段） > 会话失效（404 语义）→ unavailable ERR_AI_SESSION_NOT_FOUND；不可达→ERR_CONTROLLED_QUERY_UNREACHABLE 4ms
+ ✓ tests/ai-service/limits-cancel.spec.ts > DS-10 按租户限额（超限拒绝、不排队放大） > 并发超限：在途轮次占用并发额度，新轮立即被拒（不等待、不排队） 632ms
+ ✓ tests/ai-service/limits-cancel.spec.ts > DS-10 按租户限额（超限拒绝、不排队放大） > 并发额度在轮次结束后释放（新轮可再次进入） 3ms
+ ✓ tests/ai-service/limits-cancel.spec.ts > DS-10 按租户限额（超限拒绝、不排队放大） > 日调用次数超限：达限后拒绝（本例 dailyTurnLimit=3） 4ms
+ ✓ tests/ai-service/limits-cancel.spec.ts > DS-10 按租户限额（超限拒绝、不排队放大） > 租户覆盖可收紧/放宽（tenantLimitOverrides 生效，配置声明） 1ms
+ ✓ tests/ai-service/limits-cancel.spec.ts > DS-11 取消合同（取消后不再发起新的工具调用） > 在途轮次取消：终态 cancelled+阶段摘要；不再发起后续工具调用；事件归档 cancel 104ms
+ ✓ tests/ai-service/limits-cancel.spec.ts > DS-11 取消合同（取消后不再发起新的工具调用） > 取消时刚好完成的查询结果被丢弃（不可取消则等待返回后丢弃的 B 侧语义） 84ms
+ ✓ tests/ai-service/limits-cancel.spec.ts > DS-11 取消合同（取消后不再发起新的工具调用） > 已完成轮次的取消=幂等 no-op；未知 requestId 的取消=unknown（DS-23 decision） 3ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr05/turn-ownership.unit.spec.ts [ tests/pr05/turn-ownership.unit.spec.ts ]
+Error: Cannot find package '@nestjs/common' imported from '/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr5-work/apps/api/src/aiquery/aiquery.turns.controller.ts'
+ ❯ apps/api/src/aiquery/aiquery.turns.controller.ts:1:1
+      1| import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, I…
+       | ^
+      2| import { randomUUID } from 'node:crypto'
+      3| import { ERROR_CODES } from '@cadenza/contracts'
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
+Caused by: Error: Failed to load url @nestjs/common (resolved id: @nestjs/common) in /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr5-work/apps/api/src/aiquery/aiquery.turns.controller.ts. Does the file exist?
+ ❯ loadAndTransform ../../../feb0b9dab353/cadence-pr3/node_modules/.pnpm/vite@7.3.7_@types+node@24.19.2_jiti@2.7.0_lightningcss@1.32.0_terser@5.51.2/node_modules/vite/dist/node/chunks/config.js:22907:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  17 passed (17)
+   Start at  23:09:51
+   Duration  2.96s (transform 404ms, setup 0ms, collect 476ms, tests 1.47s, environment 0ms, prepare 273ms)
+

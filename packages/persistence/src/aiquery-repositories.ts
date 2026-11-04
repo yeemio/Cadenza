@@ -265,7 +265,40 @@ export class PgAiQueryAuditRepository implements AiQueryAuditRepository {
   constructor(private readonly client: SqlClient) {}
 
   async insert(audit: NewAiQueryAudit): Promise<AiQueryAuditRecord> {
-    const r = await this.client.query(
+    // Pool-backed query services need one dedicated transaction for the owner
+    // check and insert. A SqlClient supplied by a command UoW already owns its
+    // transaction; never commit that caller's transaction here.
+    const pool = this.client as SqlClient & { totalCount?: number; connect?: () => Promise<SqlClient & { release(): void }> }
+    const owned = typeof pool.totalCount === 'number' && typeof pool.connect === 'function' ? await pool.connect() : null
+    const client = owned ?? this.client
+    try {
+      if (owned !== null) await client.query('BEGIN')
+      await client.query("SELECT pg_advisory_xact_lock(hashtextextended('cadenza.ai-turn.' || $1, 0))", [audit.requestId])
+      const prior = await client.query(`SELECT ${AUDIT_COLUMNS} FROM ai_query_audit WHERE request_id=$1 ORDER BY tool_call_seq`, [audit.requestId])
+      const rows = (prior.rows as unknown as AuditRow[]).map(mapAudit)
+      if (rows.some(row => row.sessionId !== audit.sessionId || row.userId !== audit.userId || row.enterpriseId !== audit.enterpriseId)) {
+        throw new Error('ERR_AI_REQUEST_OWNER: requestId belongs to another session/user/enterprise')
+      }
+      const existing = rows.find(row => row.toolCallSeq === audit.toolCallSeq)
+      if (existing !== undefined) {
+        if (existing.capabilityId !== audit.capabilityId || existing.capabilityVersion !== audit.capabilityVersion ||
+            typeof existing.params['queryFingerprint'] !== 'string' || existing.params['queryFingerprint'] !== audit.params?.['queryFingerprint']) {
+          throw new Error('ERR_AI_REQUEST_OWNER: tool sequence already identifies a different query')
+        }
+        if (owned !== null) await client.query('COMMIT')
+        return existing
+      }
+      const inserted = await this.insertInTransaction(client, audit)
+      if (owned !== null) await client.query('COMMIT')
+      return inserted
+    } catch (error) {
+      if (owned !== null) await client.query('ROLLBACK')
+      throw error
+    } finally { owned?.release() }
+  }
+
+  private async insertInTransaction(client: SqlClient, audit: NewAiQueryAudit): Promise<AiQueryAuditRecord> {
+    const r = await client.query(
       `INSERT INTO ai_query_audit (request_id, tool_call_seq, session_id, capability_id, capability_version,
          user_id, enterprise_id, channel, params, result_status, row_count, truncated, duration_ms,
          model_info, sent_result_status)
@@ -742,15 +775,21 @@ export class PgAiQueryReadRepository implements AiQueryReadRepository {
       conds.push(`sb.plant_id = ANY($${params.length}::uuid[])`)
     }
     const r = await this.client.query(
-      `SELECT sb.unit_id, iu.material_code, sb.quantity::text AS quantity, sb.uom_code,
-         sb.quality_status, sb.status, sb.plant_id, sb.updated_at
+      `SELECT sb.unit_id, sb.location_id, iu.material_code, sb.quantity::text AS quantity, sb.uom_code,
+         sb.quality_status, sb.status, sb.plant_id, sb.updated_at,
+         EXISTS (SELECT 1 FROM quality_hold qh WHERE qh.inventory_unit_id=sb.unit_id AND qh.status='active') AS quality_held,
+         EXISTS (SELECT 1 FROM inventory_business_hold bh WHERE bh.unit_id=sb.unit_id) AS business_held
        FROM stock_balance sb JOIN inventory_unit iu ON iu.id = sb.unit_id
+         AND iu.enterprise_id=sb.enterprise_id AND iu.plant_id=sb.plant_id
        WHERE ${conds.join(' AND ')}`,
       params,
     )
     return (
       r.rows as unknown as Array<{
         unit_id: string
+        location_id: string
+        quality_held: boolean
+        business_held: boolean
         material_code: string
         quantity: string
         uom_code: string
@@ -761,6 +800,9 @@ export class PgAiQueryReadRepository implements AiQueryReadRepository {
       }>
     ).map((row) => ({
       unitId: row.unit_id,
+      locationId: row.location_id,
+      qualityHeld: row.quality_held,
+      businessHeld: row.business_held,
       materialCode: row.material_code,
       quantity: row.quantity,
       uomCode: row.uom_code,
@@ -773,14 +815,15 @@ export class PgAiQueryReadRepository implements AiQueryReadRepository {
 
   async listActiveReservationsByUnitIds(unitIds: string[]) {
     const r = await this.client.query(
-      `SELECT unit_id, status, quantity::text AS quantity, valid_until
+      `SELECT unit_id, location_id, status, quantity::text AS quantity, valid_until
        FROM reservation WHERE unit_id = ANY($1::uuid[]) AND status = 'active'`,
       [unitIds],
     )
     return (
-      r.rows as unknown as Array<{ unit_id: string; status: string; quantity: string; valid_until: Date | string }>
+      r.rows as unknown as Array<{ unit_id: string; location_id: string | null; status: string; quantity: string; valid_until: Date | string }>
     ).map((row) => ({
       unitId: row.unit_id,
+      locationId: row.location_id,
       status: row.status,
       quantity: row.quantity,
       validUntil: iso(row.valid_until),

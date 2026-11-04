@@ -93,6 +93,8 @@ const MAX_MODEL_ITERATIONS = 64
 
 export class TurnOrchestrator {
   private readonly nowFn: () => Date
+  private readonly requestOwners = new Map<string, { sessionId: string; enterpriseId: string; userId: string }>()
+  private readonly toolSequences = new Map<string, number>()
 
   constructor(private readonly deps: OrchestratorDeps) {
     this.nowFn = deps.now ?? ((): Date => new Date())
@@ -111,6 +113,14 @@ export class TurnOrchestrator {
       return this.unavailable({ status: 'failed', code: 'ERR_AI_SESSION_EXPIRED', stageSummary: '会话已过期清理' })
     }
 
+    const owner = this.requestOwners.get(request.requestId)
+    const prior = registry.get(request.requestId)
+    if ((owner !== undefined && (owner.sessionId !== session.sessionId || owner.enterpriseId !== session.enterpriseId || owner.userId !== session.userId)) ||
+        (prior !== null && (prior.sessionId !== session.sessionId || prior.enterpriseId !== session.enterpriseId || !prior.finished))) {
+      return this.unavailable({ status: 'failed', code: 'ERR_AI_REQUEST_OWNER', stageSummary: 'requestId 已绑定另一会话或正在执行，归属不可覆盖' })
+    }
+    this.requestOwners.set(request.requestId, { sessionId: session.sessionId, enterpriseId: session.enterpriseId, userId: session.userId })
+
     const acquired = limits.tryAcquire(session.enterpriseId, this.nowFn())
     if (!acquired.ok) {
       // DS-10：超限拒绝新轮，不排队放大
@@ -122,6 +132,9 @@ export class TurnOrchestrator {
       })
     }
 
+    // Register synchronously before the first subsequent await so a competing
+    // call cannot overwrite a running turn while capabilities are loading.
+    const state = registry.begin(request.requestId, session)
     try {
       await store.touchActive(request.sessionId, this.nowFn().toISOString()) // DS-06：open→active
       await store.appendEvent(request.sessionId, {
@@ -146,7 +159,6 @@ export class TurnOrchestrator {
         inputSchema: capability.inputSchema,
       }))
 
-      const state = registry.begin(request.requestId, session)
       const effectiveBudgetMs = Math.min(
         profile.turnBudgetMs,
         limits.limitsFor(session.enterpriseId).perTurnBudgetMs,
@@ -278,6 +290,7 @@ export class TurnOrchestrator {
         statusDetail: { status: 'failed', code: 'ERR_LOOP_NOT_CONVERGED', stageSummary: '模型循环未收敛' },
       })
     } finally {
+      state.finished = true
       limits.release(session.enterpriseId)
     }
   }
@@ -291,7 +304,8 @@ export class TurnOrchestrator {
     remainingBudgetMs: number,
   ): Promise<ToolAttempt | null> {
     const { profile } = this.deps
-    const toolCallSeq = state.toolCalls + 1
+    const toolCallSeq = (this.toolSequences.get(request.requestId) ?? 0) + 1
+    this.toolSequences.set(request.requestId, toolCallSeq)
     let params: Record<string, unknown> = { ...intent.params }
     let timeBasisApplied: ToolAttempt['timeBasisApplied']
     // §1 总则：自然语言相对时间由 B 线换算为显式起止（Asia/Shanghai）后传参
