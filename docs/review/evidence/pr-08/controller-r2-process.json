@@ -1,0 +1,72 @@
+[
+  {
+    "name": "PERSISTENCE-TYPES",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "packages/persistence/tsconfig.json",
+      "--noEmit"
+    ],
+    "startedAt": "2026-11-04T08:44:20.511771+00:00",
+    "completedAt": "2026-11-04T08:44:22.095326+00:00",
+    "exitCode": 0,
+    "log": "PR08-CONTROLLER-R2-PERSISTENCE-TYPES.log",
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceCommit": "3f9d1f14b83ebaf668b43e2d62724defb024be1d"
+  },
+  {
+    "name": "TEST-TYPES",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tests/pr08/tsconfig.full.json",
+      "--noEmit"
+    ],
+    "startedAt": "2026-11-04T08:44:22.095757+00:00",
+    "completedAt": "2026-11-04T08:44:24.655420+00:00",
+    "exitCode": 0,
+    "log": "PR08-CONTROLLER-R2-TEST-TYPES.log",
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceCommit": "3f9d1f14b83ebaf668b43e2d62724defb024be1d"
+  },
+  {
+    "name": "DATE-UNIT",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr08/vitest.config.ts",
+      "tests/pr08/execution-date.unit.spec.ts",
+      "--reporter=verbose"
+    ],
+    "startedAt": "2026-11-04T08:44:24.655842+00:00",
+    "completedAt": "2026-11-04T08:44:25.031521+00:00",
+    "exitCode": 0,
+    "log": "PR08-CONTROLLER-R2-DATE-UNIT.log",
+    "logSha256": "633ed308d40ec33ff4c41b7abcd2c04c7943ae869c0b5971f5022fd0c2bc4eb8",
+    "sourceCommit": "3f9d1f14b83ebaf668b43e2d62724defb024be1d"
+  },
+  {
+    "name": "PG",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr08/vitest.config.ts",
+      "tests/pr08/intent-api.pg.spec.ts",
+      "--testNamePattern",
+      "dropped committed feed response",
+      "--reporter=verbose"
+    ],
+    "startedAt": "2026-11-04T08:44:25.283830+00:00",
+    "completedAt": "2026-11-04T08:44:29.373059+00:00",
+    "exitCode": 0,
+    "log": "PR08-CONTROLLER-R2-PG.log",
+    "logSha256": "7e87a1ab36979cef155009e1fdb855766a99bf0a970d6074bb3371b85bd7caa6",
+    "sourceCommit": "3f9d1f14b83ebaf668b43e2d62724defb024be1d"
+  }
+]

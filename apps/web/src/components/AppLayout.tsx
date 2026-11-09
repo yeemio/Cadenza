@@ -49,7 +49,7 @@ import {
 import { useState, type ReactNode } from 'react'
 import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../auth'
-import { isMock } from '../api'
+import { api, isMock } from '../api'
 import { INVENTORY_READ, MASTERDATA_READ, PROCESS_READ, PURCHASE_READ, QUALITY_READ, SHIPPING_READ, WAREHOUSING_READ, usePermissions } from '../permissions'
 import { P2_NAV_GROUPS } from '../p2/mount'
 import { P3_NAV_GROUPS } from '../p3/mount'
@@ -318,7 +318,7 @@ export function AppLayout() {
           ) : null}
           <span className="flex-1" />
           {session ? (
-            <BusinessClock plantName={session.user.plantName} data-testid-business-clock />
+            <BusinessClock plantId={session.user.plantId} loadCalendar={api.schedulingShiftInfo} />
           ) : null}
           <LocaleSelect />
           {isMock ? <MockBadge /> : null}

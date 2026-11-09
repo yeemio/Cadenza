@@ -1,0 +1,30 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr08-20261104
+
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > session: UTC retains DATE text and ISO timestamps on every read path 1ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > report: UTC retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > feed: UTC retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > labor: UTC retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > session: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > report: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > feed: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > labor: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > session: UTC+09 HF business day retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > report: UTC+09 HF business day retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > feed: UTC+09 HF business day retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > labor: UTC+09 HF business day retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > session: UTC+14 year boundary retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > report: UTC+14 year boundary retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > feed: UTC+14 year boundary retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > labor: UTC+14 year boundary retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > session: UTC-10 leap day retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > report: UTC-10 leap day retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > feed: UTC-10 leap day retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > labor: UTC-10 leap day retains DATE text and ISO timestamps on every read path 0ms
+ ✓ tests/pr08/execution-date.unit.spec.ts > PR08 DATE-only repository reads; SQL doubles, no process TZ mutation > feed: nullable DATE stays null on all seven read/RETURNING paths 0ms
+
+ Test Files  1 passed (1)
+      Tests  21 passed (21)
+   Start at  16:44:24
+   Duration  122ms (transform 27ms, setup 0ms, collect 25ms, tests 3ms, environment 0ms, prepare 27ms)
+

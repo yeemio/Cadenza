@@ -1,0 +1,17 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr08-20261104
+
+ ✓ tests/pr08/operator-pages.browser.spec.tsx > PR08 actual page components; API fixtures only, not PG evidence > PDA requires explicit second operation and clears old task when changing order 82ms
+ ✓ tests/pr08/operator-pages.browser.spec.tsx > PR08 actual page components; API fixtures only, not PG evidence > Web requires explicit second operation and clears old task when changing order 33ms
+ ✓ tests/pr08/operator-pages.browser.spec.tsx > PR08 actual page components; API fixtures only, not PG evidence > PDA restores unresolved exact payload on navigation 12ms
+ ✓ tests/pr08/operator-pages.browser.spec.tsx > PR08 actual page components; API fixtures only, not PG evidence > Web restores unresolved exact payload on navigation 15ms
+ ✓ tests/pr08/operator-pages.browser.spec.tsx > PR08 actual page components; API fixtures only, not PG evidence > putaway resolves actual task factory and actual warehouse location without client ownership 15ms
+ ✓ tests/pr08/operator-pages.browser.spec.tsx > PR08 actual page components; API fixtures only, not PG evidence > putaway can retry unresolved task even if refresh no longer lists the committed task 7ms
+ ✓ tests/pr08/operator-pages.browser.spec.tsx > PR08 actual page components; API fixtures only, not PG evidence > clock displays server business day and configured offset regardless of country-like name 2ms
+ ✓ tests/pr08/operator-pages.browser.spec.tsx > PR08 actual page components; API fixtures only, not PG evidence > missing calendar remains unverified, not a name-based default 2ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  11:38:01
+   Duration  1.13s (transform 245ms, setup 0ms, collect 522ms, tests 168ms, environment 329ms, prepare 30ms)
+

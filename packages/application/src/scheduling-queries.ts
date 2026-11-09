@@ -1,10 +1,8 @@
 import type { VerifiedAuthContext } from './session-verifier'
-// L0 整合步（Wave5）：domain index 已导出 './scheduling'；改包名导入。
-// computeShiftDate 在 domain 桶有两源（inventory 班次日历口径 / scheduling 白班起点口径），
-// 桶显名保留 inventory 版——本文件消费 scheduling 口径，取别名导出 computeSchedulingShiftDate。
+// Shift-date queries use the same explicit factory calendar as inventory/report writes.
 import {
   computeBoardDates,
-  computeSchedulingShiftDate as computeShiftDate,
+  computeShiftDate,
   orderDetailEntryBlocker,
   pdaDefaultDateWindow,
   projectOperationScheduling,
@@ -12,6 +10,7 @@ import {
   sumPlannedQty,
   type OrderSchedulingStatus,
 } from '@cadenza/domain'
+import { factoryCalendar } from './inventory-posting'
 import type { SchedulingRepositories, SchedulingSlotViewRow } from './scheduling-repositories'
 
 /**
@@ -115,6 +114,7 @@ export interface ShiftInfo {
   dayShiftStart: string | null
   actualTime: string
   shiftDate: string | null
+  calendar: ReturnType<typeof factoryCalendar>
 }
 
 export interface SchedulingQueryDeps {
@@ -389,13 +389,14 @@ export class SchedulingQueryService {
     }
     const shift = await this.repos().shifts.findByPlant(query.plantId)
     const actualTime = query.at !== undefined && query.at !== '' ? query.at : this.now().toISOString()
-    const shiftDate =
-      shift === null ? null : computeShiftDate(actualTime, shift.dayShiftStart)
+    const calendar = factoryCalendar(query.plantId, shift?.dayShiftStart ?? null)
+    const shiftDate = computeShiftDate(actualTime, calendar)
     return {
       plantId: query.plantId,
       dayShiftStart: shift?.dayShiftStart ?? null,
       actualTime,
       shiftDate,
+      calendar,
     }
   }
 }

@@ -916,6 +916,7 @@ export interface PdaPlanViewDto {
 
 /** 班次信息与双轨时间（[A4-2]） */
 export interface ShiftInfoDto {
+  calendar?: { dayShiftStartHour: number; dayShiftStartMinute: number; utcOffsetHours: number; verification: 'CONFIGURED_SITE_UNVERIFIED' | 'UNVERIFIED_DEFAULT' }
   plantId: string
   dayShiftStart: string | null
   actualTime: string
@@ -1456,8 +1457,8 @@ export interface PutawayConfirmPayload {
   toWarehouseKind?: string
   toLocationId: string
   toLocationCode: string
-  ownerId: string
-  ownerName: string
+  ownerId?: string
+  ownerName?: string
   reason?: string
   businessTime?: string
 }

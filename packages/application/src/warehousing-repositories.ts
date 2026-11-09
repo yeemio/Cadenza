@@ -187,7 +187,8 @@ export interface PutawayTaskRepository {
   findById(id: string): Promise<PutawayTaskRecord | null>
   /** 来源幂等查重（A-T13-1：(source_type, source_ref) 唯一；refresh 重跑不重复生成）。 */
   findBySource(sourceType: PutawayTaskRecord['sourceType'], sourceRef: string): Promise<PutawayTaskRecord | null>
-  findByIds(ids: readonly string[]): Promise<PutawayTaskRecord[]>
+  findByIds(ids: readonly string[], forUpdate?: boolean): Promise<PutawayTaskRecord[]>
+  resolveSourceOwner(task: PutawayTaskRecord): Promise<{ ownerId: string; ownerName: string; unitId: string | null } | null>
   listPendingByUnitNos(plantId: string, unitNos: readonly string[]): Promise<PutawayTaskRecord[]>
   /** 同托未入库任务全集（A-T13-2：托码确认=整托）。 */
   listPendingByPallet(palletCode: string): Promise<PutawayTaskRecord[]>
@@ -290,6 +291,7 @@ export interface StorageLocationLookup {
 /** 仓库事实查询（调拨仓库规则）。 */
 export interface WarehouseLookup {
   findById(id: string): Promise<{
+    enterpriseId: string
     id: string
     code: string
     warehouseType: string

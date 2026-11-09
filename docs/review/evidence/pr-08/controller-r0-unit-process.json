@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "tests/pr08/vitest.config.ts",
+    "tests/pr08/calendar.unit.spec.ts",
+    "tests/pr08/intent.unit.spec.ts",
+    "--reporter=verbose"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T03:38:37.186341+00:00",
+  "completedAt": "2026-11-04T03:38:38.083025+00:00",
+  "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+  "reason": "Cumulative inventory-posting input differs from author fingerprint by accepted R2. Rebind calendar/intent evidence to current stable source once.",
+  "logSha256": "9236246b98b546007ca2f9fda6a1b2497a973e965d37b5677402d327a1b74e1c"
+}

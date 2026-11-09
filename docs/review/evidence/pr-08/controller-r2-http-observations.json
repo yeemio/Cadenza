@@ -1,0 +1,42 @@
+{
+  "records": [
+    {
+      "plant": "1769a82f-99b3-436a-83d6-d7ba90b477ba",
+      "operationId": "41cc883e-88af-4a33-9b88-7814f75353d7",
+      "committedResponseDiscarded": true,
+      "feedRows": [
+        {
+          "order_id": "9123d506-e323-4cea-9503-8dccffed526e",
+          "order_operation_id": "af6861e8-9e57-4044-a7af-4c3a818074ca",
+          "quantity": "4.0000",
+          "sales_order_no": "SO-REAL-8920e2d2-70bc-4bbd-8f30-ea8a5ac12654",
+          "sales_line_no": "27"
+        }
+      ],
+      "balance": "16.0000",
+      "shiftDate": "2026-11-03"
+    },
+    {
+      "plant": "aac04adc-80ee-42b7-819b-f46425e2696a",
+      "operationId": "7bc8c81c-090b-4031-80dd-071aecb98a89",
+      "committedResponseDiscarded": true,
+      "feedRows": [
+        {
+          "order_id": "42fcbb42-3883-48ff-80ab-e3197bad8207",
+          "order_operation_id": "4c9d218c-c7fe-4719-8619-8b5b192a3325",
+          "quantity": "4.0000",
+          "sales_order_no": "SO-REAL-ba037f17-fbbc-42e0-bef9-a03be678fbde",
+          "sales_line_no": "27"
+        }
+      ],
+      "balance": "16.0000",
+      "shiftDate": "2026-11-04"
+    }
+  ],
+  "originalExactTestVerified": [
+    "Single receipt per replayed operationId",
+    "GET report shiftDate equals plant calendar",
+    "One4unit material consumption and16unit balance",
+    "Actual committed HTTP response discarded, intent storage reloaded, same operationId replayed"
+  ]
+}

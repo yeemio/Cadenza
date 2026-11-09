@@ -1,141 +1,94 @@
-import { ApiError, Badge, Button, Field, Input, Message, PageContainer, ScanInput, Select, formatErrorTitleAndDetail, type ProductionOrderDto, t as $t } from '@cadenza/ui'
+import { ApiError, Badge, Button, Field, Input, Message, PageContainer, ScanInput, Select, formatErrorTitleAndDetail, type CommandIntent, type OrderOperationDto, type ProductionOrderDto, t as $t } from '@cadenza/ui'
 import { useEffect, useState } from 'react'
 import { api } from '../api'
 import { EXECUTION_FEED, usePermissions } from '../permissions'
 
-interface FeedLine {
-  key: number
-  barcodeValue: string
-  quantity: string
-}
+interface FeedLine { key: number; barcodeValue: string; quantity: string }
+let lineSeq = 1
+const SLOT = 'pda.feed'
+function axisError(code: string) { return code.length !== 10 || !'EFM'.includes(code[1] ?? '') ? $t('[A7-2] 不是产品轴码（托码/原料码拒绝）') : null }
 
-let pdaLineSeq = 1
-
-/** [A7-2] 产品轴码预检（10 位第 2 位 E/F/M） */
-function axisError(code: string): string | null {
-  if (code.length !== 10 || !'EFM'.includes(code[1] ?? '')) {
-    return $t('[A7-2] 不是产品轴码（托码/原料码拒绝）')
-  }
-  return null
-}
-
-/**
- * PDA 投料扫码页（[底稿 A7-2] 扫码投料）：
- * 选订单/工序 → 扫产品轴码逐行累计 → 提交（实时扣减；码准入链服务端终校，错误逐行渲染）。
- */
 export function FeedScanPage() {
   const { has } = usePermissions()
   const canFeed = has(EXECUTION_FEED)
   const [orders, setOrders] = useState<ProductionOrderDto[]>([])
+  const [operations, setOperations] = useState<OrderOperationDto[]>([])
   const [orderId, setOrderId] = useState('')
   const [orderOperationId, setOrderOperationId] = useState('')
   const [lines, setLines] = useState<FeedLine[]>([])
+  const [intent, setIntent] = useState<CommandIntent | null>(null)
+  const [ready, setReady] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<{ title: string; detail?: string } | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
+  const frozen = busy || !ready || intent !== null
+  const showError = (err: unknown) => setError(err instanceof ApiError ? formatErrorTitleAndDetail(err) : { title: err instanceof Error ? err.message : $t('操作失败') })
 
   useEffect(() => {
-    api
-      .listProductionOrders({ page: 1, pageSize: 20, statuses: 'in_progress' })
-      .then((result) => setOrders(result.items))
-      .catch(() => setOrders([]))
+    let active = true
+    void api.readCommandIntent(SLOT).then(saved => {
+      if (!active) return
+      setIntent(saved)
+      if (saved) {
+        setOrderId(String(saved.payload['orderId'] ?? ''))
+        setOrderOperationId(String(saved.payload['orderOperationId'] ?? ''))
+        const feeds = saved.payload['feeds'] as Array<{ barcodeValue: string; quantity: string }>
+        setLines(feeds.map(line => ({ ...line, key: lineSeq++ })))
+      }
+      setReady(true)
+    }).catch(err => { if (active) showError(err) })
+    void api.listProductionOrders({ page: 1, pageSize: 100, statuses: 'in_progress' }).then(result => { if (active) setOrders(result.items) }).catch(err => { if (active) showError(err) })
+    return () => { active = false }
   }, [])
-
   useEffect(() => {
-    if (!orderId) return
-    api
-      .productionOrderDetail(orderId)
-      .then((detail) => setOrderOperationId(detail.operations[0]?.id ?? ''))
-      .catch(() => setOrderOperationId(''))
+    let active = true
+    setOperations([])
+    if (orderId) void api.productionOrderDetail(orderId).then(detail => { if (active) setOperations(detail.operations) }).catch(err => { if (active) showError(err) })
+    return () => { active = false }
   }, [orderId])
 
-  const submit = async () => {
-    if (!orderId || !orderOperationId) {
-      setError({ title: $t('请选择订单（工序默认第一道，质检工序不可投料 [A6-3]）') })
-      return
-    }
-    if (lines.length === 0) {
-      setError({ title: $t('请先扫码（至少一行）') })
-      return
-    }
-    if (lines.some((l) => !l.quantity.trim())) {
-      setError({ title: $t('每行需填写数量') })
-      return
-    }
+  async function settle() {
+    if (!intent) return
     setBusy(true)
-    setError(null)
     try {
-      await api.submitFeed({
-        orderId,
-        orderOperationId,
-        feeds: lines.map((l) => ({ barcodeValue: l.barcodeValue, quantity: l.quantity.trim(), salesOrderNo: 'SO-2026-0301', salesLineNo: '10' })),
-      })
-      setNotice($t('投料已提交（{p0} 行，实时扣减完成）', { p0: lines.length }))
-      setLines([])
-    } catch (err) {
-      setError(err instanceof ApiError ? formatErrorTitleAndDetail(err) : { title: $t('投料失败') })
-      if (err instanceof ApiError) {
-        setLines((prev) => prev.map((l) => ((err.message ?? '').includes(l.barcodeValue) ? { ...l, quantity: l.quantity } : l)))
-      }
-    } finally {
-      setBusy(false)
-    }
+      await api.clearSettledCommandIntent(SLOT, intent.operationId)
+      if (intent.state === 'committed') { setLines([]); setOrderId(''); setOrderOperationId('') }
+      setIntent(null); setError(null)
+    } catch (err) { showError(err) } finally { setBusy(false) }
   }
-
-  return (
-    <PageContainer title={$t('投料扫码')} description={$t('扫产品轴码逐行累计，一次提交一批（[A7-2] 码准入链服务端终校）')}>
-      {error ? <Message kind="error" title={error.title} detail={error.detail} /> : null}
-      {notice ? <Message kind="success" title={notice} /> : null}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 12 }}>
-        <Field label={$t('生产订单（进行中）')} required>
-          <Select
-            value={orderId}
-            onChange={(e) => setOrderId(e.target.value)}
-            placeholder={$t('选择订单')}
-            options={orders.map((o) => ({ value: o.id, label: $t('{p0}（{p1} {p2}）', { p0: o.orderNo, p1: o.productionQty, p2: o.uom }) }))}
-          />
-        </Field>
-      </div>
-      <ScanInput
-        onScan={(code) => {
-          setNotice(null)
-          setLines((prev) => [...prev, { key: pdaLineSeq++, barcodeValue: code, quantity: '' }])
-        }}
-        hint={$t('演示：E5E0000007 可投；托码/非产品轴码将被拒绝')}
-      />
-      <section style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {lines.map((line) => {
-          const local = axisError(line.barcodeValue)
-          return (
-            <div key={line.key} style={{ border: '1px solid var(--cz-color-border)', borderRadius: 8, padding: 10, background: local ? 'rgba(200,60,50,0.05)' : 'var(--cz-color-bg-surface)' }}>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <code style={{ fontSize: 14 }}>{line.barcodeValue}</code>
-                <Input
-                  style={{ width: 110 }}
-                  value={line.quantity}
-                  onChange={(e) => setLines((prev) => prev.map((l) => (l.key === line.key ? { ...l, quantity: e.target.value } : l)))}
-                  placeholder={$t('数量')}
-                  aria-label={$t('行 {p0} 数量', { p0: line.key })}
-                />
-                <Button size="sm" variant="ghost" onClick={() => setLines((prev) => prev.filter((l) => l.key !== line.key))}>
-                  {$t('移除')}
-                </Button>
-              </div>
-              {local ? (
-                <div role="alert" style={{ marginTop: 6, fontSize: 12.5, color: 'var(--cz-color-danger, #b42318)' }}>
-                  {local}
-                </div>
-              ) : null}
-            </div>
-          )
-        })}
-      </section>
-      <div style={{ marginTop: 12 }}>
-        <Button block size="lg" loading={busy} disabled={!canFeed || lines.length === 0} onClick={() => void submit()}>
-          {$t('提交投料（')}{lines.length} {$t('行）')}
-        </Button>
-        {!canFeed ? <Badge tone="warning">{$t('需 execution.feed 许可')}</Badge> : null}
-      </div>
-    </PageContainer>
-  )
+  async function submit() {
+    if (!ready || busy) return
+    if (!intent && (!orderId || !orderOperationId || !operations.some(op => op.id === orderOperationId))) { setError({ title: $t('请选择实际订单和投料工序') }); return }
+    if (!intent && (lines.length === 0 || lines.some(l => axisError(l.barcodeValue) || !l.quantity.trim() || !(Number(l.quantity) > 0)))) { setError({ title: $t('请填写有效产品轴码及正数量') }); return }
+    setBusy(true); setError(null)
+    try {
+      const payload = intent?.payload ?? { orderId, orderOperationId, feeds: lines.map(l => ({ barcodeValue: l.barcodeValue, quantity: l.quantity.trim() })) }
+      const result = await api.executeCommandIntent(SLOT, 'feed', payload)
+      setIntent(await api.readCommandIntent(SLOT))
+      setNotice($t('原操作已确认完成') + ' ' + result.operationId)
+    } catch (err) {
+      showError(err)
+      try { setIntent(await api.readCommandIntent(SLOT)) } catch { setReady(false) }
+    } finally { setBusy(false) }
+  }
+  return <PageContainer title={$t('投料扫码')} description={$t('选择订单和工序，销售归属由服务端根据实物来源核验')}>
+    {error ? <Message kind="error" title={error.title} detail={error.detail} /> : null}
+    {notice ? <Message kind="success" title={notice} /> : null}
+    {intent ? <Message kind="info" title={intent.state === 'committed' ? $t('已确认完成，请开始新作业') : intent.state === 'rejected' ? $t('已明确拒绝，可确认编辑为新操作') : $t('原操作结果待确认：保留原键和载荷重试')} detail={intent.operationId} /> : null}
+    <fieldset disabled={frozen} style={{ border: 0, padding: 0, margin: 0 }}>
+      <Field label={$t('生产订单')} required><Select value={orderId} onChange={e => { setOrderId(e.target.value); setOrderOperationId(''); setLines([]) }} placeholder={$t('选择订单')} options={orders.map(o => ({ value: o.id, label: o.orderNo }))} /></Field>
+      <Field label={$t('投料工序')} required><Select value={orderOperationId} onChange={e => { setOrderOperationId(e.target.value); setLines([]) }} placeholder={$t('选择工序')} options={operations.map(op => ({ value: op.id, label: `${op.seq}. ${op.operationName}` }))} /></Field>
+      <ScanInput onScan={code => { if (!frozen) { setNotice(null); setLines(prev => [...prev, { key: lineSeq++, barcodeValue: code, quantity: '' }]) } }} hint={$t('扫描本次实际产品轴码')} />
+      {lines.map(line => <div key={line.key} style={{ marginTop: 10 }}>
+        <code>{line.barcodeValue}</code>
+        <Input value={line.quantity} onChange={e => setLines(prev => prev.map(l => l.key === line.key ? { ...l, quantity: e.target.value } : l))} aria-label={$t('数量')} />
+        <Button variant="ghost" onClick={() => setLines(prev => prev.filter(l => l.key !== line.key))}>{$t('移除')}</Button>
+        {axisError(line.barcodeValue) ? <div role="alert">{axisError(line.barcodeValue)}</div> : null}
+      </div>)}
+    </fieldset>
+    {intent?.state === 'committed' || intent?.state === 'rejected'
+      ? <Button loading={busy} onClick={() => void settle()}>{intent.state === 'committed' ? $t('开始新作业') : $t('确认编辑为新操作')}</Button>
+      : <Button block size="lg" loading={busy} disabled={!canFeed || !ready || busy || (!intent && lines.length === 0)} onClick={() => void submit()}>{intent ? $t('以原操作键确认结果') : $t('提交投料')}</Button>}
+    {!canFeed ? <Badge tone="warning">{$t('需 execution.feed 许可')}</Badge> : null}
+  </PageContainer>
 }

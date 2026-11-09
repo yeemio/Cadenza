@@ -1,0 +1,55 @@
+{
+  "checkedAt": "2026-11-04T07:49:20.682967+00:00",
+  "node": "v24.22.1",
+  "files": [
+    {
+      "name": "originalAuthorTsc",
+      "path": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-work/node_modules/typescript/bin/tsc",
+      "exists": false
+    },
+    {
+      "name": "previousSharedTsc",
+      "path": "/workspace/scratch/feb0b9dab353/cadence-pr3/node_modules/typescript/bin/tsc",
+      "exists": false
+    },
+    {
+      "name": "previousSharedVitest",
+      "path": "/workspace/scratch/feb0b9dab353/cadence-pr3/node_modules/vitest/vitest.mjs",
+      "exists": false
+    },
+    {
+      "name": "originalAuthorNestTesting",
+      "path": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-work/node_modules/@nestjs/testing/package.json",
+      "exists": false
+    },
+    {
+      "name": "primaryRuntimeTsc",
+      "path": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/typescript/bin/tsc",
+      "exists": false
+    }
+  ],
+  "tools": {
+    "psql": null,
+    "postgres": null,
+    "docker": null,
+    "tsc": null,
+    "vitest": null
+  },
+  "dedicatedPgUrlPresent": false,
+  "typecheckStatus": "NOT_RUN_MISSING_PROJECT_DEPENDENCIES",
+  "typecheckInvoked": false,
+  "typecheckCompilerExitCode": null,
+  "intendedTypecheckCommand": [
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tests/pr08/tsconfig.full.json",
+    "--noEmit"
+  ],
+  "actualPgStatus": "NOT_RUN",
+  "businessRunnerInvoked": false,
+  "businessExecuted": 0,
+  "runtimeSkipped": 0,
+  "databaseCreated": false,
+  "reason": "No task-owned PostgreSQL URL/runtime or current project TypeScript/Vitest/Nest dependencies. Account fixture is now statically corrected under explicit controller scope decision, but syntax/schema checks do not establish real HTTP/PG or semantic type PASS."
+}

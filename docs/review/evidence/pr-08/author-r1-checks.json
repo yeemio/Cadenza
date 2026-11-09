@@ -1,0 +1,66 @@
+{
+  "fixtureAndPreservation": {
+    "command": [
+      "python3",
+      "docs/review/evidence/pr-08/author-r1-fixture-check.py",
+      "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r1-base",
+      "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r1-work"
+    ],
+    "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r1-work",
+    "startedAt": "2026-11-04T07:43:19.798945+00:00",
+    "completedAt": "2026-11-04T07:43:20.010725+00:00",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-08/author-r1-fixture-check.log",
+    "logSha256": "73c6ef0d167c38ddb32a9b8eb48bc1eddcf79f17b242f6af7676453c7d85cbb1"
+  },
+  "syntaxOnly": {
+    "command": [
+      "node",
+      "-e",
+      "const fs=require('node:fs');const {stripTypeScriptTypes}=require('node:module');const {spawnSync}=require('node:child_process');const source=fs.readFileSync(process.argv[1],'utf8');const js=stripTypeScriptTypes(source,{mode:'transform',sourceUrl:process.argv[1]});const checked=spawnSync(process.execPath,['--input-type=module','--check'],{input:js,encoding:'utf8'});if(checked.stdout)process.stdout.write(checked.stdout);if(checked.stderr)process.stderr.write(checked.stderr);if(checked.error)throw checked.error;console.log(JSON.stringify({scope:'SYNTAX_ONLY_NOT_TYPECHECK_OR_RUNTIME',file:process.argv[1],sourceBytes:Buffer.byteLength(source),childExitCode:checked.status}));process.exit(checked.status??1)",
+      "tests/pr08/intent-api.pg.spec.ts"
+    ],
+    "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr8-r1-work",
+    "startedAt": "2026-11-04T07:44:04.408396+00:00",
+    "completedAt": "2026-11-04T07:44:04.599669+00:00",
+    "exitCode": 0,
+    "log": "docs/review/evidence/pr-08/author-r1-syntax-only.log",
+    "logSha256": "f2d53e6a2d2a9c7d40d62e03ceb480cfdfc327b6632ac182e4ac31537004c305",
+    "candidateTestSha256": "e7fd94ac988c8aa18ae309637ab88e315874311c233b92d6b869a9820e2978bb",
+    "scope": "Node native TypeScript syntax transformation and node --check only; no module imports or business runner executed."
+  },
+  "typecheck": {
+    "status": "NOT_RUN_MISSING_PROJECT_DEPENDENCIES",
+    "invoked": false,
+    "compilerExitCode": null,
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tests/pr08/tsconfig.full.json",
+      "--noEmit"
+    ],
+    "environmentEvidence": "docs/review/evidence/pr-08/author-r1-environment.json"
+  },
+  "businessPg": {
+    "status": "NOT_RUN",
+    "plannedRegisteredScenarios": 7,
+    "executed": 0,
+    "runtimeSkipped": 0,
+    "runnerInvoked": false,
+    "databaseCreated": false,
+    "taskDatabaseEnvironment": "CADENZA_PR08_TEST_DB_URL",
+    "newEmptyDatabasePattern": "cadenza_pr08_*",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr08/vitest.config.ts",
+      "tests/pr08/intent-api.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "reason": "No dedicated PG/dependencies here; additionally the unchanged login fixture has a statically proven canonical constraint block. Controller scope ruling and authorized login fix must precede a fresh DB run.",
+    "oldOrProductionDatabaseAccessed": false
+  }
+}

@@ -1,0 +1,146 @@
+TAP version 13
+# Subtest: PR08 DATE-only repository reads; SQL doubles, no process TZ mutation
+    # Subtest: session: UTC retains DATE text and ISO timestamps on every read path
+    ok 1 - session: UTC retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 2.566257
+      type: 'test'
+      ...
+    # Subtest: report: UTC retains DATE text and ISO timestamps on every read path
+    ok 2 - report: UTC retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 1.082226
+      type: 'test'
+      ...
+    # Subtest: feed: UTC retains DATE text and ISO timestamps on every read path
+    ok 3 - feed: UTC retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.950219
+      type: 'test'
+      ...
+    # Subtest: labor: UTC retains DATE text and ISO timestamps on every read path
+    ok 4 - labor: UTC retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.467453
+      type: 'test'
+      ...
+    # Subtest: session: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path
+    ok 5 - session: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 1.365753
+      type: 'test'
+      ...
+    # Subtest: report: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path
+    ok 6 - report: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.431498
+      type: 'test'
+      ...
+    # Subtest: feed: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path
+    ok 7 - feed: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.224757
+      type: 'test'
+      ...
+    # Subtest: labor: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path
+    ok 8 - labor: UTC+08 SZ observed failure retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.184037
+      type: 'test'
+      ...
+    # Subtest: session: UTC+09 HF business day retains DATE text and ISO timestamps on every read path
+    ok 9 - session: UTC+09 HF business day retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.291718
+      type: 'test'
+      ...
+    # Subtest: report: UTC+09 HF business day retains DATE text and ISO timestamps on every read path
+    ok 10 - report: UTC+09 HF business day retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.468544
+      type: 'test'
+      ...
+    # Subtest: feed: UTC+09 HF business day retains DATE text and ISO timestamps on every read path
+    ok 11 - feed: UTC+09 HF business day retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.184768
+      type: 'test'
+      ...
+    # Subtest: labor: UTC+09 HF business day retains DATE text and ISO timestamps on every read path
+    ok 12 - labor: UTC+09 HF business day retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.089815
+      type: 'test'
+      ...
+    # Subtest: session: UTC+14 year boundary retains DATE text and ISO timestamps on every read path
+    ok 13 - session: UTC+14 year boundary retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.138788
+      type: 'test'
+      ...
+    # Subtest: report: UTC+14 year boundary retains DATE text and ISO timestamps on every read path
+    ok 14 - report: UTC+14 year boundary retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.447763
+      type: 'test'
+      ...
+    # Subtest: feed: UTC+14 year boundary retains DATE text and ISO timestamps on every read path
+    ok 15 - feed: UTC+14 year boundary retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.175454
+      type: 'test'
+      ...
+    # Subtest: labor: UTC+14 year boundary retains DATE text and ISO timestamps on every read path
+    ok 16 - labor: UTC+14 year boundary retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.090416
+      type: 'test'
+      ...
+    # Subtest: session: UTC-10 leap day retains DATE text and ISO timestamps on every read path
+    ok 17 - session: UTC-10 leap day retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.127662
+      type: 'test'
+      ...
+    # Subtest: report: UTC-10 leap day retains DATE text and ISO timestamps on every read path
+    ok 18 - report: UTC-10 leap day retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.358529
+      type: 'test'
+      ...
+    # Subtest: feed: UTC-10 leap day retains DATE text and ISO timestamps on every read path
+    ok 19 - feed: UTC-10 leap day retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.252179
+      type: 'test'
+      ...
+    # Subtest: labor: UTC-10 leap day retains DATE text and ISO timestamps on every read path
+    ok 20 - labor: UTC-10 leap day retains DATE text and ISO timestamps on every read path
+      ---
+      duration_ms: 0.095173
+      type: 'test'
+      ...
+    # Subtest: feed: nullable DATE stays null on all seven read/RETURNING paths
+    ok 21 - feed: nullable DATE stays null on all seven read/RETURNING paths
+      ---
+      duration_ms: 0.322014
+      type: 'test'
+      ...
+    1..21
+ok 1 - PR08 DATE-only repository reads; SQL doubles, no process TZ mutation
+  ---
+  duration_ms: 12.099266
+  type: 'suite'
+  ...
+1..1
+# tests 21
+# suites 1
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 110.507663
+PR08_DATE_NATIVE_RESULT {"boundary":"NATIVE_NODE_EXECUTION_OF_SAME_ASSERTIONS_WITH_SQL_CLIENT_DOUBLES_NOT_VITEST_NOT_PG","product":{"path":"packages/persistence/src/execution-repositories.ts","sha256":"2858e8336d5fb882018867094d766e1a3ea9aeac87851692393178c60468416e","compiledJsSha256":"8ed70faac4238d01725fc114473f9b8a9a51423ccef032c947d536bbc79c0843"},"test":{"path":"tests/pr08/execution-date.unit.spec.ts","sha256":"cd3955cd834012e2c23d3ae3e05fa2071d1993d6dfebd3b2218a64b73e169fb0","compiledJsSha256":"a12a9324739755b7c99d44246c2487831680fe24d1785c8461002dc2d9cec2d4"},"registrationImportsAdapted":1,"repositoryImportPathsAdapted":1,"testBodyOrAssertionsRewritten":false,"processTzModified":false,"inheritedTimezone":"Asia/Tokyo","node":"v24.22.1","command":["/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","--test","--test-reporter=tap","/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr08-r2/native-final-check/execution-date.unit.native.mjs"],"startedAt":"2026-11-04T08:33:42.228Z","completedAt":"2026-11-04T08:33:42.419Z","exitCode":0,"counts":{"tests":21,"pass":21,"fail":0,"skipped":0,"cancelled":0,"todo":0},"sqlExecutedAgainstPostgres":false,"typecheckCompilerInvoked":false}
+(node:6) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

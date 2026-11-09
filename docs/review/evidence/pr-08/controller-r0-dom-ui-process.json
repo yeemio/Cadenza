@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "tests/pr08/vitest.browser.config.ts",
+    "--reporter=verbose"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T03:37:59.543388+00:00",
+  "completedAt": "2026-11-04T03:38:02.211987+00:00",
+  "sourceCommit": "27ceba11cc058a655aa2b57b5ab3e9704f931da1",
+  "environment": "jsdom with actual project React19 dependencies; no real browser or network",
+  "logSha256": "015d7650993f6ade5963b09755163221b9e264c505e19499c92206f391173c94"
+}

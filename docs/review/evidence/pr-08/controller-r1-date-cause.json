@@ -1,0 +1,35 @@
+{
+  "status": "READ_ONLY_CAUSE_CONFIRMED",
+  "nodeTimezone": "Asia/Shanghai",
+  "sqlTypeOid": 1082,
+  "repositorySourceSha256": "00c9456bb92b7826b316d99b2f3f00f55009c771b35de4ee9222d6b5f39ec02c",
+  "exactDateStrBody": "\n  return value instanceof Date ? value.toISOString().slice(0, 10) : String(value).slice(0, 10)",
+  "rows": [
+    {
+      "plant": "PLNT-HF",
+      "storedText": "2026-11-04",
+      "parsedIsDate": true,
+      "rawParsedIso": "2026-11-03T16:00:00.000Z",
+      "actualRepositoryDateStr": "2026-11-03",
+      "localCalendar": [
+        2026,
+        11,
+        4
+      ],
+      "timezoneOffsetMinutes": -480
+    },
+    {
+      "plant": "PLNT-SZ",
+      "storedText": "2026-11-03",
+      "parsedIsDate": true,
+      "rawParsedIso": "2026-11-02T16:00:00.000Z",
+      "actualRepositoryDateStr": "2026-11-02",
+      "localCalendar": [
+        2026,
+        11,
+        3
+      ],
+      "timezoneOffsetMinutes": -480
+    }
+  ]
+}

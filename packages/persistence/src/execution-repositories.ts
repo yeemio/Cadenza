@@ -46,9 +46,12 @@ function isoOrNull(value: Date | string | null | undefined): string | null {
   return value === null || value === undefined ? null : iso(value)
 }
 
-function dateStr(value: Date | string): string {
-  return value instanceof Date ? value.toISOString().slice(0, 10) : String(value).slice(0, 10)
-}
+// DATE is a calendar value, not an instant. Project it as text before the pg
+// DATE parser can turn local midnight into a Date. The explicit timestamp
+// (without time zone) cast and fixed format also avoid session TimeZone/DateStyle.
+// ISO business/audit timestamps continue through iso()/isoOrNull() unchanged.
+const SHIFT_DATE_COLUMNS = `*, to_char(shift_date::timestamp, 'YYYY-MM-DD') AS shift_date_text`
+const SESSION_SHIFT_DATE_COLUMNS = `s.*, to_char(s.shift_date::timestamp, 'YYYY-MM-DD') AS shift_date_text`
 
 async function typedQuery<T>(
   client: SqlClient,
@@ -73,7 +76,7 @@ interface SessionRow {
   equipment_code: string | null
   operator_user_id: string
   operator_login: string
-  shift_date: Date | string
+  shift_date_text: string
   status: ExecutionSessionStatus
   business_time: Date | string
   draft_feeds: unknown[]
@@ -97,7 +100,7 @@ function mapSession(r: SessionRow): ExecutionSessionRecord {
     equipmentCode: r.equipment_code,
     operatorUserId: r.operator_user_id,
     operatorLogin: r.operator_login,
-    shiftDate: dateStr(r.shift_date),
+    shiftDate: r.shift_date_text,
     status: r.status,
     businessTime: iso(r.business_time),
     draftFeeds: Array.isArray(r.draft_feeds) ? r.draft_feeds : [],
@@ -113,14 +116,14 @@ export class PgExecutionSessionRepository implements ExecutionSessionRepository 
   constructor(private readonly client: SqlClient) {}
 
   async findById(id: string): Promise<ExecutionSessionRecord | null> {
-    const r = await typedQuery<SessionRow>(this.client, `SELECT * FROM execution_session WHERE id = $1`, [id])
+    const r = await typedQuery<SessionRow>(this.client, `SELECT ${SHIFT_DATE_COLUMNS} FROM execution_session WHERE id = $1`, [id])
     return r.rows[0] === undefined ? null : mapSession(r.rows[0])
   }
 
   async findBySessionReportId(reportId: string): Promise<ExecutionSessionRecord | null> {
     const r = await typedQuery<SessionRow>(
       this.client,
-      `SELECT s.* FROM execution_session s JOIN production_report r ON r.session_id = s.id WHERE r.id = $1`,
+      `SELECT ${SESSION_SHIFT_DATE_COLUMNS} FROM execution_session s JOIN production_report r ON r.session_id = s.id WHERE r.id = $1`,
       [reportId],
     )
     return r.rows[0] === undefined ? null : mapSession(r.rows[0])
@@ -129,7 +132,7 @@ export class PgExecutionSessionRepository implements ExecutionSessionRepository 
   async listOpenByOperatorAndOrder(operatorUserId: string, orderId: string): Promise<ExecutionSessionRecord[]> {
     const r = await typedQuery<SessionRow>(
       this.client,
-      `SELECT * FROM execution_session
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM execution_session
        WHERE operator_user_id = $1 AND order_id = $2 AND status = 'open'
        ORDER BY created_at ASC`,
       [operatorUserId, orderId],
@@ -144,7 +147,7 @@ export class PgExecutionSessionRepository implements ExecutionSessionRepository 
          (enterprise_id, plant_id, order_id, source, order_operation_id, operation_seq,
           equipment_id, equipment_code, operator_user_id, operator_login, shift_date,
           business_time, draft_feeds, remark, created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15) RETURNING *`,
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15) RETURNING ${SHIFT_DATE_COLUMNS}`,
       [
         session.enterpriseId,
         session.plantId,
@@ -180,7 +183,7 @@ export class PgExecutionSessionRepository implements ExecutionSessionRepository 
          draft_feeds = COALESCE($9::jsonb, draft_feeds),
          remark = COALESCE($10, remark),
          updated_at = now(), updated_by = $11
-       WHERE id = $1 RETURNING *`,
+       WHERE id = $1 RETURNING ${SHIFT_DATE_COLUMNS}`,
       [
         id,
         patch.orderOperationId !== undefined ? patch.orderOperationId : null,
@@ -239,7 +242,7 @@ export class PgExecutionSessionRepository implements ExecutionSessionRepository 
     values.push(filter.pageSize, (filter.page - 1) * filter.pageSize)
     const page = await typedQuery<SessionRow>(
       this.client,
-      `SELECT s.* FROM execution_session s WHERE ${where}
+      `SELECT ${SESSION_SHIFT_DATE_COLUMNS} FROM execution_session s WHERE ${where}
        ORDER BY s.created_at ASC LIMIT $${values.length - 1} OFFSET $${values.length}`,
       values,
     )
@@ -268,7 +271,7 @@ interface ReportRow {
   operator_user_id: string
   operator_login: string
   business_time: Date | string
-  shift_date: Date | string
+  shift_date_text: string
   equipment_id: string | null
   equipment_code: string | null
   reviewed_at: Date | string | null
@@ -302,7 +305,7 @@ function mapReport(r: ReportRow): ProductionReportRecord {
     operatorUserId: r.operator_user_id,
     operatorLogin: r.operator_login,
     businessTime: iso(r.business_time),
-    shiftDate: dateStr(r.shift_date),
+    shiftDate: r.shift_date_text,
     equipmentId: r.equipment_id,
     equipmentCode: r.equipment_code,
     reviewedAt: isoOrNull(r.reviewed_at),
@@ -326,14 +329,14 @@ export class PgProductionReportRepository implements ProductionReportRepository 
   constructor(private readonly client: SqlClient) {}
 
   async findById(id: string): Promise<ProductionReportRecord | null> {
-    const r = await typedQuery<ReportRow>(this.client, `SELECT * FROM production_report WHERE id = $1`, [id])
+    const r = await typedQuery<ReportRow>(this.client, `SELECT ${SHIFT_DATE_COLUMNS} FROM production_report WHERE id = $1`, [id])
     return r.rows[0] === undefined ? null : mapReport(r.rows[0])
   }
 
   async findBySessionId(sessionId: string): Promise<ProductionReportRecord | null> {
     const r = await typedQuery<ReportRow>(
       this.client,
-      `SELECT * FROM production_report WHERE session_id = $1 ORDER BY created_at DESC LIMIT 1`,
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM production_report WHERE session_id = $1 ORDER BY created_at DESC LIMIT 1`,
       [sessionId],
     )
     return r.rows[0] === undefined ? null : mapReport(r.rows[0])
@@ -346,7 +349,7 @@ export class PgProductionReportRepository implements ProductionReportRepository 
          (enterprise_id, plant_id, session_id, order_id, order_operation_id, operation_seq, source,
           status, review_status, operator_user_id, operator_login, business_time, shift_date,
           equipment_id, equipment_code, correction_of, remark, created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18) RETURNING *`,
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18) RETURNING ${SHIFT_DATE_COLUMNS}`,
       [
         report.enterpriseId,
         report.plantId,
@@ -391,7 +394,7 @@ export class PgProductionReportRepository implements ProductionReportRepository 
          business_time = COALESCE($15, business_time),
          shift_date = COALESCE($16, shift_date),
          updated_at = now(), updated_by = $17
-       WHERE id = $1 RETURNING *`,
+       WHERE id = $1 RETURNING ${SHIFT_DATE_COLUMNS}`,
       [
         id,
         patch.status ?? null,
@@ -418,7 +421,7 @@ export class PgProductionReportRepository implements ProductionReportRepository 
   async listByOrder(orderId: string): Promise<ProductionReportRecord[]> {
     const r = await typedQuery<ReportRow>(
       this.client,
-      `SELECT * FROM production_report WHERE order_id = $1 ORDER BY operation_seq, created_at`,
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM production_report WHERE order_id = $1 ORDER BY operation_seq, created_at`,
       [orderId],
     )
     return r.rows.map(mapReport)
@@ -427,7 +430,7 @@ export class PgProductionReportRepository implements ProductionReportRepository 
   async listByOrderOperation(orderId: string, orderOperationId: string): Promise<ProductionReportRecord[]> {
     const r = await typedQuery<ReportRow>(
       this.client,
-      `SELECT * FROM production_report WHERE order_id = $1 AND order_operation_id = $2 ORDER BY created_at`,
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM production_report WHERE order_id = $1 AND order_operation_id = $2 ORDER BY created_at`,
       [orderId, orderOperationId],
     )
     return r.rows.map(mapReport)
@@ -474,7 +477,7 @@ export class PgProductionReportRepository implements ProductionReportRepository 
     values.push(filter.pageSize, (filter.page - 1) * filter.pageSize)
     const page = await typedQuery<ReportRow>(
       this.client,
-      `SELECT * FROM production_report WHERE ${where}
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM production_report WHERE ${where}
        ORDER BY created_at DESC LIMIT $${values.length - 1} OFFSET $${values.length}`,
       values,
     )
@@ -721,7 +724,7 @@ interface FeedRow {
   operator_user_id: string
   operator_login: string
   business_time: Date | string
-  shift_date: Date | string | null
+  shift_date_text: string | null
   command_receipt_id: string
   created_at: Date | string
   created_by: string | null
@@ -755,7 +758,7 @@ function mapFeed(r: FeedRow): MaterialConsumptionRecord {
     operatorUserId: r.operator_user_id,
     operatorLogin: r.operator_login,
     businessTime: iso(r.business_time),
-    shiftDate: r.shift_date === null ? null : dateStr(r.shift_date),
+    shiftDate: r.shift_date_text,
     commandReceiptId: r.command_receipt_id,
     createdAt: iso(r.created_at),
     createdBy: r.created_by,
@@ -775,7 +778,7 @@ export class PgMaterialConsumptionRepository implements MaterialConsumptionRepos
           issued_location_code, genealogy_target_unit_id, operator_user_id, operator_login,
           business_time, shift_date, command_receipt_id, created_by)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28)
-       RETURNING *`,
+       RETURNING ${SHIFT_DATE_COLUMNS}`,
       [
         record.enterpriseId,
         record.plantId,
@@ -811,14 +814,14 @@ export class PgMaterialConsumptionRepository implements MaterialConsumptionRepos
   }
 
   async findById(id: string): Promise<MaterialConsumptionRecord | null> {
-    const r = await typedQuery<FeedRow>(this.client, `SELECT * FROM material_consumption WHERE id = $1`, [id])
+    const r = await typedQuery<FeedRow>(this.client, `SELECT ${SHIFT_DATE_COLUMNS} FROM material_consumption WHERE id = $1`, [id])
     return r.rows[0] === undefined ? null : mapFeed(r.rows[0])
   }
 
   async listByReport(reportId: string): Promise<MaterialConsumptionRecord[]> {
     const r = await typedQuery<FeedRow>(
       this.client,
-      `SELECT * FROM material_consumption WHERE report_id = $1 ORDER BY created_at`,
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM material_consumption WHERE report_id = $1 ORDER BY created_at`,
       [reportId],
     )
     return r.rows.map(mapFeed)
@@ -827,7 +830,7 @@ export class PgMaterialConsumptionRepository implements MaterialConsumptionRepos
   async listByOrder(orderId: string): Promise<MaterialConsumptionRecord[]> {
     const r = await typedQuery<FeedRow>(
       this.client,
-      `SELECT * FROM material_consumption WHERE order_id = $1 ORDER BY created_at`,
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM material_consumption WHERE order_id = $1 ORDER BY created_at`,
       [orderId],
     )
     return r.rows.map(mapFeed)
@@ -836,7 +839,7 @@ export class PgMaterialConsumptionRepository implements MaterialConsumptionRepos
   async listByUnit(inventoryUnitId: string): Promise<MaterialConsumptionRecord[]> {
     const r = await typedQuery<FeedRow>(
       this.client,
-      `SELECT * FROM material_consumption WHERE inventory_unit_id = $1 ORDER BY created_at`,
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM material_consumption WHERE inventory_unit_id = $1 ORDER BY created_at`,
       [inventoryUnitId],
     )
     return r.rows.map(mapFeed)
@@ -845,7 +848,7 @@ export class PgMaterialConsumptionRepository implements MaterialConsumptionRepos
   async listUnlinkedByOrderOperation(orderId: string, orderOperationId: string): Promise<MaterialConsumptionRecord[]> {
     const r = await typedQuery<FeedRow>(
       this.client,
-      `SELECT * FROM material_consumption
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM material_consumption
        WHERE order_id = $1 AND order_operation_id = $2 AND genealogy_target_unit_id IS NULL
        ORDER BY created_at`,
       [orderId, orderOperationId],
@@ -857,7 +860,7 @@ export class PgMaterialConsumptionRepository implements MaterialConsumptionRepos
     const r = await typedQuery<FeedRow>(
       this.client,
       `UPDATE material_consumption SET genealogy_target_unit_id = $2, updated_at = now(), updated_by = $3
-       WHERE id = $1 RETURNING *`,
+       WHERE id = $1 RETURNING ${SHIFT_DATE_COLUMNS}`,
       [id, targetUnitId, actor],
     )
     return r.rows[0] === undefined ? null : mapFeed(r.rows[0])
@@ -877,7 +880,7 @@ interface LaborRow {
   operator_login: string
   hours: string
   business_time: Date | string
-  shift_date: Date | string
+  shift_date_text: string
   note: string | null
   created_at: Date | string
   created_by: string | null
@@ -895,7 +898,7 @@ function mapLabor(r: LaborRow): LaborRecordRecord {
     operatorLogin: r.operator_login,
     hours: r.hours,
     businessTime: iso(r.business_time),
-    shiftDate: dateStr(r.shift_date),
+    shiftDate: r.shift_date_text,
     note: r.note,
     createdAt: iso(r.created_at),
     createdBy: r.created_by,
@@ -911,7 +914,7 @@ export class PgLaborRecordRepository implements LaborRecordRepository {
       `INSERT INTO labor_record
          (enterprise_id, plant_id, order_id, order_operation_id, report_id, operator_user_id,
           operator_login, hours, business_time, shift_date, note, created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *`,
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING ${SHIFT_DATE_COLUMNS}`,
       [
         record.enterpriseId,
         record.plantId,
@@ -933,7 +936,7 @@ export class PgLaborRecordRepository implements LaborRecordRepository {
   async listByOrder(orderId: string): Promise<LaborRecordRecord[]> {
     const r = await typedQuery<LaborRow>(
       this.client,
-      `SELECT * FROM labor_record WHERE order_id = $1 ORDER BY business_time`,
+      `SELECT ${SHIFT_DATE_COLUMNS} FROM labor_record WHERE order_id = $1 ORDER BY business_time`,
       [orderId],
     )
     return r.rows.map(mapLabor)

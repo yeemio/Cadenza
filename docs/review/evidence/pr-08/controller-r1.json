@@ -1,0 +1,65 @@
+{
+  "pr": 8,
+  "revision": "AUTHOR_R1_ACCOUNT_FIX_CONTROLLER_R1",
+  "decision": "REWORK",
+  "at": "2026-11-04T08:17:35.796060+00:00",
+  "parentHead": "63eb1d7d508ff3028be725e1bbcf7b1294881665",
+  "sourceCommit": "67b8674e3799b192e6df4255ae5e887dce0a5bd6",
+  "sourceAndTestFingerprint": "f10dab06df342ecfe8eb64778b2bfabe8245208f44ea0d4dc5b4edac621a98f3",
+  "patchSha256": "c07ce32ad9bf650f928d171376a810a000d27219e4476ba887b52edaed8c3f17",
+  "fullPostimagesMatched": 17,
+  "productsAndAcceptedPrerequisitesUnchanged": true,
+  "allAssertionLinesUnchanged": true,
+  "fullTestSourceTypes": "PASS_NEW",
+  "freshHttpPg": {
+    "passed": 5,
+    "failed": 2,
+    "runtimeSkipped": 0,
+    "database": "cadenza_pr08_intent_r1_20261104",
+    "failureLine139": "Production report GET shiftDate one day early in both factory cases; prior feed idempotency, stock and scheduling calendar checks in those cases passed"
+  },
+  "cause": {
+    "status": "READ_ONLY_CAUSE_CONFIRMED",
+    "nodeTimezone": "Asia/Shanghai",
+    "sqlTypeOid": 1082,
+    "repositorySourceSha256": "00c9456bb92b7826b316d99b2f3f00f55009c771b35de4ee9222d6b5f39ec02c",
+    "exactDateStrBody": "\n  return value instanceof Date ? value.toISOString().slice(0, 10) : String(value).slice(0, 10)",
+    "rows": [
+      {
+        "plant": "PLNT-HF",
+        "storedText": "2026-11-04",
+        "parsedIsDate": true,
+        "rawParsedIso": "2026-11-03T16:00:00.000Z",
+        "actualRepositoryDateStr": "2026-11-03",
+        "localCalendar": [
+          2026,
+          11,
+          4
+        ],
+        "timezoneOffsetMinutes": -480
+      },
+      {
+        "plant": "PLNT-SZ",
+        "storedText": "2026-11-03",
+        "parsedIsDate": true,
+        "rawParsedIso": "2026-11-02T16:00:00.000Z",
+        "actualRepositoryDateStr": "2026-11-02",
+        "localCalendar": [
+          2026,
+          11,
+          3
+        ],
+        "timezoneOffsetMinutes": -480
+      }
+    ]
+  },
+  "reusedLocal": 34,
+  "reusedCumulativePg": {
+    "pr02": 129,
+    "pr03": 40
+  },
+  "failureDatabaseAndOriginalLogsPreserved": true,
+  "next": "Same author narrow R2 fixes persistence DATE-only read boundary, preserving all7 scenarios/assertions and product timestamp semantics",
+  "controllerDidNotEditSource": true,
+  "automaticMergeReleaseDeploy": false
+}
