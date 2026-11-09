@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "pr": 14,
+  "decision": "ACCEPT",
+  "acceptanceLayer": "L1 local source and simulated gateway behavior",
+  "parent": "624067da1a5340a107db4c7786fc7755a572e1ed",
+  "incrementPatchSha256": "b4d41654e790b07c66bbaeea68ed87c5d3ed22f15a3fdbfc36b448fd69219110",
+  "authorChatId": "6ae983a9-f128-83e8-a5b4-d5539c933fee",
+  "authorR1MessageId": "72f2f362-7bd4-5389-af5d-cc624bd1fe4a",
+  "lineage": "same_family_external_advisory",
+  "sourceFiles": [
+    {
+      "path": "packages/edge/src/gateway.ts",
+      "sha256": "404447e6ac4a85599d185f46dc9ee7d582386b84078467134c8a5d73bd458b5f"
+    },
+    {
+      "path": "packages/edge/src/buffer.ts",
+      "sha256": "b2c054301f967bbb56b76150fd653077b2e9324611d1687d97dba12eff906f55"
+    },
+    {
+      "path": "tests/pr14/ts-source-loader.mjs",
+      "sha256": "2af40723fc3b51537fe8a91dcc99009e38fcd1a3df69ff99cf72a63b52a6c6f3"
+    },
+    {
+      "path": "tests/pr14/delivery.test.mjs",
+      "sha256": "d32a83aa3d65abeba2a178265f7a59ea40814c7d761241a49bb1ac34603c1d9e"
+    }
+  ],
+  "environment": {
+    "node": "v24.18.0",
+    "pnpm": "11.28.5",
+    "platform": "local macOS isolated PR worktree",
+    "workspace": "/Users/yeemio/AI/workspaces/Cadenza-pr14-20261103"
+  },
+  "freshChecks": [
+    {
+      "command": "pnpm exec vitest run packages/edge/test/edge-gateway.spec.ts",
+      "exitCode": 0,
+      "executed": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "pnpm --filter @cadenza/edge typecheck",
+      "exitCode": 0
+    }
+  ],
+  "reusedChecks": [
+    {
+      "command": "node --import ./tests/pr14/ts-source-loader.mjs --test tests/pr14/delivery.test.mjs",
+      "exitCode": 0,
+      "executed": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "controller-r0-node-test.log",
+      "validity": "all four source/test hashes unchanged"
+    },
+    {
+      "command": "pnpm --filter @cadenza/edge... build",
+      "exitCode": 0,
+      "evidence": "controller-r0-build.log",
+      "validity": "product files, dependencies and build config unchanged"
+    }
+  ],
+  "notProven": [
+    "Real API/PG receiver",
+    "Real equipment and field",
+    "Power-loss fsync/corrupt checkpoints",
+    "Independent R6"
+  ],
+  "noMainMerge": true,
+  "noDeployment": true,
+  "controllerSourceCodeEdits": false,
+  "legacyTest": {
+    "path": "packages/edge/test/edge-gateway.spec.ts",
+    "sha256": "7407ac7544d52c7b37fc0827a0c697f8e0ae0a00ccdae6d7dcaed224a964ab73"
+  }
+}

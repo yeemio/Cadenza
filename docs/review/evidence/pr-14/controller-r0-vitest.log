@@ -1,0 +1,38 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr14-20261103
+
+ ❯ packages/edge/test/edge-gateway.spec.ts (5 tests | 1 failed) 5ms
+   ✓ OT-15 唯一事件 ID > 构造=设备序列号@网关内单调序号；解析往返；非裸时间戳 1ms
+   ✓ OT-15 唯一事件 ID > 非法事件 ID 拒绝（无 @/非正整数序号） 0ms
+   ✓ OT-17 缓冲溢出 > 容量上限丢最旧并记录溢出统计（条数/时段/设备），不静默丢弃 0ms
+   × OT-14/15 断网缓冲、补传与检查点续发 > 离线 tick 入缓冲；恢复 flush 清空；重装后从检查点续发（序号不回退） 3ms
+     → expected +0 to be 3 // Object.is equality
+   ✓ OT-14/15 断网缓冲、补传与检查点续发 > 发生器确定性：同 tick 序号同值（计长累计/停机信号前两 tick 高电平） 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/edge/test/edge-gateway.spec.ts > OT-14/15 断网缓冲、补传与检查点续发 > 离线 tick 入缓冲；恢复 flush 清空；重装后从检查点续发（序号不回退）
+AssertionError: expected +0 to be 3 // Object.is equality
+
+- Expected
++ Received
+
+- 3
++ 0
+
+ ❯ packages/edge/test/edge-gateway.spec.ts:71:29
+     69|     // 恢复补传：只补数据（载荷仅样本批次，OT-18）
+     70|     const flushed = await gw.flush()
+     71|     expect(flushed.flushed).toBe(3)
+       |                             ^
+     72|     expect(gw.backlog).toBe(0)
+     73|     // 检查点落盘 → 重装（新实例同 store）续发
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  17:14:19
+   Duration  154ms (transform 37ms, setup 0ms, collect 48ms, tests 5ms, environment 0ms, prepare 25ms)
+

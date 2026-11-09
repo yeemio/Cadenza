@@ -5,6 +5,7 @@ import { buildEventId, parseEventId } from '../../domain/src/ot/index'
 import {
   EdgeBuffer,
   MemoryCheckpointStore,
+  MemoryTransport,
   SimulatedGateway,
   constant,
   meterCounter,
@@ -56,9 +57,32 @@ describe('OT-17 缓冲溢出', () => {
 })
 
 describe('OT-14/15 断网缓冲、补传与检查点续发', () => {
+  it('无 transport 时在线或离线 flush 均保留样本、溢出统计与检查点', async () => {
+    const store = new MemoryCheckpointStore()
+    const gw = new SimulatedGateway('GW-OT-NO-TRANSPORT', POINTS, { capacity: 2, checkpointStore: store })
+    const samples = await gw.tick('2026-10-28T08:00:00Z')
+    const pending = samples.slice(1)
+    const overflow = gw.takeOverflowStats()
+    expect(overflow).toEqual({
+      count: 1,
+      firstAt: samples[0]!.eventTime,
+      lastAt: samples[0]!.eventTime,
+      deviceSerials: [samples[0]!.deviceSerial],
+    })
+    for (const online of [true, false]) {
+      gw.setOnline(online)
+      expect(await gw.flush()).toEqual({ flushed: 0, checkpointSeq: 3 })
+      expect(gw.backlog).toBe(2)
+      expect(gw.peekBuffer()).toEqual(pending)
+      expect(gw.takeOverflowStats()).toEqual(overflow)
+      expect(await store.load(gw.gatewayCode)).toMatchObject({ lastSeq: 3, buffered: pending, overflow })
+    }
+  })
+
   it('离线 tick 入缓冲；恢复 flush 清空；重装后从检查点续发（序号不回退）', async () => {
     const store = new MemoryCheckpointStore()
-    const gw = new SimulatedGateway('GW-OT-TEST', POINTS, { capacity: 100, checkpointStore: store })
+    const transport = new MemoryTransport()
+    const gw = new SimulatedGateway('GW-OT-TEST', POINTS, { capacity: 100, checkpointStore: store, transport })
     gw.setOnline(false)
     const tick1 = await gw.tick('2026-10-28T08:01:00Z')
     expect(tick1).toHaveLength(3)
@@ -66,19 +90,31 @@ describe('OT-14/15 断网缓冲、补传与检查点续发', () => {
     // 重传载荷与缓冲同批（OT-16 服务端去重前提）
     const replay = gw.replayPayload()
     expect(replay!.samples.map((s) => s.eventId)).toEqual(tick1.map((s) => s.eventId))
-    // 恢复补传：只补数据（载荷仅样本批次，OT-18）
+    // 有 transport 但仍离线：不得发送或清除尚未确认的样本。
+    expect(await gw.flush()).toEqual({ flushed: 0, checkpointSeq: 3 })
+    expect(transport.sent).toHaveLength(0)
+    expect(gw.peekBuffer()).toEqual(tick1)
+    expect(gw.backlog).toBe(3)
+    // 恢复在线并取得 MemoryTransport 的完整确认后才移除该批（OT-14/18）。
+    gw.setOnline(true)
     const flushed = await gw.flush()
     expect(flushed.flushed).toBe(3)
     expect(gw.backlog).toBe(0)
+    expect(transport.sent).toHaveLength(1)
+    expect(transport.sent[0]!.samples.map((s) => s.eventId)).toEqual(tick1.map((s) => s.eventId))
+    expect(await store.load(gw.gatewayCode)).toMatchObject({ lastSeq: 3, buffered: [] })
     // 检查点落盘 → 重装（新实例同 store）续发
     const lastSeq = gw.lastSeq
-    const reinstalled = new SimulatedGateway('GW-OT-TEST', POINTS, { capacity: 100, checkpointStore: store })
+    const reinstalled = new SimulatedGateway('GW-OT-TEST', POINTS, { capacity: 100, checkpointStore: store, transport })
     expect(await reinstalled.restoreFromCheckpoint()).toBe(true)
     expect(reinstalled.lastSeq).toBe(lastSeq)
+    expect(reinstalled.backlog).toBe(0)
     reinstalled.setOnline(false)
     const tick2 = await reinstalled.tick('2026-10-28T08:02:00Z')
     // 序号从检查点续发：新事件 ID 序号全部大于检查点
     for (const s of tick2) expect(s.gatewaySeq).toBeGreaterThan(lastSeq)
+    expect(reinstalled.backlog).toBe(3)
+    expect(transport.sent).toHaveLength(1)
   })
 
   it('发生器确定性：同 tick 序号同值（计长累计/停机信号前两 tick 高电平）', async () => {

@@ -23,9 +23,26 @@ export interface OverflowStats {
   deviceSerials: string[]
 }
 
+export interface DeliveryBatch {
+  samples: BufferedSample[]
+  overflow: OverflowStats | null
+}
+
+function mergeOverflow(a: OverflowStats | null, b: OverflowStats | null): OverflowStats | null {
+  if (a === null) return b === null ? null : { ...b, deviceSerials: [...b.deviceSerials] }
+  if (b === null) return { ...a, deviceSerials: [...a.deviceSerials] }
+  return {
+    count: a.count + b.count,
+    firstAt: a.firstAt,
+    lastAt: b.lastAt,
+    deviceSerials: [...new Set([...a.deviceSerials, ...b.deviceSerials])],
+  }
+}
+
 export class EdgeBuffer {
   private readonly entries: BufferedSample[] = []
   private overflow: OverflowStats | null = null
+  private delivery: DeliveryBatch | null = null
 
   constructor(public readonly capacity: number) {
     if (!Number.isInteger(capacity) || capacity < 1) {
@@ -64,24 +81,51 @@ export class EdgeBuffer {
     return [...this.entries]
   }
 
+  /** Freeze one batch; new arrivals and their overflow belong to the next batch. */
+  beginDelivery(): DeliveryBatch {
+    if (this.delivery !== null) throw new Error('A delivery is already in flight')
+    const batch = { samples: this.peek(), overflow: this.overflow }
+    this.overflow = null
+    this.delivery = batch
+    return batch
+  }
+
+  finishDelivery(batch: DeliveryBatch, acknowledged: boolean): void {
+    if (this.delivery !== batch) throw new Error('Unknown delivery batch')
+    if (acknowledged) {
+      const ids = new Set(batch.samples.map((s) => `${s.deviceSerial}\0${s.eventId}`))
+      for (let i = this.entries.length - 1; i >= 0; i -= 1) {
+        const s = this.entries[i]!
+        if (ids.has(`${s.deviceSerial}\0${s.eventId}`)) this.entries.splice(i, 1)
+      }
+    } else {
+      this.overflow = mergeOverflow(batch.overflow, this.overflow)
+    }
+    this.delivery = null
+  }
+
+  peekOverflowStats(): OverflowStats | null {
+    return mergeOverflow(this.delivery?.overflow ?? null, this.overflow)
+  }
+
   /** 确认送达后清空缓冲（落检查点由调用方随缓冲一起持久化，OT-15）。 */
   drain(): BufferedSample[] {
+    if (this.delivery !== null) throw new Error('Cannot drain an unacknowledged delivery')
     const out = [...this.entries]
     this.entries.length = 0
     this.overflow = null
     return out
   }
 
-  restore(entries: BufferedSample[]): void {
+  restore(entries: BufferedSample[], overflow: OverflowStats | null = null): void {
+    if (this.delivery !== null) throw new Error('Cannot restore during delivery')
     this.entries.length = 0
     for (const e of entries) this.entries.push(e)
-    this.overflow = null
+    this.overflow = mergeOverflow(null, overflow)
   }
 
-  /** 未上报的溢出统计（取出后清零；随下一批上报服务端）。 */
+  /** Compatibility accessor; only a successful delivery may acknowledge these statistics. */
   takeOverflowStats(): OverflowStats | null {
-    const out = this.overflow
-    this.overflow = null
-    return out
+    return this.peekOverflowStats()
   }
 }
