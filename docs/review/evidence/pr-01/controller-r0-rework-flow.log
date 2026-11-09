@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr01-20261103
+
+ ✓ tests/integration/rework-flow.spec.ts (22 tests) 2047ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  20:30:32
+   Duration  3.11s (transform 681ms, setup 0ms, collect 965ms, tests 2.05s, environment 0ms, prepare 24ms)
+

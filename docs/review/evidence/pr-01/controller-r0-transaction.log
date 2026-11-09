@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr01-20261103
+
+ ✓ tests/pr01/transaction.pg.spec.ts (13 tests) 478ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  20:29:47
+   Duration  646ms (transform 43ms, setup 0ms, collect 71ms, tests 478ms, environment 0ms, prepare 28ms)
+

@@ -1,0 +1,10 @@
+Scope: 5 of 13 workspace projects
+$ tsc -p tsconfig.build.json
+$ tsc -p tsconfig.build.json
+$ tsc -p tsconfig.build.json
+$ tsc -p tsconfig.build.json
+$ tsc -p tsconfig.build.json
+src/aiquery/im/im.composition.ts(31,8): error TS2307: Cannot find module '../../../../../packages/integrations/im/dist/index.js' or its corresponding type declarations.
+/Users/yeemio/AI/workspaces/Cadenza-pr01-20261103/apps/api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cadenza/api@0.0.0 build: `tsc -p tsconfig.build.json`
+Exit status 2

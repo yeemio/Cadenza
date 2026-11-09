@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr01-20261103
+
+ ✓ tests/integration/shipping-flow.spec.ts (25 tests) 1738ms
+
+ Test Files  1 passed (1)
+      Tests  25 passed (25)
+   Start at  20:30:28
+   Duration  3.61s (transform 1.39s, setup 0ms, collect 1.77s, tests 1.74s, environment 0ms, prepare 23ms)
+

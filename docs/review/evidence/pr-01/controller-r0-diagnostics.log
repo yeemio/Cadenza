@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr01-20261103
+
+ ✓ tests/pr01/diagnostics.pg.spec.ts (4 tests) 1331ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  20:29:47
+   Duration  2.44s (transform 698ms, setup 0ms, collect 1.01s, tests 1.33s, environment 0ms, prepare 21ms)
+
