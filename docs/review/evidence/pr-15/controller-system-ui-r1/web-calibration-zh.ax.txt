@@ -1,0 +1,40 @@
+Browser tab: 3, Title: "Cadenza 管理工作台", URL: "http://127.0.0.1:5173/spc/calibration".
+1 AXWebArea Cadenza 管理工作台, URL: 127.0.0.1:5173/spc/calibration
+	2 container root
+		3 container 主导航面板
+			4 text Cadenza
+			5 text 线缆协同工作台
+			6 container 主导航
+				7 link Description: 看板, Value: 127.0.0.1:5173/dashboard
+				8 link Description: 机构管理, Value: 127.0.0.1:5173/org/nodes
+				9 link Description: 用户管理, Value: 127.0.0.1:5173/org/users
+				10 link Description: 角色管理, Value: 127.0.0.1:5173/org/roles
+				11 link Description: 授权管理, Value: 127.0.0.1:5173/org/grants
+				12 text 集团计划
+				13 link Description: 分配修订, Value: 127.0.0.1:5173/group/allocation-revision
+				14 link Description: 缺料/齐套, Value: 127.0.0.1:5173/group/shortage-kitting
+				15 link Description: 供应商风险, Value: 127.0.0.1:5173/group/vendor-risk
+				16 link Description: 返工/报废/召回, Value: 127.0.0.1:5173/group/rework-scrap-recall
+				17 link Description: 双账对账, Value: 127.0.0.1:5173/sap/reconciliation
+				18 text 异常与拦截
+				19 link Description: 轴号修正/清码, Value: 127.0.0.1:5173/production/correct-clear
+				20 link Description: 投料竞争/计划部分, Value: 127.0.0.1:5173/production/feed-race-plan
+				21 link Description: 退料/退货/恢复, Value: 127.0.0.1:5173/quality/return-restore
+				22 link Description: 扫描拦截, Value: 127.0.0.1:5173/scan-block
+			23 button 收窄导航
+		24 container
+			25 text 华东电缆集团 工厂 苏州线缆厂 企业范围 业务日 2026-11-04 UTC+8 14:31
+			26 pop up button (collapsed, settable) Description: 语言选择, Value: 简体中文, Secondary Actions: Expand
+				27 menu
+					28 (selected) 简体中文
+					29 한국어
+			30 text 集 集团管理员 （ [TEST_ADMIN] ）
+			31 button 退出登录
+		32 container
+			33 heading 计量校准, Value: 2
+				34 text 计量校准
+			35 text 器具校准历史与失准影响圈定（PE-15～PE-19）
+			36 text 无 SPC 查询权限（spc.read）
+			37 text 未授予 SPC 域查询许可，请联系管理员授权后使用。
+
+The focused UI element is 1 AXWebArea Cadenza 管理工作台, URL: 127.0.0.1:5173/spc/calibration

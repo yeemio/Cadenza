@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-04T06:34:51.531862+00:00",
+  "afterStableTerraFinal": true,
+  "results": [
+    {
+      "kind": "api",
+      "pid": 33177,
+      "expectedCommand": "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/api/dist/main.js",
+      "observedCommand": "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/api/dist/main.js",
+      "result": "SIGTERM_OWNED_PID",
+      "readback": "NO_PROCESS"
+    },
+    {
+      "kind": "web",
+      "pid": 33178,
+      "expectedCommand": "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 5173 --strictPort",
+      "observedCommand": "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 5173 --strictPort",
+      "result": "SIGTERM_OWNED_PID",
+      "readback": "NO_PROCESS"
+    },
+    {
+      "kind": "pda",
+      "pid": 33179,
+      "expectedCommand": "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 5174 --strictPort",
+      "observedCommand": "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 5174 --strictPort",
+      "result": "SIGTERM_OWNED_PID",
+      "readback": "NO_PROCESS"
+    }
+  ],
+  "sourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+  "databasePreserved": "cadenza_pr15_ui_r0_20261104"
+}

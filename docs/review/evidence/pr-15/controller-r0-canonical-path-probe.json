@@ -1,0 +1,23 @@
+{
+  "status": "DIAGNOSTIC_ONLY_NOT_FORMAL_BYTE_COMPARISON",
+  "rootLogical": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+  "rootCanonical": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+  "samePhysicalRoot": true,
+  "command": [
+    "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node",
+    "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js",
+    "build",
+    "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/web",
+    "--mode",
+    "production",
+    "--config",
+    "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/web/vite.config.ts",
+    "--outDir",
+    "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-canonical-probe-z9jhgarb/web",
+    "--manifest"
+  ],
+  "exitCode": 0,
+  "logSha256": "3d74ad394a18b014d2007e17d856d8f651b399616a7d0e6a0202d73cded7734c",
+  "outputPreserved": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-canonical-probe-z9jhgarb/web",
+  "inference": "Normalizing only /var -> /private/var tool paths avoids Rollup HTML fileName traversal; original measurement helper needs physical-path normalization plus existing source/receipt hash guard retained."
+}

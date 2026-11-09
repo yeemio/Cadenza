@@ -1,0 +1,9 @@
+PR15 R1 **ACCEPT** for the frozen local frontend optimization contract.
+
+Exact source/testd434867d7ed5deb817949e5d3a09d39b31ff527e, fingerprint fc2eb9a66984334f92e657cba89bc75c0ac20c38341218595f1e02b90ae3ac0f; patch796c9612bf77a9b471608356eae25c9d56977329fd8bbfd97dc80447f0b209a2 on exact parenta8ea17df961837680a715c5dae295ba07cb3c238,14postimages match. Apps/packages whole product tree unchanged from tested cold/runtime e68c604; only helper/test config/regression and author evidence changed.
+
+New complete UI typecheck PASS. Same new recipe c52d9a47, lock and Node24.18.0/pnpm11.28.5/Vite7.3.7 run externally against both unchanged successful cold roots: Web initialJS1473147→853476 and gzip424278→257930; PDA1058770→821723 and gzip318436→247812.65/26dynamic page entries excluded from the initial static closure. Full tracked-source/count/hash/lock receipts and physical-root identity validated, no frozen source/receipt edits or fake measurements.
+
+Exact38Node tests (23original+15new) valid authorR1reuse and16original actual React/jsdom/mockAPI cases on unchanged inputs =>54registered local cases. Real Terra browser raw4PASS/1FAIL retained: actualWeb login/deeplink/nav/permission-denial/language flows observed; protected queries not verified. PDAanonymous /scan→login renders but no language selector; LoginPage/PdaLayout and routing are byte-identical to baseline, so this is not evidence of a new PR15 regression. No product/role/platform edits to hide it.
+
+Limits remain visible: largest853476/821723byte main chunks still emit default-size warnings; totalJS+32107/+14084 and total-per-filegzip+84068/+25461. This is initial-load improvement, not total-byte or warning elimination. PhysicalPDA/time/site fault NOT_RUN. All original author/controller failures, invalid old measurements and raw UI flow5 failure preserved. Ready/open/unmerged, no install/release/deploy or production calls.

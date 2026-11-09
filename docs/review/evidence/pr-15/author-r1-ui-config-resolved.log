@@ -1,0 +1,76 @@
+{
+    "compilerOptions": {
+        "target": "es2022",
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "baseUrl": "../..",
+        "paths": {
+            "@cadenza/contracts": [
+                "packages/contracts/src/index.ts"
+            ],
+            "@cadenza/domain": [
+                "packages/domain/src/index.ts"
+            ],
+            "@cadenza/application": [
+                "packages/application/src/index.ts"
+            ],
+            "@cadenza/persistence": [
+                "packages/persistence/src/index.ts"
+            ],
+            "@cadenza/integrations": [
+                "packages/integrations/src/index.ts"
+            ],
+            "@cadenza/ui": [
+                "packages/ui/src/index.ts"
+            ],
+            "@cadenza/testkit": [
+                "packages/testkit/src/index.ts"
+            ]
+        },
+        "lib": [
+            "es2022",
+            "dom",
+            "dom.iterable"
+        ],
+        "jsx": "react-jsx",
+        "types": [
+            "vitest/globals",
+            "vite/client"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "resolvePackageJsonExports": true,
+        "resolvePackageJsonImports": true,
+        "resolveJsonModule": true,
+        "preserveConstEnums": true,
+        "useDefineForClassFields": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "strictBuiltinIteratorReturn": true,
+        "alwaysStrict": true,
+        "useUnknownInCatchVariables": true
+    },
+    "files": [
+        "./pr15-route-loading.test.tsx",
+        "./pr15.vitest.config.ts",
+        "./setup.ts",
+        "../../apps/web/src/App.tsx",
+        "../../apps/pda/src/App.tsx"
+    ],
+    "include": [
+        "./pr15-route-loading.test.tsx",
+        "./pr15.vitest.config.ts",
+        "./setup.ts",
+        "../../apps/web/src/App.tsx",
+        "../../apps/pda/src/App.tsx"
+    ]
+}

@@ -1,0 +1,32 @@
+{
+  "stoppedAfterTerraStableFinal": true,
+  "at": "2026-11-04T04:30:57.262368+00:00",
+  "results": [
+    {
+      "kind": "api",
+      "pid": 4972,
+      "expectedCommand": "node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/api/dist/main.js",
+      "observedCommand": "node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/api/dist/main.js",
+      "result": "SIGTERM_OWNED_PID"
+    },
+    {
+      "kind": "web",
+      "pid": 4973,
+      "expectedCommand": "node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 55133 --strictPort",
+      "observedCommand": "node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 55133 --strictPort",
+      "result": "SIGTERM_OWNED_PID"
+    },
+    {
+      "kind": "pda",
+      "pid": 4974,
+      "expectedCommand": "node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 55134 --strictPort",
+      "observedCommand": "node /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 55134 --strictPort",
+      "result": "SIGTERM_OWNED_PID"
+    }
+  ],
+  "preserved": [
+    "synthetic database",
+    "private credentials",
+    "all source, evidence and logs"
+  ]
+}

@@ -1,0 +1,311 @@
+{
+  "pr": 15,
+  "revision": "R0",
+  "status": "SOURCE_READY_BUILD_UI_DEVICE_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-15-frontend-loading",
+  "exactRecordedParentHead": "1dd796cd329c752733811ef3ac413739cab214db",
+  "prerequisites": [
+    {
+      "kind": "EXACT_PR13_R0_CUMULATIVE_POSTIMAGES",
+      "originalPr": 13,
+      "originalHead": "7b6d3ed98d48e87c6b83cad51b7d57eaee4c617e",
+      "sourceDigest": "faee16d466852b2c968a2c08040f281d896fbb27c0599a3d650f46acd360e632",
+      "fullPatchSha256": "9e319407e1fba558b2ee6c4a21d44d6f487a9a31d00c9777591d49b170a77e43",
+      "postimages": 55,
+      "status": "CONTROLLER_PENDING_FULL_COLD_BUILD_NOT_RUN",
+      "note": "Includes the exact PR1 accepted idempotency-test file lineage through PR13; no other independent PR implementation is carried."
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "811cc44d9f4d968f2273f6240f3576a974a3d733aa735bbff264cb04816bfc7c",
+    "files": [
+      {
+        "path": "apps/pda/src/App.tsx",
+        "sha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb",
+        "gitMode": "100644",
+        "parentSha256": "91d735ae3e211ffacc54ce777d20aebe21c5a44e12425aa13879264b0669e979"
+      },
+      {
+        "path": "apps/pda/src/loading/mount.tsx",
+        "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "apps/pda/src/p2/mount.tsx",
+        "sha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf",
+        "gitMode": "100644",
+        "parentSha256": "e45af66675fc191eac3c302e9a55e6cf5c2e1f5d1d726431f2b5c5d331ab1834"
+      },
+      {
+        "path": "apps/pda/src/p3/mount.tsx",
+        "sha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea",
+        "gitMode": "100644",
+        "parentSha256": "a3cce7b4b28e2504c6702d37942c0b5b15f60daa49808999d7b8f7e28546fc49"
+      },
+      {
+        "path": "apps/pda/src/p4/mount.tsx",
+        "sha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701",
+        "gitMode": "100644",
+        "parentSha256": "c2bb474727f748d6357ccf2e5ea40a5b2b7d5af6e28c840be4cf544079e5819f"
+      },
+      {
+        "path": "apps/pda/vite.config.ts",
+        "sha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae",
+        "gitMode": "100644",
+        "parentSha256": "ea668b851c945ede5b757f417af087e5f9ee606398ab4219e0cf8f839168fe62"
+      },
+      {
+        "path": "apps/web/src/App.tsx",
+        "sha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b",
+        "gitMode": "100644",
+        "parentSha256": "1fb7303e07333b9e503788b4bf4dd978ba6d6ea97f5c59c9c188942ed89f5498"
+      },
+      {
+        "path": "apps/web/src/loading/mount.tsx",
+        "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "apps/web/src/p2/mount.tsx",
+        "sha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c",
+        "gitMode": "100644",
+        "parentSha256": "bf19624d6d4c3a161e874d86e5d4151de4062b26b1c37a2fcd129e90a1a3c6b8"
+      },
+      {
+        "path": "apps/web/src/p3/mount.tsx",
+        "sha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3",
+        "gitMode": "100644",
+        "parentSha256": "4fb80c0ff2c65bf830e12f3cfd133d01cac3c2d608a07ff6da78bf734ede597f"
+      },
+      {
+        "path": "apps/web/src/p4/mount.tsx",
+        "sha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467",
+        "gitMode": "100644",
+        "parentSha256": "30a75780561ce27519895d2143da6d27b6169a8ed97e199178c22f0739e54213"
+      },
+      {
+        "path": "apps/web/vite.config.ts",
+        "sha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954",
+        "gitMode": "100644",
+        "parentSha256": "61552aca4c33976df936ed94bdd1da4d22e04289c7afcbf76d54893c5fb9070a"
+      },
+      {
+        "path": "tests/ui/pr15-baseline-routes.json",
+        "sha256": "c88e3eaaf869ae38a70fdf1f593c4699213f0967c22058db5b0d7022d1ab5a61",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/ui/pr15-loading-structure.test.mjs",
+        "sha256": "e77c848b00ec611da43f3e031c66d76ea349a89fbcf6a9595e249411a000fdd9",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/ui/pr15-measure-build.mjs",
+        "sha256": "7328418540525e1c80b3aea2cff1fa78a65cde879d87318a25acc2f6a48e923e",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/ui/pr15-route-loading.test.tsx",
+        "sha256": "bf00c9bbad703e554e55c25432d5cafc79b08482538eccb36e8dcb3d8d4c213f",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/ui/pr15-source-graph.mjs",
+        "sha256": "704edee0cefd0fc8c8dac12cd3e7e313e39954dfa67b7afbdd4b1a27ac526f58",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/ui/pr15.tsconfig.json",
+        "sha256": "04c340c67d2e577951e8e126b0260441e585dbb7d685b784fe9160be37b15945",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/ui/pr15.vitest.config.ts",
+        "sha256": "abe5d4d835796d0ce8eedfb4e0e3ed5ec63a39038154dea053e72224b7a67652",
+        "gitMode": "100644",
+        "parentSha256": null
+      }
+    ]
+  },
+  "scopeExtensions": {},
+  "commands": [
+    {
+      "name": "baseline-web-build",
+      "command": [
+        "node",
+        "node_modules/vite/bin/vite.js",
+        "build",
+        "apps/web",
+        "--config",
+        "apps/web/vite.config.ts",
+        "--outDir",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-baseline-build-web",
+        "--manifest"
+      ],
+      "exitCode": 1,
+      "scope": "PARTIAL_CACHE_DIAGNOSTIC_NOT_LOCKED_BUILD",
+      "log": "baseline-web-build.log"
+    },
+    {
+      "name": "baseline-pda-build",
+      "command": [
+        "node",
+        "node_modules/vite/bin/vite.js",
+        "build",
+        "apps/pda",
+        "--config",
+        "apps/pda/vite.config.ts",
+        "--outDir",
+        "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr15-baseline-build-pda",
+        "--manifest"
+      ],
+      "exitCode": 1,
+      "scope": "PARTIAL_CACHE_DIAGNOSTIC_NOT_LOCKED_BUILD",
+      "log": "baseline-pda-build.log"
+    },
+    {
+      "name": "structure-measurement-unit",
+      "command": [
+        "node",
+        "--test",
+        "tests/ui/pr15-loading-structure.test.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 1.029,
+      "log": "structure-measurement-unit.log"
+    },
+    {
+      "name": "ui-behavior-attempt",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/ui/pr15.vitest.config.ts"
+      ],
+      "exitCode": 1,
+      "seconds": 0.897,
+      "log": "ui-behavior-attempt.log"
+    },
+    {
+      "name": "ui-types-attempt",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/ui/pr15.tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "exitCode": 2,
+      "seconds": 4.126,
+      "log": "ui-types-attempt.log"
+    },
+    {
+      "name": "candidate-build-measurement",
+      "command": [
+        "node",
+        "tests/ui/pr15-measure-build.mjs",
+        "--root",
+        ".",
+        "--label",
+        "PR15-R0-CANDIDATE",
+        "--out",
+        "docs/review/evidence/pr-15/current-build-measurement.json"
+      ],
+      "exitCode": 1,
+      "seconds": 0.735,
+      "log": "candidate-build-measurement.log"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tests/ui/pr15-loading-structure.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tests/ui/pr15-measure-build.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tests/ui/pr15-source-graph.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "TypeScript.createSourceFile",
+        "tests/ui/pr15-route-loading.test.tsx"
+      ],
+      "parseDiagnosticCount": 0,
+      "scope": "syntax only; UI runtime NOT_RUN"
+    }
+  ],
+  "localTests": {
+    "passed": 23,
+    "failed": 0,
+    "skipped": 0,
+    "meaning": "AST import/route/auth-ancestry checks and synthetic manifest/comparison behavior; no React/browser or bundle-performance pass"
+  },
+  "uiBehavior": {
+    "plannedCases": 16,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "attemptExitCode": 1,
+    "reason": "jsdom missing before test collection; other React/router/testing dependencies also unavailable"
+  },
+  "currentBundleMeasurement": {
+    "status": "NOT_MEASURED",
+    "currentWebBytes": null,
+    "currentPdaBytes": null,
+    "delta": null,
+    "reason": "Historical parent build is indexed, but baseline diagnostics fail missing @vitejs/plugin-react; new measurement gate refuses pnpm 11.25.0 vs pinned 11.28.5"
+  },
+  "staticGraph": {
+    "web": {
+      "baselinePageModules": 66,
+      "candidatePageModules": 1,
+      "lazyPageImports": 65,
+      "originalRouteRecordsRetained": 85
+    },
+    "pda": {
+      "baselinePageModules": 27,
+      "candidatePageModules": 1,
+      "lazyPageImports": 26,
+      "originalRouteRecordsRetained": 34
+    },
+    "meaning": "Source graph only; LoginPage remains the sole static page. These counts are not a byte/timing/memory measurement."
+  },
+  "devicePerformance": {
+    "status": "NOT_RUN",
+    "testedDevice": null,
+    "siteFaultClaim": false
+  },
+  "controllerAccepted": false,
+  "remoteWrite": false
+}

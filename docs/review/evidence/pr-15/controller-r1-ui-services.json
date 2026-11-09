@@ -1,0 +1,74 @@
+{
+  "assignment": "PR15-SYSTEM-UI-20261104-R1",
+  "at": "2026-11-04T06:25:32.265211+00:00",
+  "sourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+  "fingerprint": "811cc44d9f4d968f2273f6240f3576a974a3d733aa735bbff264cb04816bfc7c",
+  "coldAggregate": "cd3f6119b97dd6148dfbd3c144e7a75890fc797044b395b7eaec4aa9fbe01f4b",
+  "services": [
+    {
+      "kind": "api",
+      "pid": 33177,
+      "command": [
+        "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node",
+        "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/api/dist/main.js"
+      ],
+      "cwd": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+      "port": 3001,
+      "log": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-SYSTEM-UI-R1-api.log",
+      "http200": true,
+      "listeningPids": [
+        33177
+      ]
+    },
+    {
+      "kind": "web",
+      "pid": 33178,
+      "command": [
+        "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node",
+        "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js",
+        "preview",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
+      "cwd": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/web",
+      "port": 5173,
+      "log": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-SYSTEM-UI-R1-web.log",
+      "http200": true,
+      "listeningPids": [
+        33178
+      ]
+    },
+    {
+      "kind": "pda",
+      "pid": 33179,
+      "command": [
+        "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node",
+        "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js",
+        "preview",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5174",
+        "--strictPort"
+      ],
+      "cwd": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/pda",
+      "port": 5174,
+      "log": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR15-SYSTEM-UI-R1-pda.log",
+      "http200": true,
+      "listeningPids": [
+        33179
+      ]
+    }
+  ],
+  "database": "cadenza_pr15_ui_r0_20261104",
+  "pgContainer": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+  "databaseWasNotRemigratedOrReseeded": true,
+  "localCredentials": "/Users/yeemio/AI/workspaces/.cadenza-pr15-ui-access-20261104.json",
+  "webUrl": "http://127.0.0.1:5173",
+  "pdaUrl": "http://127.0.0.1:5174",
+  "apiUrl": "http://127.0.0.1:3001",
+  "portReason": "Use pre-existing supported API CORS origins 5173/5174 instead of earlier high preview ports; no source or shared config edits"
+}

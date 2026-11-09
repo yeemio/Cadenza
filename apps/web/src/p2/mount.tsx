@@ -1,21 +1,22 @@
-import type { ReactElement } from 'react'
-import { ReworkLedgerPage } from './pages/ReworkLedgerPage'
-import { OrderConversionPage } from './pages/OrderConversionPage'
-import { StockConversionPage } from './pages/StockConversionPage'
-import { ReverseLedgerPage } from './pages/ReverseLedgerPage'
-import { ReverseTransferPage } from './pages/ReverseTransferPage'
-import { ReverseStocktakePage } from './pages/ReverseStocktakePage'
-import { ReceiptCorrectionPage } from './pages/ReceiptCorrectionPage'
-import { QualitySuspectPage } from './pages/QualitySuspectPage'
-import { FinishedDefectPage } from './pages/FinishedDefectPage'
-import { IqcVersionPage } from './pages/IqcVersionPage'
-import { DispositionPage } from './pages/DispositionPage'
-import { MaintenanceOrdersPage } from './pages/MaintenanceOrdersPage'
-import { MaintenancePlansPage } from './pages/MaintenancePlansPage'
-import { StockStatisticsPage } from './pages/StockStatisticsPage'
-import { AxisQueryPage } from './pages/AxisQueryPage'
-import { ReportSummaryPage } from './pages/ReportSummaryPage'
-import { ShiftMetricsPage } from './pages/ShiftMetricsPage'
+import { lazy, type ReactElement } from 'react'
+
+const ReworkLedgerPage = lazy(() => import('./pages/ReworkLedgerPage').then((module) => ({ default: module.ReworkLedgerPage })))
+const OrderConversionPage = lazy(() => import('./pages/OrderConversionPage').then((module) => ({ default: module.OrderConversionPage })))
+const StockConversionPage = lazy(() => import('./pages/StockConversionPage').then((module) => ({ default: module.StockConversionPage })))
+const ReverseLedgerPage = lazy(() => import('./pages/ReverseLedgerPage').then((module) => ({ default: module.ReverseLedgerPage })))
+const ReverseTransferPage = lazy(() => import('./pages/ReverseTransferPage').then((module) => ({ default: module.ReverseTransferPage })))
+const ReverseStocktakePage = lazy(() => import('./pages/ReverseStocktakePage').then((module) => ({ default: module.ReverseStocktakePage })))
+const ReceiptCorrectionPage = lazy(() => import('./pages/ReceiptCorrectionPage').then((module) => ({ default: module.ReceiptCorrectionPage })))
+const QualitySuspectPage = lazy(() => import('./pages/QualitySuspectPage').then((module) => ({ default: module.QualitySuspectPage })))
+const FinishedDefectPage = lazy(() => import('./pages/FinishedDefectPage').then((module) => ({ default: module.FinishedDefectPage })))
+const IqcVersionPage = lazy(() => import('./pages/IqcVersionPage').then((module) => ({ default: module.IqcVersionPage })))
+const DispositionPage = lazy(() => import('./pages/DispositionPage').then((module) => ({ default: module.DispositionPage })))
+const MaintenanceOrdersPage = lazy(() => import('./pages/MaintenanceOrdersPage').then((module) => ({ default: module.MaintenanceOrdersPage })))
+const MaintenancePlansPage = lazy(() => import('./pages/MaintenancePlansPage').then((module) => ({ default: module.MaintenancePlansPage })))
+const StockStatisticsPage = lazy(() => import('./pages/StockStatisticsPage').then((module) => ({ default: module.StockStatisticsPage })))
+const AxisQueryPage = lazy(() => import('./pages/AxisQueryPage').then((module) => ({ default: module.AxisQueryPage })))
+const ReportSummaryPage = lazy(() => import('./pages/ReportSummaryPage').then((module) => ({ default: module.ReportSummaryPage })))
+const ShiftMetricsPage = lazy(() => import('./pages/ShiftMetricsPage').then((module) => ({ default: module.ShiftMetricsPage })))
 
 /**
  * [L0-整合标记] P2-UI 六域入口挂载点（web）。

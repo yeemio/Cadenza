@@ -1,0 +1,14 @@
+Browser tab: 3, Title: "Cadenza 管理工作台", URL: "http://127.0.0.1:5173/login".
+0 AXWebArea Cadenza 管理工作台, URL: 127.0.0.1:5173/login
+	1 container
+		2 heading Cadenza 管理工作台, Value: 1
+			3 text Cadenza 管理工作台
+		4 text 账号密码登录（线缆制造协同平台）
+		5 text 登录账号
+		6 text field (settable) 登录账号
+		7 text 密码
+		8 text field (settable) 密码
+		9 text 8–16 位，须同时包含数字与字母
+		10 button 登录
+
+The focused UI element is 0 AXWebArea Cadenza 管理工作台, URL: 127.0.0.1:5173/login

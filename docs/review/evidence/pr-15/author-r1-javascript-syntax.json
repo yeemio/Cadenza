@@ -1,0 +1,24 @@
+[
+  {
+    "command": [
+      "node",
+      "--check",
+      "tests/ui/pr15-measure-build.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "fileSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25"
+  },
+  {
+    "command": [
+      "node",
+      "--check",
+      "tests/ui/pr15-physical-root.test.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "fileSha256": "6857f8d6aab422ef380e4eb967e17cda8e210657ee89f9f4b7dee646c14486bb"
+  }
+]

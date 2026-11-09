@@ -1,0 +1,52 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 2229 modules transformed.
+rendering chunks...
+computing gzip size...
+../../../../cadenza-pr15-measure-Txzgkx/pda/index.html                                       0.60 kB │ gzip:   0.40 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/.vite/manifest.json                             12.03 kB │ gzip:   1.36 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/index-czktqdT3.css                       31.81 kB │ gzip:   6.87 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/types-B8USxzS0.js                         0.15 kB │ gzip:   0.16 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/permissions-BHvuJG0Z.js                   0.25 kB │ gzip:   0.20 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/PackingAliasPage-CNkD4eBz.js              0.45 kB │ gzip:   0.36 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/Badge-zfM9ln8f.js                         0.74 kB │ gzip:   0.41 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/PageContainer-ZdyREgbm.js                 0.76 kB │ gzip:   0.40 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/InventoryHubPage-D0tMdaGb.js              0.77 kB │ gzip:   0.46 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/MePage-6WPfUdaI.js                        1.15 kB │ gzip:   0.71 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ScanPage-DAG6VCll.js                      1.70 kB │ gzip:   1.05 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/PdaCumulativePdaPage-3AvOwMRj.js          2.01 kB │ gzip:   1.19 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/TasksPage-Dx2MYLuO.js                     2.11 kB │ gzip:   1.19 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/FinishedDefectPdaPage-O3ue9Hg7.js         2.13 kB │ gzip:   1.20 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ScanInput-Ba26JPwa.js                     2.33 kB │ gzip:   1.32 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/EquipmentStartPdaPage-C-xB28M9.js         2.50 kB │ gzip:   1.32 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/AxisRetirePdaPage-CfaQpFjF.js             2.55 kB │ gzip:   1.35 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ReverseTransferOutPdaPage-B8XoelAu.js     2.66 kB │ gzip:   1.46 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/QualitySuspectPdaPage-Bw1wKK83.js         2.84 kB │ gzip:   1.52 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ReverseMovePdaPage-B2dgjYuP.js            3.07 kB │ gzip:   1.64 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/OrderConversionScanPdaPage-Bl7jlQ1F.js    3.14 kB │ gzip:   1.65 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/EquipmentExceptionPdaPage-BKXpi8cU.js     3.15 kB │ gzip:   1.63 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ReverseTransferInPdaPage-Me7qERFC.js      3.33 kB │ gzip:   1.75 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/PutawayScanPage-CQuZr_mZ.js               3.39 kB │ gzip:   1.87 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/FeedScanPage-Ddc7TH7-.js                  3.48 kB │ gzip:   1.94 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/AxisCorrectionPdaPage-DQHmxd_2.js         3.70 kB │ gzip:   1.85 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/PalletTaskPdaPage-C2vwne53.js             3.72 kB │ gzip:   1.81 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ShippingOutboundPage-D1ndTGUX.js          3.75 kB │ gzip:   1.64 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ProductionPage-Oten6OGq.js                3.93 kB │ gzip:   1.94 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/IqcCodePdaPage-DEqO6jyc.js                3.93 kB │ gzip:   1.77 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ReelSplitPdaPage-BVCUe88A.js              4.53 kB │ gzip:   2.22 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/ShippingScanPage-CPCYMPZ-.js              7.41 kB │ gzip:   2.99 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/OutsourcingReceivePage-eUDdSMdi.js       23.24 kB │ gzip:  10.88 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/shared-BY6T_Ahq.js                       25.09 kB │ gzip:  10.78 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/AiQueryPdaPage-PqUVVcCg.js               45.55 kB │ gzip:  14.87 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/permissions-B7dEfPh3.js                  81.63 kB │ gzip:  20.62 kB
+../../../../cadenza-pr15-measure-Txzgkx/pda/assets/index-CA1r5sdM.js                       821.72 kB │ gzip: 248.24 kB
+✓ built in 1.13s
+
+(!) outDir /private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-measure-Txzgkx/pda is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

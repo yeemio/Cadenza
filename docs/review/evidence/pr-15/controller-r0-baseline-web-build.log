@@ -1,0 +1,21 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 2271 modules transformed.
+rendering chunks...
+
+(!) outDir /var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-measure-LUAZRo/web is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+✗ Build failed in 1.62s
+error during build:
+[vite:build-html] The "fileName" or "name" properties of emitted chunks and assets must be strings that are neither absolute nor relative paths, received "../../../../../../../../../private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/apps/web/index.html".
+    at getRollupError (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/rollup/dist/es/shared/parseAst.js:337:41)
+    at error (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/rollup/dist/es/shared/parseAst.js:333:42)
+    at FileEmitter.emitFile (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/rollup/dist/es/shared/node-entry.js:23139:24)
+    at Object.generateBundle (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/vite/dist/node/chunks/config.js:24405:10)
+    at async Bundle.generate (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/rollup/dist/es/shared/node-entry.js:21874:9)
+    at async file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/rollup/dist/es/shared/node-entry.js:24816:27
+    at async catchUnfinishedHookActions (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/rollup/dist/es/shared/node-entry.js:24180:16)
+    at async buildEnvironment (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/vite/dist/node/chunks/config.js:33794:64)
+    at async Object.build (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/vite/dist/node/chunks/config.js:34151:19)
+    at async Object.buildApp (file:///private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source/node_modules/vite/dist/node/chunks/config.js:34148:153)

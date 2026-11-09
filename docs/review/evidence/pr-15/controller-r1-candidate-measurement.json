@@ -1,0 +1,1975 @@
+{
+  "schemaVersion": 1,
+  "label": "candidate",
+  "mode": "production",
+  "status": "MEASURED",
+  "outputs": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-measure-Txzgkx",
+  "apps": {
+    "web": {
+      "initialJsBytes": 853476,
+      "initialJsGzipBytes": 257930,
+      "totalJsBytes": 1505254,
+      "totalJsGzipBytes": 508346,
+      "initialCssBytes": 33504,
+      "largestJsBytes": 853476,
+      "initialKeys": [
+        "index.html"
+      ],
+      "dynamicEntries": [
+        "src/p2/pages/AxisQueryPage.tsx",
+        "src/p2/pages/DispositionPage.tsx",
+        "src/p2/pages/FinishedDefectPage.tsx",
+        "src/p2/pages/IqcVersionPage.tsx",
+        "src/p2/pages/MaintenanceOrdersPage.tsx",
+        "src/p2/pages/MaintenancePlansPage.tsx",
+        "src/p2/pages/OrderConversionPage.tsx",
+        "src/p2/pages/QualitySuspectPage.tsx",
+        "src/p2/pages/ReceiptCorrectionPage.tsx",
+        "src/p2/pages/ReportSummaryPage.tsx",
+        "src/p2/pages/ReverseLedgerPage.tsx",
+        "src/p2/pages/ReverseStocktakePage.tsx",
+        "src/p2/pages/ReverseTransferPage.tsx",
+        "src/p2/pages/ReworkLedgerPage.tsx",
+        "src/p2/pages/ShiftMetricsPage.tsx",
+        "src/p2/pages/StockConversionPage.tsx",
+        "src/p2/pages/StockStatisticsPage.tsx",
+        "src/p3/pages/CostEnergyPage.tsx",
+        "src/p3/pages/CostReportsPage.tsx",
+        "src/p3/pages/OtFactsPage.tsx",
+        "src/p3/pages/OtMonitorPage.tsx",
+        "src/p3/pages/OtSamplesPage.tsx",
+        "src/p3/pages/OutsourcingTasksPage.tsx",
+        "src/p3/pages/SpcCalibrationPage.tsx",
+        "src/p3/pages/SpcChangesPage.tsx",
+        "src/p3/pages/SpcChartsPage.tsx",
+        "src/p3/pages/SpcToolsPage.tsx",
+        "src/p4/pages/AiQueryPage.tsx",
+        "src/pages/CorrectClearPage.tsx",
+        "src/pages/DashboardPage.tsx",
+        "src/pages/ExecutionWorkbenchPage.tsx",
+        "src/pages/FeedRacePlanPage.tsx",
+        "src/pages/FeedingPage.tsx",
+        "src/pages/GroupAllocationRevisionPage.tsx",
+        "src/pages/InventoryBalancesPage.tsx",
+        "src/pages/InventoryBarcodePage.tsx",
+        "src/pages/InventoryUnitPage.tsx",
+        "src/pages/MasterEquipmentPage.tsx",
+        "src/pages/MasterMaterialsPage.tsx",
+        "src/pages/MasterWarehouseDetailPage.tsx",
+        "src/pages/MasterWarehousesPage.tsx",
+        "src/pages/MasterWorkCentersPage.tsx",
+        "src/pages/OrgGrantsPage.tsx",
+        "src/pages/OrgNodesPage.tsx",
+        "src/pages/OrgRolesPage.tsx",
+        "src/pages/OrgUsersPage.tsx",
+        "src/pages/ProductionOrderDetailPage.tsx",
+        "src/pages/ProductionOrdersPage.tsx",
+        "src/pages/PurchaseOrdersPage.tsx",
+        "src/pages/QualityHoldsPage.tsx",
+        "src/pages/QualityInspectionDetailPage.tsx",
+        "src/pages/QualityInspectionsPage.tsx",
+        "src/pages/ReturnRestoreHubPage.tsx",
+        "src/pages/ReworkScrapRecallHubPage.tsx",
+        "src/pages/SapReconciliationPage.tsx",
+        "src/pages/ScanBlockPage.tsx",
+        "src/pages/SchedulingPage.tsx",
+        "src/pages/ShippingOrdersPage.tsx",
+        "src/pages/ShippingOutboundPage.tsx",
+        "src/pages/ShippingPackingPage.tsx",
+        "src/pages/ShortageKittingPage.tsx",
+        "src/pages/VendorRiskPage.tsx",
+        "src/pages/WarehousingMovesPage.tsx",
+        "src/pages/WarehousingPutawayPage.tsx",
+        "src/pages/WarehousingTransfersPage.tsx"
+      ],
+      "initialJs": [
+        {
+          "path": "assets/index-a8o2WnZV.js",
+          "bytes": 853476,
+          "gzipBytes": 257930,
+          "sha256": "38911640c478fa3babfc8b4af1d0c62dd18ee41f5bab5e58c7cd53f7fad5881e"
+        }
+      ],
+      "initialCss": [
+        {
+          "path": "assets/index-CIcWCm_n.css",
+          "bytes": 33504,
+          "gzipBytes": 6981,
+          "sha256": "85c37866ad819cd0aec6e3e1edee083ed3433ba94c15faf0dec1cac0d9dadf8c"
+        }
+      ],
+      "allJs": [
+        {
+          "path": "assets/AiQueryPage-BBxJ2UoS.js",
+          "bytes": 51620,
+          "gzipBytes": 16734,
+          "sha256": "7dfd3630d215c4a60b3eeda3424e99766a9d964bda67f5ee4d0825e0aff51c88"
+        },
+        {
+          "path": "assets/AxisQueryPage-C2EnmVgk.js",
+          "bytes": 3822,
+          "gzipBytes": 1760,
+          "sha256": "b49333799f784ce4ecae7ab9333b66fe2124ff63935cd9b96e9fcecf3b73e885"
+        },
+        {
+          "path": "assets/Badge-DKRq69VC.js",
+          "bytes": 740,
+          "gzipBytes": 417,
+          "sha256": "c313b27b56176bcacdf1e8541696da01f87ce05107a4a9d4359d1e0ad2321673"
+        },
+        {
+          "path": "assets/CorrectClearPage-DB8coTZ7.js",
+          "bytes": 1339,
+          "gzipBytes": 849,
+          "sha256": "5abd034ddfe31dcdeb9ff4cc2e1374113a0ad713d294439dc70f5c0a421d7fee"
+        },
+        {
+          "path": "assets/CostEnergyPage-sMsOukcX.js",
+          "bytes": 6422,
+          "gzipBytes": 2883,
+          "sha256": "182016eafd3851e807281a62532f7affc6cb6191453f41839f52584faf9e2c7b"
+        },
+        {
+          "path": "assets/CostReportsPage-Dv-3lYzi.js",
+          "bytes": 17489,
+          "gzipBytes": 5988,
+          "sha256": "9f029343e4d1d881bff5d9c6a238f431ad1e51c5bdfb4621f4a0ab87a8223928"
+        },
+        {
+          "path": "assets/DashboardPage-DjSL1ojc.js",
+          "bytes": 1411,
+          "gzipBytes": 844,
+          "sha256": "99d7ccc955c085cf77d13ff3360a3bc2ef68db74a3cea5b419542b9e467d7e86"
+        },
+        {
+          "path": "assets/DispositionPage-DthpQiGm.js",
+          "bytes": 5220,
+          "gzipBytes": 2200,
+          "sha256": "17e4dc1d0238bbd3f765854a387cf7ea2e490c4e58a405a87ac8795c92bd59bf"
+        },
+        {
+          "path": "assets/ExecutionWorkbenchPage-BD7ZTi-A.js",
+          "bytes": 14878,
+          "gzipBytes": 5280,
+          "sha256": "9d80a2841bf77dc28e0b6499ec89b6c2c73468ebfd83f0fd1c1dee4c7bb84766"
+        },
+        {
+          "path": "assets/FeedRacePlanPage-D9rDcD-Y.js",
+          "bytes": 2703,
+          "gzipBytes": 1530,
+          "sha256": "4e4abaf80bf39453adde22b32f8ba789f94f3f733f123000a28c696fca789896"
+        },
+        {
+          "path": "assets/FeedingPage-B0L1qjfd.js",
+          "bytes": 7891,
+          "gzipBytes": 3299,
+          "sha256": "5c97c00d855bc486254258f67bfcd54e9968c103161982d0f1615dc9f7093341"
+        },
+        {
+          "path": "assets/FinishedDefectPage-qfFj-fVm.js",
+          "bytes": 4519,
+          "gzipBytes": 2106,
+          "sha256": "2bdac1891104bb439345a19bad223afdf7f3620ff8a8bec0a6f6ecf389147199"
+        },
+        {
+          "path": "assets/GroupAllocationRevisionPage-BI0Ch_p_.js",
+          "bytes": 1543,
+          "gzipBytes": 1006,
+          "sha256": "aac9d9a51a82ebeda78a5d89b1e81884012ea4a7b6fab68a92de0524c13906a0"
+        },
+        {
+          "path": "assets/InventoryBalancesPage-CbwttYqh.js",
+          "bytes": 3198,
+          "gzipBytes": 1671,
+          "sha256": "4e9904d75fdecfc2ffcee6fe2c7d5c53afed2ff2f8f7fe0165c748ba75d7dc58"
+        },
+        {
+          "path": "assets/InventoryBarcodePage-Btmnrx4D.js",
+          "bytes": 3800,
+          "gzipBytes": 1864,
+          "sha256": "9352ae2193263fd6a502a50e110291f5771dbbf305288f169882b500f9344b94"
+        },
+        {
+          "path": "assets/InventoryUnitPage-VN_slqvs.js",
+          "bytes": 5812,
+          "gzipBytes": 2062,
+          "sha256": "3970427290ddfa8501ae40c67f42ca1c953ac276dbd0bf951be84ee343772cda"
+        },
+        {
+          "path": "assets/IqcVersionPage-Co-TW0EG.js",
+          "bytes": 5452,
+          "gzipBytes": 2363,
+          "sha256": "372677a128a1508b9a8613dd17ec5d76f52193e9fd137e006374df655f99d69d"
+        },
+        {
+          "path": "assets/MaintenanceOrdersPage-CI1q8zvH.js",
+          "bytes": 7558,
+          "gzipBytes": 2887,
+          "sha256": "eddd1c630f1d78a677dc3e02dc05d184cca7031975e2f7ed0697f0ad5678228d"
+        },
+        {
+          "path": "assets/MaintenancePlansPage-CYs3pIbN.js",
+          "bytes": 3519,
+          "gzipBytes": 1832,
+          "sha256": "0115030b025b8a6e9978dad141626d85028d6a641b343c8dceea63caf2016aed"
+        },
+        {
+          "path": "assets/MasterEquipmentPage-CETWTTGH.js",
+          "bytes": 11334,
+          "gzipBytes": 4128,
+          "sha256": "ad951e19097f3428adf0d4bfff017b8ce207c92846bc2533c6c53b39270159e7"
+        },
+        {
+          "path": "assets/MasterMaterialsPage-CvQ0Yk4v.js",
+          "bytes": 7785,
+          "gzipBytes": 3148,
+          "sha256": "60c08eb8cb8015b9ea049b745a1d9d70901c3fa022b3dadd70bccca9e0714ddb"
+        },
+        {
+          "path": "assets/MasterWarehouseDetailPage-DtsBM_fq.js",
+          "bytes": 9678,
+          "gzipBytes": 3449,
+          "sha256": "1fa56dcbe6a3fa53abcecbd6540fd16c170b4a0807c3658d4aae6c28b252d4be"
+        },
+        {
+          "path": "assets/MasterWarehousesPage--iJI3lkg.js",
+          "bytes": 9514,
+          "gzipBytes": 3922,
+          "sha256": "ab7b6f38703c245d975e93f139a07994d9c5151088a773d7c87c5ad5e81e34eb"
+        },
+        {
+          "path": "assets/MasterWorkCentersPage-DAeoGh8f.js",
+          "bytes": 5631,
+          "gzipBytes": 2529,
+          "sha256": "45e1a39c6156a17a476b39957d22b3ac72e5963ca010ecd28c126a5557954a50"
+        },
+        {
+          "path": "assets/Modal-Anbo_Y52.js",
+          "bytes": 38258,
+          "gzipBytes": 13356,
+          "sha256": "6cbad46fbe00ac8ae6facbec5dc12108cf58faaf1a56c3c3684846d3d9851e88"
+        },
+        {
+          "path": "assets/OrderConversionPage-D3KuoKs5.js",
+          "bytes": 5585,
+          "gzipBytes": 2373,
+          "sha256": "ef726e62307b33624ec09b39b220a8b263f7f022acb5039f05980db43d3cfd58"
+        },
+        {
+          "path": "assets/OrgGrantsPage-DGBORSX9.js",
+          "bytes": 8387,
+          "gzipBytes": 3329,
+          "sha256": "f684a255cba01615bce6c8225afdd95b7f39abdb4d30aab843432a574d90406a"
+        },
+        {
+          "path": "assets/OrgNodesPage-T6nzQK4D.js",
+          "bytes": 10640,
+          "gzipBytes": 4291,
+          "sha256": "4666208950c94b913583d8bf4f9cebc084dcd8fcc1647cdccfed5695269e5685"
+        },
+        {
+          "path": "assets/OrgRolesPage-CtjibHi5.js",
+          "bytes": 4777,
+          "gzipBytes": 2172,
+          "sha256": "9596102ca2b78c8e9cedce470d90de7893585b568f6176987935fe00e84a9a99"
+        },
+        {
+          "path": "assets/OrgUsersPage-Bqtc-8oq.js",
+          "bytes": 10710,
+          "gzipBytes": 3881,
+          "sha256": "109f8a0b2eb3ca00e47702b427aab54b5976afc2f3f3d117f33b9a1c10be4637"
+        },
+        {
+          "path": "assets/OtFactsPage-BoVel4Rl.js",
+          "bytes": 4090,
+          "gzipBytes": 1955,
+          "sha256": "8a3475ec706950c88632b008c551bcc318d810e71b91d6f3126bc3488c436f71"
+        },
+        {
+          "path": "assets/OtMonitorPage-Nc7Ki8US.js",
+          "bytes": 4866,
+          "gzipBytes": 2272,
+          "sha256": "7a135b32f20dc11b7ca17aaaf0a98fccf75043435121261e132bb5e768f38554"
+        },
+        {
+          "path": "assets/OtSamplesPage-D4v4F4qP.js",
+          "bytes": 6994,
+          "gzipBytes": 3218,
+          "sha256": "34be72310d7fa2da31bbf21da77ede841b9bfbfd17d2bb2813500aab45370325"
+        },
+        {
+          "path": "assets/OutsourcingTasksPage-CFbuCwXQ.js",
+          "bytes": 10855,
+          "gzipBytes": 3994,
+          "sha256": "06c96fb2571e7fccaed9cc97242fd5d5a63a1c490874612828dae47213b5ee84"
+        },
+        {
+          "path": "assets/PageContainer-lgMUhh4h.js",
+          "bytes": 764,
+          "gzipBytes": 407,
+          "sha256": "e89a9791d3a3053b177725371b6dec165979e916012f64130879b8d356e2bb2f"
+        },
+        {
+          "path": "assets/ProductionOrderDetailPage-6rcNTOqi.js",
+          "bytes": 8632,
+          "gzipBytes": 3554,
+          "sha256": "a6f012fa9a96bb74420867610495d74b442507c8032bd93a76613c694d2496bc"
+        },
+        {
+          "path": "assets/ProductionOrdersPage-D-PtENEW.js",
+          "bytes": 4192,
+          "gzipBytes": 2118,
+          "sha256": "269fcfe4ec3f48b43e529a057a7bd09e057d1e05b94b7efcbad4981abfa4ab53"
+        },
+        {
+          "path": "assets/PurchaseOrdersPage-CETDAQ9C.js",
+          "bytes": 6231,
+          "gzipBytes": 2500,
+          "sha256": "59673eda055aaab6350195cb7ae1dc62e62df468ee87939556f3490f97f23205"
+        },
+        {
+          "path": "assets/QualityHoldsPage-BkRKOtIa.js",
+          "bytes": 5111,
+          "gzipBytes": 2346,
+          "sha256": "42e8371d071c090088084b6e4684266194ed0bda4b6a77bca18ef3594fb82b7a"
+        },
+        {
+          "path": "assets/QualityInspectionDetailPage-CpL5zlRW.js",
+          "bytes": 10958,
+          "gzipBytes": 3880,
+          "sha256": "665379294bdfd2133b661fccf2ff2aa1a1eb35b3ba186a4e4da570ed3a79a566"
+        },
+        {
+          "path": "assets/QualityInspectionsPage-Djeg_A20.js",
+          "bytes": 3488,
+          "gzipBytes": 1785,
+          "sha256": "747381551c7ae9e65028ab2e1f6bf4b1ee0c3df4ed45f5d45f04ca5db1aaaa18"
+        },
+        {
+          "path": "assets/QualitySuspectPage-bawspg03.js",
+          "bytes": 2291,
+          "gzipBytes": 1316,
+          "sha256": "1526ed93692044d8108beb2a0682a2c9656c6bb71e5ec61f23bf728306ff5680"
+        },
+        {
+          "path": "assets/ReceiptCorrectionPage-Dfke9mwy.js",
+          "bytes": 5819,
+          "gzipBytes": 2446,
+          "sha256": "712a3b10a7fbbd31b29691f1f7a881d75ad3a3d5961725bf812e7b1861a76380"
+        },
+        {
+          "path": "assets/ReportSummaryPage-DVWiToDL.js",
+          "bytes": 3601,
+          "gzipBytes": 1856,
+          "sha256": "9bee46d87fb19645970dbb2ca86da43cf0a59ee0e4f2eeeb1c0aa96a6e4e33d9"
+        },
+        {
+          "path": "assets/ReturnRestoreHubPage-uM-ri68S.js",
+          "bytes": 1224,
+          "gzipBytes": 722,
+          "sha256": "7aa1cf6929d5c832990ed737ab9b70585004a0747c48b0f42ec97c93eb9050c5"
+        },
+        {
+          "path": "assets/ReverseLedgerPage-DH-UDZBC.js",
+          "bytes": 4416,
+          "gzipBytes": 1884,
+          "sha256": "91d9770990b2697408d5cb06d5ecf6f858a987ca5b7a104e9c32d89d1656a507"
+        },
+        {
+          "path": "assets/ReverseStocktakePage-C5NEY821.js",
+          "bytes": 4132,
+          "gzipBytes": 1927,
+          "sha256": "ab9b2d9a7c3c9cdd5f938690bc41adde53dae81d26c0bd00a91a5569d1cb4ea8"
+        },
+        {
+          "path": "assets/ReverseTransferPage-LJ_LNXl_.js",
+          "bytes": 6293,
+          "gzipBytes": 2486,
+          "sha256": "5791fc78e30246ada5e5c8b2fab3415704a3d3fb07ae797ded1fd5f2f4cab91f"
+        },
+        {
+          "path": "assets/ReworkLedgerPage-CD77yhsY.js",
+          "bytes": 9493,
+          "gzipBytes": 3412,
+          "sha256": "efc98fa4d333010dc47a9c0af1f69e2b1f52b3af162209bc205bc5f3b96a647c"
+        },
+        {
+          "path": "assets/ReworkScrapRecallHubPage-JskqR0IK.js",
+          "bytes": 2188,
+          "gzipBytes": 1226,
+          "sha256": "6fe384a14100ca646846faa99a649241a2dbe80e37368c8cc79f7e15d940c2de"
+        },
+        {
+          "path": "assets/SapReconciliationPage-PT2oQHTs.js",
+          "bytes": 9840,
+          "gzipBytes": 3390,
+          "sha256": "0cb94e96ddc8a0afde9f53dbf684d306c7d5a44f18e8677d6fb0ed42886873af"
+        },
+        {
+          "path": "assets/ScanBlockPage-DVz-hc5s.js",
+          "bytes": 2616,
+          "gzipBytes": 1531,
+          "sha256": "e8422346a52b0c5d8ee23cf9f2cc6504e1bcf1d1ebb1cef4a32d0d3448063951"
+        },
+        {
+          "path": "assets/ScanInput-BlHfqj8H.js",
+          "bytes": 2330,
+          "gzipBytes": 1324,
+          "sha256": "a58fcff678561c61c42a273196ab327bb157450b634706482db6bc11e9050d79"
+        },
+        {
+          "path": "assets/SchedulingPage-CFYgn9Eq.js",
+          "bytes": 12928,
+          "gzipBytes": 4695,
+          "sha256": "ac817bf16d0862ec9513325f3486443ab6472dac5ec94f1d2b121883d814518f"
+        },
+        {
+          "path": "assets/ShiftMetricsPage-DnDZRptn.js",
+          "bytes": 6951,
+          "gzipBytes": 2865,
+          "sha256": "23876efc57c41b74d5e1f4bf24b790a37683672b106f31fd7a9ceb54e504b3ba"
+        },
+        {
+          "path": "assets/ShippingOrdersPage-C2bVgi5Y.js",
+          "bytes": 14020,
+          "gzipBytes": 4546,
+          "sha256": "d23bc78b0f8cb0f6f7a06c10eff55bf9e868bbade2a13360212f772aa5084183"
+        },
+        {
+          "path": "assets/ShippingOutboundPage-Dsw_3t9H.js",
+          "bytes": 7668,
+          "gzipBytes": 2878,
+          "sha256": "9e44f50a665d4220e4520580cc0067275390151b9d1959fa0eb7c27f74c2e6dd"
+        },
+        {
+          "path": "assets/ShippingPackingPage-vaDyVzwV.js",
+          "bytes": 12591,
+          "gzipBytes": 4217,
+          "sha256": "e1ad6a9ef5e1984bafd67e599770639ea158cf023214115f607517c8c63f04f9"
+        },
+        {
+          "path": "assets/ShortageKittingPage-DgWgzvDV.js",
+          "bytes": 1488,
+          "gzipBytes": 981,
+          "sha256": "1388f4a9b95135a2489ac5348c3a55dce273643ab346ee2fb69a57b57de6f5b0"
+        },
+        {
+          "path": "assets/SpcCalibrationPage-DnrG9T9n.js",
+          "bytes": 9567,
+          "gzipBytes": 3818,
+          "sha256": "8d0f270d7f0767b930666f13b237efe23c77e3e4c506136e26ee7c28f8ebe968"
+        },
+        {
+          "path": "assets/SpcChangesPage-BgPgbiaR.js",
+          "bytes": 5740,
+          "gzipBytes": 2631,
+          "sha256": "6caf35cb420c2544602c99278891e93a7ef1ce6fe6d601fe03b9b40f352e3a0c"
+        },
+        {
+          "path": "assets/SpcChartsPage-CMW_sxb9.js",
+          "bytes": 10363,
+          "gzipBytes": 4592,
+          "sha256": "12545c964f7605fc817bff7f4a3681ea7e0c01becff76fa387084d1b6e10bc5f"
+        },
+        {
+          "path": "assets/SpcToolsPage-lXNvTPOh.js",
+          "bytes": 6263,
+          "gzipBytes": 2783,
+          "sha256": "17d4ff46abdc775a8c5f87eac2f40275e5df3bb15ea913365de7adf75204145c"
+        },
+        {
+          "path": "assets/StockConversionPage-DCLHqPtD.js",
+          "bytes": 9170,
+          "gzipBytes": 3498,
+          "sha256": "7f2bce0b0fb601cd91e78eaf68ab0df1d2c6f060704a3108f96a1fcb5ce1d49d"
+        },
+        {
+          "path": "assets/StockStatisticsPage-CCQYmHBK.js",
+          "bytes": 4431,
+          "gzipBytes": 2137,
+          "sha256": "7145c5789987aa91afd2f76b7512057664804929ed1f378fba29f3e14dca2b5c"
+        },
+        {
+          "path": "assets/Table-Cx-L_j4I.js",
+          "bytes": 3086,
+          "gzipBytes": 1456,
+          "sha256": "4aadb53fc02c36bcabd1e1a414eb6ab28e4df36edff40265045ae846821aa05b"
+        },
+        {
+          "path": "assets/VendorRiskPage-37GywkD9.js",
+          "bytes": 1805,
+          "gzipBytes": 1093,
+          "sha256": "3ba1985d749c4e6ffd69058d44618024d4430ba8e9c0c0b697ff56c29881c205"
+        },
+        {
+          "path": "assets/WarehousingMovesPage-HLark1St.js",
+          "bytes": 4804,
+          "gzipBytes": 2402,
+          "sha256": "cec9ebf7c49aa81fc60b6271a982662f0ee114d86db5d10d554701871dcced96"
+        },
+        {
+          "path": "assets/WarehousingPutawayPage-DlpOaQ8r.js",
+          "bytes": 5878,
+          "gzipBytes": 2697,
+          "sha256": "cb0b30eff7a80f0d063c0f4a6d87ddf2b71f95fc3c0c91a4120b3cd8fd77d756"
+        },
+        {
+          "path": "assets/WarehousingTransfersPage-Cx76apjo.js",
+          "bytes": 10359,
+          "gzipBytes": 3786,
+          "sha256": "06d911e313fce46348d62a3e28ede6b82d6f65c7373f7913028792ce74e7aaaf"
+        },
+        {
+          "path": "assets/client-D8Imqdyp.js",
+          "bytes": 19623,
+          "gzipBytes": 9188,
+          "sha256": "dfbad71694af15df3aa4cf57afc436901cf5c94ac5e78f7fd304264c2ed03782"
+        },
+        {
+          "path": "assets/group-api-DxrEg_Dp.js",
+          "bytes": 1942,
+          "gzipBytes": 682,
+          "sha256": "55861db887373f65bf19221bad382dad0d6a8f067800e27c22e09d908dc911cc"
+        },
+        {
+          "path": "assets/index-a8o2WnZV.js",
+          "bytes": 853476,
+          "gzipBytes": 257930,
+          "sha256": "38911640c478fa3babfc8b4af1d0c62dd18ee41f5bab5e58c7cd53f7fad5881e"
+        },
+        {
+          "path": "assets/shared-D_7y94_w.js",
+          "bytes": 107108,
+          "gzipBytes": 31442,
+          "sha256": "1c7ce1f53199d60a123121153fba2e3a19ff89ae8f1f733ffcfd0c89edf787d3"
+        },
+        {
+          "path": "assets/shared-DfTqkWEB.js",
+          "bytes": 596,
+          "gzipBytes": 415,
+          "sha256": "3232fe5bb073e0c30e88242903507fd047504a61be5c013df0474b1b12f9e575"
+        },
+        {
+          "path": "assets/types-BweTRxEf.js",
+          "bytes": 3738,
+          "gzipBytes": 1912,
+          "sha256": "1399fa6caca659dd150ffb4ebaa9397a3005a00fbcdc76c34795a81c922d00f3"
+        }
+      ],
+      "meaning": "Initial JavaScript means the unique transitive static-import closure of index.html. Dynamic route chunks are excluded. Gzip is per-file level 9, summed; no timing/device claim."
+    },
+    "pda": {
+      "initialJsBytes": 821723,
+      "initialJsGzipBytes": 247812,
+      "totalJsBytes": 1072854,
+      "totalJsGzipBytes": 343897,
+      "initialCssBytes": 31808,
+      "largestJsBytes": 821723,
+      "initialKeys": [
+        "index.html"
+      ],
+      "dynamicEntries": [
+        "src/p2/pages/AxisCorrectionPdaPage.tsx",
+        "src/p2/pages/AxisRetirePdaPage.tsx",
+        "src/p2/pages/EquipmentExceptionPdaPage.tsx",
+        "src/p2/pages/EquipmentStartPdaPage.tsx",
+        "src/p2/pages/FinishedDefectPdaPage.tsx",
+        "src/p2/pages/IqcCodePdaPage.tsx",
+        "src/p2/pages/OrderConversionScanPdaPage.tsx",
+        "src/p2/pages/PalletTaskPdaPage.tsx",
+        "src/p2/pages/PdaCumulativePdaPage.tsx",
+        "src/p2/pages/QualitySuspectPdaPage.tsx",
+        "src/p2/pages/ReelSplitPdaPage.tsx",
+        "src/p2/pages/ReverseMovePdaPage.tsx",
+        "src/p2/pages/ReverseTransferInPdaPage.tsx",
+        "src/p2/pages/ReverseTransferOutPdaPage.tsx",
+        "src/p3/pages/OutsourcingReceivePage.tsx",
+        "src/p4/pages/AiQueryPdaPage.tsx",
+        "src/pages/FeedScanPage.tsx",
+        "src/pages/InventoryHubPage.tsx",
+        "src/pages/MePage.tsx",
+        "src/pages/PackingAliasPage.tsx",
+        "src/pages/ProductionPage.tsx",
+        "src/pages/PutawayScanPage.tsx",
+        "src/pages/ScanPage.tsx",
+        "src/pages/ShippingOutboundPage.tsx",
+        "src/pages/ShippingScanPage.tsx",
+        "src/pages/TasksPage.tsx"
+      ],
+      "initialJs": [
+        {
+          "path": "assets/index-CA1r5sdM.js",
+          "bytes": 821723,
+          "gzipBytes": 247812,
+          "sha256": "13e1400f9ad79cda9c5eb30f335b8d82096c46956ab349192ef2e9110bdbe087"
+        }
+      ],
+      "initialCss": [
+        {
+          "path": "assets/index-czktqdT3.css",
+          "bytes": 31808,
+          "gzipBytes": 6851,
+          "sha256": "492397eb1e71784ec585373e2475b4cdeddb23eb1127a759e80aaa9aa8c4ed57"
+        }
+      ],
+      "allJs": [
+        {
+          "path": "assets/AiQueryPdaPage-PqUVVcCg.js",
+          "bytes": 45552,
+          "gzipBytes": 14847,
+          "sha256": "90e47d146dbd49872838c1400a0db664cfa0642d1b19c56a8480786c76b4e94b"
+        },
+        {
+          "path": "assets/AxisCorrectionPdaPage-DQHmxd_2.js",
+          "bytes": 3697,
+          "gzipBytes": 1848,
+          "sha256": "9bd7ea0907a112abbcf46c0fdb1cbcbe4ad0de743aef18a1f2045bae41085b54"
+        },
+        {
+          "path": "assets/AxisRetirePdaPage-CfaQpFjF.js",
+          "bytes": 2545,
+          "gzipBytes": 1354,
+          "sha256": "bec5d266913c6a929f647a5bfe409da32eab76a4e697e48f709ac518acf3f278"
+        },
+        {
+          "path": "assets/Badge-zfM9ln8f.js",
+          "bytes": 738,
+          "gzipBytes": 413,
+          "sha256": "28868516958e7ee99ac71b708817df865ddf804a49cf4a36c64909a41750803f"
+        },
+        {
+          "path": "assets/EquipmentExceptionPdaPage-BKXpi8cU.js",
+          "bytes": 3154,
+          "gzipBytes": 1634,
+          "sha256": "e0fd138b66a091fa72e8035f80229bc201205e55dedd4d7a8d96061351f8cf5c"
+        },
+        {
+          "path": "assets/EquipmentStartPdaPage-C-xB28M9.js",
+          "bytes": 2502,
+          "gzipBytes": 1316,
+          "sha256": "62b01b069f5fa9e7e0f5a1937616bcea3c81940c8fee83c45621cb6e5c267aad"
+        },
+        {
+          "path": "assets/FeedScanPage-Ddc7TH7-.js",
+          "bytes": 3481,
+          "gzipBytes": 1940,
+          "sha256": "5cceaaaa0b68e65f8ed15b50c8835c73a18bbcf3782d55b4f64c05e21e6b9d6e"
+        },
+        {
+          "path": "assets/FinishedDefectPdaPage-O3ue9Hg7.js",
+          "bytes": 2126,
+          "gzipBytes": 1202,
+          "sha256": "f62b4ada3a6df4d09280b0612d8d77c5a2ec8e436c85bd11ecc5be04f8df71b3"
+        },
+        {
+          "path": "assets/InventoryHubPage-D0tMdaGb.js",
+          "bytes": 770,
+          "gzipBytes": 458,
+          "sha256": "a3eeae1eb4e96331a90214d5139d0cb2e8ecbb14957493703db4d97c5c776dd7"
+        },
+        {
+          "path": "assets/IqcCodePdaPage-DEqO6jyc.js",
+          "bytes": 3932,
+          "gzipBytes": 1765,
+          "sha256": "c7ecd4f35d696fbc0543cd7ce8bee0fc515d5d6e6470adc9781ca8969dd98ef3"
+        },
+        {
+          "path": "assets/MePage-6WPfUdaI.js",
+          "bytes": 1154,
+          "gzipBytes": 712,
+          "sha256": "e2aa3e306c6866fd815fefb921cfd524fdb65964162befbcf0996e777c72e4e8"
+        },
+        {
+          "path": "assets/OrderConversionScanPdaPage-Bl7jlQ1F.js",
+          "bytes": 3144,
+          "gzipBytes": 1651,
+          "sha256": "a57282b0293ec674dfe21291fd11ca7dc2360412a743709f5e0ed718e0bd3e07"
+        },
+        {
+          "path": "assets/OutsourcingReceivePage-eUDdSMdi.js",
+          "bytes": 23235,
+          "gzipBytes": 10879,
+          "sha256": "e6bda8befc99e01375b0208f5fc8364ae93a4646efd2fbe6117ba9309c93c281"
+        },
+        {
+          "path": "assets/PackingAliasPage-CNkD4eBz.js",
+          "bytes": 449,
+          "gzipBytes": 362,
+          "sha256": "0d8afe8f902c59e6e4f99ab38d1e9e183c7b13c27414fa5f18f3bca0c2cadc17"
+        },
+        {
+          "path": "assets/PageContainer-ZdyREgbm.js",
+          "bytes": 763,
+          "gzipBytes": 404,
+          "sha256": "93a430171689cd4374a1e4f2b28f91810d16100abbe7f6e1d53e52a8ec73e3aa"
+        },
+        {
+          "path": "assets/PalletTaskPdaPage-C2vwne53.js",
+          "bytes": 3715,
+          "gzipBytes": 1814,
+          "sha256": "9e060cb1d0b8d787d70239a46f6d270c21a9abf76530745f5355fa37892b2325"
+        },
+        {
+          "path": "assets/PdaCumulativePdaPage-3AvOwMRj.js",
+          "bytes": 2008,
+          "gzipBytes": 1189,
+          "sha256": "fd613ae222dedb2434c93b0f8d2dc010b121bbde5b7681dd257e9c9c555e7dbd"
+        },
+        {
+          "path": "assets/ProductionPage-Oten6OGq.js",
+          "bytes": 3928,
+          "gzipBytes": 1937,
+          "sha256": "3842653478db7954c05449bc91d4ac8d31f975dc4e010eba9001a3a05afde028"
+        },
+        {
+          "path": "assets/PutawayScanPage-CQuZr_mZ.js",
+          "bytes": 3387,
+          "gzipBytes": 1871,
+          "sha256": "1031da23c69e3a7ca32b3101d987779f51de207d9f15560f91db84aa497160dd"
+        },
+        {
+          "path": "assets/QualitySuspectPdaPage-Bw1wKK83.js",
+          "bytes": 2844,
+          "gzipBytes": 1516,
+          "sha256": "d1de2a43962aa99388e1f33dc62551edbe1e6fa4dd9d88be4627df963cf8355d"
+        },
+        {
+          "path": "assets/ReelSplitPdaPage-BVCUe88A.js",
+          "bytes": 4529,
+          "gzipBytes": 2219,
+          "sha256": "2095de2235806544cfd786cdc4ce5a7c5a41c7c9adfa0f5b988ca6a1f5f58fd0"
+        },
+        {
+          "path": "assets/ReverseMovePdaPage-B2dgjYuP.js",
+          "bytes": 3066,
+          "gzipBytes": 1644,
+          "sha256": "a7475ad2336d96187f49412247435391c4a5b4fdbb31c6dc350c98578623634d"
+        },
+        {
+          "path": "assets/ReverseTransferInPdaPage-Me7qERFC.js",
+          "bytes": 3330,
+          "gzipBytes": 1745,
+          "sha256": "dc182e2c18209c7b0ea2b4b3eec851c0cccab55ebc43242185dd0aa09375b207"
+        },
+        {
+          "path": "assets/ReverseTransferOutPdaPage-B8XoelAu.js",
+          "bytes": 2659,
+          "gzipBytes": 1462,
+          "sha256": "9377fe8f25304fa010a464ac82ac72a40195a343f1c0caf646f5e42811f9aa49"
+        },
+        {
+          "path": "assets/ScanInput-Ba26JPwa.js",
+          "bytes": 2328,
+          "gzipBytes": 1323,
+          "sha256": "5b70b12c144771f6335cdf4873b5de8c089ac6a380b26cd7245f8a700843c7f7"
+        },
+        {
+          "path": "assets/ScanPage-DAG6VCll.js",
+          "bytes": 1701,
+          "gzipBytes": 1049,
+          "sha256": "949151fc531d38530964f875481c37f637b27d10b065a9f2f8edac69743500d9"
+        },
+        {
+          "path": "assets/ShippingOutboundPage-D1ndTGUX.js",
+          "bytes": 3750,
+          "gzipBytes": 1641,
+          "sha256": "62e64f3e99eaccfbb1ce821247b7c49959de1c658f791a1757186dc351251f12"
+        },
+        {
+          "path": "assets/ShippingScanPage-CPCYMPZ-.js",
+          "bytes": 7407,
+          "gzipBytes": 2990,
+          "sha256": "8b5bd5086a528b96262b3c5a38d5566cd931dcef8ed5885893a4831de4812eb7"
+        },
+        {
+          "path": "assets/TasksPage-Dx2MYLuO.js",
+          "bytes": 2113,
+          "gzipBytes": 1187,
+          "sha256": "6596cdf21f7ee0d425d6bc37550d5d9f60f8226b6bf5fa6f37b881b4132efd92"
+        },
+        {
+          "path": "assets/index-CA1r5sdM.js",
+          "bytes": 821723,
+          "gzipBytes": 247812,
+          "sha256": "13e1400f9ad79cda9c5eb30f335b8d82096c46956ab349192ef2e9110bdbe087"
+        },
+        {
+          "path": "assets/permissions-B7dEfPh3.js",
+          "bytes": 81632,
+          "gzipBytes": 20570,
+          "sha256": "a4537964b7a58c119b31b1e7d0c5c27d7dff149f42dad946f06e17f284b9d80c"
+        },
+        {
+          "path": "assets/permissions-BHvuJG0Z.js",
+          "bytes": 253,
+          "gzipBytes": 204,
+          "sha256": "93b4b30acae973ad1c77eee0c61f24008960e5ec9528560c8ea94d4724a3b46f"
+        },
+        {
+          "path": "assets/shared-BY6T_Ahq.js",
+          "bytes": 25092,
+          "gzipBytes": 10779,
+          "sha256": "4ae03d7315195f7be59722e7f495e9d9cf3b6a4dc362cc241e9268fdefd7ab69"
+        },
+        {
+          "path": "assets/types-B8USxzS0.js",
+          "bytes": 147,
+          "gzipBytes": 160,
+          "sha256": "34cd9c792fd5fb9017d40b8c81d2606f56876d635c97b114222c631915d3a6ad"
+        }
+      ],
+      "meaning": "Initial JavaScript means the unique transitive static-import closure of index.html. Dynamic route chunks are excluded. Gzip is per-file level 9, summed; no timing/device claim."
+    }
+  },
+  "commands": [
+    {
+      "command": [
+        "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node",
+        "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js",
+        "build",
+        "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/web",
+        "--mode",
+        "production",
+        "--config",
+        "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/web/vite.config.ts",
+        "--outDir",
+        "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-measure-Txzgkx/web",
+        "--manifest"
+      ],
+      "cwd": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+      "exitCode": 0,
+      "log": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-measure-Txzgkx/web-build.log"
+    },
+    {
+      "command": [
+        "/Users/yeemio/.nvm/versions/node/v24.18.0/bin/node",
+        "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/node_modules/vite/bin/vite.js",
+        "build",
+        "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/pda",
+        "--mode",
+        "production",
+        "--config",
+        "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source/apps/pda/vite.config.ts",
+        "--outDir",
+        "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-measure-Txzgkx/pda",
+        "--manifest"
+      ],
+      "cwd": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+      "exitCode": 0,
+      "log": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-measure-Txzgkx/pda-build.log"
+    }
+  ],
+  "recipeSha256": "c52d9a471311c1e352289b594aa5d7f4da450de6c50c37631e96f1e6d7964e25",
+  "devicePerformance": "NOT_RUN",
+  "coldBuildVerified": true,
+  "rootIdentity": {
+    "requestedRoot": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+    "physicalRoot": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source"
+  },
+  "sourceFiles": [
+    {
+      "path": "apps/pda/index.html",
+      "sha256": "c8ef0cc38ffae402f1db3272b6e7319d99b9e7565c78d1664e32c15d2dd419ea"
+    },
+    {
+      "path": "apps/pda/package.json",
+      "sha256": "3ba925a445e62bb5eeb81fc739f8ef5312570de1ea74f8ee703b97500dbb33d1"
+    },
+    {
+      "path": "apps/pda/src/App.tsx",
+      "sha256": "bcbe0ccfd4da0c6300f3aa7c61b5fcba841a05604b61faf9c279d8fe59469ceb"
+    },
+    {
+      "path": "apps/pda/src/api.ts",
+      "sha256": "f973bb91b48222e5b3a9ffc9e979f70b8afcbb7be3e56342a85bf159b43658e0"
+    },
+    {
+      "path": "apps/pda/src/auth.tsx",
+      "sha256": "214c23a007c37ead2f1f862f7016e3ab59d189f4ef89a01e2e57b04482e8abc5"
+    },
+    {
+      "path": "apps/pda/src/components/PdaLayout.tsx",
+      "sha256": "043b83ae0937ba769546bc8edd43c3294b8f0c8b6fdbe3745024a78d6362cad2"
+    },
+    {
+      "path": "apps/pda/src/index.css",
+      "sha256": "53f719478e445a901fdf700adc7cce073a67599c0d6d56764a0a6ed8152c5328"
+    },
+    {
+      "path": "apps/pda/src/loading/mount.tsx",
+      "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81"
+    },
+    {
+      "path": "apps/pda/src/main.tsx",
+      "sha256": "624e92a9557067696038855ba9c49233ec90373ef272eea5cd5e47c81d5437f3"
+    },
+    {
+      "path": "apps/pda/src/p2/api.ts",
+      "sha256": "a9d9b7a083f4c324f12ab1acf012dfb93a6c9daa85b0abd8a066263f06d712a3"
+    },
+    {
+      "path": "apps/pda/src/p2/mount.tsx",
+      "sha256": "58f45a2a4887a98613be3aef4711d22d455b6f0e4a21f5f5f0f48ba5353b5eaf"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/AxisCorrectionPdaPage.tsx",
+      "sha256": "68934223e4fe963e9db142659a96fdb2b72e920d6b9065f78c409a09980969b8"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/AxisRetirePdaPage.tsx",
+      "sha256": "5794548ac462bdcf759c58fea1f09575fca5875e3d0af71377bcd3dca4bcc462"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/EquipmentExceptionPdaPage.tsx",
+      "sha256": "6f5432cdc614c080d3bfad688cc57a4d43d14afb4a645d8176b2e8ce4e71d05d"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/EquipmentStartPdaPage.tsx",
+      "sha256": "133e20a3b1165bd702a80b90d01f5e7783fba04e38ed9fc639b8d8fa1cc25062"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/FinishedDefectPdaPage.tsx",
+      "sha256": "fcf4cc1688f5ad805e4311a782883172ac10cdf630281e83e3f0c45d571cc386"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/IqcCodePdaPage.tsx",
+      "sha256": "daf603be252a332042e64edf4b1aefd28ef249c0a5a3294d7dac62df52c0a066"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/OrderConversionScanPdaPage.tsx",
+      "sha256": "851eda7c1b9eb32b7b7e88200e7b0e688486fb867924f8be3db77386a116447d"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/PalletTaskPdaPage.tsx",
+      "sha256": "b3e99e7c973ff3eb85af1a6e59337cf86c170a78b04028d686fd4e34d1fb789a"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/PdaCumulativePdaPage.tsx",
+      "sha256": "a0e3ed9565a71d4cc6690e5c8fdef21e4faa37106f7490439cd2f3d403f3e579"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/QualitySuspectPdaPage.tsx",
+      "sha256": "9988e7cf742b01e6216616f329a0cba2567123ff9c4d3ed2272786cf342b4c21"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/ReelSplitPdaPage.tsx",
+      "sha256": "ff51be8668c948c1dbc30c7928ad69d59fedc2e5e4f88038eff4e278e49e0f01"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/ReverseMovePdaPage.tsx",
+      "sha256": "2773a63a99f21eb85181b985c92d44b0bd09df0b34885de85f0bbdbc89d409ce"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/ReverseTransferInPdaPage.tsx",
+      "sha256": "4bb24e01244d876366ffbd1e1f7ed904b4188a1c4a18e7f6ba643ad32ff23d32"
+    },
+    {
+      "path": "apps/pda/src/p2/pages/ReverseTransferOutPdaPage.tsx",
+      "sha256": "511668d84c781e4c65fec83facf3a7d7089f8d3379d1128c932dacc44ce3dfcc"
+    },
+    {
+      "path": "apps/pda/src/p2/permissions.ts",
+      "sha256": "1ee61174eaccd5d51edb41dd5ccd7ba0e7da1645bf17b89e209c76253fca086c"
+    },
+    {
+      "path": "apps/pda/src/p2/shared.ts",
+      "sha256": "0f10aaa8f541e380a4f7adeaf95afcda45de9b683968eb3f79437d105d043242"
+    },
+    {
+      "path": "apps/pda/src/p3/client.ts",
+      "sha256": "340b2cf66b3fd54fe519ed06f8da8f1aa1dbd35ee6589957a96b3ec0d4437610"
+    },
+    {
+      "path": "apps/pda/src/p3/mount.tsx",
+      "sha256": "95fc9db2184113ebd3c2170d0ee38381abf4469fc65420a26bf79cdeb9c7b6ea"
+    },
+    {
+      "path": "apps/pda/src/p3/pages/OutsourcingReceivePage.tsx",
+      "sha256": "609a989d5a50f940985a7d689755ea44bfabd2abf6ee080383112a4cdd953cca"
+    },
+    {
+      "path": "apps/pda/src/p3/permissions.ts",
+      "sha256": "9624b6564e0f5f8dd1af096ec85d9d0f71a894bc8b03e9a2f7bc44a7872df6e0"
+    },
+    {
+      "path": "apps/pda/src/p4/mount.tsx",
+      "sha256": "41266cb7003bca2d3d3a7d00b542f7adcd3bae5b89d7c7d2ee822d449bb4a701"
+    },
+    {
+      "path": "apps/pda/src/p4/pages/AiQueryPdaPage.tsx",
+      "sha256": "89e5636777a874ece6da84daa9ca22872f6d6605c8d506f60391bbb9d7be9eee"
+    },
+    {
+      "path": "apps/pda/src/p4/permissions.ts",
+      "sha256": "58ac03e7ad3463ed373c8d1c5fd1b59739c8c3c9137a32aa29d19fc546e9c7e9"
+    },
+    {
+      "path": "apps/pda/src/pages/FeedScanPage.tsx",
+      "sha256": "7269dcefe12572e9b5154e9245dbf879e52d7cd80138d35dcfbe4535d1609c65"
+    },
+    {
+      "path": "apps/pda/src/pages/InventoryHubPage.tsx",
+      "sha256": "97129898b6e0bae02bdde8dc15e13154718872d876175e82c827ca3a1fc3f23e"
+    },
+    {
+      "path": "apps/pda/src/pages/LoginPage.tsx",
+      "sha256": "3f808407d7c0d11a396fe8cd6cf310009dd00c72dd8c25c2247e0dff3adbecba"
+    },
+    {
+      "path": "apps/pda/src/pages/MePage.tsx",
+      "sha256": "19b55a604d3373b757b44672e65b23803399f09106f7a3868c40f26b310f828c"
+    },
+    {
+      "path": "apps/pda/src/pages/PackingAliasPage.tsx",
+      "sha256": "7c4ad248e29cc9f89ce46ac76668a27552d05e2724ac54a52de16407aff19f62"
+    },
+    {
+      "path": "apps/pda/src/pages/ProductionPage.tsx",
+      "sha256": "f014aaeef11e31075ccafbef674395ef9588699e2e38bdeb1c940faf7e43d2b4"
+    },
+    {
+      "path": "apps/pda/src/pages/PutawayScanPage.tsx",
+      "sha256": "0c4de3f3d942982b7352794e51cfc5b656c075078e3054a5736f7f625745be1f"
+    },
+    {
+      "path": "apps/pda/src/pages/ScanPage.tsx",
+      "sha256": "93923402c3d9336fa366a54dccea060e68376a423a7a5557d78b33b1e807676b"
+    },
+    {
+      "path": "apps/pda/src/pages/ShippingOutboundPage.tsx",
+      "sha256": "70f3eedcb5be0b6c50caa394daf40909e6277991d00e8ffb256434e731a38c76"
+    },
+    {
+      "path": "apps/pda/src/pages/ShippingScanPage.tsx",
+      "sha256": "3f38b7b425d434627880867accecfa5e3d04c45bcdbf4ce0b1edc5b1bf70d8c4"
+    },
+    {
+      "path": "apps/pda/src/pages/TasksPage.tsx",
+      "sha256": "e75da92664247551ef7a23f22dd010ccafdf6f231231ce14ee3d7b66646be181"
+    },
+    {
+      "path": "apps/pda/src/permissions.ts",
+      "sha256": "6fff088a9ae869153999f8eeace70ab60684d8dae41f7f0885545c08007e029e"
+    },
+    {
+      "path": "apps/pda/tsconfig.json",
+      "sha256": "ca1de45bb1f6e8a3414b81415a88697d097e9084baa30ddd0b1a1cf7ccee6b36"
+    },
+    {
+      "path": "apps/pda/vite.config.ts",
+      "sha256": "4f6ca4f427e3894781d96153a382404ddfd31bffdc2fd2a065f77633da922fae"
+    },
+    {
+      "path": "apps/web/index.html",
+      "sha256": "6ccdd1c8f75fd5c15e87166c6fffd7d9e7f08a87ccd099fa4d58732485676cd4"
+    },
+    {
+      "path": "apps/web/package.json",
+      "sha256": "20346057bfb6f6ee14309a323414cb70bb6b1c9787fb8e12df56b4f0354a6e05"
+    },
+    {
+      "path": "apps/web/src/App.tsx",
+      "sha256": "5daeaf4a0a75319c30b7f5b9ab44f74336260dac4d874a68c617b116d1b5d71b"
+    },
+    {
+      "path": "apps/web/src/api.ts",
+      "sha256": "3c4aab0361cf20ff54488d3082fdd04799ae6a08b51dc856e0812ef3a36f4a82"
+    },
+    {
+      "path": "apps/web/src/auth.tsx",
+      "sha256": "9bf49521d155ee018fc255d4cee7b9b96f912f39f7afde17e4374444cb6ea02a"
+    },
+    {
+      "path": "apps/web/src/components/AppLayout.tsx",
+      "sha256": "f34ef13b0cda0aeed22550a1a0965caaab52a13835d490a544b6afb379a3fedd"
+    },
+    {
+      "path": "apps/web/src/group-api.ts",
+      "sha256": "4a04c3dbe657cb8e2a88a5ee01d84c361f844689bef7131c9381e4fbe912b9eb"
+    },
+    {
+      "path": "apps/web/src/index.css",
+      "sha256": "a2e8c47f724132d4dc8d41df7afc61cece623fb4894149d69d5944329643d9e7"
+    },
+    {
+      "path": "apps/web/src/loading/mount.tsx",
+      "sha256": "4726a6e84f176a8f6d26fa2b820a77e66912f41c0906afac1c97f46662738c81"
+    },
+    {
+      "path": "apps/web/src/main.tsx",
+      "sha256": "624e92a9557067696038855ba9c49233ec90373ef272eea5cd5e47c81d5437f3"
+    },
+    {
+      "path": "apps/web/src/p2/api.ts",
+      "sha256": "2f825cf602c9441bf95e7e0d27799fa00d8224e378de9f33091267038fb0cedb"
+    },
+    {
+      "path": "apps/web/src/p2/mount.tsx",
+      "sha256": "dee877bffa7c3b8e4e94960fbe2bc8bb4311f6adf562982031d6eebf91d8394c"
+    },
+    {
+      "path": "apps/web/src/p2/pages/AxisQueryPage.tsx",
+      "sha256": "bf3af0d7f58404ed1764295f2a7d2c24bee2542f2178a6d35fde1fb9d142e063"
+    },
+    {
+      "path": "apps/web/src/p2/pages/DispositionPage.tsx",
+      "sha256": "94f8b1eebaa447a5618c7d2a29e69bc065b8d0b60a3906b1d0ccfc6e57ddbd72"
+    },
+    {
+      "path": "apps/web/src/p2/pages/FinishedDefectPage.tsx",
+      "sha256": "1baf0e0a98b434cf21a90573b4c92a2aeba34f580792569830995d942e66c46b"
+    },
+    {
+      "path": "apps/web/src/p2/pages/IqcVersionPage.tsx",
+      "sha256": "169d156c55fee0f1b85f69c6c687a3fef9b56a1e95739680904849cb5ae65375"
+    },
+    {
+      "path": "apps/web/src/p2/pages/MaintenanceOrdersPage.tsx",
+      "sha256": "6e00765ea4dbc15a8071b7d94894830dad6d3b3405048e2dadf6607dd238e6ff"
+    },
+    {
+      "path": "apps/web/src/p2/pages/MaintenancePlansPage.tsx",
+      "sha256": "0d2b869449442c9fab69162e5d83183ab8fcdad764f7c2e916b44338481b5e4b"
+    },
+    {
+      "path": "apps/web/src/p2/pages/OrderConversionPage.tsx",
+      "sha256": "ddfdc0d4087bd0060ffd233ee6a3d7db39de79296add8919bcb26d8a6384fd25"
+    },
+    {
+      "path": "apps/web/src/p2/pages/QualitySuspectPage.tsx",
+      "sha256": "9195690af6b62c746107da270c0a412c367ab4621a8d174033ee7401ce460dbb"
+    },
+    {
+      "path": "apps/web/src/p2/pages/ReceiptCorrectionPage.tsx",
+      "sha256": "8608df52efe46e49a8f5036b418c9728aeb83baf50496da66230a74d6877a5b4"
+    },
+    {
+      "path": "apps/web/src/p2/pages/ReportSummaryPage.tsx",
+      "sha256": "074036fae07dc80c993e0d35ec3f54cd5655a93fce3905bc52dd26ff3426589b"
+    },
+    {
+      "path": "apps/web/src/p2/pages/ReverseLedgerPage.tsx",
+      "sha256": "b5cea4c023d403939dd692a58e4109e6a17cc23c40c3691bfbdeedd2c04dd810"
+    },
+    {
+      "path": "apps/web/src/p2/pages/ReverseStocktakePage.tsx",
+      "sha256": "30665e885a267a579c00cd75c90215247cf4432b6b6f07a805b3d1c2e1b73e9a"
+    },
+    {
+      "path": "apps/web/src/p2/pages/ReverseTransferPage.tsx",
+      "sha256": "f0e026cd2b111e399ea88177bd885cfca2346a0112dda2695bbb3558733df56e"
+    },
+    {
+      "path": "apps/web/src/p2/pages/ReworkLedgerPage.tsx",
+      "sha256": "4b37eaf24a73b5088ede450f5a0973c357ac6d5decf4696fcb7397037de09045"
+    },
+    {
+      "path": "apps/web/src/p2/pages/ShiftMetricsPage.tsx",
+      "sha256": "dbe2fb9319ec6067cbd16b5abce10f9ecaa8d6ad277d996d4e38f8510e85312f"
+    },
+    {
+      "path": "apps/web/src/p2/pages/StockConversionPage.tsx",
+      "sha256": "6e7eb38021dac4b08fc76e66d0eb71539bda06e2cf51f87a57625d4154cff31d"
+    },
+    {
+      "path": "apps/web/src/p2/pages/StockStatisticsPage.tsx",
+      "sha256": "41b34e0ad17832a4b785c58cf312343c0bda1668a425eb2bd27acdb72ebb00c1"
+    },
+    {
+      "path": "apps/web/src/p2/permissions.ts",
+      "sha256": "731e8b15cdb92d16b08fe7b9067eb6122eda07429a298507a7202739ec0f12df"
+    },
+    {
+      "path": "apps/web/src/p2/shared.ts",
+      "sha256": "3c318609bd1444e2827edc987e138c18245d1376512a3c5230a20ed1f938b9fb"
+    },
+    {
+      "path": "apps/web/src/p3/client.ts",
+      "sha256": "30f55538e4033bbc261d9facc162bee82ce4fac0b0667b2d151cbcde2849fd8a"
+    },
+    {
+      "path": "apps/web/src/p3/mount.tsx",
+      "sha256": "ed3057283ed900e2880201e58b79d809779e5c915995a35e9f921fbeba303bc3"
+    },
+    {
+      "path": "apps/web/src/p3/pages/CostEnergyPage.tsx",
+      "sha256": "4aebfa0926feb122b251adc537223ccfb3bbe690b3449a9505f15714060058ee"
+    },
+    {
+      "path": "apps/web/src/p3/pages/CostReportsPage.tsx",
+      "sha256": "ab67121866729c0bb1473450918e0f0125af0e635d0b97da984f00a1c7291377"
+    },
+    {
+      "path": "apps/web/src/p3/pages/OtFactsPage.tsx",
+      "sha256": "4c7158fe64388959f71c0d665d42dfcc8c796458737c62f0f646f3dfb2a7842e"
+    },
+    {
+      "path": "apps/web/src/p3/pages/OtMonitorPage.tsx",
+      "sha256": "af32bf9b70a96a0052ae1e5b3ea6513d05210a96643f924d58b78dcb75356aad"
+    },
+    {
+      "path": "apps/web/src/p3/pages/OtSamplesPage.tsx",
+      "sha256": "d708fbd7454d4844ee49a06c067d0a2207b9a5e8d1277385c570742e3cd9fe56"
+    },
+    {
+      "path": "apps/web/src/p3/pages/OutsourcingTasksPage.tsx",
+      "sha256": "3cf13c169553758e9a9d8f89d98df2880f18f7fb4a0a59d28dc12e5f612b4dc9"
+    },
+    {
+      "path": "apps/web/src/p3/pages/SpcCalibrationPage.tsx",
+      "sha256": "63f8e1a2804d8c50613d106281c86d4a75b5838a1ba27ac165511ba97bddc304"
+    },
+    {
+      "path": "apps/web/src/p3/pages/SpcChangesPage.tsx",
+      "sha256": "29bb3d6e0d8e49bd2cd45e850bd1795fedcbd45137ddfd8d1dce6481ada68a19"
+    },
+    {
+      "path": "apps/web/src/p3/pages/SpcChartsPage.tsx",
+      "sha256": "8c5066d8583771c1b11c853229d648c6b7a37c2304b1b29a64cd0572199536b3"
+    },
+    {
+      "path": "apps/web/src/p3/pages/SpcToolsPage.tsx",
+      "sha256": "f69a4c009946631d16ae3e3fa44d0786037f5bfde8b2aba2ba7d82760cd1d5a7"
+    },
+    {
+      "path": "apps/web/src/p3/permissions.ts",
+      "sha256": "7223a68b9b1fd0108a2db3c9808d235e36cdbebea9dfa3dbf71667187ff116d7"
+    },
+    {
+      "path": "apps/web/src/p3/shared.ts",
+      "sha256": "60492aa036c64b38684c0407c4771e3406e8f1f0e88ee398c2c4c377a5650283"
+    },
+    {
+      "path": "apps/web/src/p4/binding/ImBindingCodePanel.tsx",
+      "sha256": "54705638afc7d2b35a6a1809c0fd7ab501013c63e104bd454f17d885aef121f8"
+    },
+    {
+      "path": "apps/web/src/p4/mount.tsx",
+      "sha256": "adf2f7eea9bcf397f95f720de7d5603d9451f8c4d202c47015adb95800ef3467"
+    },
+    {
+      "path": "apps/web/src/p4/pages/AiQueryPage.tsx",
+      "sha256": "2c0027c12628b1b6dd4268a5937861b30163d85532bafc5af26d02d95be0d531"
+    },
+    {
+      "path": "apps/web/src/p4/permissions.ts",
+      "sha256": "05d68e96ef1236bad66eccc3283c63640408ed8346db91e0a117796bbd64965e"
+    },
+    {
+      "path": "apps/web/src/pages/CorrectClearPage.tsx",
+      "sha256": "dba4e50b492df90e5c8ae30ce5f4f3c3362a2f631975fea512dadb6755c403eb"
+    },
+    {
+      "path": "apps/web/src/pages/DashboardPage.tsx",
+      "sha256": "ffce22c1e65b3eac0a60981ed7bab7c2a2fe0e034eb889eadb5f02a63884200a"
+    },
+    {
+      "path": "apps/web/src/pages/ExecutionWorkbenchPage.tsx",
+      "sha256": "fe33bed66dea4e76b5812e44e76bf8feb0926f243e289d8d713d9e3408121f12"
+    },
+    {
+      "path": "apps/web/src/pages/FeedRacePlanPage.tsx",
+      "sha256": "7082fe9e37fca610e3507abb411c838c65ffb7cda742d6c0d5459f1fb7941dd0"
+    },
+    {
+      "path": "apps/web/src/pages/FeedingPage.tsx",
+      "sha256": "c36d443ad22d270c5a5cb2271399d63c0b0a608b2707f0c745f899651337605e"
+    },
+    {
+      "path": "apps/web/src/pages/GroupAllocationRevisionPage.tsx",
+      "sha256": "70b5af5586a8415a961dfad3f8e4b089cbe51a6393bb93b9766bba28714ab2ea"
+    },
+    {
+      "path": "apps/web/src/pages/InventoryBalancesPage.tsx",
+      "sha256": "3be4ce0411819a349ce90d1ceffaa9c9f156a29570801c8131f0aa152e782f91"
+    },
+    {
+      "path": "apps/web/src/pages/InventoryBarcodePage.tsx",
+      "sha256": "d82ab50a3b87ee1fb7c589aa5982f7e6dde88e97b181047e1a317dd5d4473d8b"
+    },
+    {
+      "path": "apps/web/src/pages/InventoryUnitPage.tsx",
+      "sha256": "0687cc685375f043f1effecb71fc354544146c69a4d4b7d30cc2b76d86b401e6"
+    },
+    {
+      "path": "apps/web/src/pages/LoginPage.tsx",
+      "sha256": "7ee0d60d178df7de1a52b7eb6f07818ff4d5dc2072c264fe25c60eb2007a9432"
+    },
+    {
+      "path": "apps/web/src/pages/MasterEquipmentPage.tsx",
+      "sha256": "f7b1ddcbc11b202126c388fb61cbdeed9f98aa211544644feaa8e6207f31e095"
+    },
+    {
+      "path": "apps/web/src/pages/MasterMaterialsPage.tsx",
+      "sha256": "a8f29e28e3cba6c20768ff5fe8bd3a9f42bbbe52d002c613362ee5e38fcbb843"
+    },
+    {
+      "path": "apps/web/src/pages/MasterWarehouseDetailPage.tsx",
+      "sha256": "6d5dd9f295e29859819b5301f7aba352e013707ba479da74d76a7fb15a6777c9"
+    },
+    {
+      "path": "apps/web/src/pages/MasterWarehousesPage.tsx",
+      "sha256": "70c61d0316175e044a1305d69f9e454d0118cda069bc3d28b472dbcf17095d17"
+    },
+    {
+      "path": "apps/web/src/pages/MasterWorkCentersPage.tsx",
+      "sha256": "515986d409e4149fa7a5a0d0d5dc8f638e5ea470176e507f1099be0645a27aaa"
+    },
+    {
+      "path": "apps/web/src/pages/OrgGrantsPage.tsx",
+      "sha256": "ef4db24bf268f72466b72cd6af0d43674fcfdbe8a755c9f98bb572c49a573e69"
+    },
+    {
+      "path": "apps/web/src/pages/OrgNodesPage.tsx",
+      "sha256": "77837038b74140c945d3df6f92b33d032e7d2e659f1000775ccfbacfb764591f"
+    },
+    {
+      "path": "apps/web/src/pages/OrgRolesPage.tsx",
+      "sha256": "56f0c9f1faec68fee4ed84446cb713683443dc7046c9a50b33320fe6bcd14f3c"
+    },
+    {
+      "path": "apps/web/src/pages/OrgUsersPage.tsx",
+      "sha256": "eb98ce98baf25e060d43fcb58c186b7ab3394dff1104f4db789d6b4b5348d894"
+    },
+    {
+      "path": "apps/web/src/pages/ProductionOrderDetailPage.tsx",
+      "sha256": "e64c1a3cf33d7ebc07286d6554ac8ef290ca5a5cee636c22fd4a03c1f4d0a935"
+    },
+    {
+      "path": "apps/web/src/pages/ProductionOrdersPage.tsx",
+      "sha256": "a887afc11a7455eeda113f0d8b6fdb4c0d548b122648187cefd52a7d5ebdacbb"
+    },
+    {
+      "path": "apps/web/src/pages/PurchaseOrdersPage.tsx",
+      "sha256": "d4c603505049932b408e8aa46c1208d965dd29593eac7684ddc1443d121d27e9"
+    },
+    {
+      "path": "apps/web/src/pages/QualityHoldsPage.tsx",
+      "sha256": "1c6dafe7c92f7c05cbe58d8832c8f4347f5524d96a1d4e858573577f759e0e0d"
+    },
+    {
+      "path": "apps/web/src/pages/QualityInspectionDetailPage.tsx",
+      "sha256": "86832c4753ab18e603439d0c730bdadc98d675aa3b0839cd2ea900a29dd0f229"
+    },
+    {
+      "path": "apps/web/src/pages/QualityInspectionsPage.tsx",
+      "sha256": "656c22b1b5e34d175eff7fe7440d00831b3cc63af68aa0fa9abf4f5467386bb4"
+    },
+    {
+      "path": "apps/web/src/pages/ReturnRestoreHubPage.tsx",
+      "sha256": "84e0ef804da70ade0536f03bfe0f7657ab77c09cc3ecd93f5142db1691cc5c24"
+    },
+    {
+      "path": "apps/web/src/pages/ReworkScrapRecallHubPage.tsx",
+      "sha256": "e3976b4f83b02f1db32f5c074fe9d27cea8a2486e73595153e60c8a159f17fc3"
+    },
+    {
+      "path": "apps/web/src/pages/SapReconciliationPage.tsx",
+      "sha256": "5a50696b8e337b74c3957d331b63017fbf8ceb452320a83932672355fdd28899"
+    },
+    {
+      "path": "apps/web/src/pages/ScanBlockPage.tsx",
+      "sha256": "5a42569aefc4195b1bc8c52cc59141b8b751eadb114de60fe74fc24583d83aa3"
+    },
+    {
+      "path": "apps/web/src/pages/SchedulingPage.tsx",
+      "sha256": "078f275fec9675e5a351f3fe6856f55165fa16c2e3006185860cedb92b05afba"
+    },
+    {
+      "path": "apps/web/src/pages/ShippingOrdersPage.tsx",
+      "sha256": "7f99ae50c864c3869e15d664d25d5983948aaa6a60240a79853767b74f664248"
+    },
+    {
+      "path": "apps/web/src/pages/ShippingOutboundPage.tsx",
+      "sha256": "0814a2c446431e0dba544ecaa0a9bad19f9a31eee075d78c87ea1ab8e459e684"
+    },
+    {
+      "path": "apps/web/src/pages/ShippingPackingPage.tsx",
+      "sha256": "5f4c102e9028af31432fb8b316a761f56f17783d87f10f981b27ad4fbb1a59fa"
+    },
+    {
+      "path": "apps/web/src/pages/ShortageKittingPage.tsx",
+      "sha256": "7fbf9b7706387b7502dcfd678995d5d6c9bf84b299d5f2237b38d3802f088715"
+    },
+    {
+      "path": "apps/web/src/pages/VendorRiskPage.tsx",
+      "sha256": "392975fd31e2e78fed0692fa2c4cb0a4030188e09422e65e14945b58033cb171"
+    },
+    {
+      "path": "apps/web/src/pages/WarehousingMovesPage.tsx",
+      "sha256": "c6c4c6819cfd8c6e9ef63c313946f0d7e30032958c3a95d15a0d98870e53a98d"
+    },
+    {
+      "path": "apps/web/src/pages/WarehousingPutawayPage.tsx",
+      "sha256": "cd278537a593e2109eec11adad98af852410d711cbbcbcb49c2115c8153a5f72"
+    },
+    {
+      "path": "apps/web/src/pages/WarehousingTransfersPage.tsx",
+      "sha256": "83b41b4e56ac71e2c9249f1e359105e38b774a7b43c29a641452b288ae6101b6"
+    },
+    {
+      "path": "apps/web/src/permissions.ts",
+      "sha256": "a006643604d9e38e3d69bbd4d0b38d0b69f83016882a5fde4130dc44c20add59"
+    },
+    {
+      "path": "apps/web/src/production-api.ts",
+      "sha256": "5df8ea5463f06a9581476f71b3780208a67400a4fafa3be877e7903d1a87c21f"
+    },
+    {
+      "path": "apps/web/src/scan-block-api.ts",
+      "sha256": "f90f7f80d5c0ff2f1bee7436b2be8688985ec2ccbe246513b0453eaad3d19988"
+    },
+    {
+      "path": "apps/web/tsconfig.json",
+      "sha256": "ca1de45bb1f6e8a3414b81415a88697d097e9084baa30ddd0b1a1cf7ccee6b36"
+    },
+    {
+      "path": "apps/web/vite.config.ts",
+      "sha256": "7ca610914aea3385de7a27e1e85c7828b682b8062a946c60d3b09ab8addf8954"
+    },
+    {
+      "path": "package.json",
+      "sha256": "fd862aaa0146b31119977ed2f20a7f3c06894f1a720d075c0d8e327f0f2bcc32"
+    },
+    {
+      "path": "packages/contracts/package.json",
+      "sha256": "b2385d751d4f781c71aa6eb6b20cd73b655eeed11066ee9cc1415f076f9da088"
+    },
+    {
+      "path": "packages/contracts/src/aiquery.ts",
+      "sha256": "502db4323fbad9b48a863100b6d1f2a698c28d526970938963600eeefcf4e2c7"
+    },
+    {
+      "path": "packages/contracts/src/auth.ts",
+      "sha256": "47b539fa5870e2678d4e1d96621911f51895df818e78e0d155f16f471540298e"
+    },
+    {
+      "path": "packages/contracts/src/command.ts",
+      "sha256": "e8ce57e087bc00537ae5a781352c44b451ac21e29cc54e48ec03cc4be865dd6f"
+    },
+    {
+      "path": "packages/contracts/src/conversion.ts",
+      "sha256": "03580d0a59d64f2337e7988d43f2720178da8a548381bc1cedb19c7fbf0db058"
+    },
+    {
+      "path": "packages/contracts/src/cost.ts",
+      "sha256": "b4e74cb37dc9c80932c22a17f1b5b0a497966858573c310d1c1d60a3a14f8a39"
+    },
+    {
+      "path": "packages/contracts/src/csw.ts",
+      "sha256": "ddbc5a2b04290f5634352aba6e8c7de97481176d6a6a17b0bfa8945a8a7d30fa"
+    },
+    {
+      "path": "packages/contracts/src/decimal.ts",
+      "sha256": "8420ef14a7059affb77805a234f4e92e47f3c4cb2a10be0ba6740486f01a7720"
+    },
+    {
+      "path": "packages/contracts/src/disposition.ts",
+      "sha256": "ee740c7a3f5c104ebecec5fb5322777cb5149eeab9bfec9e704160131e346cb7"
+    },
+    {
+      "path": "packages/contracts/src/errors.ts",
+      "sha256": "ffd14fd61608bbce2994434d0a40333aa2f16e47b952789cb747e118bf689bb3"
+    },
+    {
+      "path": "packages/contracts/src/execution.ts",
+      "sha256": "4892e4d7d5fcce5d91b0e9f69e37be9f7d204093344ed1091cd2a74d07d97bab"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "c03603dbe08f84566ac1ee8e4ee460b1e32b56b563ac98bf369a0bfd3fd5d479"
+    },
+    {
+      "path": "packages/contracts/src/inventory.ts",
+      "sha256": "37d57d13187a2659933d4738a4022af7686b96032c2fe0324c8acc949a99c192"
+    },
+    {
+      "path": "packages/contracts/src/maintenance.ts",
+      "sha256": "08fd7192fdb8aadf13c8fd12f3a5920b3d4dd18ee1e24d4b39bd6d6eea22689e"
+    },
+    {
+      "path": "packages/contracts/src/masterdata.ts",
+      "sha256": "756649b68c714cc5877c1fd1f33f0675ca3b19f18780c15b5918e311adacc158"
+    },
+    {
+      "path": "packages/contracts/src/ot.ts",
+      "sha256": "196037a0539f7d623db745673049babd95d3e229ecea346decf066cce6bf3c07"
+    },
+    {
+      "path": "packages/contracts/src/pagination.ts",
+      "sha256": "2d13793b2044442fc8b20934f58694149a0b65a17ef25dd09b8803c5c99ce710"
+    },
+    {
+      "path": "packages/contracts/src/process.ts",
+      "sha256": "51e3105218d95d9b91f5e1b5abfc5f9d06c17859f7ec4e65c5e24ea30fc0b09b"
+    },
+    {
+      "path": "packages/contracts/src/purchase.ts",
+      "sha256": "5a0c25dbf5b2650b7dc6ea140bd3db202d32b19405553b67f9f8b5a47da0e8d4"
+    },
+    {
+      "path": "packages/contracts/src/quality.ts",
+      "sha256": "566fcd8523e75e911eaf4668c5a70a68d37d9a859087cd077fcdef067325dc9c"
+    },
+    {
+      "path": "packages/contracts/src/reporting.ts",
+      "sha256": "d5a9ba80f0df96a728be6a4de960bb6bc58bb5dfdf7349ca436ecff08efb2646"
+    },
+    {
+      "path": "packages/contracts/src/reverse.ts",
+      "sha256": "9b259d9a483cd95dfd589c55c7b354f0d5f16ba71d73623674b1e42918dcf0c6"
+    },
+    {
+      "path": "packages/contracts/src/rework.ts",
+      "sha256": "703c542170c6c9ccc7e7d070f274d56d09ba7fa37c5fc6d08fc08e692b2555fa"
+    },
+    {
+      "path": "packages/contracts/src/scheduling.ts",
+      "sha256": "a2f82bb5ed09cf305beccaf8b8ac6491c94f787db2a3a3a54d5b497efb51f138"
+    },
+    {
+      "path": "packages/contracts/src/shipping.ts",
+      "sha256": "5d94b183723b650104f406829aacc5cb49354ec6b5ee0bff866d14e344650cd7"
+    },
+    {
+      "path": "packages/contracts/src/spc.ts",
+      "sha256": "f6536a74ed9368dbbe0458816ba6df7b4caa9e3308816a0af2d345b6097c8cfe"
+    },
+    {
+      "path": "packages/contracts/src/warehousing.ts",
+      "sha256": "8d3bcf783a94989ca76c649adab43d99b4ed48716314b8afba6efdcf323ed0a7"
+    },
+    {
+      "path": "packages/contracts/test/contracts.spec.ts",
+      "sha256": "9aa976664c2c08c4eef5b77eb4cdfdd2e594fdd80cb69265a2d5f129b27445c6"
+    },
+    {
+      "path": "packages/contracts/tsconfig.build.json",
+      "sha256": "534d713a04c6b0dc12019e9208723326b5a119566932763018601e5d0ebad6bd"
+    },
+    {
+      "path": "packages/contracts/tsconfig.json",
+      "sha256": "54dbd8995540e374b71b45fdea440ea5e541716cc3ed514b190b17a2494545a3"
+    },
+    {
+      "path": "packages/ui/README.md",
+      "sha256": "0b39819cb1c06fd8e0d6bb765d258b193fdd0ce0b933a5868caaa095cbd68e97"
+    },
+    {
+      "path": "packages/ui/package.json",
+      "sha256": "48ae3863153fd895c3310a09769aea06ccf86c40ddde2d17a49c47de03e7763b"
+    },
+    {
+      "path": "packages/ui/src/Badge.tsx",
+      "sha256": "eaeaac637ddf2bb31b60931742d619582e8caf1cbb685edcefc4e2d3e91ca11b"
+    },
+    {
+      "path": "packages/ui/src/Button.tsx",
+      "sha256": "77eedfa3f29bba9aae4f544cad1681a47f460409d2cf6df536bbd0d949434918"
+    },
+    {
+      "path": "packages/ui/src/Form.tsx",
+      "sha256": "d27c494dce91ddfcf188c96c99bc0b913aba94ef69b4359b9774b44ec61c6f3c"
+    },
+    {
+      "path": "packages/ui/src/Input.tsx",
+      "sha256": "8781b933f5767c7eb6bf9c27ad92e6cb3950b8ac22e65af46de46315b08762fc"
+    },
+    {
+      "path": "packages/ui/src/Message.tsx",
+      "sha256": "2c8a7bcf75061d004af25bcc10a07f32853a641f662d60297fc26d291bf9ad1c"
+    },
+    {
+      "path": "packages/ui/src/Modal.tsx",
+      "sha256": "f7b740368a8b8cd2baa60bc6fa73b8df13695604eab55087fe89e2b9f9c0e338"
+    },
+    {
+      "path": "packages/ui/src/PageContainer.tsx",
+      "sha256": "363a8199c25a5e0ff555f7345633b28b654b453fda484bd7e2fc03e89e5c4e8f"
+    },
+    {
+      "path": "packages/ui/src/ScanInput.tsx",
+      "sha256": "ed8a3af02b965b12e0f4ec78b109472c29713c141e756a7b79f3ba20e5484fbb"
+    },
+    {
+      "path": "packages/ui/src/Table.tsx",
+      "sha256": "b5c7f1843237f163a0b04d837ca64865e2c44f00a79a71e1b8af0aa6d6302253"
+    },
+    {
+      "path": "packages/ui/src/Tree.tsx",
+      "sha256": "3fc9f11705131df88bf96bdeabed77cf806b5ae7863afed3dc8da44698c238f1"
+    },
+    {
+      "path": "packages/ui/src/aiquery/AiClarifyPanel.tsx",
+      "sha256": "ab44e7681d93c1ae685c72e8540a7d18ed9e6e167af920fde558c3f70602a0bb"
+    },
+    {
+      "path": "packages/ui/src/aiquery/AiResultCard.tsx",
+      "sha256": "ee3431ea1e4beb89b0cf0d3625a86c49c2cf1224aecf17bc70c798bbcc90a8a2"
+    },
+    {
+      "path": "packages/ui/src/aiquery/AiUnavailableNotice.tsx",
+      "sha256": "66bc389fa25ff47f415129bfd89369a72e20e62f6a5abf28c6fe3059ca26031a"
+    },
+    {
+      "path": "packages/ui/src/aiquery/index.ts",
+      "sha256": "2c88fb214db9ed3fba859831d99f224dd5a7fbafe86dfd6740b8f885974a2c73"
+    },
+    {
+      "path": "packages/ui/src/api/client.ts",
+      "sha256": "9f99ac083d9844de65ffe1599fe4f8386d9f33dc89df2ccaa2eb8829b56fc58c"
+    },
+    {
+      "path": "packages/ui/src/api/errorMessages.ko.ts",
+      "sha256": "5f72b6691ca92a124e7de445dc0603cf4edbdf38518c859e65a92c506eaa8afc"
+    },
+    {
+      "path": "packages/ui/src/api/errorMessages.ts",
+      "sha256": "d5082fef2efcaa5908c671fde0f20eb4847f06a447e4639ae861c256a5307cd2"
+    },
+    {
+      "path": "packages/ui/src/api/index.ts",
+      "sha256": "372def4455fda39ed9bcfa37927cc84b7b59892d2cbc97ba4f6442bcef51565b"
+    },
+    {
+      "path": "packages/ui/src/api/mock.ts",
+      "sha256": "96257d4a4de13c5853713c4d0c6e69c6bfed4a48eb0df299ec968f9513a6c7df"
+    },
+    {
+      "path": "packages/ui/src/api/p2/client.ts",
+      "sha256": "597a5148baf8842cdc6ecff4a2c503c199e74dc767fd4263d76e531bfdca7488"
+    },
+    {
+      "path": "packages/ui/src/api/p2/errorMessages.ko.ts",
+      "sha256": "469e0ca1ce5c4f73d3d0b1f4459f782d386cb48163a3c9d932ba7d308aeee2f3"
+    },
+    {
+      "path": "packages/ui/src/api/p2/errorMessages.ts",
+      "sha256": "4bab0685b47e313e4655fd9da1012b684ffce903e1573893cde641533eda7d5d"
+    },
+    {
+      "path": "packages/ui/src/api/p2/index.ts",
+      "sha256": "c29afe6185a6abc0f147be50fdc227fdd45ac0a0b290eb2c99fd4967e7106f0c"
+    },
+    {
+      "path": "packages/ui/src/api/p2/mock.ts",
+      "sha256": "7b354c931a56465ea6a83f9ca6217b1868cb4fe1dc3111a1dd64f1c72ce10bd9"
+    },
+    {
+      "path": "packages/ui/src/api/p2/permissions.ts",
+      "sha256": "79de0755d8672d95eb560dfe8b548bd5a3de271e9cd0ec8fd6aed153a9d3069c"
+    },
+    {
+      "path": "packages/ui/src/api/p2/types.ts",
+      "sha256": "ebfcb7738b818ceee470d18692a86605d89cd0245f4510db28f84ec41030bfc0"
+    },
+    {
+      "path": "packages/ui/src/api/p3/client.ts",
+      "sha256": "e3a820985f37de6218bcbc53258ec2a3b5d6b53b2821c7dc78fed0ab5e284058"
+    },
+    {
+      "path": "packages/ui/src/api/p3/errorMessages.ko.ts",
+      "sha256": "ea04bda1bc02c90d0513bb4997ca71fb7b7fa7d1150ad875279159ad30bbcf05"
+    },
+    {
+      "path": "packages/ui/src/api/p3/errorMessages.ts",
+      "sha256": "e24594576a25b198b242f0a901a8dd046172e5bb83bf4ab5973ecf36359c404a"
+    },
+    {
+      "path": "packages/ui/src/api/p3/index.ts",
+      "sha256": "52baa7110a5f6dbaa761b397e7af58312fe0b900ef21e6b012cd058b4cf9d518"
+    },
+    {
+      "path": "packages/ui/src/api/p3/mock.ts",
+      "sha256": "701c00cce2f3e5e6a4a6f40ee188e3b8024bcb3cf16f838fc4887a654df386ad"
+    },
+    {
+      "path": "packages/ui/src/api/p3/permissions.ts",
+      "sha256": "465b93cb01f55561b24c6fe6a6e7f2e258ba377b6ef09a1fb0bb33cbee212226"
+    },
+    {
+      "path": "packages/ui/src/api/p3/types.ts",
+      "sha256": "bd2f961c5045c7247c41120f863d82f372f124e6cbb25015ec6f66695bdbb09e"
+    },
+    {
+      "path": "packages/ui/src/api/p4/client.ts",
+      "sha256": "c7deb04055a9f91f041c137d91318f2ba78d838a0f9953af0b3fe172d6923309"
+    },
+    {
+      "path": "packages/ui/src/api/p4/errorMessages.ko.ts",
+      "sha256": "5fb35aaea25fef0364298e28f0719a325fbaeebafd56569ab1854fe1c9da68a3"
+    },
+    {
+      "path": "packages/ui/src/api/p4/errorMessages.ts",
+      "sha256": "8a3e7afcb48665d59d808c64efa5059a33822c621937d66f06fe54ca22446db3"
+    },
+    {
+      "path": "packages/ui/src/api/p4/index.ts",
+      "sha256": "ea464777d3cfdfacbc92826d5af1e15cee87c529bf00591595aa52f486a49fe2"
+    },
+    {
+      "path": "packages/ui/src/api/p4/mock.ts",
+      "sha256": "5353680ae4799be53da82969b0dc431e07420229db36fd7e420cfd9911a14bfa"
+    },
+    {
+      "path": "packages/ui/src/api/p4/types.ts",
+      "sha256": "1670719aacfd4fd7330d11cd064b412a30db72964dedb2bb3e2ef3f33ac41e4e"
+    },
+    {
+      "path": "packages/ui/src/api/types.ts",
+      "sha256": "788369d672401f0bf5699836e1210b5ed4e124fb812f06e0715c8172a668ba44"
+    },
+    {
+      "path": "packages/ui/src/cn.ts",
+      "sha256": "06511689b06158c42b51bee24c8b8c8cfd282893f9805aef9acdbdec9969362c"
+    },
+    {
+      "path": "packages/ui/src/i18n/LocaleProvider.tsx",
+      "sha256": "8219d5047920daa13f695e351314fdd2cd7204ead5c1793945b0675a5c17907e"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/index.ts",
+      "sha256": "289f91d26f1e67e22631ba78a513c46ce4a506d435b93246d3478bb239837288"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/aiquery.ts",
+      "sha256": "08e5041576c5b7025c0ede9673fb1f3b11bb15ce77ee0f1ff30f7d53078ede70"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/common.ts",
+      "sha256": "1aea3b1e58a35442be3ee2aea66423479b21a0e530b846abd71c31f5c3383acb"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/conversion.ts",
+      "sha256": "8d96df7f59fc996e4f30b94b5f31502f0f315b64ad707a7803d36eda5881e2ac"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/cost.ts",
+      "sha256": "57767f9efed9bfa003d8c4eb0fdeb2dca0c8e2489c8b56c4e21b8dbf30ddc8d8"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/csw.ts",
+      "sha256": "b528687e7845dd8e0fbe107892036f7acbef34f5c592b683677b8b1887e75682"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/disposition.ts",
+      "sha256": "0d28d6a0f975341228b988e1610967e637b07d8bb13ca6512ea14506942f8088"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/execution.ts",
+      "sha256": "c0b6854637acb258ae5d42b22fa0ebb8353d43e731c5863c480439ee50bc8f0d"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/inventory.ts",
+      "sha256": "c4952f9a249e2ad7ac90d24749a8b783e9dd2625d904d40de8bf4c9242bfaa95"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/maintenance.ts",
+      "sha256": "900901a0deea39a15154d12a17b425dc365d71caa75474b8656eb0c6e66ef119"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/masterdata.ts",
+      "sha256": "c511e9e57084c0f89be241aef44c861626b38a5279432abcaff42fa184701710"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/org.ts",
+      "sha256": "cac85bef0c022e39086e80de20feccbb6c98a5b67c749c12f123499e88dff516"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/ot.ts",
+      "sha256": "41bda96bef67f30908b89ee3901fd1b74e7d54a516872298e91959936263d2a9"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/process.ts",
+      "sha256": "eaf1e9a6f5515377e023ee1fd71b125e31837b6f71f58ab982b8154baab282a2"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/purchase.ts",
+      "sha256": "3de626d89c93e345152ceb564a15caace4fd8b19fc37cc5512b254b7ca3dc925"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/quality.ts",
+      "sha256": "3f05fe00081f6deaa9351429ce4e3f57fab4f97694d6aa09feb2a689f721eac7"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/reporting.ts",
+      "sha256": "11db6badbe6f92b1e261270b68ed775093d486d6283d4b92d00343a13211785d"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/reverse.ts",
+      "sha256": "5d12f058df14a54a02a8c9138caa344c94793ba3bd61ef42bd52de183c9982cd"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/rework.ts",
+      "sha256": "d5b9bfd33bbf22f9995931ada5c714cb65909b46f18120c678fc2a57652283fd"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/scheduling.ts",
+      "sha256": "7ec70d44342cba30141900bf7740ad950ca815f85296bde381e0a10de2f9446e"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/shipping.ts",
+      "sha256": "e1ac9bf8012084dc9966c530e97779af0a729d4f8c102a0e828a3ab1ae95d46d"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/spc.ts",
+      "sha256": "27e1646fae94987f6bb55e95f5768a68ad53e47bfad2ce54111d458c82d9c841"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/ko-KR/warehousing.ts",
+      "sha256": "6f8aa7a23525168af8346db9256e161c0bd318c6e1040451e05c78cae7f89743"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/aiquery.ts",
+      "sha256": "13dc6ed2dfe5d28a70e9bed06f41489912328eca1881759e80e2a424a388f52b"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/common.ts",
+      "sha256": "979dbab09706bd9d30fa73cb369a85b221709aa26385e7ba656a615b6b0bbf52"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/conversion.ts",
+      "sha256": "dba15aa9bf89d5249f296d1f89700fd3f9aa0ad574429a4e9085c4d26f5f8fe5"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/cost.ts",
+      "sha256": "435c27221a48e3267a8bde6fd1a1f03204b6a25c82279722219421abaa7f1ae2"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/csw.ts",
+      "sha256": "3015c7e4fef761e3e929db076135fa2b1c3f6096b94db88ec3f9aabcc5c22660"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/disposition.ts",
+      "sha256": "7b33e4b6cb134a97d20ac017bcc5f9d9b0482d21534d902623e83f17f78a72e4"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/execution.ts",
+      "sha256": "542a50cfcac00a144835c16da4421beed88bb99bfa35e900d5ad1e72c7824d73"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/inventory.ts",
+      "sha256": "c28e5f9f06ea38e2cf06f32e292f03ad8810a4926a97cc567b5159925158ded6"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/maintenance.ts",
+      "sha256": "42f642f9c4494506bea79b34128d833035a7de130f4e12cc6327626915f78c2b"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/masterdata.ts",
+      "sha256": "84494adc63cd2596f5eb5347bf17d5dd2721d66b827273ead657b8a34d8d915a"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/org.ts",
+      "sha256": "d000ab637ea798bc892adfe2db0f4e23d05d114b077336e588920fbc793e636a"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/ot.ts",
+      "sha256": "56e1f88277150eee42a67322ec74980118c405a9f80bc098f9fe3143102363e6"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/process.ts",
+      "sha256": "47bd3bcf5d49e8f9620ecc320303c1a11f8e9b7d7bf6379f04a8dde859d2ebb6"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/purchase.ts",
+      "sha256": "29b18f50ec0f305e4edece69daf534dc1ccca0a7517e55bb0bd3ce1622ce09d0"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/quality.ts",
+      "sha256": "dd796f5fceb53443be6a981c1b76d5b3e5189c2475216fa2bb53672fd6554782"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/reporting.ts",
+      "sha256": "6071303cdce5625f432f9843cec6c4387f32b7dd423a29b790d3302b0a858e5b"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/reverse.ts",
+      "sha256": "0e5b67850b3f331c4f0b3425d64c388a9f8773f318c58ef89060bd438baaf9f0"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/rework.ts",
+      "sha256": "648caac5fd0b1f7e147c0e1ecd21b8c639ce6ddbb6c9fb0296d5754e7172103a"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/scheduling.ts",
+      "sha256": "76b8e6c552c267511ffa46ac23072e8594e49dad72984dce413db72af30fd5aa"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/shipping.ts",
+      "sha256": "6099afefa043eafaaada9e814e9d9a69842aa04f57d2bea22100369a4b18b51d"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/spc.ts",
+      "sha256": "d7784a1e10d38161f84e81a0033e4a19d04f9b6e69c4e3416a8276aa74ed8cc7"
+    },
+    {
+      "path": "packages/ui/src/i18n/dictionaries/zh-CN/warehousing.ts",
+      "sha256": "b5e35e6a828545b43bc955423e7edd3d16f99cc1fb5334580996a47bf595c3e5"
+    },
+    {
+      "path": "packages/ui/src/i18n/global.ts",
+      "sha256": "9b43ad2f08634d23b55671ab241e8c4431c94a17c92e1ce053d4d9c12328bd4a"
+    },
+    {
+      "path": "packages/ui/src/i18n/index.ts",
+      "sha256": "fdcc4a704d31c065a3991b35d7cfeda2b41f9c55909a03215cd467b21b8770d6"
+    },
+    {
+      "path": "packages/ui/src/i18n/time.tsx",
+      "sha256": "dbe13aea467ad36de091f6c607e40181bafa616b164223471acdba0f528f6542"
+    },
+    {
+      "path": "packages/ui/src/i18n/translate.ts",
+      "sha256": "c1d748ad4c5cdf3056b32ebd4dec73e754a09c2dd5ae5e6cb7b51fbbbecbdb72"
+    },
+    {
+      "path": "packages/ui/src/i18n/types.ts",
+      "sha256": "54edb8745705d8e4015f2902c99b14e1b1e84a1947d001c613f8ac6f61ee36bf"
+    },
+    {
+      "path": "packages/ui/src/index.ts",
+      "sha256": "bb8bba11b0875d59ebdc18a00098428babc41db2ecfe505f5b4a4f95aa3b374b"
+    },
+    {
+      "path": "packages/ui/src/theme.css",
+      "sha256": "e0ab68b49ad10a56909cd627d4aae192ba5f44fdd705980e00713177de882dd1"
+    },
+    {
+      "path": "packages/ui/tsconfig.build.json",
+      "sha256": "534d713a04c6b0dc12019e9208723326b5a119566932763018601e5d0ebad6bd"
+    },
+    {
+      "path": "packages/ui/tsconfig.json",
+      "sha256": "1b3c0832db12212e2fcc53e82478a6d8ae2b932136462cc1ac7530bcec4987f3"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "sha256": "4a3af4f3ebb93698662b5973707ca1d26c9249f0fbb9a5a37b254e97bcc622a0"
+    },
+    {
+      "path": "tsconfig.base.json",
+      "sha256": "6e901f5dc006c4c618bc5ddd16be3fc221009d42bb1c78532856536ff9cbac22"
+    }
+  ],
+  "sourceDigest": "3f1ded31dfca42cd291f24d700570b4d2d8fe9f174ce490fc474a7ccc6ed7ff2",
+  "lockSha256": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7",
+  "toolchain": {
+    "node": "24.18.0",
+    "pnpm": "11.28.5",
+    "vite": "7.3.7"
+  },
+  "coldReceiptIdentity": {
+    "path": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/cold-build-receipt.json",
+    "sha256": "853556c940851361acee11ee93752f59c8ebf7b2fe7c970bbc13e4d43af2767c",
+    "declaredSourceRoot": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+    "physicalSourceRoot": "/private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+    "sourceManifestSha256": "0737bc4d174e8945b07a6946dced2dfdcd06523e296e06778ca9dc6753360948",
+    "sourceFileCount": 1426
+  },
+  "coldSourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0"
+}

@@ -1,5 +1,6 @@
-import type { ReactElement } from 'react'
-import { AiQueryPdaPage } from './pages/AiQueryPdaPage'
+import { lazy, type ReactElement } from 'react'
+
+const AiQueryPdaPage = lazy(() => import('./pages/AiQueryPdaPage').then((module) => ({ default: module.AiQueryPdaPage })))
 
 /**
  * [L0-整合标记] P4-UI 问数入口挂载点（PDA 可选入口）。

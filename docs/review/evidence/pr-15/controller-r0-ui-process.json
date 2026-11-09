@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/ui/pr15.vitest.config.ts",
+        "--reporter=verbose"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/ui/pr15.tsconfig.json",
+        "--noEmit"
+      ],
+      "exitCode": 2
+    }
+  ],
+  "startedAt": "2026-11-04T04:19:13.137190+00:00",
+  "completedAt": "2026-11-04T04:19:23.225123+00:00",
+  "sourceCommit": "e68c604cd1463e4a05efc39b840e4edebbc0f6f0",
+  "coldSnapshot": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source",
+  "logSha256": "1b7e2e997724dc4712bcffbc9803baba05f08ffcc219f4156f098e5b4d869a2a"
+}

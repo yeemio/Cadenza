@@ -1,0 +1,37 @@
+
+ RUN  v3.2.7 /private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-o62IZm/source
+
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > web unauthenticated deep link reaches the eager login page 78ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > web real mock-login flow returns to its original lazy destination 793ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > pda unauthenticated deep link reaches the eager login page 7ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > pda real mock-login flow returns to its original lazy destination 765ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > authenticated Web direct URL retains the query value when the route chunk arrives 426ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > P2 and P3 navigation modules retain their direct lazy destinations 1037ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > direct /inventory/units retains its existing permission refusal after lazy import 418ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > direct /spc/calibration retains its existing permission refusal after lazy import 422ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > direct /ai/query retains its existing permission refusal after lazy import 722ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > lazy routes retain login and direct URL behavior > PDA scan input works after lazy loading in Chinese and Korean 490ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > page-only Suspense/error boundary behavior > web preserves navigation while loading and updates the loading language 13ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > page-only Suspense/error boundary behavior > web shows an explicit reload action on chunk rejection in both languages 314ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > page-only Suspense/error boundary behavior > web a failed page does not prevent navigation to another route 13ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > page-only Suspense/error boundary behavior > pda preserves navigation while loading and updates the loading language 11ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > page-only Suspense/error boundary behavior > pda shows an explicit reload action on chunk rejection in both languages 321ms
+ ✓ tests/ui/pr15-route-loading.test.tsx > page-only Suspense/error boundary behavior > pda a failed page does not prevent navigation to another route 14ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  12:19:13
+   Duration  7.23s (transform 489ms, setup 643ms, collect 198ms, tests 5.84s, environment 429ms, prepare 31ms)
+
+apps/pda/src/api.ts(15,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/pda/src/p2/api.ts(4,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/pda/src/p3/client.ts(8,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/pda/src/p4/pages/AiQueryPdaPage.tsx(23,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/web/src/api.ts(16,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/web/src/group-api.ts(3,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/web/src/p2/api.ts(4,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/web/src/p3/client.ts(9,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/web/src/p4/binding/ImBindingCodePanel.tsx(17,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/web/src/p4/pages/AiQueryPage.tsx(29,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/web/src/production-api.ts(3,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+apps/web/src/scan-block-api.ts(3,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.

@@ -1,0 +1,19 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 2271 modules transformed.
+rendering chunks...
+computing gzip size...
+../../../../cadenza-pr15-measure-2jbk28/web/.vite/manifest.json            0.19 kB │ gzip:   0.14 kB
+../../../../cadenza-pr15-measure-2jbk28/web/index.html                     0.60 kB │ gzip:   0.41 kB
+../../../../cadenza-pr15-measure-2jbk28/web/assets/index-DCyVykWg.css     33.03 kB │ gzip:   6.90 kB
+../../../../cadenza-pr15-measure-2jbk28/web/assets/index-B2ZzKZHd.js   1,473.15 kB │ gzip: 425.08 kB
+✓ built in 1.60s
+
+(!) outDir /private/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr15-measure-2jbk28/web is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
