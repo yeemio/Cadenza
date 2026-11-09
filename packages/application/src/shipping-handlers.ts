@@ -22,6 +22,8 @@ import {
   assertScanLoadable,
   assertStatusSyncRetryable,
   assertSupplementaryAxisLoadable,
+  assertShipmentPhysicalMatch,
+  assertShipmentScanCoverage,
   deriveOrderStatus,
   readLineSnapshotSegment,
   resolveActualAxisSyncDecision,
@@ -32,7 +34,9 @@ import { assertOutboundQualityGate } from '@cadenza/domain'
 import type { CommandHandler, HandlerOutcome } from './command-bus'
 import { violationOutcome } from './inventory-handlers'
 import { NOT_FOUND_RULE, buildPostingContext, type PostingContext } from './inventory-posting'
-import type { ShippingCommandTools } from './shipping-repositories'
+import type { ShippingCommandTools, ShipmentOrderRecord, ShipmentLineRecord, PackingScanRecord } from './shipping-repositories'
+import type { InventoryUnitRecord, StockBalanceRecord } from './inventory-repositories'
+import { assertObjectWriteScope } from './object-scope-repositories'
 
 /**
  * shipping 域命令处理器（T14 分段装箱/发运；全部在命令总线事务内运行，命令事务即 UoW）。
@@ -98,6 +102,13 @@ function str(p: Payload, key: string): string | undefined {
 function dec(p: Payload, key: string): string | undefined {
   const v = p[key]
   return typeof v === 'string' && isValidQuantityString(v) ? v : undefined
+}
+
+function claimedSegmentLength(p: Payload): string | undefined {
+  if (p['actualSegmentLength'] === undefined) return undefined
+  const value = dec(p, 'actualSegmentLength')
+  if (value === undefined) throw new ShippingRuleViolation('A-T14-FULFILMENT', '声明的实际段长必须为有效十进制字符串')
+  return value
 }
 
 function requireStr(p: Payload, key: string, command: string): string {
@@ -418,19 +429,40 @@ async function packingBind(pc: PostingContext, p: Payload): Promise<Record<strin
 // ---------------- 命令：扫码装入/删码/补码（A-T14-3/5） ----------------
 
 /** 收集扫码校验事实（单元/余额/预留）。 */
-async function collectUnitFacts(
-  tools: ShippingCommandTools,
-  plantId: string,
-  unitNo: string,
-): Promise<{
+interface ShipmentUnitFacts {
+  unit: InventoryUnitRecord
+  balance: StockBalanceRecord
+  origin: Awaited<ReturnType<ShippingCommandTools['sp']['fulfilment']['originForUnit']>>
   unitId: string
   unitStatus: string
   qualityStatus: string
   lockedByOtherTask: boolean
   actualSegmentLength: string | null
-}> {
-  const unit = await tools.inv.units.findByUnitNo(plantId, unitNo)
-  if (unit === null) throw new ShippingRuleViolation(NOT_FOUND_RULE, `库存单元 ${unitNo} 不存在`)
+}
+
+async function assertShipmentOrderScope(pc: PostingContext, order: ShipmentOrderRecord, claimedPlantId: string): Promise<void> {
+  await assertObjectWriteScope(pc.tools, pc.ctx, order, 'shipping.post',
+    (message) => new ShippingRuleViolation('A-S1', message), claimedPlantId)
+}
+
+function assertPhysicalMatch(order: ShipmentOrderRecord, line: ShipmentLineRecord, facts: ShipmentUnitFacts, claimedSegmentLength?: string): void {
+  assertShipmentPhysicalMatch({
+    unitNo: facts.unit.unitNo, unitEnterpriseId: facts.unit.enterpriseId, unitPlantId: facts.unit.plantId,
+    unitMaterialId: facts.unit.materialId, unitMaterialCode: facts.unit.materialCode, unitUomCode: facts.unit.uomCode,
+    balanceUomCode: facts.balance.uomCode, balanceQuantity: facts.balance.quantity, actualSegmentLength: facts.actualSegmentLength,
+    origin: facts.origin, order, line: { ...line, segmentLength: readLineSnapshotSegment(line) }, claimedSegmentLength,
+  })
+}
+
+async function collectUnitFacts(
+  tools: ShippingCommandTools,
+  plantId: string,
+  unitNo: string,
+): Promise<ShipmentUnitFacts> {
+  const found = await tools.inv.units.findByUnitNo(plantId, unitNo)
+  if (found === null) throw new ShippingRuleViolation(NOT_FOUND_RULE, `库存单元 ${unitNo} 不存在`)
+  const unit = (await tools.inv.units.lockForUpdate([found.id]))[0]
+  if (unit === undefined || unit.plantId !== plantId || unit.unitNo !== unitNo) throw new ShippingRuleViolation('A-T14-FULFILMENT', '库存身份在单元锁内已变化')
   const balances = await tools.inv.balances.listActiveByUnit(unit.id)
   const active = balances.filter((b) => b.status === 'active')
   if (active.length === 0) throw new ShippingRuleViolation(NOT_FOUND_RULE, `库存单元 ${unitNo} 无活动余额`)
@@ -438,12 +470,22 @@ async function collectUnitFacts(
     throw new ShippingRuleViolation('A-T14-3', `库存单元 ${unitNo} 存在 ${active.length} 条活动余额，装入须先收敛余额键`)
   }
   const balance = active[0]!
+  if (balance.unitId !== unit.id || balance.enterpriseId !== unit.enterpriseId || balance.plantId !== unit.plantId) {
+    throw new ShippingRuleViolation('A-S1', '库存余额与实际单元归属不一致')
+  }
   const nowIso = tools.now().toISOString()
   const reservations = await tools.inv.reservations.listActiveByUnit(unit.id)
   const effective = reservations.filter((r) => r.status === 'active' && Date.parse(r.validUntil) >= Date.parse(nowIso))
   const segments = await tools.inv.segments.listByUnit(unit.id)
-  const actualSegmentLength = segments.length > 0 ? segments[0]!.quantity : null
+  const origin = await tools.sp.fulfilment.originForUnit(unit.id)
+  if (segments.length > 1 || segments.some((s) => s.enterpriseId !== unit.enterpriseId || s.plantId !== unit.plantId || s.uomCode !== balance.uomCode)) {
+    throw new ShippingRuleViolation('A-T14-FULFILMENT', '一个扫码未唯一对应同计量实物段；须先完成受验证的拆分/整理')
+  }
+  const actualSegmentLength = origin?.segmentLength ?? segments[0]?.quantity ?? balance.quantity
+  if (segments[0] !== undefined && origin?.segmentLength !== null && origin?.segmentLength !== undefined &&
+      cmpQty(segments[0].quantity, origin.segmentLength) !== 0) throw new ShippingRuleViolation('A-T14-FULFILMENT', '轴段长与实物段记录不一致')
   return {
+    unit, balance, origin,
     unitId: unit.id,
     unitStatus: unit.status,
     qualityStatus: await tools.inv.units.hasActiveQualityHold(unit.id) ? 'suspect' : balance.qualityStatus,
@@ -457,20 +499,33 @@ async function scanLoad(pc: PostingContext, p: Payload): Promise<Record<string, 
   const plantId = requireStr(p, 'plantId', 'shipping.scan.load')
   await assertPlantScope(tools, plantId)
   const shipmentOrderId = requireStr(p, 'shipmentOrderId', 'shipping.scan.load')
-  const lineId = requireStr(p, 'lineId', 'shipping.scan.load')
+  const lineId = str(p, 'lineId')
   const unitNo = requireStr(p, 'unitNo', 'shipping.scan.load')
+  const claimedLength = claimedSegmentLength(p)
+  if (p['lineId'] !== undefined && lineId === undefined) throw new ShippingRuleViolation('A-T14-FULFILMENT', '指定商业行身份无效')
 
   const order = await tools.sp.orders.lockById(shipmentOrderId)
   if (order === null) throw new ShippingRuleViolation(NOT_FOUND_RULE, '发货单不存在')
-  if (order.plantId !== plantId) throw new ShippingRuleViolation('A-S1', '发货单不在目标工厂')
+  await assertShipmentOrderScope(pc, order, plantId)
   if (order.status === 'shipped') throw new ShippingRuleViolation('A-T14-3', 'PL 已出库，不可再装入')
-  const line = await tools.sp.lines.lockById(lineId)
+  const facts = await collectUnitFacts(tools, plantId, unitNo)
+  let selectedLineId = lineId
+  if (selectedLineId === undefined) {
+    const candidates = (await tools.sp.lines.listByOrder(order.id)).filter((candidate) => {
+      if (candidate.scannedCount >= candidate.requiredCount) return false
+      try { assertPhysicalMatch(order, candidate, facts, claimedLength); return true }
+      catch (error) { if (error instanceof ShippingRuleViolation) return false; throw error }
+    })
+    if (candidates.length !== 1) throw new ShippingRuleViolation('A-T14-FULFILMENT', `实物自动匹配得到 ${candidates.length} 个候选，须明确且唯一匹配商业行`)
+    selectedLineId = candidates[0]!.id
+  }
+  const line = await tools.sp.lines.lockById(selectedLineId)
   if (line === null || line.shipmentOrderId !== order.id) {
     throw new ShippingRuleViolation(NOT_FOUND_RULE, '备货行不存在或不属于该发货单')
   }
 
   const already = await tools.sp.scans.findActiveByOrderAndUnitNo(order.id, unitNo)
-  const facts = await collectUnitFacts(tools, plantId, unitNo)
+  assertPhysicalMatch(order, line, facts, claimedLength)
   // A-T14-3：五拒一成（未审核/存疑/被锁定/未关联销售订单行/无段长拒收）
   assertScanLoadable({
     unitNo,
@@ -492,7 +547,7 @@ async function scanLoad(pc: PostingContext, p: Payload): Promise<Record<string, 
     alreadyLoadedInOrder: already !== null,
   })
 
-  const actualSegmentLength = dec(p, 'actualSegmentLength') ?? facts.actualSegmentLength
+  const actualSegmentLength = facts.actualSegmentLength
   const scan = await tools.sp.scans.insert({
     shipmentOrderId: order.id,
     shipmentLineId: line.id,
@@ -605,10 +660,11 @@ async function scanSupplement(pc: PostingContext, p: Payload): Promise<Record<st
   const shipmentOrderId = requireStr(p, 'shipmentOrderId', 'shipping.scan.supplement')
   const lineId = requireStr(p, 'lineId', 'shipping.scan.supplement')
   const unitNo = requireStr(p, 'unitNo', 'shipping.scan.supplement')
+  const claimedLength = claimedSegmentLength(p)
 
   const order = await tools.sp.orders.lockById(shipmentOrderId)
   if (order === null) throw new ShippingRuleViolation(NOT_FOUND_RULE, '发货单不存在')
-  if (order.plantId !== plantId) throw new ShippingRuleViolation('A-S1', '发货单不在目标工厂')
+  await assertShipmentOrderScope(pc, order, plantId)
   if (order.status === 'shipped') throw new ShippingRuleViolation('A-T14-5', 'PL 已出库，不可再补码')
   const line = await tools.sp.lines.lockById(lineId)
   if (line === null || line.shipmentOrderId !== order.id) {
@@ -624,12 +680,24 @@ async function scanSupplement(pc: PostingContext, p: Payload): Promise<Record<st
   const already = await tools.sp.scans.findActiveByOrderAndUnitNo(order.id, unitNo)
   if (already !== null) throw new ShippingRuleViolation('A-T14-5', `轴号 ${unitNo} 已登记本单且未删除，拒绝重复补码`)
 
-  const actualSegmentLength = dec(p, 'actualSegmentLength') ?? line.segmentLength
+  // Registration may precede stock identity. A known unit must pass the same
+  // physical/commercial gate as a load scan; an unknown one cannot post later
+  // until confirmation resolves and validates it under the unit lock.
+  const existing = await tools.inv.units.findByUnitNo(plantId, unitNo)
+  const facts = existing === null ? null : await collectUnitFacts(tools, plantId, unitNo)
+  if (facts !== null) {
+    assertPhysicalMatch(order, line, facts, claimedLength)
+    assertScanLoadable({ unitNo, unitStatus: facts.unitStatus, qualityStatus: facts.qualityStatus,
+      suspectHoldActive: facts.qualityStatus === 'suspect', lockedByOtherTask: facts.lockedByOtherTask,
+      matchedLine: { lineId: line.id, lineKind: line.lineKind, segmentLength: readLineSnapshotSegment(line),
+        requiredCount: line.requiredCount, scannedCount: line.scannedCount }, alreadyLoadedInOrder: false })
+  }
+  const actualSegmentLength = facts?.actualSegmentLength ?? claimedLength ?? readLineSnapshotSegment(line)
   const scan = await tools.sp.scans.insert({
     shipmentOrderId: order.id,
     shipmentLineId: line.id,
     scanKind: 'supplement',
-    inventoryUnitId: null, // 补码=轴号登记（缺产品轴号场景），不要求库存单元绑定
+    inventoryUnitId: facts?.unitId ?? null,
     unitNo,
     customerAxisNo: null,
     actualSegmentLength,
@@ -658,7 +726,9 @@ async function scanSupplement(pc: PostingContext, p: Payload): Promise<Record<st
     action: 'shipping.scan.supplement',
     subjectType: 'packing_scan',
     subjectId: scan.id,
-    after: { unitNo, lineId: line.id, scanned: progress.scannedCount, required: line.requiredCount, orderStatus: nextStatus },
+    after: { unitNo, lineId: line.id, inventoryUnitId: facts?.unitId ?? null,
+      inventoryIdentityStatus: facts === null ? 'UNRESOLVED' : 'RESOLVED',
+      scanned: progress.scannedCount, required: line.requiredCount, orderStatus: nextStatus },
     reason: str(p, 'reason') ?? null,
   })
   return {
@@ -666,6 +736,8 @@ async function scanSupplement(pc: PostingContext, p: Payload): Promise<Record<st
     unitNo,
     lineId: line.id,
     scanKind: 'supplement',
+    inventoryUnitId: facts?.unitId ?? null,
+    inventoryIdentityStatus: facts === null ? 'UNRESOLVED' : 'RESOLVED',
     scannedCount: progress.scannedCount,
     requiredCount: line.requiredCount,
     lineStatus: progress.lineStatus,
@@ -781,7 +853,7 @@ async function shipConfirm(pc: PostingContext, p: Payload): Promise<Record<strin
 
   const order = await tools.sp.orders.lockById(shipmentOrderId)
   if (order === null) throw new ShippingRuleViolation(NOT_FOUND_RULE, '发货单不存在')
-  if (order.plantId !== plantId) throw new ShippingRuleViolation('A-S1', '发货单不在目标工厂')
+  await assertShipmentOrderScope(pc, order, plantId)
   const lines = await tools.sp.lines.listByOrder(order.id)
   // A-T14-7：仅待出库；任一行已扫<应扫拒并指名料品/段长
   assertConfirmShippable({
@@ -801,44 +873,51 @@ async function shipConfirm(pc: PostingContext, p: Payload): Promise<Record<strin
   })
 
   const scans = (await tools.sp.scans.listByOrder(order.id)).filter((s) => !s.deleted)
-  // 锁定全部已扫库存单元（IT-25 稳定次序）
-  const unitIds = [...new Set(scans.map((s) => s.inventoryUnitId).filter((id): id is string => id !== null))]
+  // Do not mutate immutable packing_scan facts. Resolve every physical item,
+  // including prior supplementary registrations, and bind it in the outbound
+  // snapshot only after validation in this transaction.
+  const resolved: Array<{ scan: PackingScanRecord; unitId: string }> = []
+  for (const scan of scans) {
+    if (scan.enterpriseId !== order.enterpriseId || scan.plantId !== order.plantId) {
+      throw new ShippingRuleViolation('A-T14-FULFILMENT', '扫码企业/工厂与实际发货单不一致')
+    }
+    const found = await tools.inv.units.findByUnitNo(order.plantId, scan.unitNo)
+    if (found === null || (scan.inventoryUnitId !== null && scan.inventoryUnitId !== found.id)) {
+      throw new ShippingRuleViolation('A-T14-FULFILMENT', `扫码 ${scan.unitNo} 的真实库存身份未解析或已冲突，禁止完成出库`)
+    }
+    resolved.push({ scan, unitId: found.id })
+  }
+  assertShipmentScanCoverage(lines, resolved.map(({ scan, unitId }) => ({ lineId: scan.shipmentLineId, unitId })))
+  // 锁定全部已解析库存单元（IT-25 稳定次序）。
+  const unitIds = resolved.map(({ unitId }) => unitId)
   const lockedUnits = await tools.inv.units.lockForUpdate(ensureStableLockOrder(unitIds))
   if (lockedUnits.length !== unitIds.length) {
     throw new ShippingRuleViolation(NOT_FOUND_RULE, '存在已扫但不可锁定的库存单元（状态已变）')
   }
-  const unitById = new Map(lockedUnits.map((u) => [u.id, u]))
+  const lineById = new Map(lines.map((line) => [line.id, line]))
 
   // 逐单元：余额收敛+质量闸门复检（A-T12-4 严格模式；存疑恒拒）+无外来锁定 → 记已发货
-  const nowIso = tools.now().toISOString()
   let lineNo = 0
   const posted: Array<Record<string, unknown>> = []
-  for (const scan of scans) {
-    if (scan.inventoryUnitId === null) continue // 补码登记（无库存单元绑定）不参与库存记账
-    const unit = unitById.get(scan.inventoryUnitId)!
+  const physicalBindings: Array<Record<string, unknown>> = []
+  for (const { scan, unitId } of resolved) {
+    const facts = await collectUnitFacts(tools, order.plantId, scan.unitNo)
+    const { unit, balance } = facts
+    if (unit.id !== unitId || unit.status !== 'in_stock') {
+      throw new ShippingRuleViolation('A-T14-FULFILMENT', `扫码 ${scan.unitNo} 的库存身份/在库状态已变化`)
+    }
+    assertPhysicalMatch(order, lineById.get(scan.shipmentLineId)!, facts, scan.actualSegmentLength ?? undefined)
     if (await tools.inv.units.hasActiveQualityHold(unit.id)) {
       throw new ShippingRuleViolation('A-T12-2', `库存单元 ${unit.unitNo} 有活动质量隔离，拒绝出库`)
     }
     if((await tools.inv.units.businessHolds(unit.id)).length>0)throw new ShippingRuleViolation('IT-BUSINESS-HOLD',`库存单元 ${unit.unitNo} 处于业务留置，拒绝出库`)
-    const balances = await tools.inv.balances.listActiveByUnit(unit.id)
-    const active = balances.filter((b) => b.status === 'active')
-    if (active.length === 0) throw new ShippingRuleViolation(NOT_FOUND_RULE, `库存单元 ${unit.unitNo} 无活动余额，不可发运`)
-    if (active.length > 1) {
-      throw new ShippingRuleViolation('A-T14-7', `库存单元 ${unit.unitNo} 存在 ${active.length} 条活动余额，发运须先收敛余额键`)
-    }
-    const balance = active[0]!
-    if (cmpQty(balance.quantity, '0.0000') <= 0) {
-      throw new ShippingRuleViolation('A-T14-7', `库存单元 ${unit.unitNo} 余额为零，不可发运`)
-    }
     assertOutboundQualityGate({
       qualityStatus: balance.qualityStatus,
       policy: { allowUnfinishedOutbound: false },
       unitNo: unit.unitNo,
       action: '确认出库',
     })
-    const reservations = await tools.inv.reservations.listActiveByUnit(unit.id)
-    const effective = reservations.filter((r) => r.status === 'active' && Date.parse(r.validUntil) >= Date.parse(nowIso))
-    if (effective.length > 0) {
+    if (facts.lockedByOtherTask) {
       throw new ShippingRuleViolation('A-T14-7', `库存单元 ${unit.unitNo} 被其它业务锁定（活动作业预留），拒绝出库`)
     }
     lineNo += 1
@@ -850,11 +929,15 @@ async function shipConfirm(pc: PostingContext, p: Payload): Promise<Record<strin
       plNo: order.plNo,
     })
     posted.push({ unitId: unit.id, unitNo: unit.unitNo, transactionId: written.transactionId, quantity: balance.quantity })
+    physicalBindings.push({ scanId: scan.id, lineId: scan.shipmentLineId, scanKind: scan.scanKind,
+      unitId: unit.id, unitNo: unit.unitNo, quantity: balance.quantity, uomCode: balance.uomCode,
+      actualSegmentLength: facts.actualSegmentLength, salesOrderNo: facts.origin!.salesOrderNo,
+      salesOrderLineNo: facts.origin!.salesOrderLineNo, sourceOrderIds: facts.origin!.sourceOrderIds })
   }
 
   // A-T14-8/IF-06：实发轴差异判定（按行快照客户轴号 vs 装入实发轴号；出库时点快照）
   const plannedCustomerAxes = lines.filter((l) => l.lineKind === 'axis_item' && l.customerAxisNo !== null).map((l) => l.customerAxisNo!)
-  const actualAxes = scans.filter((s) => s.scanKind === 'load').map((s) => s.unitNo)
+  const actualAxes = resolved.map(({ scan }) => scan.unitNo)
   const decision = resolveActualAxisSyncDecision({ plannedCustomerAxes, actualAxes })
 
   // A-T14-7：执行=已出库+出库人+完成时间+库存记已发货（上面逐单元已记）；双回传状态列独立落库
@@ -871,6 +954,7 @@ async function shipConfirm(pc: PostingContext, p: Payload): Promise<Record<strin
         actualAxes,
         missingOnActual: decision.missingOnActual,
         extraOnActual: decision.extraOnActual,
+        physicalBindings,
         decidedAt: outboundAt,
       },
       // IF-00.6：发货状态重推载荷=出库完成时点快照（重试按快照，不推当前值）

@@ -1,0 +1,67 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr4-work
+
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-1 PL 状态机 > 待装箱→待出库→已出库 合法步进 3ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-1 PL 状态机 > 跳步与回退拒绝（待装箱→已出库、已出库→待出库） 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 备货三类行规格 > 有轴单品：缺客户轴号拒 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 备货三类行规格 > 有轴单品：缺标准段长拒（无段长） 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 备货三类行规格 > 有轴单品：标准段长必须为正十进制定点 4ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 备货三类行规格 > 无轴单品：段长快照可缺（入站标黄）、携带客户轴号或段长非法拒 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 备货三类行规格 > 托盘行：携带客户轴号或总轴数缺失拒 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 备货三类行规格 > PL 行集：空集与行号重复拒（IF-05） 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 备货三类行规格 > 快照段长读取：有轴=标准段长、无轴=段长、托盘=无单值段长 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 扫码装入五拒一成 > 一成：事实齐备可装入 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 扫码装入五拒一成 > 拒①未审核（待检质量状态） 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 扫码装入五拒一成 > 拒②质量存疑恒拒 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 扫码装入五拒一成 > 拒③被其它业务锁定 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 扫码装入五拒一成 > 拒④未关联销售订单行 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 扫码装入五拒一成 > 拒⑤无段长（快照缺失） 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 扫码装入五拒一成 > 拒：不在库/同码重复装入/行已扫满多扫 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 行/单状态流转与删码退回 > 行扫满→已装箱；未满→待装箱 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 行/单状态流转与删码退回 > 全部行已装箱→待出库；任一未满→待装箱 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 行/单状态流转与删码退回 > 删码不满足退回待装箱（行与单同步回退） 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-3 行/单状态流转与删码退回 > 已出库不可删码；无未删记录不可删 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-5 补码 > 无轴行可补码且计入已扫件数 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-5 补码 > 有轴/托盘行补码拒；无轴行扫满后补码拒（C-7 fail-closed） 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-4 打包任务 > 创建前置：先扫托码+选调入库位（缺一拒） 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-4 打包任务 > 绑定托码前置：每行已扫完+托码+库位（未满指名拒） 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-4 打包任务 > 已打包托码库位只读（重复打包/换库位拒） 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-7 确认出库 > 仅待出库可确认；其它状态拒 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-7 确认出库 > 应扫不足拒并指名料品/段长（已扫 x/应扫 y） 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-8/IF-06 实发轴差异判定与回传重试 > 客户轴号与实发轴号无差异→noop_needed（不是失败） 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-8/IF-06 实发轴差异判定与回传重试 > 有差异→pending（双向差异均列出） 0ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-8/IF-06 实发轴差异判定与回传重试 > 实发轴重试：仅已出库；synced/noop 终态不重做 1ms
+ ✓ tests/domain/shipping-rules.spec.ts > A-T14-8/IF-06 实发轴差异判定与回传重试 > 发货状态重试：快照缺失/不一致拒（IF-00.6 不改推当前值）；已成功侧不重做 5ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > accepts a verified plain_item physical item 2ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > accepts a verified axis_item physical item 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > accepts a verified pallet physical item 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > accepts equal decimal strings without float conversion 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects unknown sales ownership even with a selected line 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects enterprise mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects plant mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects origin plant mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects material ID mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects material code mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects origin material mismatch 1ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects sales order mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects sales line mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects unit UOM mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects origin UOM mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects commercial length mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects partial quantity mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects extra quantity mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects zero segment mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects malformed segment mismatch 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 server physical facts must match the commercial line > rejects a fabricated client length 1ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 every registered count needs one unique physical item > accepts a load and a resolved supplementary unit 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 every registered count needs one unique physical item > rejects unresolved supplementary registration 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 every registered count needs one unique physical item > rejects double-counting one unit 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 every registered count needs one unique physical item > rejects a forged progress counter with too few physical scans 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 every registered count needs one unique physical item > rejects a scan belonging to another line 0ms
+ ✓ tests/pr04/fulfilment.unit.spec.ts > PR04 every registered count needs one unique physical item > rejects an empty shipment 0ms
+
+ Test Files  2 passed (2)
+      Tests  58 passed (58)
+   Start at  22:58:38
+   Duration  3.75s (transform 1.91s, setup 0ms, collect 3.10s, tests 42ms, environment 0ms, prepare 201ms)
+

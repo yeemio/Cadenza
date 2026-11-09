@@ -382,6 +382,13 @@ export interface QuarantinedInboxWriter {
 
 /** shipping 域仓储集合。 */
 export interface ShippingRepositories {
+  fulfilment: {
+    /** Current approved output provenance; null means unknown/ambiguous, never inferred from a shipment line. */
+    originForUnit(unitId: string): Promise<{
+      enterpriseId: string; plantId: string; materialId: string; salesOrderNo: string; salesOrderLineNo: string
+      uomCode: string; segmentLength: string | null; customerAxisNo: string | null; sourceOrderIds: string[]
+    } | null>
+  }
   orders: ShipmentOrderRepository
   lines: ShipmentLineRepository
   packings: PackingOrderRepository

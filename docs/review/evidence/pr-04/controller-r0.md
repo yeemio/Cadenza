@@ -1,0 +1,7 @@
+# PR04 C4 — ACCEPT
+
+Tested source `d98f83e5cccb039eb8f2b88a65828f353722a0c3`, own9file fingerprint `2c194fec1592e430bb56b856370b2f752e091afd8eb57a6be498258aa21e5dff`. Actual merge acceptedPR3final2b78fc4 into originaldf86406, cumulativeparentc27473d, then exact author increment `d8a99949567faf215f36644468750d5b7ec2573304a36a298df2ce6914e38603`.16ownpostimages match; original cumulative62/65matches,3explicit inherited differences are precisely acceptedPR2R1/PR3R2source/tests, never reverted.
+
+Fresh realPG32PASS/0fail/0skip.27unique actual177table before/after denial observations, zero change, unique refusalreceipt and executedsamekey replay snapshot comparison. Legalaxis/plain, automaticmatching, supplementsresolved/unresolved, material/salesline/segment/quantity/UOM/provenance/UNKNOWN and latequality/businesshold/reservation rollback all pass.
+
+58exact author rules/domain plus3type receipts reused, raw hashes verified. Own effective90=32freshPG+58reusedrules/domain; not90PG/fresh. ExistingPR1/PR3shippingfixtures lack new mandatory commercialprovenance, not reused as current shippingPASS. PR4actual provenance-backed late-rejection cases cover newshipping regression; inheritedinventory/quality/C2source unchanged. Explicitapproved-output SQLfixture does not prove execution-reportworkflow. Existingorigin splitverifier reused; no newend-to-endsplitshipment claimed. Unknownhistory/actualexternal/site/oldDB/R6notaccepted. No mainmerge/release/deploy.

@@ -1,0 +1,24 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr4-work
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr04/fulfilment.pg.spec.ts [ tests/pr04/fulfilment.pg.spec.ts ]
+Error: NOT_RUN: CADENZA_PR04_TEST_DB_URL must name a NEW empty cadenza_pr04_* PostgreSQL database
+ ❯ tests/pr04/fulfilment.pg.spec.ts:15:9
+     13| const url = process.env['CADENZA_PR04_TEST_DB_URL']
+     14| if (!url || !/^cadenza_pr04_[a-z0-9_]+$/.test(new URL(url).pathname.sl…
+     15|   throw new Error('NOT_RUN: CADENZA_PR04_TEST_DB_URL must name a NEW e…
+       |         ^
+     16| }
+     17| const pool = createPool(url, { max: 8 })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  22:58:38
+   Duration  6.54s (transform 4.18s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 93ms)
+
