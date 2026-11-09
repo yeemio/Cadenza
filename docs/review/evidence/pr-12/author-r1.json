@@ -1,0 +1,631 @@
+{
+  "delivery": "Cadenza-PR12-R1",
+  "revision": "AUTHOR_R1",
+  "status": "BOUNDED_PRODUCT_REPAIR_SOURCE_READY_NATIVE_DUAL_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalPr": 12,
+  "originalBranch": "codex/fix-12-backup-upgrade-safety",
+  "exactParentHead": "0c951347f834d82afb4d7d573222cedd91883ea7",
+  "parentTestedSourceCommit": "72facaaff169486f8d80eb5bd91ce40a3a3c0ebb",
+  "parentSourceTestFingerprint": "94b494190d806fe2a7785f902921a14a9706ec22a0e3181584d5c861d9094ea8",
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "d93d724b55bd43111a2ac4a3468d6848dff73c1a38fad60814977bb69e39d1b3",
+    "pathCount": 20,
+    "scope": "Original 18-path source/test/document set plus one product helper and one focused unit test; not directly comparable to the old 18-path aggregate without this path list.",
+    "files": [
+      {
+        "path": "deploy/backup/MANUAL-备份恢复手册.md",
+        "sha256": "bfde0096a439a8b60188dc0b2442f20ecb55db1bcd4fa64441d10d86d78fe9d7",
+        "bytes": 8621,
+        "gitMode": "100644",
+        "parentSha256": "79a826ea2eb0e4e8f653f7007596b6eb1559392aebf749b348cf46bf2ba82125",
+        "parentGitBlobSha": "12390f51d49fecf96a8d8cf4eaa344b1f3d9e1eb",
+        "unchangedFromParent": false
+      },
+      {
+        "path": "deploy/backup/backup.sh",
+        "sha256": "8a0154a36e9b3213f1546e6aa6fc98ca6ba23281ded22bff261268ce8efe0ea9",
+        "bytes": 448,
+        "gitMode": "100755",
+        "parentSha256": "8a0154a36e9b3213f1546e6aa6fc98ca6ba23281ded22bff261268ce8efe0ea9",
+        "parentGitBlobSha": "494b415d333356e28ac85c355f57dffd5d749c92",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "deploy/backup/restore.sh",
+        "sha256": "ccac2c28baa02cd9d071f579083293e32f79c9ded4fd76206e3d7c51c3c9a8c3",
+        "bytes": 450,
+        "gitMode": "100755",
+        "parentSha256": "ccac2c28baa02cd9d071f579083293e32f79c9ded4fd76206e3d7c51c3c9a8c3",
+        "parentGitBlobSha": "98f9c7d4033759ed4eb0c04d2991be0a45c0acd3",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "deploy/upgrade/COMPATIBILITY.json",
+        "sha256": "4e417d3cc63c34776918f701a9500b5d551abbe64a7d99f0fbc41a5f27af0220",
+        "bytes": 2386,
+        "gitMode": "100644",
+        "parentSha256": "4e417d3cc63c34776918f701a9500b5d551abbe64a7d99f0fbc41a5f27af0220",
+        "parentGitBlobSha": "874ea1f692566b86ec50f0a5b9d1e3ab93f6670b",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "deploy/upgrade/MANUAL-升级手册.md",
+        "sha256": "199bd6b2fcc57546f550bee2dee8025f418619c21c517055c7e9ab9145e230a2",
+        "bytes": 3518,
+        "gitMode": "100644",
+        "parentSha256": "199bd6b2fcc57546f550bee2dee8025f418619c21c517055c7e9ab9145e230a2",
+        "parentGitBlobSha": "82bf64e94bd7695c0514818ed596321078b2269b",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "deploy/upgrade/upgrade.sh",
+        "sha256": "1cc68be832d3d52999ae6ab5c9270ecbb297bd5ca161babd224b4bfaf2700803",
+        "bytes": 2951,
+        "gitMode": "100755",
+        "parentSha256": "1cc68be832d3d52999ae6ab5c9270ecbb297bd5ca161babd224b4bfaf2700803",
+        "parentGitBlobSha": "96d750381936650f94722c5acec0bccb4c1f1d94",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "scripts/delivery/backup/backup.mjs",
+        "sha256": "b187ddc8c13aa2748a6c8f54ca8937eb345d6122dad03a242cc9d068ed88134b",
+        "bytes": 4755,
+        "gitMode": "100644",
+        "parentSha256": "b187ddc8c13aa2748a6c8f54ca8937eb345d6122dad03a242cc9d068ed88134b",
+        "parentGitBlobSha": "8a0ddf3b5bf699061e1b504dd06fae554268d690",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "scripts/delivery/backup/config.mjs",
+        "sha256": "51f0fca5403a1e91374e5fccb53cb10bdba2ee3a06182a9f21da0c4d9e2e4f11",
+        "bytes": 1027,
+        "gitMode": "100644",
+        "parentSha256": "51f0fca5403a1e91374e5fccb53cb10bdba2ee3a06182a9f21da0c4d9e2e4f11",
+        "parentGitBlobSha": "41cbd1993ab0fe585bf84ef523d7e9e7d7bf0ebe",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "scripts/delivery/backup/connection.mjs",
+        "sha256": "f0537242a8b1d66267e31f07b0db058c9d5959096fad76b97a0a2cf51af3d6b5",
+        "bytes": 5959,
+        "gitMode": "100644",
+        "parentSha256": "f0537242a8b1d66267e31f07b0db058c9d5959096fad76b97a0a2cf51af3d6b5",
+        "parentGitBlobSha": "333863ffebad98a0cee2745317afb225c7cf9653",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "scripts/delivery/backup/media.mjs",
+        "sha256": "a14fd6862e33dd0668bdfe5a701d9303ebb41700cad42947ca8d2b47b4dd3f4f",
+        "bytes": 2878,
+        "gitMode": "100644",
+        "parentSha256": "a14fd6862e33dd0668bdfe5a701d9303ebb41700cad42947ca8d2b47b4dd3f4f",
+        "parentGitBlobSha": "7127c7cc280622832df3e27cd384cc125df71f62",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "scripts/delivery/backup/native-compatibility.mjs",
+        "sha256": "047cfa3ee783049df022cfc67448209a5d1aeffce7f4a55d36204b27256c0b69",
+        "bytes": 2323,
+        "gitMode": "100644",
+        "parentSha256": null,
+        "parentGitBlobSha": null,
+        "unchangedFromParent": false
+      },
+      {
+        "path": "scripts/delivery/backup/pg-ops.mjs",
+        "sha256": "ddaeb64b3be5540b180d83f19399e167e707103404cfe114012b6cb5952f3c12",
+        "bytes": 2181,
+        "gitMode": "100644",
+        "parentSha256": "ddaeb64b3be5540b180d83f19399e167e707103404cfe114012b6cb5952f3c12",
+        "parentGitBlobSha": "75a8079e36b30cc79ed542dff61c99aa6b2b04cd",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "scripts/delivery/backup/restore.mjs",
+        "sha256": "757f5fd3edafb67ac300f88761da16218dc677d18fc8f53d80f8abd78e4f8118",
+        "bytes": 5359,
+        "gitMode": "100644",
+        "parentSha256": "d544f82ffbc15ec818d95f3df91317050e77ef511f8ca165deb6951db6fc6719",
+        "parentGitBlobSha": "5d2f43a768c2220ff28fadd015bdb7e194a16a6f",
+        "unchangedFromParent": false
+      },
+      {
+        "path": "scripts/delivery/lib/db.mjs",
+        "sha256": "ac50cc37b4c3da20bfa520317f3fe71a0d264c2d3f87ac7130506a0374ab9c1b",
+        "bytes": 4577,
+        "gitMode": "100644",
+        "parentSha256": "ac50cc37b4c3da20bfa520317f3fe71a0d264c2d3f87ac7130506a0374ab9c1b",
+        "parentGitBlobSha": "6a8152d0602cb59df62f019b1f06aa77c10420a5",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "scripts/delivery/upgrade-compat-check.mjs",
+        "sha256": "a467fa1224a000cff9f9df28672f38618e4aa4d516e77d0a6f597c4cad74b50c",
+        "bytes": 3639,
+        "gitMode": "100644",
+        "parentSha256": "a467fa1224a000cff9f9df28672f38618e4aa4d516e77d0a6f597c4cad74b50c",
+        "parentGitBlobSha": "c01e0beec0fa48081a0cb59f40cac242c5957aef",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr12/backup-upgrade.pg.spec.ts",
+        "sha256": "5ae3cb4d764d4adc6607280c5934fbe756452076d26800ac35c929a01564fc73",
+        "bytes": 12774,
+        "gitMode": "100644",
+        "parentSha256": "9e7a97fa5af1cc2016dad1a77b331d8b7b38ad0c850ddb32aa0928132ec6a6e2",
+        "parentGitBlobSha": "2b2bd098f350fa1a1ec03ee6d321f2bc72b3c487",
+        "unchangedFromParent": false
+      },
+      {
+        "path": "tests/pr12/native-compatibility.unit.spec.ts",
+        "sha256": "06ef910bb1cc36b5ea0efa7db5286f3f3dd15ef3d9e4732ac22bfbab1b5a4193",
+        "bytes": 5291,
+        "gitMode": "100644",
+        "parentSha256": null,
+        "parentGitBlobSha": null,
+        "unchangedFromParent": false
+      },
+      {
+        "path": "tests/pr12/safety.unit.test.mjs",
+        "sha256": "c2bb741ea8e112cc2e10daa3122a24c3235e100aa35ada7178fbf3d8d6efecd2",
+        "bytes": 9091,
+        "gitMode": "100644",
+        "parentSha256": "c2bb741ea8e112cc2e10daa3122a24c3235e100aa35ada7178fbf3d8d6efecd2",
+        "parentGitBlobSha": "c52f3f8efa76cc2a4cf6a5fbadc67f991d94ad37",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr12/tsconfig.json",
+        "sha256": "3a0270d8e3df8b916b24d1a0cdb1a92008b060c2ce3dc817fd3479f0e2998a53",
+        "bytes": 192,
+        "gitMode": "100644",
+        "parentSha256": "3a0270d8e3df8b916b24d1a0cdb1a92008b060c2ce3dc817fd3479f0e2998a53",
+        "parentGitBlobSha": "dd04923d31fd8fa43ddf7d08a1bc9a6fbbcb7266",
+        "unchangedFromParent": true
+      },
+      {
+        "path": "tests/pr12/vitest.config.ts",
+        "sha256": "9ea4ca409212cace78cde00e455ad6c62570b181d31c84f1de95dd4343f88022",
+        "bytes": 225,
+        "gitMode": "100644",
+        "parentSha256": "9ea4ca409212cace78cde00e455ad6c62570b181d31c84f1de95dd4343f88022",
+        "parentGitBlobSha": "edf182fce43faf61ace35a1e8bf0befb3d638aec",
+        "unchangedFromParent": true
+      }
+    ]
+  },
+  "changedProductTestDocPaths": [
+    "deploy/backup/MANUAL-备份恢复手册.md",
+    "scripts/delivery/backup/native-compatibility.mjs",
+    "scripts/delivery/backup/restore.mjs",
+    "tests/pr12/backup-upgrade.pg.spec.ts",
+    "tests/pr12/native-compatibility.unit.spec.ts"
+  ],
+  "repair": {
+    "gate": "Before pg_terminate_backend, DROP or CREATE, query server_version_num on the same existing identity-bound admin connection and compare with actual archive source/pg_dump headers and actual pg_restore --version.",
+    "supportedPair": "Stable PostgreSQL10+ same-major source/archive-producer/runtime-restore/target; minor versions may differ. This is a bounded automatic-restore policy, not a claim that every same-major archive restores successfully.",
+    "refusals": [
+      "RESTORE_NATIVE_VERSION_MISMATCH",
+      "RESTORE_VERSION_METADATA_UNVERIFIED",
+      "RESTORE_ARCHIVE_OR_NATIVE_CLIENT_PREFLIGHT_FAILED"
+    ],
+    "preservedGates": "Canonical endpoint, native/Node identity, media integrity, target allowlist/exact confirmation, redaction, migration fingerprint and read-only upgrade checks remain intact. No SQL stripping or caller manifest compatibility claim.",
+    "genericRecreate": "The separately authorized no-archive pg-ops recreate operation retains its existing behavior; runRestore always supplies and enforces the actual archive version profile.",
+    "officialReferences": [
+      "https://www.postgresql.org/docs/16/app-pgdump.html",
+      "https://www.postgresql.org/docs/18/app-pgrestore.html"
+    ]
+  },
+  "preservation": {
+    "originalPgPrefixBytes": 8481,
+    "originalPgPrefixSha256": "9e7a97fa5af1cc2016dad1a77b331d8b7b38ad0c850ddb32aa0928132ec6a6e2",
+    "originalPgPrefixByteIdentical": true,
+    "originalTenNamesAndAssertionsUnchanged": true,
+    "originalSafetyTestSha256": "c2bb741ea8e112cc2e10daa3122a24c3235e100aa35ada7178fbf3d8d6efecd2",
+    "originalSafetyTestByteIdentical": true,
+    "originalSourceTestDocPaths": 18,
+    "originalSourceTestDocPathsUnchanged": 15,
+    "newSourceTestPaths": 2,
+    "noOriginalFailureEvidenceChanged": true,
+    "protectedPriorEvidence": [
+      {
+        "path": "docs/review/evidence/pr-12/author-r0.json",
+        "parentGitBlobSha": "af157170f0713eb9ccab6c172a51882b22eca154",
+        "bytes": 9855,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "fc9313a87b4c6d2b36520dcbcca1381841ba717e45d387dd7bfe5265d0ec3d86"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/author-r0.md",
+        "parentGitBlobSha": "cafcdaf29a07330156a7edeefbe685e4a3c2f514",
+        "bytes": 5203,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "241a14e30f7c2d8c3c7e5007088d83bb7628ea14bbdd1149e051220e68934436"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/controller-r0.json",
+        "parentGitBlobSha": "b65b86f7cc6d0a98d08614fd61ef995dd9c52fac",
+        "bytes": 6300,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": false
+      },
+      {
+        "path": "docs/review/evidence/pr-12/controller-r0.md",
+        "parentGitBlobSha": "2613194bc8250be1b96af1928940d38bc32d9b33",
+        "bytes": 1523,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": false
+      },
+      {
+        "path": "docs/review/evidence/pr-12/controller-r1-diagnosis.json",
+        "parentGitBlobSha": "a46eec21d6f4af159d784a082ea0a2fef0f9a062",
+        "bytes": 1321,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": false
+      },
+      {
+        "path": "docs/review/evidence/pr-12/controller-r1-pg-process.json",
+        "parentGitBlobSha": "88cfe6b8d59b14ebe7eef1518af4c5640c6ece51",
+        "bytes": 2112,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": false
+      },
+      {
+        "path": "docs/review/evidence/pr-12/controller-r1-pg.log",
+        "parentGitBlobSha": "359333e582883cbaa2260b1c6eb1b5ec99a1fbc8",
+        "bytes": 8727,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "30d7267f1a40709e915f040d2c96c0387899557194854c9a1acd20c1dca614c3"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/controller-r1.json",
+        "parentGitBlobSha": "3b3d4879417d9ea65e1d750462126b1c985f2e57",
+        "bytes": 13715,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "060b2f5a6e465726e758dd8ad7cb5196f928a606618f4e796690e957c490bc1a"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/controller-r1.md",
+        "parentGitBlobSha": "d45c869311af89efd51f1fec9ef8634fab138b3c",
+        "bytes": 1410,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "1cacad0ebf58bcc26be5a31b6ec7c8c3f250f76ca6c80015acd9697843b6da3a"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/javascript-syntax.json",
+        "parentGitBlobSha": "b72b75b6b518dc48fe389ca51c43f3c431e620e3",
+        "bytes": 1125,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/safety-unit-final-root-normalized.log",
+        "parentGitBlobSha": "b53bd13d2d28cd3431c7c90184d3067a136a9e84",
+        "bytes": 3264,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "5e3342084a4b84b33f49693a284b481258338188c1225f8b48e2ed9925bc85e2"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/safety-unit-final.log",
+        "parentGitBlobSha": "a35459c718cc11a9794ec18e3dadaa5b0c1c0072",
+        "bytes": 4329,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "2c694bd3b73199d5aa8f3674e29cfaf479d5059ceff001e080f2d7a3e7d0ce6e"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/safety-unit.log",
+        "parentGitBlobSha": "23e00ff499f89953a3ac1ce491e1782ca254b19a",
+        "bytes": 3177,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "dd02aac13e3c15465173fe1cf33bfeac6c859f35c7fd99b8a897cd5dfe15a2d6"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/shell-syntax.log",
+        "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "bytes": 0,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/tests-typecheck-final.log",
+        "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "bytes": 0,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/tests-typecheck.log",
+        "parentGitBlobSha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "bytes": 0,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/review/evidence/pr-12/two-instance-pg-required.log",
+        "parentGitBlobSha": "f758bbc76a9c9621da088f8445b66e2439268016",
+        "bytes": 700,
+        "changedByIncrement": false,
+        "locallyReadAndHashVerified": true,
+        "sha256": "3b634f9e5b55f5226431048f4614b57f235dafc53b9a4b33c0db295d5a20ba8a"
+      }
+    ],
+    "productFilesChanged": 2,
+    "schemaMigrationFrozenContractChanges": false
+  },
+  "priorControllerFailure": {
+    "controllerReceiptUrl": "https://github.com/yeemio/Cadenza/blob/0c951347f834d82afb4d7d573222cedd91883ea7/docs/review/evidence/pr-12/controller-r1.json",
+    "actualPg": {
+      "passed": 9,
+      "failed": 1,
+      "skipped": 0
+    },
+    "failure": "pg_dump/pg_restore 18.6 emitted SET transaction_timeout=0 for PostgreSQL16.15; read-only exact-statement probe returned SQLSTATE42704. Restore had already recreated the target. Sources retained INSTANCE_A/B; target had zero tables after rollback.",
+    "rawLog": {
+      "path": "docs/review/evidence/pr-12/controller-r1-pg.log",
+      "bytes": 8727,
+      "sha256": "30d7267f1a40709e915f040d2c96c0387899557194854c9a1acd20c1dca614c3",
+      "gitBlobSha": "359333e582883cbaa2260b1c6eb1b5ec99a1fbc8",
+      "fetchedAndHashVerified": true,
+      "unchanged": true
+    },
+    "oldDatabasesOrMediaAccessed": false,
+    "reuseBoundary": "Prior nine actual passes and failure are historical controller evidence, not R1 executions or R1 acceptance; controller binds unaffected evidence and runs affected proof in fresh databases."
+  },
+  "actualLocalChecks": {
+    "native-compatibility-unit": {
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/pr12/vitest.config.ts",
+        "tests/pr12/native-compatibility.unit.spec.ts",
+        "--reporter=verbose"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work",
+      "startedUtc": "2026-11-04T04:23:50.226566+00:00",
+      "finishedUtc": "2026-11-04T04:23:51.005482+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-12/author-r1-native-compatibility-unit.log",
+      "logBytes": 2962,
+      "logSha256": "47c6bfa61ead1bf84139c382f332493c0ca994d3bf0df7a43ff31db7a8bab902",
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "kind": "Actual restore coordinator with explicit port doubles; not native PostgreSQL"
+    },
+    "existing-safety-unit": {
+      "command": [
+        "node",
+        "--test",
+        "tests/pr12/safety.unit.test.mjs"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work",
+      "startedUtc": "2026-11-04T04:23:50.245606+00:00",
+      "finishedUtc": "2026-11-04T04:23:50.647183+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-12/author-r1-existing-safety-unit.log",
+      "logBytes": 3266,
+      "logSha256": "608cd118e339f948cfb1c231e7b8bc8153220edd959ecd6480ff01216c4f15b4",
+      "passed": 41,
+      "failed": 0,
+      "skipped": 0,
+      "kind": "Unchanged safety tests rerun against changed restore import/coordinator; no PostgreSQL"
+    },
+    "tests-typecheck": {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr12/tsconfig.json",
+        "--noEmit"
+      ],
+      "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work",
+      "startedUtc": "2026-11-04T04:26:59.856733+00:00",
+      "finishedUtc": "2026-11-04T04:27:04.192612+00:00",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-12/author-r1-tests-typecheck.log",
+      "logBytes": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "testedSourceTestFingerprint": "d93d724b55bd43111a2ac4a3468d6848dff73c1a38fad60814977bb69e39d1b3",
+      "testedPgSourceSha256": "5ae3cb4d764d4adc6607280c5934fbe756452076d26800ac35c929a01564fc73"
+    },
+    "javascriptSyntax": [
+      {
+        "command": [
+          "node",
+          "--check",
+          "scripts/delivery/backup/native-compatibility.mjs"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "fileSha256": "047cfa3ee783049df022cfc67448209a5d1aeffce7f4a55d36204b27256c0b69"
+      },
+      {
+        "command": [
+          "node",
+          "--check",
+          "scripts/delivery/backup/restore.mjs"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "fileSha256": "757f5fd3edafb67ac300f88761da16218dc677d18fc8f53d80f8abd78e4f8118"
+      }
+    ]
+  },
+  "effectiveLocalUniqueCases": {
+    "passed": 55,
+    "failed": 0,
+    "skipped": 0,
+    "newFocused": 14,
+    "existingRerun": 41,
+    "nativePgCases": 0
+  },
+  "intermediateFailuresPreserved": {
+    "cause1": "Missing closing brace in initial new helper: syntax/typecheck failure, native suite collection failed with zero executed tests; existing safety suite 40pass/1fail. Corrected, then rerun. Not intentional TDD or a PostgreSQL business failure.",
+    "cause2": "Test-source TS2322 on validated target.database at the new CLI argument; fixed with a non-null assertion. Product/new-unit bytes unchanged after their successful run.",
+    "commands": [
+      {
+        "command": [
+          "node",
+          "--test",
+          "tests/pr12/safety.unit.test.mjs"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work",
+        "startedUtc": "2026-11-04T04:23:14.781747+00:00",
+        "finishedUtc": "2026-11-04T04:23:15.230171+00:00",
+        "exitCode": 1,
+        "log": "docs/review/evidence/pr-12/author-r1-existing-safety-unit-attempt1.log",
+        "logBytes": 6233,
+        "logSha256": "1ed2c0174fbdbf1e628531624a76cf7c6ddbe856339647a7b2885218a3446f8c",
+        "nativeCompatibilitySourceSha256": "3ce43fc27557e9c72929ced25342936c996e4837ab8f8c23fb9246172fcf4c9c"
+      },
+      {
+        "command": [
+          "node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "tests/pr12/vitest.config.ts",
+          "tests/pr12/native-compatibility.unit.spec.ts",
+          "--reporter=verbose"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work",
+        "startedUtc": "2026-11-04T04:23:14.773569+00:00",
+        "finishedUtc": "2026-11-04T04:23:15.575692+00:00",
+        "exitCode": 1,
+        "log": "docs/review/evidence/pr-12/author-r1-native-compatibility-unit-attempt1.log",
+        "logBytes": 2754,
+        "logSha256": "d5e707ad6831d3bbe37157f54f25a95c8ea243dd0f28a12e34abc9393143d407",
+        "nativeCompatibilitySourceSha256": "3ce43fc27557e9c72929ced25342936c996e4837ab8f8c23fb9246172fcf4c9c"
+      },
+      {
+        "command": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "tests/pr12/tsconfig.json",
+          "--noEmit"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work",
+        "startedUtc": "2026-11-04T04:23:14.790133+00:00",
+        "finishedUtc": "2026-11-04T04:23:15.991156+00:00",
+        "exitCode": 2,
+        "log": "docs/review/evidence/pr-12/author-r1-tests-typecheck-attempt1.log",
+        "logBytes": 84,
+        "logSha256": "a615c671fd002e1320133803b19393bb7f083aed40a0f5662f2368fa295360c7",
+        "nativeCompatibilitySourceSha256": "3ce43fc27557e9c72929ced25342936c996e4837ab8f8c23fb9246172fcf4c9c"
+      },
+      {
+        "command": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "tests/pr12/tsconfig.json",
+          "--noEmit"
+        ],
+        "cwd": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work",
+        "startedUtc": "2026-11-04T04:23:50.268228+00:00",
+        "finishedUtc": "2026-11-04T04:23:54.982280+00:00",
+        "exitCode": 2,
+        "log": "docs/review/evidence/pr-12/author-r1-tests-typecheck-attempt2.log",
+        "logBytes": 177,
+        "logSha256": "ff5ac8344a67740a3291af3e7ae47872da71c5f5d8124c6d9506405484c0deb6"
+      }
+    ],
+    "syntaxAttemptLog": "docs/review/evidence/pr-12/author-r1-javascript-syntax-attempt1.json"
+  },
+  "actualNativePg": {
+    "status": "NOT_RUN",
+    "runnerInvoked": false,
+    "executed": 0,
+    "actualRuntimeSkips": 0,
+    "registeredCasesStaticOnly": 11,
+    "originalRegisteredCasesPreserved": 10,
+    "appendedActualPgCases": 1,
+    "reason": "No dedicated dual-instance PostgreSQL URLs or native psql/pg_dump/pg_restore tools. No URL guessed, old database accessed or initialization invoked.",
+    "nativeTools": {
+      "psql": null,
+      "pg_dump": null,
+      "pg_restore": null,
+      "postgres": null,
+      "docker": null
+    },
+    "requiredNewDatabases": "Two authorized distinct instances with same-name NEW EMPTY cadenza_dops_pr12_* A/B databases, plus a separate NEW EMPTY restore target; never the preserved R0/R1 failure databases.",
+    "compatibleClientEnvironment": "Normal pg_dump and pg_restore must match the source and target server major (for the controller PG16.15 use 16.x). Existing Node/native psql endpoint binding remains required.",
+    "negativeProofEnvironment": "CADENZA_PR12_INCOMPATIBLE_CLIENT_BIN is an absolute directory with a matched pg_dump/pg_restore pair newer than that target, e.g. 18.x for 16.x. Only child process PATH changes. Missing prerequisite throws NOT_RUN; no skip or fake native proof.",
+    "focusedControllerCommand": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr12/vitest.config.ts",
+      "tests/pr12/backup-upgrade.pg.spec.ts",
+      "-t",
+      "actual custom-format backup|restore binds the intended target|newer pg_dump/pg_restore archive",
+      "--reporter=verbose"
+    ],
+    "filterBoundary": "The three-case filter retains real backup-before-restore setup on fresh task databases. Other eight cases are name-filter exclusions, not newly executed or runtime-skipped business cases. The controller may run all eleven if necessary."
+  },
+  "legacyEvidence": {
+    "E02": "UNVERIFIED",
+    "syntheticMetadataClosesE02": false
+  },
+  "runtime": {
+    "node": "v24.22.1",
+    "typescript": "5.9.3",
+    "dependencies": "Existing cached dependencies only; no cold install/build claim. Process timestamps in command records are UTC; raw runner local-clock text preserved."
+  },
+  "gitCommit": "NOT_CREATED",
+  "remoteWrite": "NOT_ATTEMPTED",
+  "controllerAccepted": false,
+  "batchAcceptanceFromController": {
+    "count": 9,
+    "total": 15,
+    "prs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      13,
+      14
+    ]
+  },
+  "changedPaths": [
+    "deploy/backup/MANUAL-备份恢复手册.md",
+    "docs/review/evidence/pr-12/author-r1-existing-safety-unit-attempt1.log",
+    "docs/review/evidence/pr-12/author-r1-existing-safety-unit.log",
+    "docs/review/evidence/pr-12/author-r1-javascript-syntax-attempt1.json",
+    "docs/review/evidence/pr-12/author-r1-javascript-syntax.json",
+    "docs/review/evidence/pr-12/author-r1-native-compatibility-unit-attempt1.log",
+    "docs/review/evidence/pr-12/author-r1-native-compatibility-unit.log",
+    "docs/review/evidence/pr-12/author-r1-tests-typecheck-attempt1.log",
+    "docs/review/evidence/pr-12/author-r1-tests-typecheck-attempt2.log",
+    "docs/review/evidence/pr-12/author-r1-tests-typecheck.log",
+    "docs/review/evidence/pr-12/author-r1.json",
+    "docs/review/evidence/pr-12/author-r1.md",
+    "scripts/delivery/backup/native-compatibility.mjs",
+    "scripts/delivery/backup/restore.mjs",
+    "tests/pr12/backup-upgrade.pg.spec.ts",
+    "tests/pr12/native-compatibility.unit.spec.ts"
+  ]
+}

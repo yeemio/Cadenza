@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--check",
+    "scripts/delivery/backup/native-compatibility.mjs"
+  ],
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "/workspace/scratch/08a70e3a26dd/cadenza-continuation/pr12-r1-work/scripts/delivery/backup/native-compatibility.mjs:35\nexport function assertRestoreCompatibility(versions,serverVersionNum){\n^^^^^^\n\nSyntaxError: Unexpected token 'export'\n    at checkSyntax (node:internal/main/check_syntax:84:5)\n\nNode.js v24.22.1\n",
+  "fileSha256": "3ce43fc27557e9c72929ced25342936c996e4837ab8f8c23fb9246172fcf4c9c"
+}

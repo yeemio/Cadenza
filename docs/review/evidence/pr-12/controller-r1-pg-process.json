@@ -1,0 +1,52 @@
+{
+  "command": [
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "tests/pr12/vitest.config.ts",
+    "tests/pr12/backup-upgrade.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "exitCode": 1,
+  "startedAt": "2026-11-04T03:55:21.426059+00:00",
+  "completedAt": "2026-11-04T03:55:26.784706+00:00",
+  "sourceCommit": "65cd956340adf40b6038b491c0b7dd222847571c",
+  "sourceAndTestCommit": "72facaaff169486f8d80eb5bd91ce40a3a3c0ebb",
+  "instances": {
+    "A": {
+      "container": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+      "port": "32768"
+    },
+    "B": {
+      "containerId": "78993c749fb4531ea7a03939c0b7f72618bc8c353192ca9c22490dea04dbc132",
+      "name": "cadenza-pr12-pg-b-20261104",
+      "volume": "cadenza-pr12-pg-b-data-20261104",
+      "port": "32771",
+      "host": "127.0.0.1",
+      "image": "sha256:f1c3376c26f2609ab9f29f71f824103fe2fcd8ee0346485cb6122a4f93df6f94",
+      "localCredentialFile": "/Users/yeemio/AI/workspaces/.cadenza-pr12-pg-b-20261104.env"
+    }
+  },
+  "databases": [
+    "A:cadenza_dops_pr12_source_20261104",
+    "B:cadenza_dops_pr12_source_20261104",
+    "A:cadenza_dops_pr12_restore_20261104"
+  ],
+  "nativeClientVersion": "18.6",
+  "ownerAuthorizedNewInstance": true,
+  "e02HistoricalSample": "UNVERIFIED",
+  "preservedBackupMedia": [
+    {
+      "source": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-pr12-real-B5O7GZ/media/2026-11-04T03-55-24-967Z-113df858-9ce2-4fa5-9831-31006b42714f",
+      "preserved": "/Users/yeemio/AI/gitrep/Cadenza/architecture/control/main-review-20261103/PR12-R1-NATIVE-MEDIA",
+      "hashes": [
+        "2bc4cfc2092376104e5d5cce98db5a6c4bcac6a276122d5f888c77bcdc4a1f2a  database.dump",
+        "80d8da50d41295ba1418ea055284c7a7004cd77909664821911951247a3fb5c5  object-store.readme",
+        "a5af886c05f97cef0b8b22fcba1c827062ff775ba3db85a2f2d25041b6dfda16  config.redacted.env",
+        "6d2498ba87d3bfcf9f7060bbd39210c2cfec9b00741139fedadcffbacc6af0be  BACKUP-MANIFEST.json"
+      ]
+    }
+  ],
+  "logSha256": "30d7267f1a40709e915f040d2c96c0387899557194854c9a1acd20c1dca614c3"
+}

@@ -1,0 +1,152 @@
+{
+  "pr": 12,
+  "originalParent": "f398f40ab1ef24574927441ab661c60c9ffa086d",
+  "sourceCommit": "72facaaff169486f8d80eb5bd91ce40a3a3c0ebb",
+  "fullPatchSha256": "81bce8eb0c0478cddbd7fa3a8953117c906d66774e299d612c36df182bbf87ed",
+  "fingerprint": "94b494190d806fe2a7785f902921a14a9706ec22a0e3181584d5c861d9094ea8",
+  "postimagesMatched": 28,
+  "requiresAdditionalInstanceAuthorization": true,
+  "plannedActualPg": 10,
+  "actualPgExecuted": 0,
+  "e02LegacySample": "UNVERIFIED",
+  "decision": "BLOCKED_ADDITIONAL_INSTANCE_AUTHORITY",
+  "reusedLocalPassed": 41,
+  "reusedChecks": [
+    {
+      "name": "shell-syntax",
+      "command": "bash -n deploy/backup/backup.sh deploy/backup/restore.sh deploy/upgrade/upgrade.sh",
+      "exitCode": 0,
+      "log": "shell-syntax.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "syntax-connection",
+      "command": "node --check scripts/delivery/backup/connection.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+    },
+    {
+      "name": "syntax-config",
+      "command": "node --check scripts/delivery/backup/config.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+    },
+    {
+      "name": "syntax-media",
+      "command": "node --check scripts/delivery/backup/media.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+    },
+    {
+      "name": "syntax-backup",
+      "command": "node --check scripts/delivery/backup/backup.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+    },
+    {
+      "name": "syntax-restore",
+      "command": "node --check scripts/delivery/backup/restore.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+    },
+    {
+      "name": "syntax-pg-ops",
+      "command": "node --check scripts/delivery/backup/pg-ops.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+    },
+    {
+      "name": "syntax-upgrade-compat-check",
+      "command": "node --check scripts/delivery/upgrade-compat-check.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+    },
+    {
+      "name": "syntax-db",
+      "command": "node --check scripts/delivery/lib/db.mjs",
+      "exitCode": 0,
+      "log": "javascript-syntax.json",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "efbb395e149d746849e998467edb8d60c660872dcacebf9bc9a250d15ddc486b"
+    },
+    {
+      "name": "tests-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr12/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "tests-typecheck-final.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "safety-unit-final-root-normalized",
+      "command": "node --test tests/pr12/safety.unit.test.mjs",
+      "exitCode": 0,
+      "log": "safety-unit-final-root-normalized.log",
+      "status": "PASS_REUSED_EXACT_SOURCE",
+      "logSha256": "5e3342084a4b84b33f49693a284b481258338188c1225f8b48e2ed9925bc85e2"
+    }
+  ],
+  "actualPg": {
+    "planned": 10,
+    "executed": 0,
+    "runtimeSkipped": 0,
+    "newDatabasesCreated": false,
+    "newContainersCreated": false
+  },
+  "proposal": {
+    "pr": 12,
+    "status": "ADDITIONAL_INSTANCE_APPROVAL_REQUIRED",
+    "existingPrimaryContainer": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+    "newContainerName": "cadenza-pr12-pg-b-20261104",
+    "exactCachedImage": "sha256:f1c3376c26f2609ab9f29f71f824103fe2fcd8ee0346485cb6122a4f93df6f94",
+    "newNamedVolume": "cadenza-pr12-pg-b-data-20261104",
+    "bind": "127.0.0.1 random unused port, no external interface",
+    "newSameNameSourceDatabase": "cadenza_dops_pr12_source_20261104 on both task A and new B",
+    "newRestoreTarget": "cadenza_dops_pr12_restore_20261104 on current task A; freshly empty then only this target recreated by authored suite",
+    "scope": "10 authored synthetic native backup/restore and read-only preflight cases only; preserve A/B sentinels, DBs, raw media and logs",
+    "protected": "No old business DB/volume/config touched, no real historical sample, no merge/deploy or broader DB authority",
+    "nativeClients": {
+      "psql": {
+        "path": null,
+        "version": null
+      },
+      "pg_dump": {
+        "path": null,
+        "version": null
+      },
+      "pg_restore": {
+        "path": null,
+        "version": null
+      }
+    },
+    "need": "Current authorization names one exclusive PostgreSQL instance; PR12 contract requires distinct system identifiers and a separate restore target, so cannot honestly close by one instance or mocks.",
+    "e02": "Remains UNVERIFIED even if10 synthetic cases pass",
+    "verifiedNativeClientAlternatives": [
+      {
+        "directory": "/opt/homebrew/opt/libpq/bin",
+        "tools": {
+          "psql": "psql (PostgreSQL) 18.6",
+          "pg_dump": "pg_dump (PostgreSQL) 18.6",
+          "pg_restore": "pg_restore (PostgreSQL) 18.6"
+        }
+      }
+    ]
+  },
+  "e02": "UNVERIFIED_NO_AUTHORIZED_HISTORICAL_SAMPLE; synthetic dual-instance test cannot close E02",
+  "currentBoundary": "Current authorization names exclusive task instance A. Need Owner decision for one additional named B and only three fresh synthetic task databases. No wrong-instance test against other old containers."
+}
