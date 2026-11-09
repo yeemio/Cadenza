@@ -1,0 +1,162 @@
+{
+  "pr": 6,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-06-reverse-stock-lifecycle",
+  "exactRecordedParentHead": "e48b2e78f27785f49016f2c0f0e86847267e6ff5",
+  "prerequisites": [
+    {
+      "pr": 1,
+      "head": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "status": "ACCEPTED_PRIOR_EVIDENCE_NOT_RETESTED"
+    },
+    {
+      "pr": 2,
+      "sourceAndTestSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+      "fullPatchSha256": "e91b61c9f9ef72d781f353ea11df320f471300a961f3ae0e5e84a57779120ccc",
+      "selectedExactPostimages": 31,
+      "status": "CANDIDATE_CONTROLLER_PENDING_NOT_ACCEPTED"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "a8dce41bb20dcb880516cce6e6c275287562c8c019e17cacf39065cfc2d63c93",
+    "files": [
+      {
+        "path": "packages/application/src/purchase-handlers.ts",
+        "sha256": "a9904e53017a789ed9c8dd3101db9521af9b6c5cd3eea98a5ce2bcc2527741b6",
+        "parentSha256": "fcfe7efc8a8c1dd0b866afc555ebed82383ed17558cc870151b1ece46f5ad99a"
+      },
+      {
+        "path": "packages/application/src/reverse-handlers.ts",
+        "sha256": "645773d3404559ab6892c74e69766ca45f43854e2a555e5fcc7a476fedc9d198",
+        "parentSha256": "e1543920d5753a8e53a6e8a0bfee92bf76014ac96c9dc3461a2d665c5c3fb6b4"
+      },
+      {
+        "path": "packages/domain/src/reverse/transfer-in-rules.ts",
+        "sha256": "3d25c1c2723d77c2974f4d206e6df8dfee2a85704311fff1af21b33df8e44d49",
+        "parentSha256": "0fe6eb0bb0eacef4ba9cd21fefb71ec32b10d727222f3c1420687143ab769ae3"
+      },
+      {
+        "path": "packages/persistence/src/purchase-repositories.ts",
+        "sha256": "796d836c4c032f8f902787b8bbe52955c741dd100dd4df5085421809b874bea1",
+        "parentSha256": "a670d4eeea359bccaffb185e9e9be872074987bdf0e6b5b4f5ad7e34cf3ad792"
+      },
+      {
+        "path": "tests/pr06/lifecycle.pg.spec.ts",
+        "sha256": "95a1c6d8f13795daf551190442e22a8ff00b3f3bbfa0cbcfcddb87bc7b6fe324",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr06/lifecycle.unit.spec.ts",
+        "sha256": "32a836b532d0c85d3df5a6b73e27f44332a6b8a5877104b25361898d04f93c96",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr06/tsconfig.json",
+        "sha256": "da58a18a9c86656684a746a8a29ba048e5fa6aca96343d0649c317f66bfec361",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr06/vitest.config.ts",
+        "sha256": "5bdecfb80e1d7a2f771b5bf56a8f573715fdf4afc114ca8e0aa0e468ab52c119",
+        "parentSha256": null
+      }
+    ],
+    "sourceFiles": 4,
+    "testFiles": 4
+  },
+  "scopeExtension": [],
+  "validation": [
+    {
+      "name": "application-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-06/application-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS_SUPERSEDED_BY_FINAL_TYPECHECK"
+    },
+    {
+      "name": "persistence-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-06/persistence-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS"
+    },
+    {
+      "name": "pr06-tests-typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr06/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-06/pr06-tests-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS_SUPERSEDED_BY_FINAL_TYPECHECK"
+    },
+    {
+      "name": "lifecycle-unit",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr06/vitest.config.ts tests/pr06/lifecycle.unit.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-06/lifecycle-unit.log",
+      "logSha256": "8c03d6c612998a7bc785129b47a0c77f6a4f450db392046b5d074727a1ca0d4f",
+      "status": "PASS",
+      "executed": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "businessPgPass": false
+    },
+    {
+      "name": "lifecycle-pg-not-run",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr06/vitest.config.ts tests/pr06/lifecycle.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "docs/review/evidence/pr-06/lifecycle-pg-not-run.log",
+      "logSha256": "9e9af84477b94205e761bbaedc966f86db83c3b23da0f8a79e00cf39f5741823",
+      "status": "NOT_RUN",
+      "reason": "CADENZA_PR06_TEST_DB_URL absent",
+      "businessTestsExecuted": 0,
+      "plannedFinalSourceCases": 15,
+      "skipped": 0,
+      "failedSuites": 1,
+      "sourceBoundary": "Gate attempt preceded final test SQL field-name corrections and an added expiry scenario; unchanged missing-PG boundary reused, no final business execution claimed"
+    },
+    {
+      "name": "application-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-06/application-typecheck-final.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS"
+    },
+    {
+      "name": "pr06-tests-typecheck-final",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr06/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-06/pr06-tests-typecheck-final.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS"
+    }
+  ],
+  "environment": {
+    "node": "24.22.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "pg": "8.23.1",
+    "dependencySource": "Existing local package cache links; not a cold locked installation"
+  },
+  "businessPg": "NOT_RUN",
+  "controllerAccepted": false,
+  "remoteWrite": false,
+  "remaining": [
+    "Run 15 real-PG cases on a fresh exclusive cadenza_pr06_* database",
+    "Controller review, acceptance and publication on original PR6"
+  ],
+  "boundaries": [
+    "No cold build, actual ERP/device/production claims",
+    "Pure rules are not PostgreSQL concurrency/custody proof",
+    "All-unqualified state is an explicit PG fixture; tests do not assert the inspection workflow",
+    "Source/receiver permissions are separate plant user grants, never administrator or group write expansion",
+    "Expired receipt reservation requires remove/rescan before completing; remove may release its own expired reservation",
+    "PR2 batch lock already resolves stale concurrent reads; PR6 preserves batch-before-parent lock order and adds guarded return state update"
+  ]
+}

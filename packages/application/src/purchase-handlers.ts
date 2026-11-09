@@ -1037,6 +1037,8 @@ async function returnBatch(pc: PostingContext, p: Payload): Promise<Record<strin
   const reason = str(p, 'reason')
   assertReturnReasonPresent(reason)
   const returnReason: string = reason ?? ''
+  // PR02's row lock is held until the command UoW commits: waiting callers
+  // re-read the batch state before any stock reversal or parent deduction.
   const batch = await lockScopedBatch(pc, batchId, str(p, 'plantId'))
   assertReturnExecutable({ batchInspectionStatus: batch.inspectionStatus, storageStatus: batch.storageStatus })
 
@@ -1140,11 +1142,12 @@ async function returnBatch(pc: PostingContext, p: Payload): Promise<Record<strin
 
   // 批次：已退货 + 入库数量置 0（A-9）
   const returnedQty = batch.receivedQty
-  await tools.pur.batches.updateReturnState(
+  const transitioned = await tools.pur.batches.updateReturnState(
     batch.id,
     { storageStatus: 'returned', receivedQty: '0.0000', returnedAt: pc.businessTime, returnReason: returnReason },
     pc.ctx.actorLoginName,
   )
+  if (transitioned === null) throw new PurchaseRuleViolation('A-9', '采购批次已退货或状态已变化，禁止重复扣减累计收货量')
 
   // [A-1] 订单行：已收扣减（退货剔除）+ 状态重算（ABS 收编：直调本域 deductOrderLineReceived 核心）
   const deducted = await deductOrderLineReceived(

@@ -541,7 +541,7 @@ export class PgPurchaseBatchRepository implements PurchaseBatchRepository {
     const r = await this.client.query(
       `UPDATE purchase_receipt_batch SET storage_status = $2, received_qty = $3, returned_at = $4,
          return_reason = $5, updated_at = now(), updated_by = $6
-       WHERE id = $1 RETURNING ${BATCH_COLUMNS}`,
+       WHERE id = $1 AND storage_status = 'stored' RETURNING ${BATCH_COLUMNS}`,
       [id, patch.storageStatus, patch.receivedQty, patch.returnedAt, patch.returnReason, actor],
     )
     return r.rows[0] ? mapBatch(r.rows[0] as BatchRow) : null

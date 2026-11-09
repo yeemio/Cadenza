@@ -1,0 +1,54 @@
+{
+  "decision": "REWORK",
+  "testedSourceCommit": "13add18e9c73c112c5648335d80be304d97ffa5f",
+  "originalParent": "e48b2e78f27785f49016f2c0f0e86847267e6ff5",
+  "acceptedPr02Head": "0df991eac99a61132e50c10d8931d3532945dab2",
+  "cumulativeParent": "41311cf63cf531d44cc2fa367d3600e3c5953767",
+  "authorIncrementSha256": "1d72bd9490ff21841ba40bb83e81e2932dce2b6b317b8eb01f5618921951ef92",
+  "sourceTestFingerprint": "a8dce41bb20dcb880516cce6e6c275287562c8c019e17cacf39065cfc2d63c93",
+  "ownPostimagesMatched": 17,
+  "originalCombinedMatched": 45,
+  "originalCombinedTotal": 46,
+  "intentionalAcceptedPrerequisiteDifference": "tests/pr02/object-write-scope.pg.spec.ts exact accepted R1 fixture preserved",
+  "pr06RealPg": {
+    "passed": 14,
+    "failed": 1,
+    "skipped": 0,
+    "planned": 15,
+    "failedCase": "final reservation-expired mismatch leaves every business table unchanged",
+    "failureBoundary": "Fixture UPDATE at tests/pr06/lifecycle.pg.spec.ts:144 fails before expiry business assertion; other14cases including return race and custody execute/pass",
+    "sqlstate": "23514",
+    "constraint": "reservation_valid_until_ck CHECK(valid_until > acquired_at)",
+    "cause": "Fixture sets valid_until=clock_timestamp()-1second but leaves just-created acquired_at later than valid_until",
+    "database": "cadenza_pr06_lifecycle_r0_20261104"
+  },
+  "c2RegressionOnThisProduct": {
+    "passed": 129,
+    "failed": 0,
+    "skipped": 0,
+    "database": "cadenza_pr02_on_pr06_r0_20261104",
+    "queryRecords": 123
+  },
+  "reusedExactAuthorEvidence": {
+    "ruleUnitPassed": 11,
+    "applicationTypes": "PASS final",
+    "persistenceTypes": "PASS",
+    "testSourceTypes": "PASS final",
+    "rawHashesVerified": true
+  },
+  "realObservations": {
+    "custodyRecords": 5,
+    "denialRecords": 11,
+    "concurrentReturnRecords": 1
+  },
+  "repairContract": {
+    "writer": "same ordinary Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+    "allowed": "Only expired-reservation fixture timestamp construction in tests/pr06/lifecycle.pg.spec.ts plus author evidence",
+    "preserve": "All15case registrations and assertion semantics, other14testbytes, product/schema/history and R0raw",
+    "repairMeaning": "Construct genuinely expired reservation while retaining canonical valid_until>acquired_at; no schema weakening or delay-based workaround",
+    "nextProof": "One fresh targeted expiry case in another new empty cadenza_pr06_* DB; name-filter exclusions not runtime skips; reuse14unchangedR0business results and C2/11rule/types evidence except changed test source check"
+  },
+  "controllerDidNotModifyCodeOrTests": true,
+  "finalAcceptance": false,
+  "mergeReleaseDeploy": false
+}
