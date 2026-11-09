@@ -1,0 +1,28 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr5-work
+
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > cannot overwrite, read, clarify or cancel another userId 5ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > cannot overwrite, read, clarify or cancel another enterpriseId 1ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > cannot overwrite, read, clarify or cancel another sessionId 0ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > cannot overwrite, read, clarify or cancel another authSessionId 0ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > rejects a conflicting trusted envelope without overwriting prior results 1ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > deep clones returned envelopes and option parameters 0ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > evicts owner, options and envelopes together, without orphaned clarification 2ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > zero-tool ok does not recover an old envelope 3ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > zero-tool refused_out_of_scope does not recover an old envelope 1ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > same user cannot reuse a request in a different AI conversation 2ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > same user in another login session cannot cancel the original turn 3ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > does not consume a clarification belonging to a different session 1ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > legitimate clarification executes once and consumes the complete choice set 1ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > rejects foreign answer references rather than reading another request cache 4ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > checks permissions again after runtime work and withholds all stale output 0ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 context ownership and controller delivery (explicit unit doubles) > cancellation prevents an in-flight answer and clears its cached results 51ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 real local runtime, mock external model and controlled query > runtime will not inherit another owner S2/E1/U1 6ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 real local runtime, mock external model and controlled query > runtime will not inherit another owner S2/E1/U2 1ms
+ ✓ tests/pr05/turn-ownership.unit.spec.ts > PR05 real local runtime, mock external model and controlled query > runtime will not inherit another owner S2/E2/U2 1ms
+
+ Test Files  1 passed (1)
+      Tests  19 passed (19)
+   Start at  23:11:24
+   Duration  2.40s (transform 1.26s, setup 0ms, collect 2.06s, tests 84ms, environment 0ms, prepare 77ms)
+

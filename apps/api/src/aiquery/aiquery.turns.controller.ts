@@ -14,7 +14,7 @@ import { CurrentAuth, Public, RequirePermission } from '../auth/decorators'
 import { AIQUERY_RUNTIME_CLIENT, AIQUERY_SERVICE, AIQUERY_TURN_CONTEXT } from './aiquery.tokens'
 import type { AiQueryService } from '@cadenza/application'
 import type { AiRuntimeClient } from './aiquery.runtime-client'
-import type { AiTurnContext } from './aiquery.turn-context'
+import { AiTurnOwnershipError, type AiTurnContext } from './aiquery.turn-context'
 
 /**
  * 用户面问数轮端点（P4-A 补充任务新增；dsh-edge.md §5 DS-23/DS-24 经接入层透传）：
@@ -100,16 +100,25 @@ export class AiQueryTurnsController {
         HttpStatus.NOT_FOUND,
       )
     }
-    if (session.userId !== auth.user.id) {
+    if (session.userId !== auth.user.id || session.enterpriseId !== auth.user.enterpriseId) {
       throw new HttpException(
         { code: ERROR_CODES.FORBIDDEN_SCOPE, message: '该 AI 会话不属于当前用户', details: {} },
         HttpStatus.FORBIDDEN,
       )
     }
 
-    // ---- 澄清答复轮（AQ-AMB-01/04）：接入层本地解析选项 → confirm 精确参数 → 本线 execute 重执行 ----
+    const owner = { sessionId, userId: auth.user.id, enterpriseId: auth.user.enterpriseId, authSessionId: auth.session.id }
+    const access = await this.service.recheckTurnAccess(owner, requestId)
+    if (!access.allowed) throw new HttpException({ code: ERROR_CODES.FORBIDDEN_SCOPE, message: access.reason, details: {} }, HttpStatus.FORBIDDEN)
+    try { this.turnContext.begin(requestId, owner, clarifyOptionId !== null) }
+    catch (error) {
+      if (error instanceof AiTurnOwnershipError) throw new HttpException({ code: ERROR_CODES.FORBIDDEN_SCOPE, message: error.message, details: {} }, HttpStatus.FORBIDDEN)
+      throw error
+    }
+    try {
+    // ---- 澄清答复轮：在轮次归属确认后才消费选项。 ----
     if (clarifyOptionId !== null) {
-      const option = this.turnContext.consumeClarifyOption(requestId, clarifyOptionId)
+      const option = this.turnContext.consumeClarifyOption(requestId, clarifyOptionId, owner)
       if (option === null) {
         throw new HttpException(
           {
@@ -141,6 +150,9 @@ export class AiQueryTurnsController {
         capabilityVersion,
         params: option.params,
       })
+      const delivery = await this.service.recheckTurnAccess(owner, requestId)
+      if (!delivery.allowed) throw new HttpException({ code: ERROR_CODES.FORBIDDEN_SCOPE, message: delivery.reason, details: {} }, HttpStatus.FORBIDDEN)
+      if (this.turnContext.isCancelled(requestId, owner)) return { requestId, outcome: 'cancelled', message: '该轮已取消', envelope: null, options: null, unavailableReason: null, statusDetail: null }
       this.turnContext.registerEnvelope(requestId, toolCallSeq, envelope)
       return {
         requestId,
@@ -154,12 +166,10 @@ export class AiQueryTurnsController {
     }
 
     // ---- 常规轮：转发 apps/ai（DS-23 形状 + timeBasis Asia/Shanghai；AR-12 超时上限） ----
-    this.turnContext.registerTurn(requestId, {
-      sessionId,
-      userId: auth.user.id,
-      enterpriseId: session.enterpriseId,
-    })
     const forwarded = await this.runtime.runTurn({ requestId, sessionId, userMessage })
+    const delivery = await this.service.recheckTurnAccess(owner, requestId)
+    if (!delivery.allowed) throw new HttpException({ code: ERROR_CODES.FORBIDDEN_SCOPE, message: delivery.reason, details: {} }, HttpStatus.FORBIDDEN)
+    if (this.turnContext.isCancelled(requestId, owner)) return { requestId, outcome: 'cancelled', message: '该轮已取消', envelope: null, options: null, unavailableReason: null, statusDetail: null }
     if (forwarded.unreachable) {
       return {
         requestId,
@@ -193,7 +203,7 @@ export class AiQueryTurnsController {
         detail: (o.detail ?? null) as Record<string, string> | null,
         confirm: o.confirm ?? null,
       }))
-      this.turnContext.registerClarifyOptions(requestId, options)
+      this.turnContext.registerClarifyOptions(requestId, options, owner)
       return {
         requestId,
         outcome: 'clarify',
@@ -218,10 +228,15 @@ export class AiQueryTurnsController {
 
     // outcome=answer：answerRefs 不含完整 data——按 auditRef 取回穿透时登记的六段信封（末个引用优先）
     const answerRefs = turn.answerRefs ?? []
+    if (answerRefs.some(ref => ref.auditRef.requestId !== requestId || !Number.isSafeInteger(ref.auditRef.toolCallSeq) || ref.auditRef.toolCallSeq < 1)) {
+      throw new HttpException({ code: ERROR_CODES.FORBIDDEN_SCOPE, message: '回答引用不属于当前问数轮', details: {} }, HttpStatus.FORBIDDEN)
+    }
     const lastRef = answerRefs[answerRefs.length - 1]
-    const envelope =
-      (lastRef !== undefined ? this.turnContext.envelopeOf(lastRef.auditRef.requestId, lastRef.auditRef.toolCallSeq) : null) ??
-      this.turnContext.lastEnvelopeOf(requestId)
+    const envelope = lastRef === undefined ? null : this.turnContext.envelopeOf(requestId, lastRef.auditRef.toolCallSeq, owner)
+    if (lastRef !== undefined && (envelope === null || envelope.contextEcho.capabilityId !== lastRef.capabilityId ||
+        envelope.contextEcho.capabilityVersion !== lastRef.capabilityVersion)) {
+      throw new HttpException({ code: ERROR_CODES.FORBIDDEN_SCOPE, message: '回答引用没有当前轮的可信结果', details: {} }, HttpStatus.FORBIDDEN)
+    }
     return {
       requestId,
       outcome: 'answer',
@@ -231,6 +246,7 @@ export class AiQueryTurnsController {
       unavailableReason: null,
       statusDetail: turn.statusDetail ?? null,
     }
+    } finally { this.turnContext.finish(requestId, owner) }
   }
 
   // ---------------- 取消在途轮次（DS-11） ----------------
@@ -244,12 +260,17 @@ export class AiQueryTurnsController {
       // 接入层未受理过该轮（apps/ai 亦不会有——全部轮次经接入层进入，AR-03）
       return { status: 'cancelled', decision: 'unknown_request' }
     }
-    if (turn.userId !== auth.user.id) {
+    if (turn.userId !== auth.user.id || turn.enterpriseId !== auth.user.enterpriseId ||
+        (turn.authSessionId !== undefined && turn.authSessionId !== auth.session.id)) {
       throw new HttpException(
         { code: ERROR_CODES.FORBIDDEN_SCOPE, message: '该问数轮不属于当前用户', details: {} },
         HttpStatus.FORBIDDEN,
       )
     }
+    const owner = { ...turn, authSessionId: auth.session.id }
+    const access = await this.service.recheckTurnAccess(owner, requestId)
+    if (!access.allowed) throw new HttpException({ code: ERROR_CODES.FORBIDDEN_SCOPE, message: access.reason, details: {} }, HttpStatus.FORBIDDEN)
+    this.turnContext.cancel(requestId, owner)
     const result = await this.runtime.cancelTurn(requestId)
     if (!result.ok) {
       // apps/ai 不可达：无法确认运行侧取消——如实标注（不伪装已确认）

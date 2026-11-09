@@ -265,7 +265,40 @@ export class PgAiQueryAuditRepository implements AiQueryAuditRepository {
   constructor(private readonly client: SqlClient) {}
 
   async insert(audit: NewAiQueryAudit): Promise<AiQueryAuditRecord> {
-    const r = await this.client.query(
+    // Pool-backed query services need one dedicated transaction for the owner
+    // check and insert. A SqlClient supplied by a command UoW already owns its
+    // transaction; never commit that caller's transaction here.
+    const pool = this.client as SqlClient & { totalCount?: number; connect?: () => Promise<SqlClient & { release(): void }> }
+    const owned = typeof pool.totalCount === 'number' && typeof pool.connect === 'function' ? await pool.connect() : null
+    const client = owned ?? this.client
+    try {
+      if (owned !== null) await client.query('BEGIN')
+      await client.query("SELECT pg_advisory_xact_lock(hashtextextended('cadenza.ai-turn.' || $1, 0))", [audit.requestId])
+      const prior = await client.query(`SELECT ${AUDIT_COLUMNS} FROM ai_query_audit WHERE request_id=$1 ORDER BY tool_call_seq`, [audit.requestId])
+      const rows = (prior.rows as unknown as AuditRow[]).map(mapAudit)
+      if (rows.some(row => row.sessionId !== audit.sessionId || row.userId !== audit.userId || row.enterpriseId !== audit.enterpriseId)) {
+        throw new Error('ERR_AI_REQUEST_OWNER: requestId belongs to another session/user/enterprise')
+      }
+      const existing = rows.find(row => row.toolCallSeq === audit.toolCallSeq)
+      if (existing !== undefined) {
+        if (existing.capabilityId !== audit.capabilityId || existing.capabilityVersion !== audit.capabilityVersion ||
+            typeof existing.params['queryFingerprint'] !== 'string' || existing.params['queryFingerprint'] !== audit.params?.['queryFingerprint']) {
+          throw new Error('ERR_AI_REQUEST_OWNER: tool sequence already identifies a different query')
+        }
+        if (owned !== null) await client.query('COMMIT')
+        return existing
+      }
+      const inserted = await this.insertInTransaction(client, audit)
+      if (owned !== null) await client.query('COMMIT')
+      return inserted
+    } catch (error) {
+      if (owned !== null) await client.query('ROLLBACK')
+      throw error
+    } finally { owned?.release() }
+  }
+
+  private async insertInTransaction(client: SqlClient, audit: NewAiQueryAudit): Promise<AiQueryAuditRecord> {
+    const r = await client.query(
       `INSERT INTO ai_query_audit (request_id, tool_call_seq, session_id, capability_id, capability_version,
          user_id, enterprise_id, channel, params, result_status, row_count, truncated, duration_ms,
          model_info, sent_result_status)

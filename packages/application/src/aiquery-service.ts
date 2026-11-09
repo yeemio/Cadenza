@@ -120,6 +120,22 @@ const AUDIT_FILTER_KEYS: readonly string[] = [
   'plantId',
 ]
 
+function canonicalQueryValue(value: unknown): string {
+  if (Array.isArray(value)) return '[' + value.map(canonicalQueryValue).join(',') + ']'
+  if (value !== null && typeof value === 'object') return '{' + Object.entries(value as Record<string, unknown>)
+    .filter(([, v]) => v !== undefined).sort(([a], [b]) => a.localeCompare(b))
+    .map(([k, v]) => JSON.stringify(k) + ':' + canonicalQueryValue(v)).join(',') + '}'
+  return JSON.stringify(value) ?? 'null'
+}
+function queryFingerprint(input: AiExecuteInput): string {
+  const params = Object.fromEntries(Object.entries(input.params).filter(([key]) => !CONTEXT_FIELD_KEYS.includes(key)))
+  return createHash('sha256').update(canonicalQueryValue([input.capabilityId, input.capabilityVersion, params])).digest('hex')
+}
+function identityFailure(): never {
+  const error = new Error('问数轮/工具审计身份不匹配，不得覆盖归属或以旧审计重放另一个查询')
+  error.name = 'AiTurnOwnershipError'; throw error
+}
+
 /** 候选清单上限（AQ-AMB-01：多候选呈现选项，超限截断标注）。 */
 const CANDIDATE_LIMIT = 20
 
@@ -225,6 +241,18 @@ export class AiQueryService {
     return rows.reduce((max, row) => Math.max(max, row.toolCallSeq), 0)
   }
 
+  /** Verify both persisted conversation ownership and current delivery rights.
+   * Called before accepting a turn/clarification/cancel and before any answer
+   * leaves the API. An empty tool audit does not skip module authorization.
+   */
+  async recheckTurnAccess(owner: { sessionId: string; userId: string; enterpriseId: string }, requestId: string): Promise<{ allowed: true } | { allowed: false; reason: string }> {
+    const session = await this.repos.sessions.findById(owner.sessionId)
+    if (session === null || session.status !== 'open' || session.userId !== owner.userId || session.enterpriseId !== owner.enterpriseId) {
+      return { allowed: false, reason: '问数会话归属不匹配或已失效' }
+    }
+    return this.recheckUserAccess(owner.userId, requestId, session.id, owner.enterpriseId)
+  }
+
   // -----------------------------------------------------------------------
   // P4 五内部接缝服务面（2026-10-30；PM 增量单 §4：mock 外部渠道/模型下证明真实内部数据链）
   // -----------------------------------------------------------------------
@@ -259,7 +287,7 @@ export class AiQueryService {
    * 接缝 3（发送前权限重验/IM-08/IM-13/AQ-AUTH-01）：按 userId 以 SessionVerifier 同口径
    * 实时重算授权上下文（不信任任何缓存许可）；禁用/撤权/角色停用/缺 aiquery.use → denied。
    */
-  async recheckUserAccess(userId: string, requestId: string): Promise<{ allowed: true } | { allowed: false; reason: string }> {
+  async recheckUserAccess(userId: string, requestId: string, sessionId?: string, enterpriseId?: string): Promise<{ allowed: true } | { allowed: false; reason: string }> {
     let auth: RecomputedAuth
     try {
       auth = await this.recomputeAuthByUserId(userId)
@@ -267,7 +295,7 @@ export class AiQueryService {
       if (error instanceof NoPermissionSignal) return { allowed: false, reason: error.message }
       throw error
     }
-    if (!auth.permissions.includes(AIQUERY_PERMISSIONS.USE)) {
+    if ((enterpriseId !== undefined && auth.user.enterpriseId !== enterpriseId) || !auth.permissions.includes(AIQUERY_PERMISSIONS.USE)) {
       return {
         allowed: false,
         reason: `[AQ-AUTH-02] 缺少模块许可 ${AIQUERY_PERMISSIONS.USE}（发送前实时重验不通过）`,
@@ -276,7 +304,7 @@ export class AiQueryService {
     // Only server-written audit rows identify the capabilities and scope of this answer.
     const rows = await this.repos.audit.listByRequestId(requestId)
     for (const row of rows) {
-      if (row.userId !== userId || row.enterpriseId !== auth.user.enterpriseId) {
+      if (row.userId !== userId || row.enterpriseId !== auth.user.enterpriseId || (sessionId !== undefined && row.sessionId !== sessionId)) {
         return { allowed: false, reason: '回答审计归属不匹配' }
       }
       if (row.resultStatus !== 'ok_with_data' && row.resultStatus !== 'ok_no_records') continue
@@ -284,7 +312,7 @@ export class AiQueryService {
         return { allowed: false, reason: '回答缺少可信能力锚点' }
       }
       const capability = await this.repos.registry.find(row.enterpriseId, row.capabilityId, row.capabilityVersion)
-      if (capability === null || this.missingPermissions(capability, auth).length > 0) {
+      if (capability === null || capability.status !== 'enabled' || this.missingPermissions(capability, auth).length > 0) {
         return { allowed: false, reason: '回答所需业务许可已撤销' }
       }
       const scope = row.params['deliveryScope'] as { enterpriseWide?: unknown; plantIds?: unknown } | undefined
@@ -457,6 +485,22 @@ export class AiQueryService {
       })
 
     const replay = await this.repos.audit.findByRequestAndSeq(input.requestId, input.toolCallSeq)
+    const priorAudits = await this.repos.audit.listByRequestId(input.requestId)
+    if (priorAudits.some(row => row.sessionId !== session.id || row.userId !== session.userId || row.enterpriseId !== session.enterpriseId)) identityFailure()
+    if (replay !== null) {
+      if (replay.sessionId !== session.id || replay.userId !== session.userId || replay.enterpriseId !== session.enterpriseId ||
+          replay.capabilityId !== input.capabilityId || replay.capabilityVersion !== input.capabilityVersion) identityFailure()
+      const previousFingerprint = replay.params['queryFingerprint']
+      if (typeof previousFingerprint === 'string') {
+        if (previousFingerprint !== queryFingerprint(input)) identityFailure()
+      } else {
+        // Legacy audits can replay only their complete evidenced filter shape;
+        // an unaudited query key cannot be silently treated as the same query.
+        const filters = Object.fromEntries(Object.entries(input.params).filter(([key]) => AUDIT_FILTER_KEYS.includes(key)))
+        if (Object.keys(input.params).some(key => !AUDIT_FILTER_KEYS.includes(key) && !CONTEXT_FIELD_KEYS.includes(key)) ||
+            canonicalQueryValue(filters) !== canonicalQueryValue(replay.params['filters'] ?? {})) identityFailure()
+      }
+    }
 
     const finish = async (
       auth: { user: { id: string }; dataScope: { enterpriseWide: boolean; plantIds: string[] } } | null,
@@ -659,7 +703,9 @@ export class AiQueryService {
   // -----------------------------------------------------------------------
 
   private async recomputeAuth(session: AiSessionRecord): Promise<RecomputedAuth> {
-    return this.recomputeAuthByUserId(session.userId)
+    const auth = await this.recomputeAuthByUserId(session.userId)
+    if (auth.user.enterpriseId !== session.enterpriseId) throw new NoPermissionSignal('问数会话与实际用户企业不一致')
+    return auth
   }
 
   /** AQ-AUTH-01 实时重算（按 userId；接缝 3 发送前再检与 execute 同一口径）。 */
@@ -742,7 +788,7 @@ export class AiQueryService {
       enterpriseId: session.enterpriseId,
       channel: session.channel,
       params: {
-        filters, ignoredRequestFields, droppedParamKeys,
+        filters, ignoredRequestFields, droppedParamKeys, queryFingerprint: queryFingerprint(input),
         deliveryScope: typeof filters['plantId'] === 'string' &&
           (authorizedScope.enterpriseWide || authorizedScope.plantIds.includes(filters['plantId']))
           ? { enterpriseWide: false, plantIds: [filters['plantId']] }

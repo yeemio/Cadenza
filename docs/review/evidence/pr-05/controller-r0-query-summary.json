@@ -1,0 +1,131 @@
+{
+  "auditConflictObservations": [
+    {
+      "requestId": "f59c0dbf-438a-4be0-8a05-2a5aeeda135d",
+      "attemptedSession": "8ce778b3-e5f4-47d1-9a57-cb6e2703803b",
+      "priorOwner": [
+        {
+          "sessionId": "e9d614ff-b671-4c0f-9959-3a178934822b",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    },
+    {
+      "requestId": "f59c0dbf-438a-4be0-8a05-2a5aeeda135d",
+      "attemptedSession": "8ce778b3-e5f4-47d1-9a57-cb6e2703803b",
+      "priorOwner": [
+        {
+          "sessionId": "e9d614ff-b671-4c0f-9959-3a178934822b",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    },
+    {
+      "requestId": "601ac07d-bc4a-46c2-8b51-7b7188a46616",
+      "attemptedSession": "5462aa67-bc96-4e08-a048-8dfc40d94f5d",
+      "priorOwner": [
+        {
+          "sessionId": "b2fd7e97-bb5b-46ee-b241-7dbdd6935327",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    },
+    {
+      "requestId": "601ac07d-bc4a-46c2-8b51-7b7188a46616",
+      "attemptedSession": "5462aa67-bc96-4e08-a048-8dfc40d94f5d",
+      "priorOwner": [
+        {
+          "sessionId": "b2fd7e97-bb5b-46ee-b241-7dbdd6935327",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    },
+    {
+      "requestId": "a5148410-dfae-4f6d-8c7b-b7d3fa9d1a95",
+      "attemptedSession": "53e44072-61e7-4613-b637-f4d9cd0ac174",
+      "priorOwner": [
+        {
+          "sessionId": "0a2662f0-7e03-4f12-b350-d7e1e08d3a48",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    },
+    {
+      "requestId": "a5148410-dfae-4f6d-8c7b-b7d3fa9d1a95",
+      "attemptedSession": "53e44072-61e7-4613-b637-f4d9cd0ac174",
+      "priorOwner": [
+        {
+          "sessionId": "0a2662f0-7e03-4f12-b350-d7e1e08d3a48",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    },
+    {
+      "requestId": "be1ec78e-d519-4696-acd0-479723e7c733",
+      "attemptedSession": "4ea3332b-d04a-4169-a8af-04c52a10ff37",
+      "priorOwner": [
+        {
+          "sessionId": "4ea3332b-d04a-4169-a8af-04c52a10ff37",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    },
+    {
+      "requestId": "318c989c-72b7-41e8-b691-f8fd7bcbe00d",
+      "attemptedSession": "6ff75ebc-989f-414d-bbc9-36b5468880de",
+      "priorOwner": [
+        {
+          "sessionId": "6ff75ebc-989f-414d-bbc9-36b5468880de",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    },
+    {
+      "requestId": "88afc54d-0dbd-4526-9489-3e7fab6fefa3",
+      "attemptedSession": "70cb28d3-1e63-41e7-bb6e-9d2f09f7340c",
+      "priorOwner": [
+        {
+          "sessionId": "70cb28d3-1e63-41e7-bb6e-9d2f09f7340c",
+          "enterpriseId": "fef0fca1-d047-448a-adaa-e7a6d9db9f53",
+          "userId": "16cc944c-3d27-47e5-8b3b-a16e89c1ecfd",
+          "seq": 1
+        }
+      ],
+      "auditUnchanged": true
+    }
+  ],
+  "concurrentFirstOwners": [
+    {
+      "requestId": "32509770-26b2-4f79-a7de-7f44675563ac",
+      "owner": "e00d6707-d30c-4b79-bf06-3f925e1b2ab2",
+      "fulfilled": 1,
+      "rejected": 1,
+      "auditCount": 1
+    }
+  ],
+  "boundary": "Audit rows actually read and compared by executed tests; not full business-table snapshot evidence."
+}
