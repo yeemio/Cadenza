@@ -195,6 +195,13 @@ function mapUnit(r: UnitRow): InventoryUnitRecord {
 export class PgInventoryUnitRepository implements InventoryUnitRepository {
   constructor(private readonly client: SqlClient) {}
 
+  async hasActiveQualityHold(unitId: string): Promise<boolean> {
+    const r = await this.client.query(
+      `SELECT EXISTS (SELECT 1 FROM quality_hold WHERE inventory_unit_id=$1 AND status='active') AS held`, [unitId],
+    )
+    return r.rows[0]?.held === true
+  }
+
   async businessHolds(unitId: string): Promise<InventoryBusinessHoldRecord[]> {
     const r=await this.client.query(`SELECT id,unit_id AS "unitId",enterprise_id AS "enterpriseId",plant_id AS "plantId",reason,
       business_ref AS "businessRef",command_receipt_id AS "commandReceiptId",actor_user_id AS "actorUserId",actor_login_name AS "actorLoginName",created_at AS "createdAt"
@@ -794,6 +801,7 @@ interface ReservationRow {
   release_reason: string | null
   plant_id: string
   enterprise_id: string
+  created_by: string | null
 }
 
 function mapReservation(r: ReservationRow): ReservationRecord {
@@ -817,6 +825,7 @@ function mapReservation(r: ReservationRow): ReservationRecord {
     releaseReason: r.release_reason,
     plantId: r.plant_id,
     enterpriseId: r.enterprise_id,
+    createdBy: r.created_by,
   }
 }
 

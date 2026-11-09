@@ -1,0 +1,2 @@
+tests/pr03/quality-availability.pg.spec.ts(100,140): error TS2820: Type '"web"' is not assignable to type '"WEB" | "PDA"'. Did you mean '"WEB"'?
+tests/pr03/quality-availability.pg.spec.ts(102,75): error TS2353: Object literal may only specify known properties, and 'workshopIds' does not exist in type 'DataScope'.

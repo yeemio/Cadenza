@@ -1,0 +1,17 @@
+{
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    "tests/pr03/vitest.config.ts",
+    "tests/pr03/quality-availability.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "database": "cadenza_pr03_quality_r2_20261104",
+  "startedUtc": "2026-11-04T03:10:53.473391+00:00",
+  "finishedUtc": "2026-11-04T03:10:59.335010+00:00",
+  "exitCode": 0,
+  "logSha256": "00b94b6c3d0c26a9bed17a51fbd6bae5f51af3c51518bad7ba10d5610298ef2f"
+}

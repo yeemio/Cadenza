@@ -1,0 +1,505 @@
+{
+  "denials": {
+    "records": 23,
+    "tablesPerSnapshot": [
+      177
+    ],
+    "observedSnapshotsEqual": true,
+    "replayBoundary": "executed helper asserts replay snapshot equal; actual replay snapshot not logged",
+    "uniqueReceiptRows": 1
+  },
+  "availability": [
+    {
+      "unitId": "4ee076f4-4d35-4563-9777-0501e1e9252b",
+      "kind": "business",
+      "inventory": {
+        "balanceId": "b826cd33-10cf-458f-bef1-9c15e0f83df6",
+        "unitId": "4ee076f4-4d35-4563-9777-0501e1e9252b",
+        "unitNo": "U-a5c7d0fc-0183-462f-ba69-c76a243d0627",
+        "materialCode": "P03-b50e2b33-04a",
+        "lotNo": "L-U-a5c7d0fc-0183-462f-ba69-c76a243d0627",
+        "locationCode": "03010001",
+        "ownerName": "PR03 owner",
+        "quantity": "20.0000",
+        "reservedQuantity": "0.0000",
+        "businessHeld": true,
+        "qualityHeld": false,
+        "unavailableReasons": [
+          "BUSINESS_HOLD"
+        ],
+        "availableQuantity": "0.0000",
+        "uomCode": "M",
+        "qualityStatus": "qualified",
+        "status": "active",
+        "plantId": "78a1e0aa-df6f-4f4f-89c3-668e2493e36e",
+        "feetDisplay": "65.6167"
+      },
+      "ai": {
+        "grossQty": "20.0000",
+        "reservedQty": "0.0000",
+        "availableQty": "0.0000"
+      },
+      "notes": [
+        "库存单元 4ee076f4-4d35-4563-9777-0501e1e9252b 可用量限制：BUSINESS_HOLD",
+        "缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）"
+      ]
+    },
+    {
+      "unitId": "d39f2018-185b-4d3e-86ac-2577e8dfc86b",
+      "kind": "quality",
+      "inventory": {
+        "balanceId": "d706747f-56d9-44af-8076-cdcc5b61364c",
+        "unitId": "d39f2018-185b-4d3e-86ac-2577e8dfc86b",
+        "unitNo": "U-d33af7dc-e449-463a-8afe-b43400ce1bae",
+        "materialCode": "P03-9d143d13-097",
+        "lotNo": "L-U-d33af7dc-e449-463a-8afe-b43400ce1bae",
+        "locationCode": "03010001",
+        "ownerName": "PR03 owner",
+        "quantity": "20.0000",
+        "reservedQuantity": "0.0000",
+        "businessHeld": false,
+        "qualityHeld": true,
+        "unavailableReasons": [
+          "QUALITY_HOLD",
+          "QUALITY_NOT_RELEASED"
+        ],
+        "availableQuantity": "0.0000",
+        "uomCode": "M",
+        "qualityStatus": "suspect",
+        "status": "active",
+        "plantId": "78a1e0aa-df6f-4f4f-89c3-668e2493e36e",
+        "feetDisplay": "65.6167"
+      },
+      "ai": {
+        "grossQty": "20.0000",
+        "reservedQty": "0.0000",
+        "availableQty": "0.0000"
+      },
+      "notes": [
+        "库存单元 d39f2018-185b-4d3e-86ac-2577e8dfc86b 可用量限制：QUALITY_HOLD,QUALITY_NOT_RELEASED",
+        "缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）"
+      ]
+    },
+    {
+      "unitId": "5c19e0f9-86cc-494a-b03f-c31ce7425cf2",
+      "kind": "reservation",
+      "inventory": {
+        "balanceId": "61823138-5253-4bad-a0b9-dc381e596baa",
+        "unitId": "5c19e0f9-86cc-494a-b03f-c31ce7425cf2",
+        "unitNo": "U-02c1f781-897b-467f-82b0-857f32c27d8e",
+        "materialCode": "P03-91dac0c1-d9c",
+        "lotNo": "L-U-02c1f781-897b-467f-82b0-857f32c27d8e",
+        "locationCode": "03010001",
+        "ownerName": "PR03 owner",
+        "quantity": "20.0000",
+        "reservedQuantity": "6.0000",
+        "businessHeld": false,
+        "qualityHeld": false,
+        "unavailableReasons": [
+          "RESERVED"
+        ],
+        "availableQuantity": "14.0000",
+        "uomCode": "M",
+        "qualityStatus": "qualified",
+        "status": "active",
+        "plantId": "78a1e0aa-df6f-4f4f-89c3-668e2493e36e",
+        "feetDisplay": "65.6167"
+      },
+      "ai": {
+        "grossQty": "20.0000",
+        "reservedQty": "6.0000",
+        "availableQty": "14.0000"
+      },
+      "notes": [
+        "库存单元 5c19e0f9-86cc-494a-b03f-c31ce7425cf2 可用量限制：RESERVED",
+        "缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）"
+      ]
+    },
+    {
+      "unitId": "fcc05c82-4cdd-4a9c-90c3-2f4df653eb17",
+      "kind": "none",
+      "inventory": {
+        "balanceId": "dd0b78f3-cf0b-4e73-b166-1f27cfe1013b",
+        "unitId": "fcc05c82-4cdd-4a9c-90c3-2f4df653eb17",
+        "unitNo": "U-8029a567-21f3-4ea8-a73b-24ee11a8862e",
+        "materialCode": "P03-7c3fede7-c46",
+        "lotNo": "L-U-8029a567-21f3-4ea8-a73b-24ee11a8862e",
+        "locationCode": "03010001",
+        "ownerName": "PR03 owner",
+        "quantity": "20.0000",
+        "reservedQuantity": "0.0000",
+        "businessHeld": false,
+        "qualityHeld": false,
+        "unavailableReasons": [],
+        "availableQuantity": "20.0000",
+        "uomCode": "M",
+        "qualityStatus": "qualified",
+        "status": "active",
+        "plantId": "78a1e0aa-df6f-4f4f-89c3-668e2493e36e",
+        "feetDisplay": "65.6167"
+      },
+      "ai": {
+        "grossQty": "20.0000",
+        "reservedQty": "0.0000",
+        "availableQty": "20.0000"
+      },
+      "notes": [
+        "缺口数值列首版固定「口径未定」标注（requirementBase 未配置，BOM 行基数语义未冻结，GAP-P4/AQ-AMB-03）"
+      ]
+    }
+  ],
+  "reference": [
+    {
+      "case": "PR03-task",
+      "unitId": "45dc7dc6-c3ba-4f3d-80f8-509168d6c74d",
+      "reservationId": "ab1b655f-59a3-4f34-a531-fbf0139cac29",
+      "ledger": [
+        {
+          "id": "54007f60-8045-4f58-aeb5-79943c247082",
+          "ref_type": "reservation",
+          "ref_id": "ab1b655f-59a3-4f34-a531-fbf0139cac29",
+          "quantity": "-5.0000",
+          "before_qty": "20.0000",
+          "after_qty": "15.0000"
+        }
+      ],
+      "reservations": [
+        {
+          "id": "ab1b655f-59a3-4f34-a531-fbf0139cac29",
+          "holder_type": "task",
+          "holder_ref": "PR03-task",
+          "quantity": "5.0000",
+          "status": "active"
+        }
+      ],
+      "audit": [
+        {
+          "actor": "szqc01",
+          "before": {
+            "quantity": "20.0000"
+          },
+          "after": {
+            "quantity": "15.0000",
+            "reservation": {
+              "id": "ab1b655f-59a3-4f34-a531-fbf0139cac29",
+              "holderRef": "PR03-task",
+              "holderType": "task"
+            },
+            "ledgerReference": {
+              "refId": "ab1b655f-59a3-4f34-a531-fbf0139cac29",
+              "refType": "reservation"
+            }
+          }
+        }
+      ],
+      "replayUnchanged": true
+    },
+    {
+      "case": "PR03-task",
+      "unitId": "11e9927c-d786-4131-88cf-40125a2f5600",
+      "reservationId": "2de22ec3-955c-4d7c-a185-f29934a9b3e2",
+      "ledger": [
+        {
+          "id": "de909b82-f08f-4e09-9196-694c2a324fa5",
+          "ref_type": "reservation",
+          "ref_id": "2de22ec3-955c-4d7c-a185-f29934a9b3e2",
+          "quantity": "-5.0000",
+          "before_qty": "20.0000",
+          "after_qty": "15.0000"
+        }
+      ],
+      "reservations": [
+        {
+          "id": "2de22ec3-955c-4d7c-a185-f29934a9b3e2",
+          "holder_type": "task",
+          "holder_ref": "PR03-task",
+          "quantity": "5.0000",
+          "status": "active"
+        }
+      ],
+      "audit": [
+        {
+          "actor": "szqc01",
+          "before": {
+            "quantity": "20.0000"
+          },
+          "after": {
+            "quantity": "15.0000",
+            "reservation": {
+              "id": "2de22ec3-955c-4d7c-a185-f29934a9b3e2",
+              "holderRef": "PR03-task",
+              "holderType": "task"
+            },
+            "ledgerReference": {
+              "refId": "2de22ec3-955c-4d7c-a185-f29934a9b3e2",
+              "refType": "reservation"
+            }
+          }
+        }
+      ],
+      "replayUnchanged": true
+    },
+    {
+      "case": "PR03-task",
+      "unitId": "10806982-16fa-4a59-9c4c-deeacfc0982d",
+      "reservationId": "8920d58c-d95c-47d0-b1d3-16e787ed075b",
+      "ledger": [
+        {
+          "id": "4984ce82-23e4-4d9e-9193-d3d35766062f",
+          "ref_type": "reservation",
+          "ref_id": "8920d58c-d95c-47d0-b1d3-16e787ed075b",
+          "quantity": "-5.0000",
+          "before_qty": "20.0000",
+          "after_qty": "15.0000"
+        }
+      ],
+      "reservations": [
+        {
+          "id": "8920d58c-d95c-47d0-b1d3-16e787ed075b",
+          "holder_type": "task",
+          "holder_ref": "PR03-task",
+          "quantity": "5.0000",
+          "status": "active"
+        }
+      ],
+      "audit": [
+        {
+          "actor": "szqc01",
+          "before": {
+            "quantity": "20.0000"
+          },
+          "after": {
+            "quantity": "15.0000",
+            "reservation": {
+              "id": "8920d58c-d95c-47d0-b1d3-16e787ed075b",
+              "holderRef": "PR03-task",
+              "holderType": "task"
+            },
+            "ledgerReference": {
+              "refId": "8920d58c-d95c-47d0-b1d3-16e787ed075b",
+              "refType": "reservation"
+            }
+          }
+        }
+      ],
+      "replayUnchanged": true
+    },
+    {
+      "case": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      "unitId": "7010e121-f06c-4bb4-b092-7a16a4aa8bbf",
+      "reservationId": "d00df9a3-0c00-4b4a-b618-3fdd4fa187e9",
+      "ledger": [
+        {
+          "id": "d588f099-82dd-4538-983e-9aab9d070de0",
+          "ref_type": "reservation",
+          "ref_id": "d00df9a3-0c00-4b4a-b618-3fdd4fa187e9",
+          "quantity": "-5.0000",
+          "before_qty": "20.0000",
+          "after_qty": "15.0000"
+        }
+      ],
+      "reservations": [
+        {
+          "id": "d00df9a3-0c00-4b4a-b618-3fdd4fa187e9",
+          "holder_type": "task",
+          "holder_ref": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+          "quantity": "5.0000",
+          "status": "active"
+        }
+      ],
+      "audit": [
+        {
+          "actor": "szqc01",
+          "before": {
+            "quantity": "20.0000"
+          },
+          "after": {
+            "quantity": "15.0000",
+            "reservation": {
+              "id": "d00df9a3-0c00-4b4a-b618-3fdd4fa187e9",
+              "holderRef": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+              "holderType": "task"
+            },
+            "ledgerReference": {
+              "refId": "d00df9a3-0c00-4b4a-b618-3fdd4fa187e9",
+              "refType": "reservation"
+            }
+          }
+        }
+      ],
+      "replayUnchanged": true
+    },
+    {
+      "case": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      "unitId": "4416af25-8e86-4744-8d4c-5ddc02d3d8bb",
+      "reservationId": "53cb72bb-fc3e-4da1-a74d-9fa53cbbf8d0",
+      "ledger": [
+        {
+          "id": "b0df4aac-9232-4b21-8a6b-f5481a1bf4d9",
+          "ref_type": "task",
+          "ref_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+          "quantity": "-5.0000",
+          "before_qty": "20.0000",
+          "after_qty": "15.0000"
+        }
+      ],
+      "reservations": [
+        {
+          "id": "53cb72bb-fc3e-4da1-a74d-9fa53cbbf8d0",
+          "holder_type": "task",
+          "holder_ref": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+          "quantity": "5.0000",
+          "status": "active"
+        }
+      ],
+      "audit": [
+        {
+          "actor": "szqc01",
+          "before": {
+            "quantity": "20.0000"
+          },
+          "after": {
+            "quantity": "15.0000",
+            "reservation": {
+              "id": "53cb72bb-fc3e-4da1-a74d-9fa53cbbf8d0",
+              "holderRef": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+              "holderType": "task"
+            },
+            "ledgerReference": {
+              "refId": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+              "refType": "task"
+            }
+          }
+        }
+      ],
+      "replayUnchanged": true
+    },
+    {
+      "case": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      "unitId": "fb17c17a-4ebc-4d77-b0f8-04afef8303aa",
+      "reservationId": "398aa961-d916-4771-b296-fbbeeca063ac",
+      "ledger": [
+        {
+          "id": "476efa4f-6341-48f5-bbf6-24576729e507",
+          "ref_type": "task",
+          "ref_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+          "quantity": "-5.0000",
+          "before_qty": "20.0000",
+          "after_qty": "15.0000"
+        }
+      ],
+      "reservations": [
+        {
+          "id": "398aa961-d916-4771-b296-fbbeeca063ac",
+          "holder_type": "task",
+          "holder_ref": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+          "quantity": "5.0000",
+          "status": "active"
+        }
+      ],
+      "audit": [
+        {
+          "actor": "szqc01",
+          "before": {
+            "quantity": "20.0000"
+          },
+          "after": {
+            "quantity": "15.0000",
+            "reservation": {
+              "id": "398aa961-d916-4771-b296-fbbeeca063ac",
+              "holderRef": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+              "holderType": "task"
+            },
+            "ledgerReference": {
+              "refId": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+              "refType": "task"
+            }
+          }
+        }
+      ],
+      "replayUnchanged": true
+    },
+    {
+      "case": "{A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11}",
+      "unitId": "69989d09-2967-41c7-a4b4-dfd20d2ce765",
+      "reservationId": "690d089f-e40e-4826-9e10-b1cb8fed0b11",
+      "ledger": [
+        {
+          "id": "7cb26d1b-7829-477c-a33f-e241e25dff3c",
+          "ref_type": "task",
+          "ref_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+          "quantity": "-5.0000",
+          "before_qty": "20.0000",
+          "after_qty": "15.0000"
+        }
+      ],
+      "reservations": [
+        {
+          "id": "690d089f-e40e-4826-9e10-b1cb8fed0b11",
+          "holder_type": "task",
+          "holder_ref": "{A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11}",
+          "quantity": "5.0000",
+          "status": "active"
+        }
+      ],
+      "audit": [
+        {
+          "actor": "szqc01",
+          "before": {
+            "quantity": "20.0000"
+          },
+          "after": {
+            "quantity": "15.0000",
+            "reservation": {
+              "id": "690d089f-e40e-4826-9e10-b1cb8fed0b11",
+              "holderRef": "{A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11}",
+              "holderType": "task"
+            },
+            "ledgerReference": {
+              "refId": "{A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11}",
+              "refType": "task"
+            }
+          }
+        }
+      ],
+      "replayUnchanged": true
+    },
+    {
+      "case": "unreserved",
+      "unitId": "83a9d11a-2b0e-485b-aeac-2dfd5ea25727",
+      "reservationId": null,
+      "ledger": [
+        {
+          "id": "c52892cf-1c2f-47d7-ba9b-43b8f68984de",
+          "ref_type": "task",
+          "ref_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+          "quantity": "-5.0000",
+          "before_qty": "20.0000",
+          "after_qty": "15.0000"
+        }
+      ],
+      "reservations": [],
+      "audit": [
+        {
+          "actor": "szqc01",
+          "before": {
+            "quantity": "20.0000"
+          },
+          "after": {
+            "quantity": "15.0000"
+          }
+        }
+      ],
+      "replayUnchanged": true
+    }
+  ],
+  "c2": {
+    "records": 123,
+    "tablesPerSnapshot": [
+      177
+    ],
+    "observedSnapshotsEqual": true,
+    "replayBoundary": "actual before/after/replay logged",
+    "uniqueReceiptRows": 1
+  }
+}

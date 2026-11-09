@@ -446,7 +446,7 @@ async function collectUnitFacts(
   return {
     unitId: unit.id,
     unitStatus: unit.status,
-    qualityStatus: balance.qualityStatus,
+    qualityStatus: await tools.inv.units.hasActiveQualityHold(unit.id) ? 'suspect' : balance.qualityStatus,
     lockedByOtherTask: effective.length > 0,
     actualSegmentLength,
   }
@@ -816,6 +816,9 @@ async function shipConfirm(pc: PostingContext, p: Payload): Promise<Record<strin
   for (const scan of scans) {
     if (scan.inventoryUnitId === null) continue // 补码登记（无库存单元绑定）不参与库存记账
     const unit = unitById.get(scan.inventoryUnitId)!
+    if (await tools.inv.units.hasActiveQualityHold(unit.id)) {
+      throw new ShippingRuleViolation('A-T12-2', `库存单元 ${unit.unitNo} 有活动质量隔离，拒绝出库`)
+    }
     if((await tools.inv.units.businessHolds(unit.id)).length>0)throw new ShippingRuleViolation('IT-BUSINESS-HOLD',`库存单元 ${unit.unitNo} 处于业务留置，拒绝出库`)
     const balances = await tools.inv.balances.listActiveByUnit(unit.id)
     const active = balances.filter((b) => b.status === 'active')

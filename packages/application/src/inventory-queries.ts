@@ -3,7 +3,7 @@ import {
   feetDisplayFromMeters,
   matchBarcodeKind,
   resolveBarcodeCandidates,
-  computeAvailability,
+  evaluateAvailability,
   type BarcodeKind,
 } from '@cadenza/domain'
 import type { VerifiedAuthContext } from './session-verifier'
@@ -49,6 +49,8 @@ export interface BalanceView {
   quantity: string
   reservedQuantity: string
   businessHeld: boolean
+  qualityHeld: boolean
+  unavailableReasons: string[]
   availableQuantity: string
   uomCode: string
   qualityStatus: string
@@ -156,13 +158,16 @@ export class InventoryQueryService {
       const unit = await this.deps.units.findById(b.unitId)
       const lot = unit === null ? null : await this.deps.lots.findById(unit.lotId)
       const reservations = await this.deps.reservations.listActiveByUnit(b.unitId)
-      const availability = computeAvailability({
+      const qualityHeld = await this.deps.units.hasActiveQualityHold(b.unitId)
+      const businessHolds = await this.deps.units.businessHolds(b.unitId)
+      const availability = evaluateAvailability({
         grossQty: b.quantity,
         qualityStatus: b.qualityStatus,
-        activeReservations: reservations.map((r) => ({ status: r.status, quantity: r.quantity, validUntil: r.validUntil })),
+        qualityHeld,
+        businessHeld: businessHolds.length > 0,
+        activeReservations: reservations.filter((r) => r.locationId === null || r.locationId === b.locationId),
         now,
       })
-      const businessHolds=await this.deps.units.businessHolds(b.unitId)
       views.push({
         balanceId: b.id,
         unitId: b.unitId,
@@ -174,9 +179,11 @@ export class InventoryQueryService {
         quantity: b.quantity,
         reservedQuantity: availability.reserved,
         businessHeld: businessHolds.length>0,
-        availableQuantity: businessHolds.length>0?'0.0000':availability.available,
+        qualityHeld,
+        unavailableReasons: availability.reasons,
+        availableQuantity: availability.available,
         uomCode: b.uomCode,
-        qualityStatus: b.qualityStatus,
+        qualityStatus: qualityHeld ? 'suspect' : b.qualityStatus,
         status: b.status,
         plantId: b.plantId,
         feetDisplay: feetDisplayFromMeters(b.quantity), // IT-10 展示列

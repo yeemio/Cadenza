@@ -1,0 +1,212 @@
+{
+  "pr": 3,
+  "revision": "R0",
+  "status": "SOURCE_READY_PG_NOT_RUN_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-03-quality-availability",
+  "exactRecordedParentHead": "ca1392c721cf071826badb648a4dba15f2c7d866",
+  "prerequisites": [
+    {
+      "pr": 1,
+      "acceptedHead": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "testedSource": "d6cc96aa64fec40323ea40dde917ac8a2759fd06",
+      "status": "ACCEPTED_REUSED_NOT_RERUN"
+    },
+    {
+      "pr": 2,
+      "recordedHead": "70fe34fa654e50ff9b8f41aacc5aef825118a9ed",
+      "sourceAndTestSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+      "fullPatchSha256": "e91b61c9f9ef72d781f353ea11df320f471300a961f3ae0e5e84a57779120ccc",
+      "zipSha256": "aaafa2ae3f781686a927285ee45598109956de0bce1f008bd7b317a7eaeb4fc4",
+      "status": "CANDIDATE_CONTROLLER_PENDING_NOT_ACCEPTED"
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "5cd5ded5590fa2e08726850278dcb29b56113562a088bbd43029f48081cdaf90",
+    "files": [
+      {
+        "path": "packages/application/src/aiquery-repositories.ts",
+        "sha256": "05e5f6c3bb3ceef90c7af875e346ebe45da2f7621a9cf3b19ebf4fa2fd67f797",
+        "parentSha256": "6ad38f6ef03bc37f93b15c0194ddc3fa68f4bf6ab5c8648ca6f50560e477456d"
+      },
+      {
+        "path": "packages/application/src/aiquery-service.ts",
+        "sha256": "a11c27eb29e781c1dd6b97e9ffb59472eb15f318baa43cbbe1a9910d4d58fc16",
+        "parentSha256": "f252639a307712970e634f1625214f4a092b2d9194f2a5a658579f0195f2ff23"
+      },
+      {
+        "path": "packages/application/src/inventory-posting.ts",
+        "sha256": "8604250f9b7a744dda451b7519032bdc7facd0b2ac26ec2df55ca9edb3df8d5f",
+        "parentSha256": "cc06ff7bfc046a283fc434a5f0bce1f7a3f64808020732dc683498f1beeb4554"
+      },
+      {
+        "path": "packages/application/src/inventory-queries.ts",
+        "sha256": "872f042119084701c2baed3688b097b678d623662236e85f68aacae6a363ca6d",
+        "parentSha256": "54071786509e5037472983aba84745b14e610674ed1f5093ec10de693ab04748"
+      },
+      {
+        "path": "packages/application/src/inventory-repositories.ts",
+        "sha256": "cd5423a8f633f30f8f5aee0bf857d96bbddb955d0bb6d18d2619e769f3c2868b",
+        "parentSha256": "d72d24f8aa25582e3a015ef3e06359a753e757d0c0e98bd8431cc1d6288839c2"
+      },
+      {
+        "path": "packages/application/src/quality-handlers.ts",
+        "sha256": "b0fe05b99936203076b578b55838aca5b947ccbccb358f83b76766020ba1aee1",
+        "parentSha256": "a091059549c8a7391650f4fc106b5f4d67d3545107ea3f8d5caaad6f5e9e3b28"
+      },
+      {
+        "path": "packages/application/src/quality-repositories.ts",
+        "sha256": "0c8614023cc106f65966d0412ef74eeea79e4f7acc1595a1b932ac05cc8ac124",
+        "parentSha256": "14d51b604e91a3dcc298322845ce20cbadd02015324c5985f543892c0e6f1656"
+      },
+      {
+        "path": "packages/application/src/shipping-handlers.ts",
+        "sha256": "9769568db492b98da39990b84c12ed5cb665703085d9c5c47a4723e2b41de5be",
+        "parentSha256": "c14b9ce50443b8e9ba6b3f2c5b48909f1cd64e84409aedd400c7ba592287e808"
+      },
+      {
+        "path": "packages/domain/src/inventory/availability.ts",
+        "sha256": "5e9ecae2acf29451173777ea65029492d7d4584bda796581821b1f5aeeb81eb7",
+        "parentSha256": "aac044f7bf10fdf0ca8f1a23524992e2c03f5bbda6f0b042a3f087c3b230178d"
+      },
+      {
+        "path": "packages/persistence/src/aiquery-repositories.ts",
+        "sha256": "22f931f07ca0c25a3e89c5f4f5b6004533848b23c8741dc6d2ff8efb87d4e817",
+        "parentSha256": "4eff727f4fa8bd103c6318bc36546371abed5c8ce97bea89ebe2b427a59bc597"
+      },
+      {
+        "path": "packages/persistence/src/inventory-repositories.ts",
+        "sha256": "d23257bbcfef1165e23803fe331ccbe1244c0ac07e4d28c4a911a12be8f5ab07",
+        "parentSha256": "ae198c44a7c0e9f6fe72773b889c5ad640b80edf6fae5d67c6111bd405b37ead"
+      },
+      {
+        "path": "packages/persistence/src/quality-repositories.ts",
+        "sha256": "87c805b4a0b83944b289742e1f4acd818afffa547b9c53e6a4df5ca7ef9ff9c6",
+        "parentSha256": "c5d07046194a00de5777cd070aeffd91f5d90e238bf3f83b093ba6e49f00fec3"
+      },
+      {
+        "path": "tests/pr03/availability.unit.spec.ts",
+        "sha256": "48d088a9327370626481e01c5b250cfd8fb60f02bddf4ec27d41c818936588c8",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr03/quality-availability.pg.spec.ts",
+        "sha256": "701a421a03853afb8799e3ad6dfe934445a083e1d9f14cdc745eb2be2bf7a549",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr03/tsconfig.json",
+        "sha256": "db31cfccf677d5e33bfb4d808fcc5b5464cac207868ae1bde675313d3871cbaa",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr03/vitest.config.ts",
+        "sha256": "6999445ae9ee0599bb88f21501c344965f454fa4d618490671056340858da4d0",
+        "parentSha256": null
+      }
+    ],
+    "sourceFiles": 12,
+    "testFiles": 4
+  },
+  "scopeExtension": [
+    {
+      "path": "packages/persistence/src/inventory-repositories.ts",
+      "reason": "Existing inventory-unit repository is shared by inventory/shipping/query compositions. Add read-only active quality-hold lookup and expose the existing reservation.created_by issuer field without changing any composition root, migration or stored fact. Announced in this Chat before editing.",
+      "schemaChanges": false,
+      "controllerScopeReview": "PENDING"
+    }
+  ],
+  "validation": [
+    {
+      "name": "Application typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/application/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-03/application-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS"
+    },
+    {
+      "name": "Persistence typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p packages/persistence/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-03/persistence-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS",
+      "reuseBoundary": "unchanged exported interfaces since check; final application source rechecked"
+    },
+    {
+      "name": "PR03 test-source typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr03/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-03/pr03-tests-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "PASS"
+    },
+    {
+      "name": "Pure rules and existing inventory domain regression",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr03/vitest.config.ts tests/pr03/availability.unit.spec.ts tests/domain/inventory-rules.spec.ts --reporter=verbose",
+      "exitCode": 0,
+      "log": "docs/review/evidence/pr-03/availability-unit-and-regression.log",
+      "logSha256": "83f2ea201858d67673c643e1b7e1e2a0fd8fb398c97f2583cf881581f79fc71d",
+      "status": "PASS",
+      "executed": 46,
+      "passed": 46,
+      "failed": 0,
+      "skipped": 0,
+      "newUnitCases": 22,
+      "existingDomainCases": 24,
+      "businessPgPass": false
+    },
+    {
+      "name": "Real PG invocation",
+      "command": "node node_modules/vitest/vitest.mjs run --config tests/pr03/vitest.config.ts tests/pr03/quality-availability.pg.spec.ts --reporter=verbose",
+      "exitCode": 1,
+      "log": "docs/review/evidence/pr-03/quality-availability-pg-not-run.log",
+      "logSha256": "ae2633bd6d291bb788940e7b757c2aad82b2fda56bf33aac47092edaf09b1a0d",
+      "status": "NOT_RUN",
+      "reason": "CADENZA_PR03_TEST_DB_URL absent",
+      "businessTestsExecuted": 0,
+      "plannedSourceCases": 32,
+      "failedSuites": 1,
+      "skipped": 0,
+      "reuseBoundary": "environment gate unchanged; one later source case added and typechecked; no repeated unavailable-PG probe"
+    },
+    {
+      "name": "Initial test-source typecheck",
+      "command": "node node_modules/typescript/bin/tsc -p tests/pr03/tsconfig.json --noEmit",
+      "exitCode": 2,
+      "log": "docs/review/evidence/pr-03/pr03-tests-typecheck-initial-failure.log",
+      "logSha256": "daf3641aef9a8fb06c9ec79e4c37fca4785eb56dabb986e7b799e9d83612190e",
+      "status": "FAIL_RETAINED",
+      "resolved": "fixture loginPlatform WEB and exact DataScope shape; no product bypass"
+    }
+  ],
+  "notRun": [
+    "real PostgreSQL behavior/concurrency",
+    "full API/build or locked/cold install",
+    "production/old database",
+    "real SAP/model/device/site",
+    "independent R6"
+  ],
+  "environment": {
+    "node": "24.22.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "vite": "7.3.7",
+    "pg": "8.23.1",
+    "dependencies": "existing locally cached dependencies; no frozen install claimed"
+  },
+  "boundaries": [
+    "new local candidate; no invented Git commit",
+    "no original Chat full transcript inherited",
+    "no PR01 or PR14 reimplementation",
+    "no independent business-hold release path",
+    "unknown reservation issuer rejected; known reservation UUID alone not authority",
+    "hold restoration uses current inspection/current-version concession/purchase detail and non-suspect live balance; only a single balance with no current fact may retain validated last-known pre-hold quality; missing/ambiguous fallback is pending_inspection",
+    "test SQL legacy/corrupt association/expiry fixtures are explicitly marked; main behavior routes use real command buses",
+    "no GitHub mutation, merge, release or deployment"
+  ],
+  "controllerAccepted": false,
+  "remoteWrite": false
+}
