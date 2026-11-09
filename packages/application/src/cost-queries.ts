@@ -1,6 +1,7 @@
  
 import {
   computeOee,
+  configuredOeeBasis, equipmentOeeOutput, oeeIntervalMinutes, oeeDowntimeInPlan, validOeeWindow,
   div4Safe,
 } from '@cadenza/domain'
 import type { VerifiedAuthContext } from './session-verifier'
@@ -241,36 +242,23 @@ export class CostQueryService {
   ): Promise<Record<string, unknown> | null> {
     if (!this.plantScopeAllows(auth, input.plantId)) return null
     const equipment = await this.deps.facts.findEquipmentByCode(input.plantId, input.equipmentCode)
-    if (equipment === null) return null
-    // 计划时间=窗口时长（班次日历区间；首期以查询窗口承载，工厂日历排程未落地前不冒充）
-    const plannedMinutes = ((Date.parse(input.windowEnd) - Date.parse(input.windowStart)) / 60000).toFixed(4)
-    // 停机事实（T19 downtime_event；无行 → null=缺项 CE-10）
-    const downtimeMinutes = await this.deps.facts.downtimeMinutesByEquipment(equipment.id, input.windowStart, input.windowEnd)
-    // 标准速度：equipment.std_rate_text 为文本（GAP-S1 未数值化）→ null=缺项，不出假百分比
-    const stdRateNumeric = parseNumericStdRate(equipment.stdRateText)
-    // 产出与合格量（窗口内全厂报工产出口径；无产出 → null=缺项）
-    const plantOutputs = await this.deps.facts.plantOutputTotals(input.plantId, input.windowStart, input.windowEnd)
-    const actualOutputQty = plantOutputs.totalQty
-    const qualifiedQty = plantOutputs.qualifiedQty
-    const result = computeOee({
-      plannedMinutes,
-      downtimeMinutes,
-      standardSpeedPerHour: stdRateNumeric,
-      actualOutputQty,
-      qualifiedQty,
-    })
+    if (equipment === null || equipment.enterpriseId !== auth.user.enterpriseId || equipment.plantId !== input.plantId) return null
+    const windowValid=validOeeWindow(input.windowStart,input.windowEnd)
+    const basis=configuredOeeBasis(process.env['CADENZA_OEE_BASES'],equipment.id)
+    const facts=windowValid?await this.deps.facts.equipmentOeeFacts(equipment.id,input.windowStart,input.windowEnd):{outputs:[],downtime:[],downtimeFactCount:0}
+    const output=equipmentOeeOutput(facts.outputs,equipment,basis)
+    const plannedMinutes=basis&&windowValid?oeeIntervalMinutes(basis.plannedIntervals,input.windowStart,input.windowEnd):null
+    const downtimeMinutes=basis&&windowValid&&facts.downtimeFactCount>0?oeeDowntimeInPlan(facts.downtime,basis.plannedIntervals,input.windowStart,input.windowEnd):null
+    const result=computeOee({plannedMinutes,downtimeMinutes,standardSpeedPerHour:basis?.standardSpeedPerHour??null,actualOutputQty:output.totalQty,qualifiedQty:output.qualifiedQty})
+    const missing=[...new Set([...result.missing,...output.missing,...(!windowValid?['window_invalid']:[]),...(!basis?['equipment_plan_and_rate_basis_missing']:[])])]
     return {
-      equipmentId: equipment.id,
-      equipmentCode: equipment.code,
-      windowStart: input.windowStart,
-      windowEnd: input.windowEnd,
-      plannedMinutes,
-      downtimeMinutes,
-      standardSpeedPerHour: stdRateNumeric,
-      stdRateText: equipment.stdRateText,
-      actualOutputQty,
-      qualifiedQty,
-      ...result,
+      equipmentId:equipment.id,equipmentCode:equipment.code,windowStart:input.windowStart,windowEnd:input.windowEnd,
+      windowSemantics:'[start,end)',plannedTimeBasis:'EXPLICIT_EQUIPMENT_PLAN_INTERSECT_QUERY_WINDOW',
+      outputTimeBasis:'SUBMITTED_UNCANCELLED_REPORT_BUSINESS_TIME',equipmentAttributionBasis:'CONSISTENT_REPORT_SESSION_UUID',
+      basisId:basis?.basisId??null,outputUomId:basis?.outputUomId??null,outputUomCode:basis?.outputUomCode??null,
+      plannedMinutes,downtimeMinutes,standardSpeedPerHour:basis?.standardSpeedPerHour??null,stdRateText:equipment.stdRateText,
+      actualOutputQty:output.totalQty,qualifiedQty:output.qualifiedQty,sourceOutputIds:output.rowIds,downtimeFactCount:facts.downtimeFactCount,
+      ...result,...(missing.length?{availability:null,performance:null,qualityRate:null,oee:null}:{}),missing,
     }
   }
 
@@ -361,9 +349,3 @@ export class CostQueryService {
   }
 }
 
-/** GAP-S1：std_rate_text 为文本（如"约200米/分"）；仅当为纯数值时才作为标准速度。 */
-function parseNumericStdRate(stdRateText: string | null): string | null {
-  if (stdRateText === null) return null
-  const trimmed = stdRateText.trim()
-  return /^\d+(\.\d{1,4})?$/.test(trimmed) ? trimmed : null
-}

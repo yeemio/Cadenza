@@ -1,0 +1,24 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr11-work
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:39:12
+   Duration  3.82s (transform 2.49s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 74ms)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/pr11/oee.pg.spec.ts [ tests/pr11/oee.pg.spec.ts ]
+Error: NOT_RUN: CADENZA_PR11_TEST_DB_URL must name a NEW empty cadenza_pr11_* PostgreSQL database
+ ❯ tests/pr11/oee.pg.spec.ts:9:82
+      7| import {seedExecutionFixtures,seedOrder,type ExecutionFixtureIds,UOM_M…
+      8| const url=process.env['CADENZA_PR11_TEST_DB_URL']
+      9| if(!url||!/^cadenza_pr11_[a-z0-9_]+$/.test(new URL(url).pathname.slice…
+       |                                                                                  ^
+     10| const pool=createPool(url,{max:6}),oldBasis=process.env['CADENZA_OEE_B…
+     11| let fx:ExecutionFixtureIds,auth:VerifiedAuthContext,orderId:string,opI…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
