@@ -1,0 +1,59 @@
+{
+  "status": "APPLIED_UNCHANGED_CONTROLLER_PENDING",
+  "parent": "70fe34fa654e50ff9b8f41aacc5aef825118a9ed",
+  "branch": "codex/fix-02-object-write-scope",
+  "acceptedPrerequisite": "956d9e1bd4192943e1095e03884d4c58435de710",
+  "patchSha256": "e91b61c9f9ef72d781f353ea11df320f471300a961f3ae0e5e84a57779120ccc",
+  "sourceAndTestCandidateSha256": "660219c18ece4492c05dd3b062c3a7a371096d03cdad209dfe3fa87deb42803d",
+  "postimagesVerified": 31,
+  "prerequisitePostimages": 11,
+  "ownedPostimages": 20,
+  "writer": "ChatGPT ordinary Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "worktree": "/Users/yeemio/AI/workspaces/Cadenza-pr02-20261103",
+  "decision": "REWORK",
+  "acceptanceBoundary": "source accepted for review; actual PG authorization behavior not accepted",
+  "checks": {
+    "applicationTypes": "PASS",
+    "persistenceTypes": "PASS",
+    "testSourceTypes": "PASS",
+    "unit": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pg": {
+      "suiteFailed": 1,
+      "businessExecuted": 0,
+      "reportedSkipped": 129,
+      "planned": 129,
+      "firstFailure": {
+        "sqlstate": "23502",
+        "table": "warehouse",
+        "column": "dept_id",
+        "fixture": "tests/pr02/object-write-scope.pg.spec.ts:126",
+        "stage": "beforeAll factory A"
+      }
+    }
+  },
+  "rootCause": "The warehouse fixture insert omits the mandatory dept_id. Current canonical schema also requires material_types and numeric warehouse/storage-location codes; align the same fixture with existing constraints without migration/product changes.",
+  "repairOwner": "same ordinary Chat 6ae9e966-8584-83e8-87a2-ee925e127bb8",
+  "rawLog": {
+    "path": "docs/review/evidence/pr-02/controller-r0-pg-and-unit.log",
+    "sha256": "4a1e7bafcb9001f75462b83d1daa493f34d50ba13b0b6ce32b670a5f1202ea20"
+  },
+  "database": {
+    "name": "cadenza_pr02_scope_r0_20261104",
+    "instanceId": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+    "host": "127.0.0.1:32768",
+    "preserved": true
+  },
+  "notProved": [
+    "real PG business behavior",
+    "actual row locks",
+    "zero-change denials and replay",
+    "old database upgrade",
+    "real SAP/model/channel/device/site",
+    "independent R6"
+  ],
+  "controllerDidNotModifyAuthorSourceOrTests": true
+}
