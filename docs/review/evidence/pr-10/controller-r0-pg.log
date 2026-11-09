@@ -1,0 +1,24 @@
+
+ RUN  v3.2.7 /Users/yeemio/AI/workspaces/Cadenza-pr10-20261104
+
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > unbound equipment stays UNKNOWN without consulting any shadow fact 3ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > qualified and limited business records retain positive qualification 23ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > failed business calibration removes that equipment from actual engine solutions 56ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > expiry uses actual instant and exposes affected future slots without deleting them 8ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > future-dated calibration cannot override a currently failed business fact 11ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > calibration change after proposal is reread on commit, with no schedule side effect 54ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > actual maintenance create opens an interval visible to scheduling and blocks stale proposal 70ms
+stdout | tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > restart retains closed interval, emits review prompt and does not automatically replan
+PR10_REAL_INTERVAL {"id":"4dceebcf-9577-4d2d-8a43-48de17bf1bd6","enterpriseId":"0abfd138-d65b-44c9-ac8f-85cb1a348e91","plantId":"2a3d1ff2-9d89-4e1c-928b-bdb1210f845e","equipmentId":"ee799d89-74a5-461e-96ae-ba69b17e2157","kind":"repair","fromAt":"2026-11-04T03:45:23.378Z","toAt":"2026-11-04T03:45:23.387Z","status":"closed","note":"PR10 real maintenance interval","impactSlotIds":[],"closedBy":"maintenance","closedAt":"2026-11-04T03:45:23.387Z","createdAt":"2026-11-04T03:45:23.377Z","createdBy":"maintenance","source":"downtime_event","sourceOrderId":"43ad132a-77ea-4a59-a875-0589ed3f4ba1","planReviewRequired":true,"reviewReason":"CAPACITY_CHANGED_REVIEW_REQUIRED_NO_AUTOMATIC_RESCHEDULE"}
+
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > restart retains closed interval, emits review prompt and does not automatically replan 14ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > restored qualified equipment can again commit new positive scheduling 46ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > failed calibration flags retained slots, rather than automatically deleting them 9ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > invalid/foreign gauge mapping never becomes a usable fact 1ms
+ ✓ tests/pr10/maintenance-scheduling.pg.spec.ts > PR10 real PG maintenance/SPC entries -> scheduling reads, proposals and commit > legacy CSW shadow writes are refused and all shadow tables remain empty 5ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  11:45:20
+   Duration  3.07s (transform 722ms, setup 0ms, collect 1.04s, tests 1.93s, environment 0ms, prepare 21ms)
+

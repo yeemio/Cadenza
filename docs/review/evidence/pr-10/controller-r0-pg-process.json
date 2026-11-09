@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--config",
+    "tests/pr10/vitest.config.ts",
+    "tests/pr10/maintenance-scheduling.pg.spec.ts",
+    "--reporter=verbose"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T03:45:18.935705+00:00",
+  "completedAt": "2026-11-04T03:45:23.531736+00:00",
+  "database": "cadenza_pr10_maintenance_r0_20261104",
+  "sourceCommit": "e3e6954cfd70c56c98b46c6ca390d4afad6abce2",
+  "logSha256": "521cb7f325696f19104f8ea22046a4b39ba62b9384ddd1ae75f11949c7b01932"
+}

@@ -1,3 +1,4 @@
+import { cswCalibrationEffectAt, cswDowntimeFraction } from './csw-repositories'
 import type { VerifiedAuthContext } from './session-verifier'
 import type {
   CswCalibrationStateRecord,
@@ -16,8 +17,6 @@ import type { SchedulingRepositories } from './scheduling-repositories'
 import {
   OUTSOURCING_STATUS_LABELS,
   buildSettlementFact,
-  calibrationEffectAt,
-  downtimeOccupancyFraction,
   dueDateUrgency,
   evaluateMaterialSufficiency,
   evaluateReadiness,
@@ -216,9 +215,10 @@ export class CswQueryService {
     auth: VerifiedAuthContext,
     filter: { plantId?: string; equipmentId?: string; status?: 'active' | 'closed'; page?: number; pageSize?: number },
   ) {
-    const plantIds = filter.plantId !== undefined ? [filter.plantId] : this.plantScope(auth)
+    const plantIds = filter.plantId !== undefined ? (this.assertScope(auth, filter.plantId) ? [filter.plantId] : []) : this.plantScope(auth)
     return this.deps.csw.downtimes.list({
       plantIds,
+      enterpriseId: auth.user.enterpriseId,
       equipmentId: filter.equipmentId,
       status: filter.status,
       page: filter.page ?? 1,
@@ -229,14 +229,14 @@ export class CswQueryService {
   // ---------------- 校准标记槽位（CS-10） ----------------
 
   async listCalibrationStates(auth: VerifiedAuthContext, filter: { plantId?: string }) {
-    const plantIds = filter.plantId !== undefined ? [filter.plantId] : this.plantScope(auth)
-    const states = await this.deps.csw.calibration.list({ plantIds })
+    const plantIds = filter.plantId !== undefined ? (this.assertScope(auth, filter.plantId) ? [filter.plantId] : []) : this.plantScope(auth)
+    const states = await this.deps.csw.calibration.list({ plantIds, enterpriseId: auth.user.enterpriseId })
     const today = new Date().toISOString().slice(0, 10)
     return states.map((s) => ({
       ...s,
-      effect: calibrationEffectAt(s as CswCalibrationStateRecord, today),
+      effect: cswCalibrationEffectAt(s as CswCalibrationStateRecord, today),
       flaggedSlotIds: s.affectedSlotIds,
-      note: '等价服务投影（收编请求：T23 spc calibration_record 整合后切数据源）',
+      note: s.source === 'UNKNOWN' ? `UNKNOWN: ${s.sourceIssue}; 未证明校准有效` : '读取 SPC 校准业务记录；按完整 UTC 排程日核验，变更仅提示计划员复核',
     }))
   }
 
@@ -347,13 +347,15 @@ export class CswQueryService {
       equipmentBlocker = '工作中心无活动设备'
     } else {
       const calStates = new Map<string, CswCalibrationStateRecord | null>()
+      const downFractions = new Map<string, number>()
       for (const eq of equipments) {
-        calStates.set(eq.id, await this.deps.csw.calibration.findByEquipment(eq.id))
+        calStates.set(eq.id, await this.deps.csw.calibration.findByEquipment(eq.id, today))
+        downFractions.set(eq.id, cswDowntimeFraction(await this.deps.csw.downtimes.listActiveByEquipment(eq.id, today, today), today))
       }
       const available = equipments.filter((eq) => {
         if (eq.equipmentStatus !== 1) return false
-        const effect = calibrationEffectAt(calStates.get(eq.id) ?? null, today)
-        if (effect === 'invalid' || effect === 'expired') return false
+        const effect = cswCalibrationEffectAt(calStates.get(eq.id) ?? null, today)
+        if (effect === 'invalid' || effect === 'expired' || (downFractions.get(eq.id) ?? 0) >= 1) return false
         return true
       })
       if (available.length === 0) {
@@ -394,10 +396,7 @@ export class CswQueryService {
 
   /** [CS-09] 停机占用比例展示（诊断用途）。 */
   downtimeFractionOf(downtime: CswDowntimeRecord, productionDate: string): number {
-    return downtimeOccupancyFraction(
-      { equipmentId: downtime.equipmentId, from: downtime.fromAt, to: downtime.toAt, kind: downtime.kind },
-      productionDate,
-    )
+    return cswDowntimeFraction([downtime], productionDate)
   }
 
   /** [CS-16] 换型矩阵当前版本（诊断用途）。 */

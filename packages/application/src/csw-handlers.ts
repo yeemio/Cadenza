@@ -10,6 +10,7 @@ import type {
   CswOutsourcingUnitRecord,
   NewCswScheduleVersionItem,
 } from './csw-repositories'
+import { cswCalibrationEffectAt, cswDowntimeFraction } from './csw-repositories'
 import { CswPostingContext, outsourceSendLine, outsourceReturnLine } from './csw-posting'
  
 import {
@@ -33,10 +34,7 @@ import {
   dueDateUrgency,
   assertSoftOverrideComplete,
   assertNoHardConstraintHit,
-  calibrationEffectAt,
   assertCalibrationAllowsNewSlot,
-  flagSlotsForCalibration,
-  downtimeOccupancyFraction,
   effectiveCapacityForDate,
   assertOutsourcingTransition,
   isOutsourcingTerminal,
@@ -75,8 +73,8 @@ import {
  * 命令面（16）：
  * - csw.freeze.create / release：冻结窗口（CS-11/S2；解冻具名权限 csw.unfreeze+理由留痕）；
  * - csw.changeover.publish：换型矩阵新版本（CS-16/S3 append-only）；
- * - csw.calibration.state.set：校准状态等价服务（CS-05③/CS-10；收编请求→T23 spc）；
- * - csw.downtime.register / close：维护停机等价服务（CS-09；关闭触发受影响排程计划评估提示）；
+ * - 校准读 SPC 业务记录；旧 csw.calibration.state.set 显式拒绝影子事实写入；
+ * - 停机读维护业务事件；旧 csw.downtime.register/close 显式拒绝影子事实写入；
  * - csw.reschedule.propose / commit：有限能力可解释重排（CS-12~18/27；提交侧硬约束复检+
  *   软约束确认留痕+人工覆盖审计）；
  * - csw.outsourcing.create/submit/send/receive/inspect/close/recall/dispose：外协状态机
@@ -248,9 +246,7 @@ async function runEngine(
         const key = `${eq.id}|${s.productionDate}`
         dayLoad.set(key, cswAddQty(dayLoad.get(key) ?? '0', s.plannedQty))
       }
-      const cal = await csw.calibration.findByEquipment(eq.id)
-      calibrationCache.set(eq.id, cal)
-      const down = await csw.downtimes.listActiveByEquipment(eq.id)
+      const down = await csw.downtimes.listActiveByEquipment(eq.id, input.today, horizonEnd)
       downtimeCache.set(eq.id, down)
     }
     return list
@@ -367,13 +363,12 @@ async function runEngine(
     }
     const candidates: CandidateEvaluation[] = []
     for (const eq of equipments) {
-      const cal = calibrationCache.get(eq.id) ?? null
       const downtimes = downtimeCache.get(eq.id) ?? []
       for (const date of dates) {
-        const downtimeFraction = downtimes.reduce(
-          (max, d) => Math.max(max, downtimeOccupancyFraction({ equipmentId: d.equipmentId, from: d.fromAt, to: d.toAt, kind: d.kind }, date)),
-          0,
-        )
+        const calKey = `${eq.id}|${date}`
+        if (!calibrationCache.has(calKey)) calibrationCache.set(calKey, await csw.calibration.findByEquipment(eq.id, date, tools.now().toISOString()))
+        const cal = calibrationCache.get(calKey) ?? null
+        const downtimeFraction = cswDowntimeFraction(downtimes, date)
         const capacityRow = await cswTools(tools).scheduling.capacities.findByEquipmentAndDate(eq.id, date)
         const key = `${eq.id}|${date}`
         // 本任务可动槽位视为重排资源：其原占用量从当日负载中剔除
@@ -389,7 +384,7 @@ async function runEngine(
           equipmentId: eq.id,
           equipmentName: eq.name,
           equipmentStatus: eq.equipmentStatus,
-          calibrationEffect: calibrationEffectAt(cal, date),
+          calibrationEffect: cswCalibrationEffectAt(cal, date),
           downtimeFraction,
           frozen: isEquipmentDateFrozen(eq.id, date, freezesActive),
           capacity,
@@ -659,156 +654,18 @@ export function createCswCommandHandlers(): CommandHandler[] {
 
   const calibrationSet: CommandHandler = {
     commandType: 'csw.calibration.state.set',
-    handle: (envelope, ctx, tools) =>
-      run(async () => {
-        const p = envelope.payload as Payload
-        const plantId = str(p, 'plantId')
-        const equipmentId = str(p, 'equipmentId')
-        const calibrationResult = str(p, 'calibrationResult')
-        if (!plantId || !equipmentId || !calibrationResult) {
-          return bad('payload 需要 plantId/equipmentId/calibrationResult')
-        }
-        if (calibrationResult !== 'qualified' && calibrationResult !== 'limited' && calibrationResult !== 'invalid') {
-          return bad('[CS-10] calibrationResult 须为 qualified/limited/invalid（对齐 PE-15 结果枚举）')
-        }
-        await assertWriteScope(tools, plantId)
-        const equipment = await cswTools(tools).scheduling.lookups.findEquipment(equipmentId)
-        if (equipment === null || equipment.enterpriseId !== ctx.enterpriseId) {
-          return bad('设备不存在或不属于本企业', ERROR_CODES.NOT_FOUND)
-        }
-        const validUntil = str(p, 'validUntil') ?? null
-        if (validUntil !== null && !isValidProductionDate(validUntil)) {
-          return bad('[CS-10] validUntil 必须为 YYYY-MM-DD')
-        }
-        const today = todayOf(tools)
-        // [CS-10] 失效设备的已排槽位标记清单（不删除，仅提示）
-        const slots = await cswTools(tools).csw.lookups.listSlotsByEquipmentAndDateRange(equipmentId, today, '2999-12-31')
-        const flagged = flagSlotsForCalibration(
-          slots.map((s) => ({ id: s.id, equipmentId: s.equipmentId, productionDate: s.productionDate })),
-          { equipmentId, calibrationResult, validUntil },
-          today,
-        )
-        const saved = await cswTools(tools).csw.calibration.upsert({
-          enterpriseId: ctx.enterpriseId,
-          plantId,
-          equipmentId,
-          calibrationResult,
-          validUntil,
-          certificateNo: str(p, 'certificateNo') ?? null,
-          affectedSlotIds: flagged.map((f) => f.slotId),
-          updatedBy: ctx.actorLoginName,
-        })
-        await tools.audit.record({
-          actor: ctx.actorLoginName,
-          action: 'csw.calibration.state.set',
-          subjectType: 'csw_equipment_calibration_state',
-          subjectId: saved.id,
-          after: { equipmentId, calibrationResult, validUntil, flaggedSlots: flagged.length },
-          reason: ctx.reason ?? null,
-        })
-        return {
-          status: 'COMMITTED',
-          data: {
-            stateId: saved.id,
-            equipmentId,
-            calibrationResult,
-            validUntil,
-            flaggedSlotIds: flagged.map((f) => f.slotId),
-            note: '等价服务（收编请求：T23 spc calibration_record 落地整合后由 L0 切换数据源）',
-          },
-        }
-      }),
+    handle: async () => bad('[I11] 校准只接受 spc.calibration.record 业务入口；CSW 影子状态不再是事实源'),
   }
-
-  // ---------------- 停机等价服务（CS-09；收编请求→T19 downtime_event） ----------------
-
   const downtimeRegister: CommandHandler = {
     commandType: 'csw.downtime.register',
-    handle: (envelope, ctx, tools) =>
-      run(async () => {
-        const p = envelope.payload as Payload
-        const plantId = str(p, 'plantId')
-        const equipmentId = str(p, 'equipmentId')
-        const fromAt = str(p, 'fromAt')
-        const toAt = str(p, 'toAt')
-        if (!plantId || !equipmentId || !fromAt || !toAt) {
-          return bad('payload 需要 plantId/equipmentId/fromAt/toAt')
-        }
-        await assertWriteScope(tools, plantId)
-        const equipment = await cswTools(tools).scheduling.lookups.findEquipment(equipmentId)
-        if (equipment === null || equipment.enterpriseId !== ctx.enterpriseId) {
-          return bad('设备不存在或不属于本企业', ERROR_CODES.NOT_FOUND)
-        }
-        if (equipment.plantId !== plantId) return bad('[CS-09] 停机设备不属于目标工厂（厂级隔离）')
-        const kind = str(p, 'kind') === 'repair' ? 'repair' : str(p, 'kind') === 'other' ? 'other' : 'planned_maintenance'
-        if (fromAt > toAt) return bad('[CS-09] 停机窗口倒置（fromAt > toAt）')
-        const saved = await cswTools(tools).csw.downtimes.insert({
-          enterpriseId: ctx.enterpriseId,
-          plantId,
-          equipmentId,
-          kind,
-          fromAt,
-          toAt,
-          note: str(p, 'note') ?? null,
-          createdBy: ctx.actorLoginName,
-        })
-        await tools.audit.record({
-          actor: ctx.actorLoginName,
-          action: 'csw.downtime.register',
-          subjectType: 'csw_equipment_downtime',
-          subjectId: saved.id,
-          after: { equipmentId, kind, fromAt, toAt },
-          reason: ctx.reason ?? null,
-        })
-        return { status: 'COMMITTED', data: { downtimeId: saved.id, equipmentId, kind, fromAt, toAt, status: saved.status } }
-      }),
+    handle: async () => bad('[I11] 停机只接受 maintenance.order.create/anomaly-report 业务入口'),
   }
-
   const downtimeClose: CommandHandler = {
     commandType: 'csw.downtime.close',
-    handle: (envelope, ctx, tools) =>
-      run(async () => {
-        const p = envelope.payload as Payload
-        const downtimeId = str(p, 'downtimeId')
-        if (!downtimeId) return bad('payload 需要 downtimeId')
-        const record = await cswTools(tools).csw.downtimes.lockById(downtimeId)
-        if (record === null) return bad('停机记录不存在', ERROR_CODES.NOT_FOUND)
-        if (record.enterpriseId !== ctx.enterpriseId) return bad('停机记录不属于本企业', ERROR_CODES.NOT_FOUND)
-        await assertWriteScope(tools, record.plantId)
-        if (record.status !== 'active') return bad('[CS-09] 停机记录已关闭')
-        // [CS-09] 维修关闭触发受影响排程的计划评估：受影响槽位清单（提示计划员，不自动重排）
-        const impact = await cswTools(tools).csw.lookups.listSlotsByEquipmentAndDateRange(
-          record.equipmentId,
-          record.fromAt.slice(0, 10),
-          record.toAt.slice(0, 10),
-        )
-        const closed = await cswTools(tools).csw.downtimes.close(downtimeId, {
-          closedBy: ctx.actorLoginName,
-          closedAt: tools.now().toISOString(),
-          impactSlotIds: impact.map((s) => s.id),
-        })
-        await tools.audit.record({
-          actor: ctx.actorLoginName,
-          action: 'csw.downtime.close',
-          subjectType: 'csw_equipment_downtime',
-          subjectId: downtimeId,
-          after: { impactedSlots: impact.length },
-          reason: ctx.reason ?? null,
-        })
-        return {
-          status: 'COMMITTED',
-          data: {
-            downtimeId,
-            status: closed.status,
-            impactedSlotIds: closed.impactSlotIds,
-            prompt: '受影响排程清单已生成（提示计划员评估，不自动重排）',
-          },
-        }
-      }),
+    handle: async () => bad('[I11] 复机只接受 maintenance.order.restart 业务入口，排程只读真实停机区间'),
   }
 
-  // ---------------- 重排建议与提交（CS-12~18/CS-04/CS-26/CS-27） ----------------
-
+  // ---------------- 重排建议 / 提交 ----------------
   const reschedulePropose: CommandHandler = {
     commandType: 'csw.reschedule.propose',
     handle: (envelope, ctx, tools) =>
@@ -970,8 +827,9 @@ export function createCswCommandHandlers(): CommandHandler[] {
           if ((item.action === 'new' || item.action === 'move') && item.equipmentId !== null && item.plannedQty !== null) {
             const equipment = await cswTools(tools).scheduling.lookups.findEquipment(item.equipmentId)
             if (equipment === null) return bad(`条目 ${item.itemNo} 的设备不存在`, ERROR_CODES.NOT_FOUND)
-            const cal = await cswTools(tools).csw.calibration.findByEquipment(item.equipmentId)
-            const effect = calibrationEffectAt(cal, item.productionDate ?? todayOf(tools))
+            if (equipment.enterpriseId !== version.enterpriseId || equipment.plantId !== version.plantId || equipment.status !== 'active') return bad('排程设备不属于版本的真实活动工厂', ERROR_CODES.FORBIDDEN_SCOPE)
+            const cal = await cswTools(tools).csw.calibration.findByEquipment(item.equipmentId, item.productionDate ?? todayOf(tools), tools.now().toISOString())
+            const effect = cswCalibrationEffectAt(cal, item.productionDate ?? todayOf(tools))
             const existing = item.slotId !== null ? await cswTools(tools).scheduling.slots.findById(item.slotId) : null
             const existingIdentity: SlotIdentityKey = {
               orderId: item.orderId,
@@ -990,8 +848,13 @@ export function createCswCommandHandlers(): CommandHandler[] {
               newPlannedQty: item.plannedQty,
             })
             // ② 维修（A3-3 同口径：维修且该键无既有槽 → 拒新建正数）
-            if (equipment.equipmentStatus === 2 && sameKey === null) {
+            if (equipment.equipmentStatus === 2 && sameKey === null && cswCmpQty(item.plannedQty, '0') > 0) {
               throw new CswRuleViolation('CS-05', `设备【${equipment.name}】处于维修状态且该槽位尚无排产，不可新建正数排产`)
+            }
+            const targetDate = item.productionDate ?? todayOf(tools)
+            const realDowntime = await cswTools(tools).csw.downtimes.listActiveByEquipment(item.equipmentId, targetDate, targetDate)
+            if (sameKey === null && cswCmpQty(item.plannedQty, '0') > 0 && cswDowntimeFraction(realDowntime, targetDate) >= 1) {
+              throw new CswRuleViolation('CS-09', `设备【${equipment.name}】在 ${targetDate} 有整日真实停机，不可新建正数排产`)
             }
             // [CS-25] 外协占用
             const occupying = await cswTools(tools).csw.outsourcingTasks.listOccupyingByOrderOperation(item.orderOperationId)
@@ -1039,6 +902,26 @@ export function createCswCommandHandlers(): CommandHandler[] {
               'CS-05',
               `工序 ${op.operationName} 计划合计 ${cswAddQty(otherTotal, batchTotal)} 超过下线数量 ${op.offlineQty}（本版本按替换旧值计），禁止提交`,
             )
+          }
+        }
+        // I11: maintenance can change between proposal and commit. Recompute the resulting daily load
+        // against real downtime now; a stale proposal's soft-violation list is not confirmation.
+        const checkedDays = new Set<string>()
+        for (const item of writeItems) {
+          if (!item.equipmentId || !item.productionDate || item.action === 'remove') continue
+          const dayKey = `${item.equipmentId}|${item.productionDate}`
+          if (checkedDays.has(dayKey)) continue
+          checkedDays.add(dayKey)
+          const sameDay = writeItems.filter(i => i.equipmentId === item.equipmentId && i.productionDate === item.productionDate && i.action !== 'remove')
+          const slots = await cswTools(tools).csw.lookups.listSlotsByEquipmentAndDateRange(item.equipmentId, item.productionDate, item.productionDate)
+          const untouched = slots.filter(s => !removedSlotIds.has(s.id) && !replaceIdentities.has([s.orderId,s.orderOperationId,s.operationDefinitionId,s.equipmentId,s.productionDate].join('|')))
+          const resultingLoad = [...untouched,...sameDay].reduce((qty,s) => cswAddQty(qty,s.plannedQty ?? '0'),'0')
+          const row = await cswTools(tools).scheduling.capacities.findByEquipmentAndDate(item.equipmentId,item.productionDate)
+          if (row === null) continue // existing unknown-capacity policy is unchanged
+          const events = await cswTools(tools).csw.downtimes.listActiveByEquipment(item.equipmentId,item.productionDate,item.productionDate)
+          const capacity = effectiveCapacityForDate({capacity:row.capacity,downtimeFraction:cswDowntimeFraction(events,item.productionDate)})
+          if (capacity !== null && cswCmpQty(resultingLoad,capacity)>0) for (const affected of sameDay) {
+            affected.softViolations = [...affected.softViolations,{code:'capacity_overrun',detail:`提交复核：真实停机后产能 ${capacity}，日计划 ${resultingLoad}`}]
           }
         }
         assertNoHardConstraintHit([]) // 总闸占位（上方逐项已断言）
