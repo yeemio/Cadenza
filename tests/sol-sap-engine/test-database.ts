@@ -1,11 +1,14 @@
-/** Only the explicitly selected, assignment-owned local database may be mutated by these suites. */
+let selectedUrl: string | undefined
+/** A separate freshly-created database per isolated Vitest file; never shared, reset or dropped. */
+export async function prepareEngineDatabase(): Promise<string> {
+  if (selectedUrl) throw new Error('Engine database already initialized for this test file')
+  const { createExclusiveDatabase } = await import('../../scripts/delivery/build/exclusive-pg.mjs')
+  const database = await createExclusiveDatabase('engine')
+  selectedUrl = database.url
+  await database.pool.end()
+  return selectedUrl
+}
 export function engineDatabaseUrl(): string {
-  const raw = process.env['CADENZA_SOL_ENGINE_DATABASE_URL']
-  if (!raw) throw new Error('CADENZA_SOL_ENGINE_DATABASE_URL must explicitly select the assignment-owned database')
-  const url = new URL(raw)
-  if (!['127.0.0.1', 'localhost'].includes(url.hostname) || url.port !== '55433' ||
-      !/^\/cadenza_sol_engine_1031(?:_[a-zA-Z0-9_]+)?$/.test(url.pathname)) {
-    throw new Error('Refusing to mutate a database outside SOL-SAP-ENGINE-1031')
-  }
-  return raw
+  if (!selectedUrl) throw new Error('Engine exclusive database was not initialized')
+  return selectedUrl
 }

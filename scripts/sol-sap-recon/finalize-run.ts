@@ -1,3 +1,4 @@
+import { frozenCsvDirectory } from '../../tests/sol-sap-engine/frozen-reference-data'
 import { isDeepStrictEqual } from 'node:util'
 import assert from 'node:assert/strict'
 import { writeFile,appendFile } from 'node:fs/promises'
@@ -5,7 +6,7 @@ import { sha256OfPayload } from '@cadenza/domain'
 import type { VerifiedAuthContext } from '@cadenza/application'
 import { readFrozenCsv } from '../../tests/sol-sap-engine/frozen-reference-data'
 import type { runMain } from './main-run'
-const csv='/Users/yeemio/AI/gitrep/Cadenza/delivery/company-simulation/group-sap-cn-kr-20261029/CBL01G_SAP_CN_KR_20261029/data/csv'
+const csv=frozenCsvDirectory()
 export async function finalizeRun(session:Awaited<ReturnType<typeof runMain>>) {
  const {run,plants,operations,objectUnits,context}=session,pool=run.pool
  const read=(name:string)=>readFrozenCsv(csv,name) as Record<string,string>[]

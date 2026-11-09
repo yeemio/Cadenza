@@ -1,0 +1,25 @@
+{
+  "source": "Owner handoff in this ordinary Chat",
+  "E01": {
+    "status": "CONTROLLER_HAS_ORIGINAL_REVIEW_VISIBILITY_UNRESOLVED",
+    "latestOriginalId": null,
+    "latestOriginalSha256": null,
+    "readInThisChat": false,
+    "rerunOld65": false,
+    "requiredSafeDelta": "Controller may attach its already-held exact candidate, attempt/event ledger index, raw-output digest and acceptance identity; no blanket local-log upload."
+  },
+  "I16": {
+    "initialBuildFailure": "Nested IM was outside workspace and its dist was missing when API initially built",
+    "rawFailureLogAvailableInThisChat": false,
+    "subsequentManualIMThenApiBuild": "Reported in handoff; does not establish a clean locked build",
+    "newAuthorFailureLogs": [
+      "cold-gate.log",
+      "frozen-lock-offline-partial-version.log",
+      "types-recon.log"
+    ]
+  },
+  "E04": {
+    "status": "MISSING_INDEPENDENT_R6_TEXT_AND_RECIPIENT_IDENTITY",
+    "same_family_external_advisory": "NOT_A_SUBSTITUTE"
+  }
+}

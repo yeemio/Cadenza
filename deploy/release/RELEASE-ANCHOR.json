@@ -1,7 +1,7 @@
 {
-  "release_id": "cadenza-dev-20261029-final",
-  "release_date": "2026-10-29",
-  "note": "发行版本锚（DO-05 环境版本锚；R3 更新 2026-10-29，绑定 FINAL 累计候选 0001–0021）。安装/升级脚本按本文件与目标环境比对，规格与版本不匹配时拒绝执行。当前为开发里程碑锚（单机 dev 形态）；现场发行打镜像时补齐 app_image_digest，并以镜像内构建产物与 APP-DELIVERABLE-DIGEST.json 清单核对一致为准。",
+  "release_id": "cadenza-pr13-r0-source-candidate",
+  "release_date": "2026-11-03",
+  "note": "PR13 source candidate on 7b6d3ed98d48e87c6b83cad51b7d57eaee4c617e with the exact accepted PR1 command-idempotency test-file prerequisite. Build/runtime/install/site acceptance is NOT_RUN or pending, not inherited from the 20261029 FINAL milestone. Historical anchor is preserved separately; no merge/deploy/release authorized.",
   "target_environment": {
     "os_family": "darwin/linux",
     "container_runtime": "docker",
@@ -18,40 +18,175 @@
     "app_image_digest": null
   },
   "app_deliverable": {
-    "form": "pnpm build 产物逐包 sha256 清单（11 包：packages/{application,contracts,domain,edge,persistence,ui} + apps/{ai,api,pda,web,worker}）",
-    "manifest": "deploy/release/APP-DELIVERABLE-DIGEST.json",
-    "aggregate_digest": "c0e379c5d1f9c66b356477c51a6fd30351c3fc1215408292334ef61cd3261f64",
-    "dependency_lock": { "path": "pnpm-lock.yaml", "sha256": "a20efc31e2b91a36e2bd09abe8782601775d07a98aaa109a973e09278ad0c407" },
-    "verify_command": "node deploy/release/app-deliverable-digest.mjs --check deploy/release/APP-DELIVERABLE-DIGEST.json"
+    "form": "12 required built entries, including nested IM and co-emitted AI/dsh; source-only integrations/testkit do not claim dist outputs.",
+    "status": "FULL_LOCKED_COLD_BUILD_NOT_RUN",
+    "manifest": null,
+    "aggregate_digest": null,
+    "required_entries": [
+      "packages/contracts/dist/index.js",
+      "packages/domain/dist/index.js",
+      "packages/application/dist/index.js",
+      "packages/persistence/dist/index.js",
+      "packages/edge/dist/index.js",
+      "packages/ui/dist/index.js",
+      "packages/integrations/im/dist/index.js",
+      "apps/api/dist/main.js",
+      "apps/worker/dist/main.js",
+      "apps/ai/dist/apps/ai/src/main.js",
+      "apps/web/dist/index.html",
+      "apps/pda/dist/index.html"
+    ],
+    "dependency_lock": {
+      "path": "pnpm-lock.yaml",
+      "sha256": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7"
+    },
+    "package_manager": "pnpm@11.28.5",
+    "cold_gate_command": "pnpm build:cold",
+    "runtime_entry_command": "pnpm test:delivery-runtime",
+    "generated_entry_manifest": ".cache/delivery/built-entries.json",
+    "historical_dist_manifest": "deploy/release/APP-DELIVERABLE-DIGEST.json",
+    "historical_dist_manifest_is_current_evidence": false
   },
   "config_anchor": {
     "env_example": ".env.example",
     "env_example_sha256": "9d0f86fad283140e82c8ea41970369c91e1bf6c15886cb732051ed5ea777a220",
-    "critical_keys": ["DATABASE_URL", "PORT", "WORKER_INTERVAL_MS", "WORKER_BATCH_LIMIT", "VITE_API_BASE_URL", "AUTH_SESSION_TTL_MINUTES", "AUTH_MAX_LOGIN_FAILURES", "AUTH_LOCK_MINUTES"],
-    "note": "关键项以 .env.example 为配置锚（凭据不入库；生产值按 deploy/config/CONFIG-CHECKLIST.md 第 2 节与密钥管理注入）；备份件内 config.redacted.env 与本锚脱敏口径一致（restore.sh 第 4 步）"
+    "critical_keys": [
+      "DATABASE_URL",
+      "PORT",
+      "WORKER_INTERVAL_MS",
+      "WORKER_BATCH_LIMIT",
+      "VITE_API_BASE_URL",
+      "AUTH_SESSION_TTL_MINUTES",
+      "AUTH_MAX_LOGIN_FAILURES",
+      "AUTH_LOCK_MINUTES"
+    ],
+    "note": "Configuration example identity only. Actual environment values, test grants, backup redaction and site setup are separately controlled; no production credentials enter this anchor."
   },
-  "migration_versions": ["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021"],
+  "migration_versions": [
+    "0001",
+    "0002",
+    "0003",
+    "0004",
+    "0005",
+    "0006",
+    "0007",
+    "0008",
+    "0009",
+    "0010",
+    "0011",
+    "0012",
+    "0013",
+    "0014",
+    "0015",
+    "0016",
+    "0017",
+    "0018",
+    "0019",
+    "0020",
+    "0021",
+    "0022",
+    "0023",
+    "0024",
+    "0025",
+    "0026",
+    "0027",
+    "0028",
+    "0029",
+    "0030",
+    "0031"
+  ],
   "migration_groups": {
     "P1": {
-      "versions": ["0001","0002","0003","0004","0005","0006","0007","0008","0009","0010"],
+      "versions": [
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008",
+        "0009",
+        "0010"
+      ],
       "scope": "平台底座/组织权限/主数据/库存追溯/工艺订单/采购/排程/执行/质量仓储/装箱发运（原 P1 三包接收范围）"
     },
     "P2": {
-      "versions": ["0011","0012","0013","0014","0015","0016"],
+      "versions": [
+        "0011",
+        "0012",
+        "0013",
+        "0014",
+        "0015",
+        "0016"
+      ],
       "scope": "返工/形态转换/逆向/处置/维护/报表指标投影（0016=reporting：shift_snapshot、stock_stat_projection、metric_definition_revision）"
     },
     "P3": {
-      "versions": ["0017","0018","0019","0020"],
+      "versions": [
+        "0017",
+        "0018",
+        "0019",
+        "0020"
+      ],
       "scope": "OT 采集/约束排程/工艺变更与 SPC/成本能源"
     },
     "P4": {
-      "versions": ["0021"],
+      "versions": [
+        "0021"
+      ],
       "scope": "AI 问数（aiquery：能力注册表等，内部五接缝仍单列，见 KNOWN-LIMITATIONS.md）"
+    },
+    "post_20261029_source": {
+      "versions": [
+        "0022",
+        "0023",
+        "0024",
+        "0025",
+        "0026",
+        "0027",
+        "0028",
+        "0029",
+        "0030",
+        "0031"
+      ],
+      "scope": "0022–0031 source registrations are present; no implication of legacy data compatibility, installed schema or business acceptance."
     }
   },
   "recovery_reconcile": {
     "three_way_command": "node scripts/delivery/reconcile-three-way.mjs --database-url URL --out DIR",
-    "projection_rebuild_commands": ["reporting.stock-stat.rebuild", "reporting.shift-snapshot.rebuild", "reporting.metric-definition.register"],
+    "projection_rebuild_commands": [
+      "reporting.stock-stat.rebuild",
+      "reporting.shift-snapshot.rebuild",
+      "reporting.metric-definition.register"
+    ],
     "note": "恢复后三分对账（业务账/接口账/投影）全 PASS 方可恢复对外业务；③投影缺表=ABSENT、缺覆盖或数值差异=FAIL，均阻断（R2，2026-10-29）"
+  },
+  "status": "SOURCE_CANDIDATE_NOT_RELEASED",
+  "source_binding": {
+    "original_pr": 13,
+    "original_branch": "codex/fix-13-reproducible-delivery",
+    "recorded_parent_head": "7b6d3ed98d48e87c6b83cad51b7d57eaee4c617e",
+    "accepted_test_prerequisite_head": "956d9e1bd4192943e1095e03884d4c58435de710",
+    "accepted_test_prerequisite_path": "tests/integration/command-idempotency.spec.ts",
+    "accepted_test_prerequisite_sha256": "63c9c1fcfb460c5bd8d84403a3db6426448d25e9680247d5b10c6d8eb507085c",
+    "candidate_receipt": "docs/review/evidence/pr-13/author-r0.json",
+    "historical_anchor": "docs/review/evidence/pr-13/historical-release-anchor-20261029.json",
+    "historical_anchor_sha256": "f2ca406328fe6ccc364ac11782f71807a4fdf86968af12e75af4bf4c2c1d8b47"
+  },
+  "migration_registry": {
+    "path": "packages/persistence/src/migrations/registry.ts",
+    "sha256": "9859e9a72dae4cf07017a53ff1b41bf9eb073103ed84ae19fff90ed1efedb763",
+    "meaning": "SOURCE_REGISTRATION_ONLY",
+    "legacy_upgrade_status": "UNVERIFIED_E02"
+  },
+  "evidence_boundaries": {
+    "source": "Candidate patch plus exact per-file hashes",
+    "build": "FULL_COLD_NOT_RUN; cached AI/IM compile is not cold acceptance",
+    "mandatory_pg": "0 executed; missing explicit admin URL makes the gate fail",
+    "runtime": "API/worker/AI real-entry checks authored, NOT_RUN",
+    "E01": "Original latest SIM retained by controller; no rerun and no current hash invented",
+    "E04": "Independent R6 raw text and recipient identity still missing",
+    "controller_acceptance": "PENDING"
   }
 }

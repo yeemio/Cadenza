@@ -1,0 +1,508 @@
+{
+  "pr": 13,
+  "revision": "R0",
+  "status": "SOURCE_READY_COLD_BUILD_AND_RUNTIME_BLOCKED_CONTROLLER_PENDING",
+  "repository": "yeemio/Cadenza",
+  "originalBranch": "codex/fix-13-reproducible-delivery",
+  "exactRecordedParentHead": "7b6d3ed98d48e87c6b83cad51b7d57eaee4c617e",
+  "prerequisites": [
+    {
+      "kind": "EXACT_ACCEPTED_PR01_TEST_FILE_ONLY",
+      "head": "956d9e1bd4192943e1095e03884d4c58435de710",
+      "path": "tests/integration/command-idempotency.spec.ts",
+      "sha256": "63c9c1fcfb460c5bd8d84403a3db6426448d25e9680247d5b10c6d8eb507085c",
+      "note": "Carries the accepted CADENZA_REQUIRE_PG failure line before replacing setup; no PR1 product re-review or runtime claim."
+    }
+  ],
+  "sourceAndTestCandidate": {
+    "algorithm": "sha256(sorted path + TAB + file sha256 + LF)",
+    "sha256": "faee16d466852b2c968a2c08040f281d896fbb27c0599a3d650f46acd360e632",
+    "files": [
+      {
+        "path": "apps/ai/build.sh",
+        "sha256": "edf653e3f3c7c875cf440c35739b684a41bd2609cd04b903a5e6f89e8849ab07",
+        "gitMode": "100755",
+        "parentSha256": "cac7282186acf5c58bb592af82256578f1c240a251bca8efd1af432053996569"
+      },
+      {
+        "path": "apps/ai/package.json",
+        "sha256": "0057983217da2c2fbdf4a682ee15942562469d3fab0b99c81d845f68bd913fc5",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "apps/api/package.json",
+        "sha256": "603d3221cffbf2043719371e3195ab857cd3a64a461df6809766903b0889524f",
+        "gitMode": "100644",
+        "parentSha256": "e0e8c35e15a63019f9dcc545749c8b33f9f2de5bd40b1fce73e7f23602682e52"
+      },
+      {
+        "path": "apps/api/src/aiquery/im/im.composition.ts",
+        "sha256": "d4c3cd668c8745f991a545f581d948b56841753b22c41ecc59bc4288ce97c139",
+        "gitMode": "100644",
+        "parentSha256": "2515c675710aff5ea2e3b7a4c949c0782591351d382e82f6f018aaa9d4187ea8"
+      },
+      {
+        "path": "architecture/ROADMAP.md",
+        "sha256": "17391be05ef61302c1f52e4a6beea18708b5b04166fa36e52ab5081720707305",
+        "gitMode": "100644",
+        "parentSha256": "af6aa34370bc6fc906f9f447f53b8d197190c101cd7f9b4f444c3521e288da63"
+      },
+      {
+        "path": "deploy/release/RELEASE-ANCHOR.json",
+        "sha256": "a623ada7491fcd54600f33df97e573b6cb351cff4baaaa19727ad761aa7bbc14",
+        "gitMode": "100644",
+        "parentSha256": "f2ca406328fe6ccc364ac11782f71807a4fdf86968af12e75af4bf4c2c1d8b47"
+      },
+      {
+        "path": "package.json",
+        "sha256": "fd862aaa0146b31119977ed2f20a7f3c06894f1a720d075c0d8e327f0f2bcc32",
+        "gitMode": "100644",
+        "parentSha256": "eabe559e07c24c639d802307bff43503465ae11fb5574b6aa48e2f880a0d574e"
+      },
+      {
+        "path": "packages/integrations/im/package.json",
+        "sha256": "944c387e9c0f3172a9e65bc85aef27ab75669f9952958cfe18f44603d48af214",
+        "gitMode": "100644",
+        "parentSha256": "09d56238742ff6146184ddfa8a649189795f48b81aafc4cdf942b792f36dbfb9"
+      },
+      {
+        "path": "packages/integrations/im/tsconfig.build.json",
+        "sha256": "997736dc91f1a62cd02adaebef079d06ea48205ab0b23ce7aa8c8d23610d1908",
+        "gitMode": "100644",
+        "parentSha256": "534d713a04c6b0dc12019e9208723326b5a119566932763018601e5d0ebad6bd"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "sha256": "3de650cb69c1b57e396d05e1a97f79b57943d361d8abd3390984f916d04dd3c7",
+        "gitMode": "100644",
+        "parentSha256": "a20efc31e2b91a36e2bd09abe8782601775d07a98aaa109a973e09278ad0c407"
+      },
+      {
+        "path": "pnpm-workspace.yaml",
+        "sha256": "4a3af4f3ebb93698662b5973707ca1d26c9249f0fbb9a5a37b254e97bcc622a0",
+        "gitMode": "100644",
+        "parentSha256": "8a81d178bfa7928c4df5855840fd011d04a3bef3a19639d3407cb1c117e3dc1c"
+      },
+      {
+        "path": "scripts/delivery/build/cold-build.mjs",
+        "sha256": "07e7e256e3a8b95eef239dbe8eb0d300198e0fc0dc6e5a4b34c63549d40f85dc",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/build/exclusive-pg.d.mts",
+        "sha256": "a95dbe854909263cc08b351b352928c6fbe6f32b8b025c7a1c7da9632d30cf6a",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/build/exclusive-pg.mjs",
+        "sha256": "9c12a13cf379871c53462e0638b6be1f4c6b264765553fd8e6673b6df5963d7e",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/build/fixture-path.d.mts",
+        "sha256": "49e3970fbfee349c02cf8001175bbb107c19c3cc879e97ed46da38aca23935b4",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/build/fixture-path.mjs",
+        "sha256": "f10b307e61966107b3902eebff2e6b1d95e11b461cc8cbad3f699f126ff088b0",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/build/required-tests.mjs",
+        "sha256": "db445a9f99b33f14b61469874bffbd97e2ef098428ad825d34e0fa81774b95cd",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/delivery/build/verify-built.mjs",
+        "sha256": "67144c96030f17b05dcc576c36b60872e095fb1bb730d09ba103c13b7bb770e1",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "scripts/sol-sap-recon/environment.ts",
+        "sha256": "0be4bed6ab386c5e5ac87431c422879598d5ba324bda8700b3fb82053a0007ec",
+        "gitMode": "100644",
+        "parentSha256": "6a22680a3828e90b89ba535b49847936277b1e877be54378f7409d2cf188c305"
+      },
+      {
+        "path": "scripts/sol-sap-recon/finalize-run.ts",
+        "sha256": "0f5be588247c3c4267b5e951842f157ef397a256e5978641d5c689a4c91c71be",
+        "gitMode": "100644",
+        "parentSha256": "5102a1f411ef23ed3d407290b62dc8e1c2b5704ef9dca0a0c9c60c2b76af50b1"
+      },
+      {
+        "path": "scripts/sol-sap-recon/main-run.ts",
+        "sha256": "52c2b179e9e27e56700662f13319e1f65746131b30fb7b578746e2df0c038787",
+        "gitMode": "100644",
+        "parentSha256": "313805677cf4dce5ca894799e3b2c59cf69765e6f9fb1ab17141725c8d0f8b1b"
+      },
+      {
+        "path": "scripts/sol-sap-recon/prepare-input-plan.py",
+        "sha256": "2730407b5d3610171f3fc2e0b3a9ae06a61c54903151e5273bf8d592b8bf9722",
+        "gitMode": "100644",
+        "parentSha256": "fc518ec20620ab173b90233c690d27ea2e010d921098b06b61c0a978316488b7"
+      },
+      {
+        "path": "scripts/sol-sap-recon/same-run.ts",
+        "sha256": "d93eeadff0f1a0c7e4ee1397da595a31ae33becd62f5c2f54d45641b18dadd71",
+        "gitMode": "100644",
+        "parentSha256": "7fc62f8d17f4ca9dc1670ff64ecc1ca00f55a79726a1745a588691ef199ab0b7"
+      },
+      {
+        "path": "tests/integration/command-idempotency.spec.ts",
+        "sha256": "f3940c3e087adfbd6d7025d6595e7871f718d27414544300aed0a05db9414a1c",
+        "gitMode": "100644",
+        "parentSha256": "63c9c1fcfb460c5bd8d84403a3db6426448d25e9680247d5b10c6d8eb507085c"
+      },
+      {
+        "path": "tests/pr13/delivery.test.mjs",
+        "sha256": "f9edb4d51a8bf20059f0eb53935d9e0a9adfdcf697f2a0199771bd738c951352",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr13/exclusive-pg.spec.ts",
+        "sha256": "18e7d5c771881a13362490527d04bf55c901c8c0ede2128fc7421eb62c5982e0",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr13/runtime.pg.test.mjs",
+        "sha256": "880ac986ff53b2bedae3802788c320878d9b0acdcdac9c49b97e119da7b01c0a",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr13/tsconfig.json",
+        "sha256": "325a9cb9eda03bb71e7d022bb49c4e3599082f9b72226999d40884bcad266745",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr13/tsconfig.recon.json",
+        "sha256": "8ff8e20d20133d8e56c807b1d434f54b88dba58209b5abaef51066d09ad66a3b",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/pr13/vitest.config.ts",
+        "sha256": "286aa3037ecb21788154395b17f06512899009b33591a336efdda9c892bf590e",
+        "gitMode": "100644",
+        "parentSha256": null
+      },
+      {
+        "path": "tests/sol-sap-engine/frozen-reference-data.ts",
+        "sha256": "f0197f515ebedafec10d2ecbe43ff67138e7dd2cb2778457464069f830481a3a",
+        "gitMode": "100644",
+        "parentSha256": "9b05f926ccfe42cc7ca55f974c5eb7b0a6d24e582fabeadf2ad2b2ecca6371f0"
+      },
+      {
+        "path": "tests/sol-sap-engine/r2-custody.spec.ts",
+        "sha256": "edf43cc148125149d7ca2214f114eae496e9ffd844920c473bc719498eef5186",
+        "gitMode": "100644",
+        "parentSha256": "188782311dd2b7adedec5cdb22299517c23fc43107ce125549da2f5a3dfec2f1"
+      },
+      {
+        "path": "tests/sol-sap-engine/r3-digest.spec.ts",
+        "sha256": "1c3150fb052cbfd6ab92554a6f64c56396a9890237967aa3a1b36325873976f5",
+        "gitMode": "100644",
+        "parentSha256": "57c4abb78a2837e543f6a844cc5514877dfcddc1f0666ecc6d4aa50d1d2aad85"
+      },
+      {
+        "path": "tests/sol-sap-engine/r4-rework.spec.ts",
+        "sha256": "0cc64d1970b536befdb287c2bd9e052f427e577785b4383bcbc1924687b6b444",
+        "gitMode": "100644",
+        "parentSha256": "1b53e406166204d38517654dbb3b1ad9b0314e304e00bd64df9a4515915b6a4b"
+      },
+      {
+        "path": "tests/sol-sap-engine/r5-reference-digest.spec.ts",
+        "sha256": "50edb55df814d25325e1f77553880370364b240f4c5a0ece7ba01751de156a27",
+        "gitMode": "100644",
+        "parentSha256": "878e03f90de98ba9e067cca40abdec1493b4b24624d7923733449add74256d5b"
+      },
+      {
+        "path": "tests/sol-sap-engine/s2-s3-regression.spec.ts",
+        "sha256": "5e3a5db7b5505786652845e0fe54bd03c059372a4f446687387daf856658010e",
+        "gitMode": "100644",
+        "parentSha256": "727a4e114f505c11d39e19908aabc6fce44b97dcb9ec2c620122ef99668c7acf"
+      },
+      {
+        "path": "tests/sol-sap-engine/test-database.ts",
+        "sha256": "3682b89f342cd2ba234e5a61fff76db84cbd5707e15d60e4d1a52ed0b5e70970",
+        "gitMode": "100644",
+        "parentSha256": "af79b1b000fa45a1cbd3680c8b26c5d542cc86e24a0b4459f84e64991740b7f1"
+      }
+    ]
+  },
+  "scopeExtensions": {
+    "apps/api/package.json": "Required workspace dependency edge ensures IM builds before API.",
+    "scripts/delivery/build/**": "Cold snapshot/build/entry verification, mandatory result gate and shared fresh-test-DB/fixture helpers.",
+    "tests/pr13/**": "Behavioral gate tests and explicit real-PG/runtime-entry checks."
+  },
+  "commands": [
+    {
+      "name": "unit",
+      "command": [
+        "node",
+        "--test",
+        "tests/pr13/delivery.test.mjs"
+      ],
+      "exitCode": 0,
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0,
+      "log": "unit.log"
+    },
+    {
+      "name": "types-kernel-engine",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr13/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "exitCode": 0,
+      "log": "types-kernel-engine.log"
+    },
+    {
+      "name": "types-recon",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tests/pr13/tsconfig.recon.json",
+        "--pretty",
+        "false"
+      ],
+      "exitCode": 2,
+      "reason": "Missing @nestjs/config and express project dependencies",
+      "log": "types-recon.log"
+    },
+    {
+      "name": "cold-gate",
+      "command": [
+        "node",
+        "scripts/delivery/build/cold-build.mjs",
+        "--offline"
+      ],
+      "exitCode": 1,
+      "reason": "Pinned pnpm 11.28.5 required; available 11.25.0; installation and build NOT_RUN",
+      "log": "cold-gate.log"
+    },
+    {
+      "name": "required-pg-gate",
+      "command": [
+        "node",
+        "scripts/delivery/build/required-tests.mjs",
+        "--suite",
+        "idempotency"
+      ],
+      "exitCode": 1,
+      "businessExecuted": 0,
+      "runtimeSkipped": 0,
+      "reason": "Explicit CADENZA_TEST_ADMIN_URL missing; runner not started",
+      "log": "required-pg-gate.log"
+    },
+    {
+      "name": "workspace-discovery",
+      "command": [
+        "pnpm",
+        "-r",
+        "list",
+        "--depth",
+        "-1",
+        "--json"
+      ],
+      "exitCode": 0,
+      "scope": "15 projects including root, AI and nested IM; pnpm 11.25.0 read-only discovery only",
+      "log": "workspace-discovery.log"
+    },
+    {
+      "name": "ai-compile-partial-cache",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "apps/ai/tsconfig.build.json",
+        "--outDir",
+        ".cache/pr13-ai-dist",
+        "--pretty",
+        "false"
+      ],
+      "exitCode": 0,
+      "log": "ai-compile-partial-cache.log"
+    },
+    {
+      "name": "im-compile-partial-cache",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "packages/integrations/im/tsconfig.build.json",
+        "--outDir",
+        ".cache/pr13-im-dist",
+        "--pretty",
+        "false"
+      ],
+      "exitCode": 0,
+      "log": "im-compile-partial-cache.log"
+    },
+    {
+      "name": "frozen-lock-offline-partial-version",
+      "command": [
+        "pnpm",
+        "install",
+        "--offline",
+        "--lockfile-only",
+        "--frozen-lockfile",
+        "--ignore-scripts"
+      ],
+      "exitCode": 1,
+      "seconds": 1.537,
+      "log": "frozen-lock-offline-partial-version.log"
+    },
+    {
+      "name": "partial-compiled-entry-check",
+      "command": [
+        "node",
+        "--input-type=module",
+        "-e",
+        "import {assertNodeEntry} from './scripts/delivery/build/verify-built.mjs'; import path from 'node:path'; const root=process.cwd(); console.log(JSON.stringify({scope:'PARTIAL_CACHED_COMPILATION_ONLY', aiModules:assertNodeEntry(path.join(root,'.cache/pr13-ai-dist/apps/ai/src/main.js'),root),imModules:assertNodeEntry(path.join(root,'.cache/pr13-im-dist/index.js'),root),serviceStarted:false}));"
+      ],
+      "exitCode": 0,
+      "log": "partial-compiled-entry-check.log"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "scripts/delivery/build/cold-build.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "scripts/delivery/build/exclusive-pg.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "scripts/delivery/build/fixture-path.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "scripts/delivery/build/required-tests.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "scripts/delivery/build/verify-built.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tests/pr13/delivery.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tests/pr13/runtime.pg.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "bash",
+        "-n",
+        "apps/ai/build.sh"
+      ],
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "ast.parse",
+        "scripts/sol-sap-recon/prepare-input-plan.py"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "localTests": {
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "Node gate and synthetic output/report fixtures, including actual CLI refusal; not cold-build or PG business evidence"
+  },
+  "mandatoryPG": {
+    "targetedCases": 6,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "reason": "Missing explicit authorized test admin URL"
+  },
+  "runtimeEntries": {
+    "cases": 3,
+    "executed": 0,
+    "status": "NOT_RUN",
+    "scope": "Built API authenticated core read with AI offline; empty scoped worker batch; AI mock health without DB credentials"
+  },
+  "coldBuild": {
+    "status": "NOT_RUN",
+    "gateExitCode": 1,
+    "pinnedPnpm": "11.28.5",
+    "availablePnpm": "11.25.0",
+    "frozenLockOfflineAttempt": "FAIL_ERR_PNPM_NO_OFFLINE_META",
+    "oldDistUsed": false
+  },
+  "E01": {
+    "old65Rerun": false,
+    "latestOriginalReadHere": false,
+    "originalCustodian": "existing controller",
+    "status": "SAFE_INDEX_ONLY_ORIGINAL_DIGEST_NOT_INVENTED"
+  },
+  "E04": "INDEPENDENT_R6_TEXT_AND_RECIPIENT_IDENTITY_STILL_MISSING",
+  "controllerAccepted": false,
+  "remoteWrite": false
+}

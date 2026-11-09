@@ -1,0 +1,36 @@
+✔ explicit admin URL is portable across authorized hosts and ports (1.337818ms)
+✔ test database selection rejects missing (1.417419ms)
+✔ test database selection rejects shared business database (0.21124ms)
+✔ test database selection rejects query endpoint override (0.849198ms)
+✔ test database selection rejects wrong protocol (0.264251ms)
+✔ test database selection rejects absent user (0.087723ms)
+✔ fresh names are unique PostgreSQL-safe names under the lane prefix (1.68854ms)
+✔ default fixture directory is anchored to repository and independent of cwd (0.53401ms)
+✔ an explicitly missing fixture location fails instead of falling back (2.940468ms)
+✔ explicit existing fixture files can be discovered without a developer home directory (0.651488ms)
+✔ complete passing reports preserve exact individual result counts (1.275324ms)
+✔ exit zero cannot conceal mandatory failed tests (0.274667ms)
+✔ exit zero cannot conceal mandatory pending tests (0.169588ms)
+✔ exit zero cannot conceal mandatory skipped tests (0.20446ms)
+✔ exit zero cannot conceal mandatory disabled tests (0.339885ms)
+✔ exit zero cannot conceal mandatory todo tests (0.19763ms)
+✔ exit zero cannot conceal mandatory unrecognized tests (8.973105ms)
+✔ zero tests and absent mandatory file cannot pass (0.385014ms)
+✔ missing, duplicated and unexpected reports fail the gate (0.304471ms)
+✔ report counter disagreement and nonzero process status fail (0.11855ms)
+✔ failed beforeAll and unhandled errors fail even with passing assertion statuses (0.108765ms)
+✔ actual mandatory CLI without PG exits nonzero and records zero execution (124.856666ms)
+✔ cold snapshots exclude existing dist, dependencies, caches and local env secrets (0.258232ms)
+✔ actual cold gate rejects a nonmatching package manager before installation or build (10.386158ms)
+✔ compiled entry checks find missing relative imports without executing the entry (451.537181ms)
+✔ syntax-invalid compiled JavaScript is refused (134.922648ms)
+✔ built manifest includes nested IM and AI and refuses a missing IM entry (1341.871207ms)
+✔ missing Web/PDA assets are refused and output digests change with content (2080.31551ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4340.538232

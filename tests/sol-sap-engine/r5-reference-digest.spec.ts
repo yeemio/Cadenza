@@ -1,3 +1,4 @@
+import { frozenCsvDirectory } from './frozen-reference-data'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
@@ -5,10 +6,10 @@ import type pg from 'pg'
 import { assertSapSimReferenceData, sha256OfSapSimReferenceData, type SapSimReferenceData } from '@cadenza/domain'
 import { SapSimEngineService, SapSimService } from '@cadenza/application'
 import { createPool, createPgSapSimFactsRepositories, createPgSapSimRepositories, PgSapSimOutboxReceiptAdapter, migrateUp, migrations } from '@cadenza/persistence'
-import { engineDatabaseUrl } from './test-database'
+import { engineDatabaseUrl, prepareEngineDatabase } from './test-database'
 import { loadFrozenReferenceData, readFrozenCsv } from './frozen-reference-data'
 
-const csvDirectory = '/Users/yeemio/AI/gitrep/Cadenza/delivery/company-simulation/group-sap-cn-kr-20261029/CBL01G_SAP_CN_KR_20261029/data/csv'
+const csvDirectory = frozenCsvDirectory()
 const evidenceDirectory = resolve(process.cwd(), 'delivery/sol-rework-20261031/sap-engine/r5-reference-digest')
 const prefix = `SOL-R5-REFERENCE-${Date.now()}`
 const observations: unknown[] = []
@@ -53,7 +54,7 @@ async function factSnapshot() {
 }
 
 beforeAll(async () => {
-  pool = createPool(engineDatabaseUrl(), { max: 4 })
+  pool = createPool(await prepareEngineDatabase(), { max: 4 })
   await pool.query('SELECT 1')
   await migrateUp(pool, migrations)
   const repos = createPgSapSimRepositories(pool)

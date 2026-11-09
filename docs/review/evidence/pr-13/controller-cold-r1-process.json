@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "scripts/delivery/build/cold-build.mjs"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T04:01:54.207903+00:00",
+  "completedAt": "2026-11-04T04:03:23.652910+00:00",
+  "sourceCommit": "f282104534f6373423dd42ef6d6b9449613ba96c",
+  "logSha256": "b29cb2f56dd240718a66cf33eec6f37f47d40439bc4bb2d9db8786b57061dd46",
+  "receiptFile": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/cold-build-receipt.json",
+  "receiptSha256": "d2457ade00bb63469c552b7a08188853ca06c839a711ac2fbbca29834e6370c4",
+  "reason": "Prior cold R0 lacked offline supply-chain metadata; normal frozen-lock network install retains exact pin and supply-chain policy, no product/lock change."
+}

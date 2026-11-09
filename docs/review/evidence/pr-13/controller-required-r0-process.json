@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "scripts/delivery/build/required-tests.mjs",
+    "--suite",
+    "idempotency"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-11-04T04:05:39.066353+00:00",
+  "completedAt": "2026-11-04T04:05:42.693772+00:00",
+  "sourceCommit": "f282104534f6373423dd42ef6d6b9449613ba96c",
+  "coldSnapshot": "/var/folders/rf/5yxxrmg96g366djlhy23bh840000gn/T/cadenza-cold-build-4pbhbx/source",
+  "logSha256": "80d3191a79c2f5b3ce6ffaab6603bf8fb173840f537b950e78bc4aaeadd25b20",
+  "databaseInstance": "42d3d6f8236bc2b30e4b781182a18c37b64b852f1707f761602f4ef071e255ad",
+  "databaseCreation": "fresh cadenza_pr13_ UUID DBs only, preserve all"
+}

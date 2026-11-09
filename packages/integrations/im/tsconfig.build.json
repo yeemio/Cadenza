@@ -5,7 +5,10 @@
     "declaration": true,
     "outDir": "dist",
     "rootDir": "src",
-    "paths": {}
+    "paths": {},
+    "noEmitOnError": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

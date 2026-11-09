@@ -5,13 +5,17 @@ No DB, HTTP, subprocess, expected balance reads, or historical driver imports.
 import csv
 import hashlib
 import json
+import os
 from collections import Counter
 from pathlib import Path
 
-SOURCE = Path('/Users/yeemio/AI/gitrep/Cadenza/delivery/company-simulation/group-sap-cn-kr-20261029/CBL01G_SAP_CN_KR_20261029')
+ROOT = Path(__file__).resolve().parents[2]
+CSV = Path(os.environ.get('CADENZA_SIM_CSV_DIR', str(ROOT / 'delivery/company-simulation/group-sap-cn-kr-20261029/CBL01G_SAP_CN_KR_20261029/data/csv')))
+if not CSV.is_absolute() or not CSV.is_dir():
+    raise RuntimeError('Missing frozen CSV directory; use repository fixtures or an absolute CADENZA_SIM_CSV_DIR')
 OUT = Path(__file__).resolve().parents[2] / 'delivery/sol-rework-20261031/sap-recon/input-plan.json'
 def rows(name):
-    with (SOURCE / 'data/csv' / name).open(encoding='utf-8-sig', newline='') as f:
+    with (CSV / name).open(encoding='utf-8-sig', newline='') as f:
         return list(csv.DictReader(f))
 def select(row, names):
     return {name: row[name] for name in names if name in row}
@@ -26,11 +30,11 @@ selected = [select(r, ['id', 'object_id', 'action', 'delta', 'unit', 'document_i
 inputs = ['sap_reconciliation.csv', 'stock_objects.csv', 'purchase_batches.csv', 'raw_issues.csv', 'report_axes.csv', 'inventory_events.csv', 'feeds.csv', 'messages.csv', 'message_attempts.csv', 'transfer_lines.csv']
 plan = {
     'assignment': 'SOL-SAP-RECON-1031', 'status': 'PREPARED_NOT_EXECUTED', 'actual_connection': False,
-    'source': str(SOURCE), 'side_effects': ['writes this plan only'],
+    'source_csv': str(CSV), 'side_effects': ['writes this plan only'],
     'prohibitions': ['No expected balances as inputs', 'No oracle DB writes', 'No old run state import', 'No shared database reset'],
     'denominators': {'prd': 45, 'negative': 18, 'branches': 12, 'messages': 56, 'attempts': 65, 'reconciliation_objects': 21},
     'observed_input_counts': {'messages': len(rows('messages.csv')), 'attempts': len(rows('message_attempts.csv')), 'targets': len(targets)},
-    'source_sha256': {name: hashlib.sha256((SOURCE / 'data/csv' / name).read_bytes()).hexdigest() for name in inputs},
+    'source_sha256': {name: hashlib.sha256((CSV / name).read_bytes()).hexdigest() for name in inputs},
     'targets_identity_only': targets, 'object_identities': stock_objects,
     'purchase_receipt_inputs': receipts, 'raw_issue_inputs': issues, 'report_output_inputs': outputs,
     'operation_events_without_before_after': selected,

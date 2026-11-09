@@ -1,0 +1,723 @@
+{
+  "recordedParentHead": "7b6d3ed98d48e87c6b83cad51b7d57eaee4c617e",
+  "candidateReceipt": "author-r0.json",
+  "historicalTaskStatesPreserved": true,
+  "matrixMeaning": "Source-presence and remediation ownership, not a new repository audit or a completion percentage",
+  "tasks": [
+    {
+      "id": "T00",
+      "task": "本次完整产品与架构规划",
+      "scenarioReferencesAsPlanned": "来源覆盖、问题归并、架构、阶段和验收入口齐套",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "architecture/ROADMAP.md",
+          "status": "SOURCE_PRESENT",
+          "sha256": "17391be05ef61302c1f52e4a6beea18708b5b04166fa36e52ab5081720707305"
+        }
+      ],
+      "relevantOriginalPRs": [],
+      "acceptance": "PLANNING_ONLY",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T01",
+      "task": "G0 领域补充 PRD、版本化规则与样本工厂",
+      "scenarioReferencesAsPlanned": "A01、A03—A06、A09 的字段、状态、数量例子与拒绝条件能逐项判定",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "architecture/PRODUCT_CONTRACT.md",
+          "status": "SOURCE_PRESENT",
+          "sha256": "dc4f067acf5bda9a5d6845e621ab4532a70d17f6a0558dc53872925f6907e58d"
+        }
+      ],
+      "relevantOriginalPRs": [],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T02",
+      "task": "G0 ERP／SAP／DC 字段主权与接口合同",
+      "scenarioReferencesAsPlanned": "每个接口有组织路由、样例、去重、修订、未知结果和对账规则",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/sap-sim-service.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "9e5c94580a63800b0d13f30dbf98ebb0364cdd9b62713c7188b142e0b3fd4efa"
+        }
+      ],
+      "relevantOriginalPRs": [],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T03",
+      "task": "G1 平台组合根、组织／工厂与岗位权限",
+      "scenarioReferencesAsPlanned": "A01、A14；API、导出、附件、后台任务均执行数据范围",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "apps/api/src/app.module.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "0d63ef318eafbc575696e7ae5941b3bd1bced5f7ea835fc2c203fea99758e430"
+        },
+        {
+          "path": "packages/application/src/org-queries.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "3a0f2f0a912d0a0fc77c599c98405c7ced9d4f20580060fe0acbba4f26f1283f"
+        }
+      ],
+      "relevantOriginalPRs": [
+        2,
+        7
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T04",
+      "task": "G1 物料单位、工厂／设备／仓储主数据",
+      "scenarioReferencesAsPlanned": "主数据引用安全、单位版本、ERP 映射和库位识别；A01",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/masterdata-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "9b298edea8383eb707810171f63bfd2a8e6c944b3a102677a1a4d22d0aa153ce"
+        }
+      ],
+      "relevantOriginalPRs": [],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T05",
+      "task": "G1 工艺、BOM、路线与订单版本快照",
+      "scenarioReferencesAsPlanned": "已发布版本冻结，芯倍数／绞合例子可复算，在制变更可追溯；A01、A03",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/process-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "774d20ad5d996107e7753cf25368696ec81c10c518f34465f4fa2adef62204d6"
+        }
+      ],
+      "relevantOriginalPRs": [],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T06",
+      "task": "G1 库存流水、批次／轴段身份及谱系内核",
+      "scenarioReferencesAsPlanned": "A04、A05、A07 的最小数量事务、冲突和重复提交保证",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/inventory-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "66ddeed81783c9068a62976cb216a6a882097a4792aa2f8a7ea5b3fc7f7f6287"
+        },
+        {
+          "path": "packages/persistence/src/pg-command-bus.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "ed71cd29122d8be11c4125dc91550487b26dbd0e331f9b7e33fb30decdc4894e"
+        }
+      ],
+      "relevantOriginalPRs": [
+        1,
+        2,
+        3
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": "PR1 accepted local source/isolated PG boundary, not the entire task"
+    },
+    {
+      "id": "T07",
+      "task": "G1 Outbox／Inbox、接口运维、扫码打印与附件",
+      "scenarioReferencesAsPlanned": "A11；失败可恢复、打印状态真实、附件受权、接口去重",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "apps/worker/src/main.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "d91971533474412dbca094532d87b095e032748490f7531e72224ff940bea022"
+        }
+      ],
+      "relevantOriginalPRs": [
+        7
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T08",
+      "task": "G2 采购收货、批次、明细、来料检验及价格复核",
+      "scenarioReferencesAsPlanned": "A02；免检／质检／复检／退货与主账一致",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/purchase-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "afbbe643571601aef981aa563e7187f3596c96cb34fecd07c77fdea4a3c29848"
+        }
+      ],
+      "relevantOriginalPRs": [
+        2,
+        3,
+        6
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T09",
+      "task": "G2 订单、订单／设备排程与班次任务",
+      "scenarioReferencesAsPlanned": "A03；两个排程视图一致，产能与前置条件可解释",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/scheduling-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "fd671e55fe097c0f6b830c100653a6c94fbec98fd4420b98fe20e72817743b85"
+        }
+      ],
+      "relevantOriginalPRs": [
+        8,
+        9,
+        10
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T10",
+      "task": "G2 三入口报工、续作、审核和生效数量",
+      "scenarioReferencesAsPlanned": "A04、A11；K01—K22 中适用问题关闭，同工序规则不分叉",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/execution-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "71ec92597cfb1fd86fae6156fa0434ba00151b2d415a4f362fd3c42777b3f48d"
+        }
+      ],
+      "relevantOriginalPRs": [
+        1,
+        2,
+        8
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": "PR1 accepted local source/isolated PG boundary, not the entire task"
+    },
+    {
+      "id": "T11",
+      "task": "G2 原料领退耗、单独投料与工序平衡",
+      "scenarioReferencesAsPlanned": "A04、A12；实时余量、跨单限制、原料与半成品去向明确",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/execution-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "71ec92597cfb1fd86fae6156fa0434ba00151b2d415a4f362fd3c42777b3f48d"
+        }
+      ],
+      "relevantOriginalPRs": [
+        1,
+        2,
+        3,
+        8
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": "PR1 accepted local source/isolated PG boundary, not the entire task"
+    },
+    {
+      "id": "T12",
+      "task": "G2 最小过程／成品检验与质量放行",
+      "scenarioReferencesAsPlanned": "A06；待检／不合格／存疑不能进入可用发运，检验规范版本化",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/quality-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "d63de0e87a4ec2dcfe25e51d6df0e0de9437b29bf4aa6d062d7320ff95dcb25d"
+        }
+      ],
+      "relevantOriginalPRs": [
+        2,
+        3
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T13",
+      "task": "G2 待入库、成品入库、移库与调拨主链",
+      "scenarioReferencesAsPlanned": "A07；两入库入口一份账，在途和接收分开",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/warehousing-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "02d4c4146b2104f0490136980e84fd52aa8f6749ff77f94b2e2b9ad774712194"
+        }
+      ],
+      "relevantOriginalPRs": [
+        2,
+        3,
+        6,
+        8
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T14",
+      "task": "G2 分段装箱、备货、成品发运与回传",
+      "scenarioReferencesAsPlanned": "A08；实际轴、件数、长度与合同匹配，两个外发任务独立",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/shipping-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "9c1fa62033d400a759716aad9536d73b6016ea2a8e6a22c7000a4e7f27e49d7d"
+        }
+      ],
+      "relevantOriginalPRs": [
+        2,
+        3,
+        4
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T15",
+      "task": "G3 倒轴、分托解绑、轴号修正、轴码退役",
+      "scenarioReferencesAsPlanned": "A05、A11；守恒、谱系、冲突分配和下游保护",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/rework-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "d63067d76b7daf38b51b25e9009c252c93e48779ef03b7a62237a2158cd01439"
+        }
+      ],
+      "relevantOriginalPRs": [
+        1,
+        2
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": "PR1 accepted local source/isolated PG boundary, not the entire task"
+    },
+    {
+      "id": "T16",
+      "task": "G3 订单／库存两种形态转换与恢复",
+      "scenarioReferencesAsPlanned": "A09；外部超时、本地失败和重试顺序逐类有证据",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/conversion-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "065f81d4dc507535898e609c438e028e717df2ec8f0a4e1f93f91494d49c533b"
+        }
+      ],
+      "relevantOriginalPRs": [
+        2,
+        7
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T17",
+      "task": "G3 全量仓储异常、盘点、退回、冲销、客户所有物与载具归还",
+      "scenarioReferencesAsPlanned": "A07、A11；差异走调整事实，所有权与保管分开，跨厂签收和下游引用有效",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/reverse-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "e1543920d5753a8e53a6e8a0bfee92bf76014ac96c9dc3461a2d665c5c3fb6b4"
+        }
+      ],
+      "relevantOriginalPRs": [
+        2,
+        6
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T18",
+      "task": "G3 质量处置、返工报废、证书与客诉召回",
+      "scenarioReferencesAsPlanned": "A06、A12；来料到发运质量链闭合，处置与原结论分开",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/disposition-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "204a45c444fe28302cf98984ca6138c96340b77d8894849b8ed088e77e41671e"
+        }
+      ],
+      "relevantOriginalPRs": [
+        2,
+        3
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T19",
+      "task": "G3 点检、保养、维修、备件与复机",
+      "scenarioReferencesAsPlanned": "A10；维护闭环影响能力，备件消耗可对账",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/maintenance-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "421299cad7c154f1d52a9a4f9e30c717d8b7c0a7564de9522be7cb26bbe4a666"
+        }
+      ],
+      "relevantOriginalPRs": [
+        10
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T20",
+      "task": "G3 全量业务查询、班次报表、核心指标",
+      "scenarioReferencesAsPlanned": "A12；统计数值与原单据核对，分母、单位和延迟明确",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/reporting-queries.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "acca5f52acebf7a77a82269cd9340da198d5e6a4c8f7abe21281da5acd03bb4f"
+        }
+      ],
+      "relevantOriginalPRs": [
+        11
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T21",
+      "task": "G4 设备与仪器采集、边缘缓冲、工序关联",
+      "scenarioReferencesAsPlanned": "A10—A12；实际硬件采集，断网补传不重复，坏点和时钟偏差可见",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/edge/src/index.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "3210a5e74924d7ae9034754cab4ff1fbeef90cbd62b29c04da4bfaa791270d02"
+        }
+      ],
+      "relevantOriginalPRs": [
+        14
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": "PR14 accepted local gateway simulator boundary, not actual devices/site"
+    },
+    {
+      "id": "T22",
+      "task": "G4 物料／工艺／设备能力约束排程与外协工序协同",
+      "scenarioReferencesAsPlanned": "A03、A07；冻结、换型、停机、交期、外协交接和人工调整可解释",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/csw-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "325165280b235fe7b40c6f2f947125289ea364ae0cae53de57c7a415e1523bc6"
+        }
+      ],
+      "relevantOriginalPRs": [
+        9,
+        10
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T23",
+      "task": "G4 工艺变更、过程统计、工具寿命与校准",
+      "scenarioReferencesAsPlanned": "A06、A10；关键参数与有效规范绑定，仪器失准影响范围可查",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/spc-handlers.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "63a97f7d9076aef44c514afffb00a108eb355c8b29950b8487076c2796a46433"
+        }
+      ],
+      "relevantOriginalPRs": [
+        10
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T24",
+      "task": "G4 材料、工时、能源与制造成本归集",
+      "scenarioReferencesAsPlanned": "A12；实测和估算分开，分摊有版本，数量可与财务接口核对",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "packages/application/src/cost-queries.ts",
+          "status": "SOURCE_PRESENT",
+          "sha256": "b29cce732eba09cb95dbbc93ba5f7f17f71e58f108946403f245ecfb2ef9027c"
+        }
+      ],
+      "relevantOriginalPRs": [
+        11
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T25",
+      "task": "G5 匿名演示、期初导入、岗位剧本与培训",
+      "scenarioReferencesAsPlanned": "A13；导入校验、拒绝清单、差异解释，角色剧本可执行",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "architecture/PRODUCT_CONTRACT.md",
+          "status": "SOURCE_PRESENT",
+          "sha256": "dc4f067acf5bda9a5d6845e621ab4532a70d17f6a0558dc53872925f6907e58d"
+        }
+      ],
+      "relevantOriginalPRs": [
+        13
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T26",
+      "task": "G5 干净安装、升级、备份恢复和运行手册",
+      "scenarioReferencesAsPlanned": "A13、A14；准确版本安装及恢复后业务对账、运维职责落实",
+      "implementation": "SOURCE_PRESENT_NOT_ACCEPTED",
+      "sourceEvidence": [
+        {
+          "path": "scripts/delivery/build/cold-build.mjs",
+          "status": "SOURCE_PRESENT",
+          "sha256": "07e7e256e3a8b95eef239dbe8eb0d300198e0fc0dc6e5a4b34c63549d40f85dc"
+        }
+      ],
+      "relevantOriginalPRs": [
+        12,
+        13
+      ],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T27",
+      "task": "G5 首厂影子试点、切换与业务接受",
+      "scenarioReferencesAsPlanned": "A01—A14 的约定现场范围接受，失败与人工绕行已处置",
+      "implementation": "UNVERIFIED",
+      "sourceEvidence": [],
+      "relevantOriginalPRs": [],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    },
+    {
+      "id": "T28",
+      "task": "G6 第二工厂与行业产品化交付",
+      "scenarioReferencesAsPlanned": "A14；多厂权限与交接，配置差异和标准包可复用",
+      "implementation": "UNVERIFIED",
+      "sourceEvidence": [],
+      "relevantOriginalPRs": [],
+      "acceptance": "NOT_ACCEPTED_AS_FULL_TASK",
+      "limitedAcceptedEvidence": null
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "A01",
+      "scenario": "组织／物料／工艺与订单准备",
+      "relevantOriginalPRs": [
+        2,
+        9
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A02",
+      "scenario": "采购订单→分批收货→来料检验→上架／退货",
+      "relevantOriginalPRs": [
+        2,
+        3,
+        6
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A03",
+      "scenario": "订单工序展开→设备排程→班次执行",
+      "relevantOriginalPRs": [
+        8,
+        9,
+        10
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A04",
+      "scenario": "领料／投料→工序产出→审核→流转",
+      "relevantOriginalPRs": [
+        1,
+        2,
+        3,
+        8
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A05",
+      "scenario": "倒轴／分盘→组托解绑→客户轴段修正",
+      "relevantOriginalPRs": [
+        1,
+        2
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A06",
+      "scenario": "过程检验→隔离→处置→成品检验→放行",
+      "relevantOriginalPRs": [
+        2,
+        3,
+        10
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A07",
+      "scenario": "待入库→成品入库→移库→调拨在途→收货",
+      "relevantOriginalPRs": [
+        2,
+        3,
+        6,
+        8
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A08",
+      "scenario": "合同分段／PL→打包备货→确认出库→外部回传",
+      "relevantOriginalPRs": [
+        2,
+        3,
+        4,
+        7
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A09",
+      "scenario": "订单归属转换及库存归属转换",
+      "relevantOriginalPRs": [
+        2,
+        7
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A10",
+      "scenario": "点检／故障→维修→复机→排产恢复",
+      "relevantOriginalPRs": [
+        10,
+        11,
+        14
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A11",
+      "scenario": "撤销、纠错、接口故障与弱网恢复",
+      "relevantOriginalPRs": [
+        1,
+        5,
+        7,
+        8,
+        12,
+        14
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A12",
+      "scenario": "正反向追溯、班次统计、能耗与成本",
+      "relevantOriginalPRs": [
+        11
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A13",
+      "scenario": "干净安装、迁移对账、恢复与岗位试点",
+      "relevantOriginalPRs": [
+        12,
+        13
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    },
+    {
+      "id": "A14",
+      "scenario": "多组织／多工厂运行及权限验证",
+      "relevantOriginalPRs": [
+        2,
+        7,
+        9
+      ],
+      "fullScenarioAcceptance": "UNVERIFIED",
+      "sourceContract": "architecture/PRODUCT_CONTRACT.md",
+      "siteEvidence": "NOT_PROVIDED",
+      "note": "Individual PR evidence is limited to its own exact candidate and boundary; it is not whole-scenario acceptance."
+    }
+  ],
+  "independentCandidates": "PR02–PR12 candidates are separately bound; their code/evidence is not silently carried into PR13."
+}
