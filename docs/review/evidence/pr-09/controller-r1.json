@@ -1,0 +1,53 @@
+{
+  "pr": 9,
+  "revision": "AUTHOR_R1_CONTROLLER_R1",
+  "decision": "ACCEPT",
+  "at": "2026-11-04T09:13:51.012412+00:00",
+  "parentHead": "9d261c274291e4aa17c31200e84572f81acf2e63",
+  "sourceCommit": "a5779edb4dbec8c73edff6f30e9f3ec3e1d44c2f",
+  "sourceAndTestFingerprint": "30533aac3558acea38fda9c862e574334c7c1c53e594f28c1a64b37aa4812c7a",
+  "patchSha256": "2fac73cc01b5a6c9ace3f6defbe735df810a610a84ed2c48eefb93eaed2958ef",
+  "fullPostimagesMatched": 8,
+  "all16ScenarioAndAssertionBytesUnchanged": true,
+  "productsAndPrerequisitesUnchanged": true,
+  "freshPg": {
+    "passed": 16,
+    "failed": 0,
+    "runtimeSkipped": 0,
+    "database": "cadenza_pr09_kitting_r1_20261104"
+  },
+  "freshTestSourceTypes": "PASS",
+  "reusedProductTypes": [
+    "application",
+    "persistence"
+  ],
+  "reusedPureRules": 28,
+  "ownEffectiveUnique": 44,
+  "actualStructuredCalculationSamples": 1,
+  "requiredAvailableShortage": [
+    "10.0000",
+    "6.0000",
+    "4.0000"
+  ],
+  "realCoverage": [
+    "Authorized missing order and missing BOM/basis are explicit states",
+    "Actual shortage/complete and duplicate components share inventory once",
+    "Business hold, quality hold and pending stock excluded independently",
+    "Active reservation deducted once and expiry releases deduction",
+    "Material unit conversion and retired frozen referenced conversion retained",
+    "Unknown conversion is UNCONVERTIBLE",
+    "Foreign factory stock excluded and read permission cannot write",
+    "Current-settings BOM conflict is explicit",
+    "Enterprise-wide list remains enterprise bound",
+    "Same-key concurrent checks persist one result and no new stock transactions"
+  ],
+  "regressionDecision": "Exact unchanged accepted PR2/PR3 prerequisites and group-only products; no unrelated PG rerun",
+  "preservedOriginalEvidence": "R0 static NOT_RUN and all historical type/environment evidence retained; no original PG failure was claimed",
+  "limits": [
+    "Point-in-time FULL_ORDER_BOM vs CURRENT_FACTORY_UNRESERVED, not remaining demand or a reservation",
+    "BOM output basis explicit server configuration; real installed-site basis not proved",
+    "No real external or production calls"
+  ],
+  "controllerDidNotEditAuthorCode": true,
+  "automaticMergeReleaseDeploy": false
+}

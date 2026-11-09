@@ -1,0 +1,21 @@
+{
+  "status": "PASS_SYNTAX_ONLY",
+  "node": "v24.22.1",
+  "sourcePath": "tests/pr09/kitting.pg.spec.ts",
+  "sourceSha256": "a304980932f96cd0acff1d65592111de8a21a2ae0eb643d0236477d8c1abd622",
+  "transformedBytes": 16804,
+  "parserCommand": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "--input-type=module",
+    "--check"
+  ],
+  "parserExitCode": 0,
+  "parserStdout": "",
+  "parserStderr": "",
+  "importResolutionRun": false,
+  "typeCheckerInvoked": false,
+  "businessRunnerInvoked": false,
+  "pgInvoked": false
+}
+(node:7) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

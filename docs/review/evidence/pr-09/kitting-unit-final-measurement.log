@@ -1,0 +1,37 @@
+
+ RUN  v3.2.7 /workspace/scratch/08a70e3a26dd/cadenza-continuation/pr9-work
+
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > computes shortage from bound versions and fixed-point quantities 5ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > exactly enough stock is KIT_COMPLETE, not an empty calculation 1ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > duplicate BOM component lines aggregate demand before comparing availability 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > businessHeld cannot count as available 1ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > qualityHeld cannot count as available 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > pending_inspection is unavailable 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > unqualified is unavailable 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > suspect is unavailable 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > active reservation is subtracted once per unit, expiry uses snapshot instant 1ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > no stock is SHORTAGE with positive demand 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > missing order is distinct from zero shortage 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > missingBom is MISSING_DATA 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > missingBasis is MISSING_DATA 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > emptyBom is MISSING_DATA 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > versionConflict is MISSING_DATA 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > wrongMaterial is MISSING_DATA 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > unpublished is MISSING_DATA 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > frozen retired BOM referenced by existing order remains usable 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > converts stock quantity from a unique actual material conversion 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > missing measurement is UNCONVERTIBLE 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > ambiguous measurement is UNCONVERTIBLE 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > zero measurement is UNCONVERTIBLE 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > mixedBalance measurement is UNCONVERTIBLE 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > uses a bound frozen stock conversion instead of an unrelated current revision 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > missing frozen non-base conversion does not fall back to a new active revision 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > already converted base-unit balance is not multiplied a second time 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > rounds fractional demand up; never rounds a tiny shortage down to complete 0ms
+ ✓ tests/pr09/kitting.unit.spec.ts > PR09 full-order BOM requirement vs current factory available stock (pure fixtures) > uses BigInt arithmetic beyond floating point integer precision 0ms
+
+ Test Files  1 passed (1)
+      Tests  28 passed (28)
+   Start at  00:18:15
+   Duration  2.74s (transform 1.59s, setup 0ms, collect 2.41s, tests 13ms, environment 0ms, prepare 103ms)
+

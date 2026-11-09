@@ -1,0 +1,134 @@
+{
+  "status": "PASS_STATIC_PRESERVATION_ONLY",
+  "exactParentHead": "9d261c274291e4aa17c31200e84572f81acf2e63",
+  "preimageSha256": "11645af5ca7de0c0db4baa98183a9310aca8915d22c3fccd8a45a20151c8976c",
+  "candidateTestSha256": "a304980932f96cd0acff1d65592111de8a21a2ae0eb643d0236477d8c1abd622",
+  "candidateTestBytes": 13319,
+  "exactTextEdits": [
+    {
+      "name": "legal foreign warehouse and derived NORMAL location constants",
+      "before": "const bases:Record<string,{outputQuantity:string;outputUom:string}>={}\n",
+      "after": "const bases:Record<string,{outputQuantity:string;outputUom:string}>={}\nconst WH_B_CODE='9309',LOC_B_CODE=`${WH_B_CODE}0001`\n"
+    },
+    {
+      "name": "stock helper references the actual foreign NORMAL location code",
+      "before": "locationCode:options.foreign?'P09-B':LOC_LINE_SEMI_CODE",
+      "after": "locationCode:options.foreign?LOC_B_CODE:LOC_LINE_SEMI_CODE"
+    },
+    {
+      "name": "same-factory seed department and required warehouse columns",
+      "before": "  const whB=await one(`INSERT INTO warehouse(enterprise_id,plant_id,code,name,warehouse_type) VALUES($1,$2,'P09-B','P09-B','WAREHOUSE') RETURNING id`,[fx.enterpriseId,plantB])\n",
+      "after": "  const deptB=await one(\"SELECT id FROM org_node WHERE code='DEPT-HF-JZ' AND kind='department' AND parent_kind='plant' AND parent_id=$1 AND enterprise_id=$2\",[plantB,fx.enterpriseId])\n  const whB=await one(`INSERT INTO warehouse(enterprise_id,plant_id,dept_id,code,name,warehouse_type,material_types) VALUES($1,$2,$3,$4,'P09-B','WAREHOUSE',ARRAY[1]) RETURNING id`,[fx.enterpriseId,plantB,deptB,WH_B_CODE])\n"
+    },
+    {
+      "name": "NORMAL location INSERT uses the same derived code",
+      "before": "  locB=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL','P09-B') RETURNING id`,[fx.enterpriseId,plantB,whB])\n",
+      "after": "  locB=await one(`INSERT INTO storage_location(enterprise_id,plant_id,warehouse_id,location_kind,code) VALUES($1,$2,$3,'NORMAL',$4) RETURNING id`,[fx.enterpriseId,plantB,whB,LOC_B_CODE])\n"
+    }
+  ],
+  "allOtherTestBytesUnchanged": true,
+  "fullDescribeBytes": 5864,
+  "fullDescribeSha256": "6717a9b2a1e60364092a42b647af641832c7b85fc35e5c10c7b0d2444f511335",
+  "fullDescribeAndAfterAllByteIdentical": true,
+  "allAssertionLinesByteIdentical": true,
+  "registrations": {
+    "plainIt": 13,
+    "itEachGroups": 1,
+    "itEachRows": 3,
+    "total": 16
+  },
+  "fixtureExpression": {
+    "command": [
+      "node",
+      "--input-type=module",
+      "-e",
+      "const WH_B_CODE='9309',LOC_B_CODE=`${WH_B_CODE}0001`\nconsole.log(JSON.stringify({warehouseCode:WH_B_CODE,locationCode:LOC_B_CODE}))"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"warehouseCode\":\"9309\",\"locationCode\":\"93090001\"}\n",
+    "stderr": "",
+    "values": {
+      "warehouseCode": "9309",
+      "locationCode": "93090001"
+    }
+  },
+  "seedDepartment": {
+    "code": "DEPT-HF-JZ",
+    "plantCode": "PLNT-HF",
+    "enterpriseCode": "ENT-HD",
+    "lookupChecksPlantAndEnterprise": true
+  },
+  "warehouseMaterialTypes": [
+    1
+  ],
+  "stockMaterialType": 1,
+  "sourceTestFingerprint": "30533aac3558acea38fda9c862e574334c7c1c53e594f28c1a64b37aa4812c7a",
+  "sourceTestFiles": [
+    {
+      "path": "packages/application/src/group-handlers.ts",
+      "sha256": "4364ae9c4ba84539a158925f27f733a8b7697b75cc6ddabcf2f613313288da8b",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/group-queries.ts",
+      "sha256": "0f88a0b6b2c1cefc6439df3e77780c6e2d7a6c3689a8db483e1bb80e020d9f8d",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/application/src/group-repositories.ts",
+      "sha256": "4ebc13e626db51128daadcaa2f3f9667a3099cb34f0fd75143d0f57f1e902046",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "packages/persistence/src/group-repositories.ts",
+      "sha256": "1e84b6ddf4f7adaf7f9f32a72da5bf78a471a4058691d549ff3d34c276ba870d",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr09/kitting.pg.spec.ts",
+      "sha256": "a304980932f96cd0acff1d65592111de8a21a2ae0eb643d0236477d8c1abd622",
+      "unchangedFromParent": false
+    },
+    {
+      "path": "tests/pr09/kitting.unit.spec.ts",
+      "sha256": "b90316a9060f9a5b4f7c103e938e0664091c69813f52c00700cdeacee644d5f5",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr09/tsconfig.json",
+      "sha256": "2bee9518c53ac2921e1697b3642583be1ea1aefda8a5836bca47d900e6a4e77a",
+      "unchangedFromParent": true
+    },
+    {
+      "path": "tests/pr09/vitest.config.ts",
+      "sha256": "015261ef40c2d3baf9ae48eb7403ceb8543aba5fb5c9ec17e489d5fdd7ea7420",
+      "unchangedFromParent": true
+    }
+  ],
+  "protectedInputs": [
+    {
+      "path": "packages/application/src/inventory-posting.ts",
+      "sha256": "97d6fb28cf3e204c53d27671ef8e5fe0410ff3c9e3058b6464f4256dd21bb200"
+    },
+    {
+      "path": "tests/pr02/object-write-scope.pg.spec.ts",
+      "sha256": "a3837bda73906e216c31c04ecb2912da98ef31afb1a0749fc5d76069bad1f0b1"
+    },
+    {
+      "path": "tests/pr03/quality-availability.pg.spec.ts",
+      "sha256": "e73ebd0dc1d5b2ffd26cb3e98e0f9eead8c80f7eb612fb3c74b720a7b38fb0e0"
+    },
+    {
+      "path": "packages/persistence/src/seed.ts",
+      "sha256": "edddf0117127c209ba25f71c414b02871c1223f0b819ccc57c571673da6292a0"
+    },
+    {
+      "path": "packages/persistence/src/migrations/0003-master-data.ts",
+      "sha256": "ff06a17e0a4483323ed57088a1fa9781bcc41207f8cc14fcf5165c920b5a36da"
+    }
+  ],
+  "unchangedMaterializedParentFiles": 1091,
+  "businessRunnerInvoked": false,
+  "postgresqlInvoked": false,
+  "notATypecheckOrBusinessPass": true
+}

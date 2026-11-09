@@ -59,6 +59,7 @@ export class GroupQueryService {
     const pageSize = Math.min(Math.max(filter.pageSize ?? 20, 1), 100)
     const page = Math.max(filter.page ?? 1, 1)
     const { total, items } = await this.deps.shortageKitting.listPaged({
+      enterpriseId: auth.user.enterpriseId,
       plantIds: this.plantScope(auth),
       plantId: filter.plantId,
       orderNoLike: filter.orderNoLike,
