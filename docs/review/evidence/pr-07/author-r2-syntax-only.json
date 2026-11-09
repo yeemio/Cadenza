@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--check",
+    "/workspace/scratch/08a70e3a26dd/cadenza-continuation/inputs/pr07-r2/confirmation.syntax-only.mjs"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "boundary": "Syntax check of Node type-erased copy only; not TypeScript semantic typecheck, PG execution or a build."
+}

@@ -520,11 +520,13 @@ export interface ConversionOutboxTaskAccess {
     status: string
     payload: Record<string, unknown>
     attemptCount: number
+    externalRef: string | null
+    requestDigest: string | null
   } | null>
   countByTask(aggregateType: string, aggregateId: string, taskKind: string): Promise<number>
   markStatus(
     eventId: string,
-    patch: { status: 'DISPATCHED' | 'SYNC_FAILED' | 'NOOP_NEEDED'; lastError?: string | null },
+    patch: { status: 'DISPATCHED' | 'SYNC_FAILED' | 'NOOP_NEEDED' | 'EXTERNAL_UNKNOWN'; lastError?: string | null },
   ): Promise<void>
 }
 

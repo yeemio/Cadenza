@@ -1,0 +1,33 @@
+/** Persisted aggregate scope for known factory facts. Unknown aggregate kinds
+ * may use a nonempty server-stored plant snapshot; missing scope stays pending.
+ * Known kinds never fall back to a conflicting or missing aggregate. */
+export const TASK_PLANT_SQL = `CASE o.aggregate_type
+    WHEN 'axis_no_correction' THEN (SELECT plant_id::text FROM axis_no_correction WHERE id::text = o.aggregate_id)
+    WHEN 'carrier' THEN (SELECT plant_id::text FROM carrier WHERE id::text = o.aggregate_id)
+    WHEN 'conversion_order' THEN (SELECT plant_id::text FROM conversion_order WHERE id::text = o.aggregate_id)
+    WHEN 'conversion_stock_order' THEN (SELECT plant_id::text FROM conversion_stock_order WHERE id::text = o.aggregate_id)
+    WHEN 'cost_acquisition_run' THEN (SELECT plant_id::text FROM cost_acquisition_run WHERE id::text = o.aggregate_id)
+    WHEN 'csw_outsourcing_task' THEN (SELECT plant_id::text FROM csw_outsourcing_task WHERE id::text = o.aggregate_id)
+    WHEN 'inventory_unit' THEN (SELECT plant_id::text FROM inventory_unit WHERE id::text = o.aggregate_id)
+    WHEN 'material_consumption' THEN (SELECT plant_id::text FROM material_consumption WHERE id::text = o.aggregate_id)
+    WHEN 'ot_business_fact' THEN (SELECT plant_id::text FROM ot_business_fact WHERE id::text = o.aggregate_id)
+    WHEN 'pallet_task' THEN (SELECT plant_id::text FROM pallet_task WHERE id::text = o.aggregate_id)
+    WHEN 'production_report' THEN (SELECT plant_id::text FROM production_report WHERE id::text = o.aggregate_id)
+    WHEN 'purchase_receipt_batch' THEN (SELECT plant_id::text FROM purchase_receipt_batch WHERE id::text = o.aggregate_id)
+    WHEN 'quality_inspection_order' THEN (SELECT plant_id::text FROM quality_inspection_order WHERE id::text = o.aggregate_id)
+    WHEN 'reel_split_order' THEN (SELECT plant_id::text FROM reel_split_order WHERE id::text = o.aggregate_id)
+    WHEN 'reservation' THEN (SELECT plant_id::text FROM reservation WHERE id::text = o.aggregate_id)
+    WHEN 'shipment_order' THEN (SELECT plant_id::text FROM shipment_order WHERE id::text = o.aggregate_id)
+    WHEN 'spc_gauge' THEN (SELECT plant_id::text FROM spc_gauge WHERE id::text = o.aggregate_id)
+    WHEN 'spc_ooc_task' THEN (SELECT plant_id::text FROM spc_ooc_task WHERE id::text = o.aggregate_id)
+    WHEN 'spc_process_change' THEN (SELECT plant_id::text FROM spc_process_change WHERE id::text = o.aggregate_id)
+    WHEN 'stock_adjustment' THEN (SELECT plant_id::text FROM stock_adjustment WHERE id::text = o.aggregate_id)
+    WHEN 'stock_move_record' THEN (SELECT plant_id::text FROM stock_move_record WHERE id::text = o.aggregate_id)
+    WHEN 'stocktake_order' THEN (SELECT plant_id::text FROM stocktake_order WHERE id::text = o.aggregate_id)
+    WHEN 'transfer_inbound_order' THEN (SELECT plant_id::text FROM transfer_inbound_order WHERE id::text = o.aggregate_id)
+    WHEN 'transfer_order' THEN (SELECT plant_id::text FROM transfer_order WHERE id::text = o.aggregate_id)
+    WHEN 'transfer_outbound_order' THEN (SELECT plant_id::text FROM transfer_outbound_order WHERE id::text = o.aggregate_id)
+    WHEN 'axis_retire' THEN (SELECT plant_id::text FROM axis_retire_record WHERE id::text = o.aggregate_id)
+    WHEN 'quality_hold' THEN (SELECT u.plant_id::text FROM quality_hold h JOIN inventory_unit u ON u.id=h.inventory_unit_id WHERE h.id::text=o.aggregate_id)
+    ELSE NULLIF(o.payload->>'plantId', '')
+  END`

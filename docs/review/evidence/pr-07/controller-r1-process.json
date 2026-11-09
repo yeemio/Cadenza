@@ -1,0 +1,36 @@
+[
+  {
+    "name": "TYPES",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tests/pr07/tsconfig.json",
+      "--noEmit"
+    ],
+    "startedAt": "2026-11-04T07:38:41.799565+00:00",
+    "completedAt": "2026-11-04T07:38:43.322326+00:00",
+    "exitCode": 0,
+    "log": "PR07-CONTROLLER-R1-TYPES.log",
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceCommit": "0d32c385c7a3cc5c2bc321b171d3c9e334c66a11"
+  },
+  {
+    "name": "PG",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      "tests/pr07/vitest.config.ts",
+      "tests/pr07/confirmation.pg.spec.ts",
+      "--reporter=verbose"
+    ],
+    "startedAt": "2026-11-04T07:38:43.660946+00:00",
+    "completedAt": "2026-11-04T07:38:48.337778+00:00",
+    "exitCode": 0,
+    "log": "PR07-CONTROLLER-R1-PG.log",
+    "logSha256": "c4a1f9d34197c484a0ee465bbf905a8857cb25f32714a00c7e8a02d1bca6c188",
+    "sourceCommit": "0d32c385c7a3cc5c2bc321b171d3c9e334c66a11"
+  }
+]

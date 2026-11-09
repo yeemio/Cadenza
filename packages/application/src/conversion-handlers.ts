@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { ERROR_CODES } from '@cadenza/contracts'
 import { InventoryRuleViolation, addQty, cmpQty, ensureStableLockOrder, isValidQuantityString, subQty } from '@cadenza/domain'
 import {
@@ -23,6 +24,7 @@ import {
 } from '@cadenza/domain'
 import type { CommandHandler, HandlerOutcome } from './command-bus'
 import { violationOutcome } from './inventory-handlers'
+import { assertObjectWriteScope } from './object-scope-repositories'
 import { NOT_FOUND_RULE, buildPostingContext, type PostingContext } from './inventory-posting'
 import type {
   ConversionCommandTools,
@@ -636,49 +638,68 @@ async function orderComplete(pc: PostingContext, p: Payload): Promise<Record<str
 
 // ---------------- 命令：同步重试（FC-09/FC-10） ----------------
 
+/** Same canonical immutable-task digest used by the worker channel. Persisted
+ * confirmation comes from the server channel, never from this command payload. */
+export function conversionPushReceiptDigest(aggregateType: string, aggregateId: string, payload: Record<string, unknown>): string {
+  const stable = (value: unknown): string => {
+    if (value === null || typeof value !== 'object') return JSON.stringify(value) ?? 'null'
+    if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`
+    return `{${Object.entries(value as Record<string, unknown>).filter(([,v]) => v !== undefined)
+      .sort(([a],[b]) => a < b ? -1 : a > b ? 1 : 0).map(([k,v]) => `${JSON.stringify(k)}:${stable(v)}`).join(',')}}`
+  }
+  return createHash('sha256').update(stable({ aggregateType, aggregateId, taskKind: 'form_conversion_push', payload })).digest('hex')
+}
+
+function assertConfirmedPush(task: { status: string; payload: Record<string, unknown>; externalRef: string | null; requestDigest: string | null } | null,
+  aggregateType: string, aggregateId: string): void {
+  if (task === null || task.status !== 'DISPATCHED' || !task.externalRef?.trim() || task.externalRef.startsWith('noop:') ||
+      task.requestDigest !== conversionPushReceiptDigest(aggregateType, aggregateId, task.payload)) {
+    throw new ConversionViolation('FC-03', '缺少绑定原任务快照的可信外部回执；载荷 success 或 noop 不能确认外部成功')
+  }
+}
+
+export function explicitOutcome(p: Payload, allowUnknown: true): 'success' | 'failure' | 'unknown'
+export function explicitOutcome(p: Payload, allowUnknown: false): 'success' | 'failure'
+export function explicitOutcome(p: Payload, allowUnknown: boolean): 'success' | 'failure' | 'unknown' {
+  const outcome = p['outcome']
+  if (outcome === 'success' || outcome === 'failure' || allowUnknown && outcome === 'unknown') return outcome
+  throw new ConversionViolation('FC-03', allowUnknown ? 'outcome 必须明确为 success/failure/unknown' : '本地 outcome 必须明确为 success/failure；未知不能推进成功')
+}
+
 async function orderSyncRetry(pc: PostingContext, p: Payload): Promise<Record<string, unknown>> {
   const tools = cvTools(pc)
   const plantId = requireStr(p, 'plantId', 'conversion.order.sync-retry')
-  await assertPlantScope(tools, plantId)
   const conversionOrderId = requireStr(p, 'conversionOrderId', 'conversion.order.sync-retry')
   const order = await tools.conversion.orders.lockById(conversionOrderId)
   if (order === null) throw new ConversionViolation(NOT_FOUND_RULE, '转换单不存在')
-  if (order.plantId !== plantId) throw new ConversionViolation('A-S1', '转换单不在目标工厂')
-  const outcome = str(p, 'outcome') === 'failure' ? 'failure' : 'success'
-  if (outcome === 'success') {
-    // FC-09：重试成功仅"已完成且同步失败"可执行（重新推 U9，成功后同步状态=已同步）
-    assertOrderSyncRetryable({ status: order.status, syncStatus: order.syncStatus })
-  } else if (order.status !== 'completed') {
-    // FC-10：外部失败登记仅针对已完成单（保留本地已执行事实与待同步差异，本地不回滚）；
-    // 同步状态 pending（首次外发失败登记差异）或 sync_failed（再次失败）均可登记。
-    throw new ConversionViolation('FC-10', `仅已完成的转换单可登记外部同步结果（当前转换状态 ${order.status}）`)
+  await assertObjectWriteScope(tools, pc.ctx, order, 'conversion.post', message => new ConversionViolation('A-S1', message), plantId)
+  const outcome = explicitOutcome(p, true)
+  if (outcome === 'success') assertOrderSyncRetryable({ status: order.status, syncStatus: order.syncStatus })
+  else if (order.status !== 'completed' || order.syncStatus === 'synced') {
+    throw new ConversionViolation('FC-10', '仅本地已完成、尚未确认同步成功的转换可登记未知/失败')
   }
-  // FC-09：按完成转换时点快照重推，不推当前值（任务行缺失即拒——不按当前值重建）
   const task = await tools.conversion.outboxTasks.findLatestByTask('conversion_order', order.id, 'form_conversion_push')
-  if (task === null) {
-    throw new ConversionViolation(NOT_FOUND_RULE, 'U9 同步任务行缺失（无任务不重推，不按当前值重建）')
-  }
+  if (task === null) throw new ConversionViolation(NOT_FOUND_RULE, '原 U9 同步快照任务缺失，不按当前值重建')
   if (outcome === 'success') {
-    await tools.conversion.outboxTasks.markStatus(task.eventId, { status: 'DISPATCHED' })
+    assertConfirmedPush(task, 'conversion_order', order.id)
     await tools.conversion.orders.updateSyncStatus(order.id, { syncStatus: 'synced' }, pc.ctx.actorLoginName)
   } else {
-    // FC-10：外部失败保留本地已执行事实与待同步差异，本地不回滚、不重复本地转换
+    if (task.status === 'DISPATCHED' && task.externalRef && !task.externalRef.startsWith('noop:')) {
+      throw new ConversionViolation('FC-03', '已有外部回执，拒绝用载荷覆盖为失败或未知')
+    }
     await tools.conversion.outboxTasks.markStatus(task.eventId, {
-      status: 'SYNC_FAILED',
-      lastError: '模拟适配器返回失败（GAP-B7 重试）',
+      status: outcome === 'unknown' ? 'EXTERNAL_UNKNOWN' : 'SYNC_FAILED',
+      lastError: outcome === 'unknown' ? 'UNKNOWN: 查询原外部流水/人工核对；不得换键盲重推' : '外部同步失败，保留本地转换与原快照',
     })
+    // Existing schema has no unknown order sync value. Keep its unresolved
+    // projection sync_failed; exact unknown state lives on the outbox receipt.
     await tools.conversion.orders.updateSyncStatus(order.id, { syncStatus: 'sync_failed' }, pc.ctx.actorLoginName)
   }
-  await pc.tools.audit.record({
-    actor: pc.ctx.actorLoginName,
-    action: 'conversion.order.sync-retry',
-    subjectType: 'conversion_order',
-    subjectId: order.id,
-    before: { syncStatus: order.syncStatus, taskStatus: task.status },
-    after: { outcome, snapshotPayload: task.payload },
-    reason: str(p, 'reason') ?? null,
-  })
-  return { conversionId: order.id, outcome, syncStatus: outcome === 'success' ? 'synced' : 'sync_failed', snapshot: task.payload }
+  await pc.tools.audit.record({ actor: pc.ctx.actorLoginName, action: 'conversion.order.sync-retry',
+    subjectType: 'conversion_order', subjectId: order.id, before: { syncStatus: order.syncStatus, taskStatus: task.status },
+    after: { outcome, snapshotPayload: task.payload, externalRef: outcome === 'success' ? task.externalRef : null }, reason: str(p, 'reason') ?? null })
+  return { conversionId: order.id, outcome, syncStatus: outcome === 'success' ? 'synced' : 'sync_failed',
+    externalStatus: outcome === 'unknown' ? 'UNKNOWN' : outcome, snapshot: task.payload, localReapplied: false }
 }
 
 // ---------------- 协议B：库存转换（FC-13～21） ----------------
@@ -979,7 +1000,7 @@ async function stockPushResult(pc: PostingContext, p: Payload): Promise<Record<s
   }
   const order = await tools.conversion.stockOrders.lockById(conversionStockOrderId)
   if (order === null) throw new ConversionViolation(NOT_FOUND_RULE, '库存转换单不存在')
-  if (order.plantId !== plantId) throw new ConversionViolation('A-S1', '库存转换单不在目标工厂')
+  await assertObjectWriteScope(tools, pc.ctx, order, 'conversion.post', message => new ConversionViolation('A-S1', message), plantId)
   assertStockPushResultAcceptable({ internalStatus: order.internalStatus })
   const externalDocNo = str(p, 'externalDocNo') ?? null
   const task = await tools.conversion.outboxTasks.findLatestByTask('conversion_stock_order', order.id, 'form_conversion_push')
@@ -989,6 +1010,7 @@ async function stockPushResult(pc: PostingContext, p: Payload): Promise<Record<s
   let u9Success = order.u9Success
   let failureReason: string | null = order.externalFailureReason
   if (outcomeRaw === 'success') {
+    assertConfirmedPush(task, 'conversion_stock_order', order.id)
     internalStatus = 'local_processing'
     externalPushStatus = 'succeeded'
     u9Success = true
@@ -1004,10 +1026,11 @@ async function stockPushResult(pc: PostingContext, p: Payload): Promise<Record<s
     }
   } else {
     // FC-03：外部结果未知中间态——不换键盲发（不得造成 U9 侧两张单），进入人工核对；
-    // 不声称恰好一次；任务行保持原状态（未定论不推进）。
+    // 不声称恰好一次；任务隔离为 EXTERNAL_UNKNOWN，禁止后台盲重试。
     internalStatus = 'manual_processing'
     externalPushStatus = 'unknown'
     failureReason = str(p, 'failureReason') ?? '外部结果未知（超时/缺幂等回执），先查询外部流水，人工核对'
+    if (task !== null) await tools.conversion.outboxTasks.markStatus(task.eventId, { status: 'EXTERNAL_UNKNOWN', lastError: failureReason })
   }
   const displayStatus = projectStockDisplayStatus(internalStatus, u9Success)
   await tools.conversion.stockOrders.updateState(
@@ -1141,11 +1164,11 @@ async function stockLocalApply(pc: PostingContext, p: Payload): Promise<Record<s
   const conversionStockOrderId = requireStr(p, 'conversionStockOrderId', 'conversion.stock.local-apply')
   const order = await tools.conversion.stockOrders.lockById(conversionStockOrderId)
   if (order === null) throw new ConversionViolation(NOT_FOUND_RULE, '库存转换单不存在')
-  if (order.plantId !== plantId) throw new ConversionViolation('A-S1', '库存转换单不在目标工厂')
+  await assertObjectWriteScope(tools, pc.ctx, order, 'conversion.post', message => new ConversionViolation('A-S1', message), plantId)
   // FC-13③：U9 明确成功后执行 MES 改码＋库存统计
   assertStockLocalApplyable({ internalStatus: order.internalStatus, u9Success: order.u9Success })
   const lines = await tools.conversion.stockLines.listByOrder(order.id)
-  const outcome = str(p, 'outcome') === 'failure' ? 'failure' : 'success'
+  const outcome = explicitOutcome(p, false)
   const result = await applyStockLocal(
     pc,
     tools,
@@ -1262,7 +1285,7 @@ async function stockResync(pc: PostingContext, p: Payload): Promise<Record<strin
   const conversionStockOrderId = requireStr(p, 'conversionStockOrderId', 'conversion.stock.resync')
   const order = await tools.conversion.stockOrders.lockById(conversionStockOrderId)
   if (order === null) throw new ConversionViolation(NOT_FOUND_RULE, '库存转换单不存在')
-  if (order.plantId !== plantId) throw new ConversionViolation('A-S1', '库存转换单不在目标工厂')
+  await assertObjectWriteScope(tools, pc.ctx, order, 'conversion.post', message => new ConversionViolation('A-S1', message), plantId)
   // FC-15：重新同步仅同步失败单——只做 MES 改码与库存统计，不再推 U9（已成功步骤不重做）
   assertStockResyncable({
     internalStatus: order.internalStatus,
@@ -1270,7 +1293,7 @@ async function stockResync(pc: PostingContext, p: Payload): Promise<Record<strin
     localApplyStatus: order.localApplyStatus,
   })
   const lines = await tools.conversion.stockLines.listByOrder(order.id)
-  const outcome = str(p, 'outcome') === 'failure' ? 'failure' : 'success'
+  const outcome = explicitOutcome(p, false)
   const result = await applyStockLocal(
     pc,
     tools,
